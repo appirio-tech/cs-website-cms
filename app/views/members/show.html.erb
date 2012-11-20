@@ -1,0 +1,44 @@
+<h2>Member Information</h2>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <% Member.column_names.each do |column| %>
+        <th><%= column.to_s.humanize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @member %>
+  </tbody>
+</table>
+
+<h2>Challenges</h2>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <% Challenge.column_names.each do |column| %>
+        <th><%= column.to_s.humanize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @member.challenges %>
+  </tbody>
+</table>
+
+<h2>Recommendations</h2>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <% Recommendation.column_names.each do |column| %>
+        <th><%= column.to_s.humanize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @member.recommendations %>
+  </tbody>
+</table>

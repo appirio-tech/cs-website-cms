@@ -1,0 +1,13 @@
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <% Challenge.column_names.each do |column| %>
+        <th><%= column.to_s.humanize %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @challenges %>
+  </tbody>
+
+</table>

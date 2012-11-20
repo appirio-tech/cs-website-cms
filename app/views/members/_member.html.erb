@@ -1,0 +1,5 @@
+<tr>
+  <% Member.column_names.each do |column| %>
+    <td><%= link_to truncate(member.send(column).to_s), member %></td>
+  <% end %>
+</tr>
