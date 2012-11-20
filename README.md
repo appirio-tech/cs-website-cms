@@ -1,45 +1,45 @@
-# CloudSpokes Site with RefineryCMS
+# CloudSpokes Site with Refinery
 
-This is the new cloudspokes.com website with RefineryCMS using
-the new CloudSpokes API. I you would like to participate in
-challenges to build out the new site, fork this repo and get
-started!
+This is the new cloudspokes.com website with Refinery using
+the new [CloudSpokes API](https://github.com/cloudspokes/cs-api). 
+I you would like to participate in challenges to build out the 
+new site, fork this repo and get started!
 
-# Local Development
+## Local Development
 
-	run sqlite3 in development.
+run sqlite3 in development.
 
-		bundle install
-		rake db:migrate --trace
-		rake db:seed
+	bundle install
+	rake db:migrate --trace
+	rake db:seed
 
-	After you start rails you will have to create a user for Refinery.
+After you start rails you will have to create a user for Refinery.
 
-# Heroku Deployment
+## Heroku Deployment
 
 Edit the config.yml and specify your endpoints and how long the app will cache the api endpoint responses
 
 Create your app on heroku
 
-		heroku apps:create <my-app>
+	heroku apps:create <my-app>
 
 Setup the databases
 
-		heroku addons:add heroku-postgresql:dev
-		heroku run rake db:version
-		heroku run rake db:migrate --trace
-		heroku run rake db:seed
-		heroku restart
+	heroku addons:add heroku-postgresql:dev
+	heroku run rake db:version
+	heroku run rake db:migrate --trace
+	heroku run rake db:seed
+	heroku restart
 
 Deploy to heroku
 
-		git push heroku master
+	git push heroku master
 
 You can now use the application
 
-		heroku open
+	heroku open
 
-# Technical Specifications
+## Technical Specifications
 
 Most of the action happens in the class ApiModel (found in app/models). It exposes an ActiveRecord-like DSL that uses the CloudSpokes API as the data source. Many of the ActiveRecord conveniences like #has_many and #column_names have been implemented and slightly modified to adapt as painlessly as possile to the backing API resource.
 
@@ -51,11 +51,11 @@ To create a new model, first inherit from ApiModel and then implement #api_endpo
 
 You'll then need to list out the attributes (via #attr_accessor) the model should be exposing. We don't have support for typecasting yet, so you'll have to implement your own typecasts as an accessor. For example:
 
-		attr_accessor :start_date
+	attr_accessor :start_date
 
-		def start_date
-			Date.parse @start_date.to_s if @start_date
-		end
+	def start_date
+		Date.parse @start_date.to_s if @start_date
+	end
 
 Objects are actually a [Hashie::Mash](http://rdoc.info/github/intridea/hashie/Hashie/Mash) giving the ability to do dot-notation calls for the fields.
 
@@ -68,6 +68,11 @@ Not yet implemented:
 * Model#update_attributes
 * Model#save
 
-# Others
+## Other
 
 ActiveModel::Model was copied and pasted into app/models because [it will only be available in Rails 4.0](http://blog.plataformatec.com.br/2012/03/barebone-models-to-use-with-actionpack-in-rails-4-0/). If you're interested in implementing a model that is not backed by a database, and yet still responds just like any old ActiveRecord model, you should definitely look at ActiveModel.
+
+## Contributors
+
+* Jeff Douglas -> [jeffdonthemic](https://github.com/jeffdonthemic)
+* parasquid -> [parasquid](https://github.com/parasquid)
