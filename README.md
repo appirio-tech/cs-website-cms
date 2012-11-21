@@ -5,6 +5,8 @@ the new [CloudSpokes API](https://github.com/cloudspokes/cs-api).
 If you would like to participate in challenges to build out the 
 new site, fork this repo and get started!
 
+You can see the Code Climate metrics at [cloudspokes/cs-website-cms](https://codeclimate.com/github/cloudspokes/cs-website-cms)
+
 ## Local Development
 
 run sqlite3 in development.
