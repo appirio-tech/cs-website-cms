@@ -3,34 +3,17 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'pg', '0.14.1'
 
-group :development, :test do
-  gem 'sqlite3-ruby'
-  gem 'rspec-rails'
-  gem 'sextant'
-  gem 'quiet_assets'
-end
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
 gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails', '~> 2.0.0'
 
-# challenge requirements
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
 gem 'simple_form', '2.0.4'
 gem 'refinerycms', '2.0.8'
 gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap.git'
+gem 'rest-client', '1.6.7', require: 'rest_client'
+gem 'hashie', '1.2.0'
 
 # gems from old site's gemfile
 gem 'databasedotcom'
@@ -60,6 +43,15 @@ gem 'dalli'
 gem 'encryptor'
 gem 'airbrake'
 
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'coffee-rails', '~> 3.2.1'
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+  gem 'uglifier', '>= 1.0.3'
+end
+
 group :development, :test do
   gem 'annotate', '2.4.0'
   gem 'guard'
@@ -67,6 +59,10 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'growl'
   gem 'ruby-debug19'
+  gem 'sqlite3-ruby'
+  gem 'rspec-rails'
+  gem 'sextant'
+  gem 'quiet_assets'  
 end
 
 group :test do
@@ -74,6 +70,3 @@ group :test do
   gem 'turn', :require => false
   gem "minitest"
 end
-
-gem 'rest-client', '1.6.7', require: 'rest_client'
-gem 'hashie', '1.2.0'
