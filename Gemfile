@@ -69,6 +69,7 @@ group :development, :test do
   gem 'ruby-debug19'
   gem 'vcr'
   gem 'webmock'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 group :test do
