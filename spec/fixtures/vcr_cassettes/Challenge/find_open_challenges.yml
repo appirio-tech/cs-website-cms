@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://cs-api-sandbox.herokuapp.com/v1/challenges/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 21 Nov 2012 16:44:13 GMT
+      Etag:
+      - ! '"f741faa4117eeabd6a958d7bfb536636"'
+      Server:
+      - thin 1.4.1 codename Chromeo
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 461365870c7cccf707a7aaa0224ba601
+      X-Runtime:
+      - '0.134114'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '1135'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"name":"Test
+        Challenge 1","end_date":"2013-01-31T14:22:00.000+0000","total_prize_money":150,"challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"display_name":"Heroku","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"display_name":"Ruby","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"display_name":"Salesforce.com","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"}]},"registered_members":2,"challenge_id":"2","challenge_type":"Code","id":"a0GZ0000005VQogMAG","is_open":"true","start_date":"2012-11-21T14:22:00.000+0000","description":"My
+        cool challenge","days_till_close":71}],"count":1}'
+    http_version: 
+  recorded_at: Wed, 21 Nov 2012 16:44:14 GMT
+recorded_with: VCR 2.3.0

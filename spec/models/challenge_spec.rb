@@ -1,6 +1,33 @@
 require 'spec_helper'
 
 describe Challenge do
+  context 'find closed challenges' do
+    use_vcr_cassette
+    let(:closed_challenges) { Challenge.closed }
+
+    it 'retrieves the correct number of closed challenges' do
+      pending 'the api used to have closed challenges records, now there are none :('
+    end
+  end
+
+  context 'find open challenges' do
+    use_vcr_cassette
+    let(:open_challenges) { Challenge.all }
+
+    it 'retrieves the correct number of open challenges' do
+      open_challenges.count.should == 1
+    end
+  end
+
+  context 'find recent challenges' do
+    use_vcr_cassette
+    let(:recent_challenges) { Challenge.recent }
+
+    it 'retrieves the correct number of open challenges' do
+      pending 'the api used to have recent challenges records, now there are none :('
+    end
+  end
+
   context 'find by challenge number' do
     use_vcr_cassette
     let(:challenge) { Challenge.find(2) }
