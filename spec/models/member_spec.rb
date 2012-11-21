@@ -48,6 +48,27 @@ describe Member do
     it 'retrieves the correct number of total wins' do
       member.total_points.should == 0
     end
+
+    it 'retrieves the correct number of challenges for this member' do
+      member.challenges.count.should == 1
+    end
+
+    it 'retrieves the correct recommendations' do
+      pending 'the api used to have recommendation records, now none of the members have recommendations :('
+    end
+  end
+
+  context 'find all members' do
+    use_vcr_cassette
+    let(:all_members) { Member.all }
+
+    it 'retrieves the correct member count' do
+      all_members.count.should == 9
+    end
+
+    it 'retrieves the correct members' do
+      all_members.map { |m| m.name }.should == ["jeffdonthemic", "salpartovi", "mess", "apextestmember", "tnjitsu", "romin", "aquacdr", "cmc", "tehnrd"]
+    end
   end
 
 end

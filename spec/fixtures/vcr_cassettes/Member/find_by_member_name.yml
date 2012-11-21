@@ -23,7 +23,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 21 Nov 2012 15:19:56 GMT
+      - Wed, 21 Nov 2012 16:26:57 GMT
       Etag:
       - ! '"f25fd7cfe925fdc5ebc3fbc8fe5e051f"'
       Server:
@@ -31,9 +31,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - fc91bfc08837f5ced382d897aee44180
+      - d589605fb0c9f99559ab8f4106a1a4c1
       X-Runtime:
-      - '0.140453'
+      - '0.262109'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -45,5 +45,52 @@ http_interactions:
       string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"valid_submissions":0,"total_points":0,"name":"jeffdonthemic","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
         Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJUMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
     http_version: 
-  recorded_at: Wed, 21 Nov 2012 15:19:56 GMT
+  recorded_at: Wed, 21 Nov 2012 16:26:57 GMT
+- request:
+    method: get
+    uri: http://cs-api-sandbox.herokuapp.com/v1/members/jeffdonthemic/challenges
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 21 Nov 2012 16:34:06 GMT
+      Etag:
+      - ! '"8bf2fe63cbffd6b5bf2c67ab271d6842"'
+      Server:
+      - thin 1.4.1 codename Chromeo
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - b0f04678bb8e7557c4d818246e1f4ded
+      X-Runtime:
+      - '0.115310'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2065'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"prize_type":"Currency","total_prize_money":150,"end_date":"2013-01-31T14:22:00.000+0000","challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"category__r":{"attributes":{"type":"Category__c","url":"/services/data/v22.0/sobjects/Category__c/a07Z0000001S9WlIAK"},"name":"Heroku","color":"000000","id":"a07Z0000001S9WlIAK"},"category":"a07Z0000001S9WlIAK","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"category__r":{"attributes":{"type":"Category__c","url":"/services/data/v22.0/sobjects/Category__c/a07Z0000001S9WkIAK"},"name":"Ruby","color":"000000","id":"a07Z0000001S9WkIAK"},"category":"a07Z0000001S9WkIAK","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"category__r":{"attributes":{"type":"Category__c","url":"/services/data/v22.0/sobjects/Category__c/a07Z0000001S9WiIAK"},"name":"Salesforce.com","color":"000000","id":"a07Z0000001S9WiIAK"},"category":"a07Z0000001S9WiIAK","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"}]},"name":"Test
+        Challenge 1","top_prize":"$100","challenge_id":"2","challenge_type":"Code","id":"a0GZ0000005VQogMAG","start_date":"2012-11-21T14:22:00.000+0000","description":"My
+        cool challenge","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"money_awarded":0.0,"score":0,"member":"a0IZ0000000FyJUMA0","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}]}}],"count":1}'
+    http_version: 
+  recorded_at: Wed, 21 Nov 2012 16:34:07 GMT
 recorded_with: VCR 2.3.0
