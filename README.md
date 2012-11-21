@@ -2,7 +2,7 @@
 
 This is the new cloudspokes.com website with Refinery using
 the new [CloudSpokes API](https://github.com/cloudspokes/cs-api). 
-I you would like to participate in challenges to build out the 
+If you would like to participate in challenges to build out the 
 new site, fork this repo and get started!
 
 ## Local Development
