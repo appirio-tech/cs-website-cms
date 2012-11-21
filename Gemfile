@@ -67,6 +67,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'growl'
   gem 'ruby-debug19'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :test do
