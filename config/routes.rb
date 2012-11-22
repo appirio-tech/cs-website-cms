@@ -1,6 +1,12 @@
 CsWebsiteCms::Application.routes.draw do
 
-  devise_for :users
+  get "protected", to: 'protected#index'
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations'
+  }
 
   get 'members/search'
   resources :members, only: [:index, :show, :update] do
@@ -20,6 +26,8 @@ CsWebsiteCms::Application.routes.draw do
       get 'registrants'
     end
   end
+
+  root to: 'refinery/pages#home'
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
 

@@ -29,7 +29,13 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
 gem 'simple_form', '2.0.4'
-gem 'refinerycms', '2.0.8'
+
+#gem 'refinerycms', '2.0.8'
+gem 'refinerycms-dashboard'
+gem 'refinerycms-images'
+gem 'refinerycms-pages'
+gem 'refinerycms-resources'
+
 gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap.git'
 
 # gems from old site's gemfile
@@ -68,14 +74,15 @@ group :development, :test do
   gem 'growl'
   gem 'ruby-debug19'
   gem 'vcr'
-  gem 'webmock'
   gem 'rb-fsevent', '~> 0.9.1'
+  gem 'sql-logging'
 end
 
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem "minitest"
+  gem 'webmock'
 end
 
 gem 'rest-client', '1.6.7', require: 'rest_client'

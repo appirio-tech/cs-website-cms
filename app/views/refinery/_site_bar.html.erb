@@ -1,0 +1,8 @@
+<% if user_signed_in? %>
+  <li>
+<%= link_to t('.log_out', site_bar_translate_locale_args), main_app.destroy_user_session_path, :id => 'logout', :method => :delete %>  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', main_app.new_user_session_path)  %>  
+  </li>
+<% end %>
