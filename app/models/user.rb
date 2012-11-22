@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
          # :trackable, 
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+    :username
   # attr_accessible :title, :body
 
   def plugins=(plugin_names)
