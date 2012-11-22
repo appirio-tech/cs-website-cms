@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122173013) do
+ActiveRecord::Schema.define(:version => 20121122173813) do
 
   create_table "refinery_images", :force => true do |t|
     t.string   "image_mime_type"
@@ -188,6 +188,10 @@ ActiveRecord::Schema.define(:version => 20121122173013) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
