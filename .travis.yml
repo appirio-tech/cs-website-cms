@@ -3,7 +3,6 @@ rvm:
   - 1.9.2
  env:
   - DB=sqlite
-before_script: bundle exec rake db:migrate
+before_script: bundle exec rake db:test:prepare
 script: 
 - bundle exec rake
-- bundle exec rake db:migrate
