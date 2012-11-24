@@ -92,3 +92,6 @@ capybara-*html
 # vendor/extensions dummy applications.
 vendor/extensions/**/spec/dummy
 
+.DS_Store
+config/initializers/development_settings.rb
+

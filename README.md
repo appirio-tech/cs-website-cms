@@ -1,4 +1,4 @@
-# CloudSpokes Site with Refinery
+# CloudSpokes Site with Refinery [![travis-ci](https://travis-ci.org/cloudspokes/cs-website-cms.png)](https://travis-ci.org/cloudspokes/cs-website-cms) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/cloudspokes/cs-website-cms)
 
 This is the new cloudspokes.com website with Refinery using
 the new [CloudSpokes API](https://github.com/cloudspokes/cs-api). 
@@ -6,6 +6,25 @@ If you would like to participate in challenges to build out the
 new site, fork this repo and get started!
 
 You can see the Code Climate metrics at [cloudspokes/cs-website-cms](https://codeclimate.com/github/cloudspokes/cs-website-cms)
+
+## Database.com
+
+While our front end is a rails application, most of the datastore and logic resides within our [Database.com org](http://database.com/). You can POST your CloudSpokes membername and password to the https://cs-api-sandbox.herokuapp.com/v1/accounts/authenticate endpoint and it will return an access token that you can use for subsequent calls to our API (passed in the header) or directly to database.com using the [databasedotcom gem](https://github.com/heroku/databasedotcom). There are also a couple of rake tasks that will return an access token for you for testing.
+
+## CloudSpokes API
+
+We will be using our [new API](https://github.com/cloudspokes/cs-api) with this project so please check out the repo for info. There's not a ton of documentation at this time so you may need to check out the source code comments for samples or the specs (using VCR).
+
+If your code is making any "destructive calls" (create, update, delete) with the new API, you will need to pass an API Key in the header of each request. Please email support@cloudspokes.com with the subject "Sandbox API Key Request" and we'll generate a key for you that will be good for all future challenges of this type.
+
+## Environment Variables
+
+If any of your code requires direct calls to Database.com (e.g., pub/sub with faye) then you will need to setup the following environment variables. Please contact support@cloudspokes.com with the subject "Sandbox Envirnmental Variables Request" and we'll send them to you for all future challenges of this type.
+
+DATABASEDOTCOM_CLIENT_ID
+DATABASEDOTCOM_CLIENT_SECRET
+SFDC_PUBLIC_USERNAME
+SFDC_PUBLIC_PASSWORD
 
 ## Local Development
 
