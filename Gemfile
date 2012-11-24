@@ -59,7 +59,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'growl'
   gem 'ruby-debug19'
-  gem 'sqlite3-ruby'
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'  
