@@ -10,7 +10,13 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
 gem 'simple_form', '2.0.4'
-gem 'refinerycms', '2.0.8'
+
+#gem 'refinerycms', '2.0.8'
+gem 'refinerycms-dashboard'
+gem 'refinerycms-images'
+gem 'refinerycms-pages'
+gem 'refinerycms-resources'
+
 gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap.git'
 gem 'rest-client', '1.6.7', require: 'rest_client'
 gem 'hashie', '1.2.0'
@@ -66,6 +72,7 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'rb-fsevent', '~> 0.9.1'
+  gem 'sql-logging'
 end
 
 group :test do
@@ -73,4 +80,5 @@ group :test do
   gem 'turn', :require => false
   gem "minitest"
   gem "rake"
+  gem 'webmock'
 end
