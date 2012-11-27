@@ -21,9 +21,11 @@ gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap
 gem 'rest-client', '1.6.7', require: 'rest_client'
 gem 'hashie', '1.2.0'
 
+gem 'restforce'
+
 # gems from old site's gemfile
-gem 'databasedotcom'
-gem 'databasedotcom-rails'
+gem 'databasedotcom' # we may get rid of this
+gem 'databasedotcom-rails' # we may get rid of this
 gem 'haml'
 gem 'will_paginate'
 gem 'httparty'
