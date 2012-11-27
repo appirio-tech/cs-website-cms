@@ -38,8 +38,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.extend VCR::RSpec::Macros
-<<<<<<< HEAD
-=======
   config.include Devise::TestHelpers, :type => :controller
->>>>>>> d6ca4346d621ba8cf7ffad99b99f2d38d1314475
+  
 end
