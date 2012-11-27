@@ -26,9 +26,10 @@ If any of your code requires direct calls to Database.com (e.g., pub/sub with fa
 
 ## Local Development
 
-run sqlite3 in development.
+run sqlite3 in development. See config/config.yml for any application specific variables. Please add any new ones to this file.
 
 	bundle install
+	cp config/config.example.yml config/config.yml # your local config variables
 	rake db:migrate --trace
 	rake db:seed
 

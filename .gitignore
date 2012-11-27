@@ -94,4 +94,4 @@ vendor/extensions/**/spec/dummy
 
 .DS_Store
 config/initializers/development_settings.rb
-
+/config/config.yml

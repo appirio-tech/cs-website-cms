@@ -1,0 +1,14 @@
+defaults: &defaults
+  :cs_api:
+    :challenges: 'http://cs-api-sandbox.herokuapp.com/v1/challenges'
+    :members: 'http://cs-api-sandbox.herokuapp.com/v1/members'
+  :expiry: 5
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
