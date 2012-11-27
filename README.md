@@ -32,7 +32,10 @@ run sqlite3 in development.
 	rake db:migrate --trace
 	rake db:seed
 
-After you start rails you will have to create a user for Refinery.
+You can log into Devise/Refinery with the following credentials:
+
+	username: admin
+	password: madmin
 
 ## Heroku Deployment
 
