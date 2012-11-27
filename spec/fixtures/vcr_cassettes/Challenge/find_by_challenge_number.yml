@@ -23,7 +23,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 21 Nov 2012 16:19:13 GMT
+      - Tue, 27 Nov 2012 12:44:29 GMT
       Etag:
       - ! '"3568614c6ff48873d3624c7091c8605c"'
       Server:
@@ -31,9 +31,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - 8a7ba60ea8819e09db62fc28ccb205aa
+      - 99664ab5c31bc152005c6fccd71c5c4e
       X-Runtime:
-      - '0.097786'
+      - '0.143092'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -42,242 +42,11 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: !ruby/string
-        str: ! '{"response":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vbIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"My
-          original comment","member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:51:03.000+0000","challenge_comments__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vgIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","id":"a0IZ0000000FyJYMA0","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"Here
-          is the reply","member":"a0IZ0000000FyJYMA0","createddate":"2012-11-21T14:51:24.000+0000","id":"a09Z0000000k3vgIAA","reply_to":"a09Z0000000k3vbIAA"}]},"id":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"}],"count":1}'
-        net_http_res: &70352592897280 !ruby/object:Net::HTTPOK
-          http_version: '1.0'
-          code: '200'
-          message: OK
-          header:
-            cache-control:
-            - max-age=0, private, must-revalidate
-            content-type:
-            - application/json; charset=utf-8
-            date:
-            - Wed, 21 Nov 2012 16:19:13 GMT
-            etag:
-            - ! '"3568614c6ff48873d3624c7091c8605c"'
-            server:
-            - thin 1.4.1 codename Chromeo
-            x-rack-cache:
-            - miss
-            x-request-id:
-            - 8a7ba60ea8819e09db62fc28ccb205aa
-            x-runtime:
-            - '0.097786'
-            x-ua-compatible:
-            - IE=Edge,chrome=1
-            content-length:
-            - '1121'
-            connection:
-            - keep-alive
-          body: !ruby/string
-            str: ! '{"response":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vbIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"My
-              original comment","member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:51:03.000+0000","challenge_comments__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vgIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","id":"a0IZ0000000FyJYMA0","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"Here
-              is the reply","member":"a0IZ0000000FyJYMA0","createddate":"2012-11-21T14:51:24.000+0000","id":"a09Z0000000k3vgIAA","reply_to":"a09Z0000000k3vbIAA"}]},"id":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"}],"count":1}'
-            net_http_res: *70352592897280
-            args: &70352592480160
-              :method: :get
-              :url: http://cs-api-sandbox.herokuapp.com/v1/challenges/2/comments
-              :headers: {}
-            code: 200
-          read: true
-          __read_body_previously_called: true
-        args: *70352592480160
-        code: 200
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:19:13 GMT
-- request:
-    method: get
-    uri: http://cs-api-sandbox.herokuapp.com/v1/challenges/2
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 21 Nov 2012 16:19:52 GMT
-      Etag:
-      - ! '"6837c12eefb3e0a220aa130e7634c42c"'
-      Server:
-      - thin 1.4.1 codename Chromeo
-      X-Rack-Cache:
-      - miss
-      X-Request-Id:
-      - 05180da5e9cf43f763b1288c2bba514c
-      X-Runtime:
-      - '0.434745'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '4973'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"response":{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"total_prize_money":150,"challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"name":"CC-16609","category":"a07Z0000001S9WlIAK","display_name":"Heroku","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"name":"CC-16611","category":"a07Z0000001S9WkIAK","display_name":"Ruby","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"name":"CC-16610","category":"a07Z0000001S9WiIAK","display_name":"Salesforce.com","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"}]},"terms_of_service":"a0kZ0000000YyG0IAK","submissions":0,"usage_details":"Her&#39;s
-        how you use it.","challenge_id":"2","challenge_type":"Code","start_date":"2012-11-21T14:22:00.000+0000","is_open":"true","requirements":"Cool
-        challenge requirements.","release_to_open_source":false,"post_reg_info":"This
-        is what you see after registering.","challenge_participants__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8Y4MAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK"},"member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:50:30.000+0000","id":"a0AZ0000000n8Y4MAI","status":"Watching","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","id":"a0IZ0000000FyJUMA0"},"member":"a0IZ0000000FyJUMA0","createddate":"2012-11-21T14:50:02.000+0000","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XzMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","id":"a0IZ0000000FyJVMA0"},"member":"a0IZ0000000FyJVMA0","createddate":"2012-11-21T14:50:13.000+0000","id":"a0AZ0000000n8XzMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}]},"prize_type":"Currency","discussion_board":"Show","end_date":"2013-01-31T14:22:00.000+0000","registered_members":2,"challenge_comments__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vbIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"My
-        original comment","member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:51:03.000+0000","id":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vgIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","id":"a0IZ0000000FyJYMA0","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"Here
-        is the reply","member":"a0IZ0000000FyJYMA0","createddate":"2012-11-21T14:51:24.000+0000","id":"a09Z0000000k3vgIAA","reply_to":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"}]},"additional_info":"Some
-        additional info","name":"Test Challenge 1","challenge_prizes__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Prize__c","url":"/services/data/v22.0/sobjects/Challenge_Prize__c/a0BZ0000000RJznMAG"},"place":1,"prize":"$100","id":"a0BZ0000000RJznMAG","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Prize__c","url":"/services/data/v22.0/sobjects/Challenge_Prize__c/a0BZ0000000RJzsMAG"},"place":2,"prize":"$50","id":"a0BZ0000000RJzsMAG","challenge":"a0GZ0000005VQogMAG"}]},"terms_of_service__r":{"attributes":{"type":"Terms_of_Service__c","url":"/services/data/v22.0/sobjects/Terms_of_Service__c/a0kZ0000000YyG0IAK"},"default_tos":true,"id":"a0kZ0000000YyG0IAK"},"top_prize":"$100","id":"a0GZ0000005VQogMAG","submission_details":"Here&#39;s
-        how to submit!","description":"My cool challenge","winner_announced":"2013-02-01","status":"Created"}}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:19:52 GMT
-- request:
-    method: get
-    uri: http://cs-api-sandbox.herokuapp.com/v1/challenges/2/participants
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 21 Nov 2012 16:19:53 GMT
-      Etag:
-      - ! '"084204f002d7b7efdb9f90ccbc69f44a"'
-      Server:
-      - thin 1.4.1 codename Chromeo
-      X-Rack-Cache:
-      - miss
-      X-Request-Id:
-      - a5cc7aa7eb26f115a83d442176b0591c
-      X-Runtime:
-      - '0.123085'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '1558'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"response":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8Y4MAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJaMAK","id":"a0AZ0000000n8Y4MAI","status":"Watching","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","id":"a0IZ0000000FyJUMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJUMA0","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XzMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","id":"a0IZ0000000FyJVMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJVMA0","id":"a0AZ0000000n8XzMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}],"count":3}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:19:53 GMT
-- request:
-    method: get
-    uri: http://cs-api-sandbox.herokuapp.com/v1/members/jeffdonthemic
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 21 Nov 2012 16:19:54 GMT
-      Etag:
-      - ! '"f25fd7cfe925fdc5ebc3fbc8fe5e051f"'
-      Server:
-      - thin 1.4.1 codename Chromeo
-      X-Rack-Cache:
-      - miss
-      X-Request-Id:
-      - 977e97ce346a84c2ec6a31bc0c97d5e9
-      X-Runtime:
-      - '0.101584'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '465'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"valid_submissions":0,"total_points":0,"name":"jeffdonthemic","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
-        Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJUMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:19:55 GMT
-- request:
-    method: get
-    uri: http://cs-api-sandbox.herokuapp.com/v1/members/salpartovi
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 21 Nov 2012 16:19:55 GMT
-      Etag:
-      - ! '"5855157b3a08b6a7a7028441ac47e2a8"'
-      Server:
-      - thin 1.4.1 codename Chromeo
-      X-Rack-Cache:
-      - miss
-      X-Request-Id:
-      - aa4b362e9fb3f62c28e1b7ee214acebd
-      X-Runtime:
-      - '0.088838'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '462'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"valid_submissions":0,"total_points":0,"name":"salpartovi","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
-        Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJVMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:19:55 GMT
+      string: ! '{"response":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vbIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"My
+        original comment","member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:51:03.000+0000","challenge_comments__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vgIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","id":"a0IZ0000000FyJYMA0","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"Here
+        is the reply","member":"a0IZ0000000FyJYMA0","createddate":"2012-11-21T14:51:24.000+0000","id":"a09Z0000000k3vgIAA","reply_to":"a09Z0000000k3vbIAA"}]},"id":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"}],"count":1}'
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 12:44:31 GMT
 - request:
     method: get
     uri: http://cs-api-sandbox.herokuapp.com/v1/members/aquacdr
@@ -301,7 +70,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 21 Nov 2012 16:26:58 GMT
+      - Tue, 27 Nov 2012 12:44:29 GMT
       Etag:
       - ! '"a07db1d04ba1179016d51adf8d0dfa0b"'
       Server:
@@ -309,9 +78,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - 21385024aebc9ef8ba2ec5f90a67a135
+      - 5501cbf0908bae179a8cfeba5512f9d1
       X-Runtime:
-      - '0.080735'
+      - '0.497584'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -320,8 +89,273 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"valid_submissions":0,"total_points":0,"name":"aquacdr","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
-        Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJaMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:26:58 GMT
+      string: !str
+        str: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"valid_submissions":0,"total_points":0,"name":"aquacdr","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
+          Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJaMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
+        net_http_res: &70145295389880 !ruby/object:Net::HTTPOK
+          http_version: '1.0'
+          code: '200'
+          message: OK
+          header:
+            cache-control:
+            - max-age=0, private, must-revalidate
+            content-type:
+            - application/json; charset=utf-8
+            date:
+            - Tue, 27 Nov 2012 12:44:29 GMT
+            etag:
+            - ! '"a07db1d04ba1179016d51adf8d0dfa0b"'
+            server:
+            - thin 1.4.1 codename Chromeo
+            x-rack-cache:
+            - miss
+            x-request-id:
+            - 5501cbf0908bae179a8cfeba5512f9d1
+            x-runtime:
+            - '0.497584'
+            x-ua-compatible:
+            - IE=Edge,chrome=1
+            content-length:
+            - '459'
+            connection:
+            - keep-alive
+          body: !str
+            str: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"valid_submissions":0,"total_points":0,"name":"aquacdr","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
+              Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJaMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
+            net_http_res: *70145295389880
+            args: &70145296790080
+              :method: :get
+              :url: http://cs-api-sandbox.herokuapp.com/v1/members/aquacdr
+              :headers: {}
+            code: 200
+          read: true
+          __read_body_previously_called: true
+        args: *70145296790080
+        code: 200
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 12:44:32 GMT
+- request:
+    method: get
+    uri: http://cs-api-sandbox.herokuapp.com/v1/challenges/2/participants
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Nov 2012 12:44:30 GMT
+      Etag:
+      - ! '"084204f002d7b7efdb9f90ccbc69f44a"'
+      Server:
+      - thin 1.4.1 codename Chromeo
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 2008c52c9a15be034715bc2c4828bd69
+      X-Runtime:
+      - '0.130630'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '1558'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: !str
+        str: ! '{"response":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8Y4MAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJaMAK","id":"a0AZ0000000n8Y4MAI","status":"Watching","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","id":"a0IZ0000000FyJUMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJUMA0","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XzMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","id":"a0IZ0000000FyJVMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJVMA0","id":"a0AZ0000000n8XzMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}],"count":3}'
+        net_http_res: &70145309715680 !ruby/object:Net::HTTPOK
+          http_version: '1.0'
+          code: '200'
+          message: OK
+          header:
+            cache-control:
+            - max-age=0, private, must-revalidate
+            content-type:
+            - application/json; charset=utf-8
+            date:
+            - Tue, 27 Nov 2012 12:44:30 GMT
+            etag:
+            - ! '"084204f002d7b7efdb9f90ccbc69f44a"'
+            server:
+            - thin 1.4.1 codename Chromeo
+            x-rack-cache:
+            - miss
+            x-request-id:
+            - 2008c52c9a15be034715bc2c4828bd69
+            x-runtime:
+            - '0.130630'
+            x-ua-compatible:
+            - IE=Edge,chrome=1
+            content-length:
+            - '1558'
+            connection:
+            - keep-alive
+          body: !str
+            str: ! '{"response":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8Y4MAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJaMAK","id":"a0AZ0000000n8Y4MAI","status":"Watching","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","id":"a0IZ0000000FyJUMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJUMA0","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XzMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","id":"a0IZ0000000FyJVMA0","total_wins":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"member":"a0IZ0000000FyJVMA0","id":"a0AZ0000000n8XzMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}],"count":3}'
+            net_http_res: *70145309715680
+            args: &70145310242320
+              :method: :get
+              :url: http://cs-api-sandbox.herokuapp.com/v1/challenges/2/participants
+              :headers: {}
+            code: 200
+          read: true
+          __read_body_previously_called: true
+        args: *70145310242320
+        code: 200
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 12:44:32 GMT
+- request:
+    method: get
+    uri: http://cs-api-sandbox.herokuapp.com/v1/members/salpartovi
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Nov 2012 12:44:30 GMT
+      Etag:
+      - ! '"5855157b3a08b6a7a7028441ac47e2a8"'
+      Server:
+      - thin 1.4.1 codename Chromeo
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 388e82d077082b824173ce5d364a7dca
+      X-Runtime:
+      - '0.166376'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '462'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: !str
+        str: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"valid_submissions":0,"total_points":0,"name":"salpartovi","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
+          Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJVMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
+        net_http_res: &70145294597140 !ruby/object:Net::HTTPOK
+          http_version: '1.0'
+          code: '200'
+          message: OK
+          header:
+            cache-control:
+            - max-age=0, private, must-revalidate
+            content-type:
+            - application/json; charset=utf-8
+            date:
+            - Tue, 27 Nov 2012 12:44:30 GMT
+            etag:
+            - ! '"5855157b3a08b6a7a7028441ac47e2a8"'
+            server:
+            - thin 1.4.1 codename Chromeo
+            x-rack-cache:
+            - miss
+            x-request-id:
+            - 388e82d077082b824173ce5d364a7dca
+            x-runtime:
+            - '0.166376'
+            x-ua-compatible:
+            - IE=Edge,chrome=1
+            content-length:
+            - '462'
+            connection:
+            - keep-alive
+          body: !str
+            str: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"valid_submissions":0,"total_points":0,"name":"salpartovi","challenges_entered":0,"total_2nd_place":0,"total_1st_place":0,"time_zone":"(GMT-07:00)
+              Pacific Daylight Time (America/Los_Angeles)","id":"a0IZ0000000FyJVMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}}'
+            net_http_res: *70145294597140
+            args: &70145294962420
+              :method: :get
+              :url: http://cs-api-sandbox.herokuapp.com/v1/members/salpartovi
+              :headers: {}
+            code: 200
+          read: true
+          __read_body_previously_called: true
+        args: *70145294962420
+        code: 200
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 12:44:32 GMT
+- request:
+    method: get
+    uri: http://cs-api-sandbox.herokuapp.com/v1/challenges/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Nov 2012 13:53:14 GMT
+      Etag:
+      - ! '"94fab3704b74c401562f9ab39c003746"'
+      Server:
+      - thin 1.4.1 codename Chromeo
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 29e3269b8276ae4da4f0947bf78489b7
+      X-Runtime:
+      - '0.277679'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '4999'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"total_prize_money":150,"challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"name":"CC-16609","category":"a07Z0000001S9WlIAK","display_name":"Heroku","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"name":"CC-16611","category":"a07Z0000001S9WkIAK","display_name":"Ruby","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"name":"CC-16610","category":"a07Z0000001S9WiIAK","display_name":"Salesforce.com","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"}]},"terms_of_service":"a0kZ0000000YyG0IAK","submissions":0,"usage_details":"Her&#39;s
+        how you use it.","challenge_id":"2","challenge_type":"Code","start_date":"2012-11-21T14:22:00.000+0000","is_open":"true","requirements":"Cool
+        challenge requirements.","release_to_open_source":false,"challenge_participants__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8Y4MAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK"},"member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:50:30.000+0000","id":"a0AZ0000000n8Y4MAI","status":"Watching","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","id":"a0IZ0000000FyJUMA0"},"member":"a0IZ0000000FyJUMA0","createddate":"2012-11-21T14:50:02.000+0000","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XzMAI"},"has_submission":false,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","id":"a0IZ0000000FyJVMA0"},"member":"a0IZ0000000FyJVMA0","createddate":"2012-11-21T14:50:13.000+0000","id":"a0AZ0000000n8XzMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}]},"post_reg_info":"This
+        is what you see after registering.","prize_type":"Currency","discussion_board":"Show","end_date":"2013-01-31T14:22:00.000+0000","registered_members":2,"challenge_comments__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vbIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","id":"a0IZ0000000FyJaMAK","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"My
+        original comment","member":"a0IZ0000000FyJaMAK","createddate":"2012-11-21T14:51:03.000+0000","id":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09Z0000000k3vgIAA"},"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","id":"a0IZ0000000FyJYMA0","profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},"comment":"Here
+        is the reply","member":"a0IZ0000000FyJYMA0","createddate":"2012-11-21T14:51:24.000+0000","id":"a09Z0000000k3vgIAA","reply_to":"a09Z0000000k3vbIAA","challenge":"a0GZ0000005VQogMAG"}]},"additional_info":"Some
+        additional info","participating_members":3,"name":"Test Challenge 1","challenge_prizes__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Prize__c","url":"/services/data/v22.0/sobjects/Challenge_Prize__c/a0BZ0000000RJznMAG"},"place":1,"prize":"$100","id":"a0BZ0000000RJznMAG","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Prize__c","url":"/services/data/v22.0/sobjects/Challenge_Prize__c/a0BZ0000000RJzsMAG"},"place":2,"prize":"$50","id":"a0BZ0000000RJzsMAG","challenge":"a0GZ0000005VQogMAG"}]},"terms_of_service__r":{"attributes":{"type":"Terms_of_Service__c","url":"/services/data/v22.0/sobjects/Terms_of_Service__c/a0kZ0000000YyG0IAK"},"default_tos":true,"id":"a0kZ0000000YyG0IAK"},"top_prize":"$100","id":"a0GZ0000005VQogMAG","submission_details":"Here&#39;s
+        how to submit!","description":"My cool challenge","winner_announced":"2013-02-01","status":"Created"}}'
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 13:53:14 GMT
 recorded_with: VCR 2.3.0

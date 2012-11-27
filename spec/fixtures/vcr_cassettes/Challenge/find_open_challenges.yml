@@ -23,28 +23,30 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 21 Nov 2012 16:44:13 GMT
+      - Tue, 27 Nov 2012 13:53:13 GMT
       Etag:
-      - ! '"f741faa4117eeabd6a958d7bfb536636"'
+      - ! '"fe9ffd2f035700446144f98b3c1d1b85"'
       Server:
       - thin 1.4.1 codename Chromeo
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - 461365870c7cccf707a7aaa0224ba601
+      - d84961b8de33b6a0b13d77157ea2e424
       X-Runtime:
-      - '0.134114'
+      - '0.116732'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '1135'
+      - '1841'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"response":[{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"name":"Test
-        Challenge 1","end_date":"2013-01-31T14:22:00.000+0000","total_prize_money":150,"challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"display_name":"Heroku","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"display_name":"Ruby","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"display_name":"Salesforce.com","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"}]},"registered_members":2,"challenge_id":"2","challenge_type":"Code","id":"a0GZ0000005VQogMAG","is_open":"true","start_date":"2012-11-21T14:22:00.000+0000","description":"My
-        cool challenge","days_till_close":71}],"count":1}'
-    http_version: 
-  recorded_at: Wed, 21 Nov 2012 16:44:14 GMT
+      string: ! '{"response":[{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VtzVMAS"},"name":"Test
+        Challenge - Code w/o Submission","end_date":"2012-12-10T02:41:41.000+0000","total_prize_money":100,"challenge_categories__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RMCmIAO"},"display_name":"Heroku","id":"a08Z0000000RMCmIAO","challenge":"a0GZ0000005VtzVMAS"}]},"registered_members":0,"challenge_id":"16","challenge_type":"Race","id":"a0GZ0000005VtzVMAS","is_open":"true","start_date":"2012-11-21T14:22:00.000+0000","description":"My
+        cool challenge","days_till_close":12},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GZ0000005VQogMAG"},"name":"Test
+        Challenge 1","end_date":"2013-01-31T14:22:00.000+0000","total_prize_money":150,"challenge_categories__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB0IAO"},"display_name":"Salesforce.com","id":"a08Z0000000RKB0IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKB5IAO"},"display_name":"Ruby","id":"a08Z0000000RKB5IAO","challenge":"a0GZ0000005VQogMAG"},{"attributes":{"type":"Challenge_Category__c","url":"/services/data/v22.0/sobjects/Challenge_Category__c/a08Z0000000RKAvIAO"},"display_name":"Heroku","id":"a08Z0000000RKAvIAO","challenge":"a0GZ0000005VQogMAG"}]},"registered_members":2,"challenge_id":"2","challenge_type":"Code","id":"a0GZ0000005VQogMAG","is_open":"true","start_date":"2012-11-21T14:22:00.000+0000","description":"My
+        cool challenge","days_till_close":65}],"count":2}'
+    http_version: !!null 
+  recorded_at: Tue, 27 Nov 2012 13:53:13 GMT
 recorded_with: VCR 2.3.0

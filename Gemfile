@@ -70,7 +70,6 @@ group :development, :test do
   gem 'sextant'
   gem 'quiet_assets'  
   gem 'vcr'
-  gem 'webmock'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
 end
