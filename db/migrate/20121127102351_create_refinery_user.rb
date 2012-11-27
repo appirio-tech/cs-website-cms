@@ -6,7 +6,8 @@ class CreateRefineryUser < ActiveRecord::Migration
     role = Role.new
     role.title = 'Superuser'
     role.save!    
-    user = User.create!(email: 'admin@example.com', password: 'madmin', username: 'admin')
+    user = User.create!(email: 'admin@example.com', password: 'madmin', 
+      username: 'admin', confirmed_at: DateTime.now)
     user.roles << Role.find_by_title('Refinery')
     user.roles << Role.find_by_title('Superuser')
   end
