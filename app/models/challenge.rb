@@ -1,9 +1,10 @@
 class Challenge < ApiModel
   attr_accessor :id, :challenge_id, :challenge_type, :attributes,
     :prize_type, :total_prize_money, :top_prize,
-    :start_date, :end_date,
-    :name, :description, :status,
-    :categories
+    :start_date, :end_date, :usage_details, :requirements, :post_reg_info,
+    :name, :description, :status, :release_to_open_source, :additional_info,
+    :categories, :is_open, :discussion_board, :registered_members,
+    :submission_details, :winner_announced
 
   has_many :comments
 
@@ -52,11 +53,24 @@ class Challenge < ApiModel
     @categories || 'nil'
   end
 
+  def open?
+    !!@is_open
+  end
+
+  def release_to_open_source?
+    !!@release_to_open_source
+  end
+
+  def winner_announced
+    Date.parse(@winner_announced) if @winner_announced
+  end
+
   # has_one :status
   # TODO (this requires authentication)
-  def status
-    'nil'
-  end
+  # edit Nov 22: apparently not? O_O
+  # def status
+  #   'nil'
+  # end
 
 end
 

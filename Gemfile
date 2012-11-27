@@ -63,6 +63,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'  
+  gem 'vcr'
+  gem 'webmock'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 group :test do
