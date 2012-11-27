@@ -432,12 +432,8 @@ DEPENDENCIES
   savon
   sextant
   simple_form (= 2.0.4)
-<<<<<<< HEAD
-  sqlite3
-=======
   sql-logging
-  sqlite3-ruby
->>>>>>> parasquid-cs-1912-devise
+  sqlite3
   thin
   turn
   uglifier (>= 1.0.3)
