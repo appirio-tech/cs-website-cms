@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 1.9.2
 before_script: 
+ - "cp config/config.example.yml config.yml"
  - bundle exec rake db:migrate
  - bundle exec rake db:seed
- - "cp config/config.example.yml config.yml"
 script: bundle exec rake test
