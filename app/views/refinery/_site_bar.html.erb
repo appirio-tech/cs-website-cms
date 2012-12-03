@@ -3,6 +3,11 @@
 <%= link_to t('.log_out', site_bar_translate_locale_args), main_app.destroy_user_session_path, :id => 'logout', :method => :delete %>  </li>
 <% else %>
   <li>
-  <%= link_to('Login', main_app.new_user_session_path)  %>  
+  <%= link_to('Login', main_app.new_user_session_path)  %><br />
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %><br />
+  <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %><br />
+  <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github) %><br />
+  <%= link_to "Sign in with OpenID", user_omniauth_authorize_path(:google) %><br />
+  <%= link_to "Sign in with Salesforce", user_omniauth_authorize_path(:salesforce) %><br />
   </li>
 <% end %>
