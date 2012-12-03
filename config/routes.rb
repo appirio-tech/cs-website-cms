@@ -1,11 +1,16 @@
 CsWebsiteCms::Application.routes.draw do
 
+  resources :authentications
+
   get "protected", to: 'protected#index'
+
+  match '/auth/:provider/callback', to: 'authentications#create'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
   }
 
   get 'members/search'

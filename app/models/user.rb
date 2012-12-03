@@ -2,15 +2,18 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => :roles_users
   has_many :plugins, :class_name => "UserPlugin", :order => "position ASC", :dependent => :destroy
 
+  has_many :authentications
+
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, :token_authenticatable, :confirmable, :lockable
-         # :trackable, 
+         :token_authenticatable, :confirmable, :lockable
+         # :trackable,  
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :username
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   # attr_accessible :title, :body
+
+  validates :username, :presence => true
 
   def plugins=(plugin_names)
     if persisted? # don't add plugins when the user_id is nil.
@@ -64,4 +67,17 @@ class User < ActiveRecord::Base
     # return true/false based on validations
     valid?
   end
+
+  def apply_omniauth(omniauth)
+    if omniauth['info']
+      self.email = omniauth['info']['email'] || "" if email.blank?
+      self.username = omniauth["info"]["name"] || omniauth["info"]["nickname"] || ""      
+    end
+    self.password = self.password_confirmation = Devise.friendly_token[0,20]
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
+
+  def password_required?
+    authentications.empty? && super
+  end  
 end
