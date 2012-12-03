@@ -244,5 +244,5 @@ Devise.setup do |config|
 
   config.omniauth :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"]
   config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
-
+  config.omniauth :salesforce, ENV['SALESFORCE_KEY'], ENV['SALESFORCE_SECRET']
 end

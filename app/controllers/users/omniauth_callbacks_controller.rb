@@ -26,4 +26,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omniauth
   end
 
+  def salesforce
+    omniauth
+  end
+
 end
