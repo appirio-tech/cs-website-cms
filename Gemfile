@@ -82,4 +82,5 @@ group :test do
   gem "minitest"
   gem "rake"
   gem 'webmock'
+  gem "mocha"
 end
