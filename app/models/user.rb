@@ -3,13 +3,13 @@ class User < ActiveRecord::Base
   has_many :plugins, :class_name => "UserPlugin", :order => "position ASC", :dependent => :destroy
 
   devise :database_authenticatable, :registerable, :timeoutable,
-         :recoverable, :rememberable, :validatable,
-         :omniauthable, :token_authenticatable, :confirmable, :lockable
-         # :trackable, 
+    :recoverable, :rememberable, :validatable,
+    :omniauthable, :token_authenticatable, :confirmable, :lockable
+  # :trackable,
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :username
+    :username, :provider, :uid
   # attr_accessible :title, :body
 
   def plugins=(plugin_names)
@@ -64,4 +64,22 @@ class User < ActiveRecord::Base
     # return true/false based on validations
     valid?
   end
+
+  def self.find_for_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create(provider:auth.provider,
+                         uid:auth.uid,
+                         email:auth.info.email || "#{auth.uid}@#{auth.provider}.com",
+                         # NOTE: twitter and github does not have any email address in its auth response
+                         # NOTE: If we need to contact these users, we may need to ask them to provide their
+                         #       email addresses as part of their profiles / sign-up process
+                         password:Devise.friendly_token[0,20],
+                         )
+      user.skip_confirmation!
+      user.save!
+    end
+    user
+  end
+
 end
