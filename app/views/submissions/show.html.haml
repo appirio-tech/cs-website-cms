@@ -1,0 +1,53 @@
+.submission-wrapper
+  = simple_form_for @submission, url: challenge_submission_path(@challenge, @submission.id), remote: true, method: :put, html: {class: "submission form-horizontal"} do |f|
+    %h4 About Your Submission
+    = f.input :details, as: :text, required: false
+    = f.input :languages, collection: Submission::LANGUAGES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :platforms, collection: Submission::PLATFORMS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :apis, collection: Submission::APIS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :technologies, collection: Submission::TECHNOLOGIES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+
+    .control-group
+      .controls
+        = f.button :submit, "Save", class: "btn btn-primary"
+  
+  %hr
+  %h4 Deliverables
+  .deliverables
+    - if @deliverables.present?
+      - @deliverables.each do |deliverable|
+        .deliverable{id: "deliverable-#{deliverable.id}", "data-deliverable" => deliverable.to_json} 
+          .clearfix.info
+            .type= deliverable.type
+            .url= deliverable.url
+            .actions
+              = link_to "Edit", challenge_submission_deliverable_path(@challenge, deliverable.id), class: "btn edit"
+              = link_to "Delete", challenge_submission_deliverable_path(@challenge, deliverable.id), class: "btn btn-danger delete", method: :delete, remote: true, confirm: "Are you sure?"
+          .form-wrapper
+    - else
+      %p.empty No Deliverables yet.
+
+  %hr
+
+  .new-deliverable
+    .drag-drop-area{"data-url" => upload_challenge_submission_deliverables_path(@challenge)} Drag and Drop Files Here to upload
+
+    .add-manually 
+      %span Or
+      = link_to "Add without file uploading", "#", id: "add-deliverable"
+
+    = simple_form_for Deliverable.new, url: challenge_submission_deliverables_path(@challenge), remote: true, html: {class: "form-horizontal deliverable"} do |f|
+      %h4 Add New Deliverable
+      = f.input :type, collection: Deliverable::TYPES, input_html: {class: "chosen type"}
+      = f.input :url, input_html: {class: "url"}
+      = f.input :comments, as: :text, required: false, input_html: {class: "comments"}
+      = f.input :paas, collection: Deliverable::PAAS, required: false, input_html: {class: "chosen paas"}
+      = f.input :username, required: false, input_html: {class: "username"}
+      = f.input :password, required: false, input_html: {class: "password"}
+
+      .control-group
+        .controls
+          = f.button :submit, "Add Deliverable", class: "btn btn-primary"
+          = link_to "Cancel", "#", class: "cancel"
+
+

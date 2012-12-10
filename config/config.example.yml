@@ -3,6 +3,10 @@ defaults: &defaults
     :challenges: 'http://cs-api-sandbox.herokuapp.com/v1/challenges'
     :members: 'http://cs-api-sandbox.herokuapp.com/v1/members'
   :expiry: 5
+  :s3:
+    :key: "key"
+    :secret: "secret"
+    :bucket: "bucket"
 
 development:
   <<: *defaults
