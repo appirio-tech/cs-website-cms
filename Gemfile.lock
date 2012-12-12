@@ -170,9 +170,12 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
     minitest (4.2.0)
+    mocha (0.13.1)
+      metaclass (~> 0.0.1)
     multi_json (1.3.7)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
@@ -411,6 +414,7 @@ DEPENDENCIES
   httparty
   jquery-rails (~> 2.0.0)
   minitest
+  mocha
   omniauth-facebook
   omniauth-github
   omniauth-linkedin
