@@ -8,7 +8,7 @@ class CreateRefineryUser < ActiveRecord::Migration
     role.save!    
     user = User.create!(email: 'admin@example.com', password: 'madmin', username: 'admin')
     user.confirmed_at = DateTime.now
-    user.save
+    user.save(:validate => false)
     user.roles << Role.find_by_title('Refinery')
     user.roles << Role.find_by_title('Superuser')
   end
