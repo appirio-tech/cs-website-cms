@@ -72,5 +72,8 @@ class Challenge < ApiModel
   #   'nil'
   # end
 
+  def submission_of(user)
+    Submission.find(challenge_id, user.username)
+  end
 end
 
