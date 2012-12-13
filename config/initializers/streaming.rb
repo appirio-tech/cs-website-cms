@@ -2,11 +2,11 @@ require 'restforce'
 require 'faye'
 
 # Initialize a client with your username/password.
-client = Restforce.new :username => 'peakpado@gmail.com',
-  :password       => 'Lionking4',
-  :security_token => 'nysj8BUUGmCabA8bMrwkmCFIN',
-  :client_id      => '3MVG9QDx8IX8nP5TvJeQJc1XRuIaYl4.cRDhTDs90mHHCoBKH_DkqsAYJnw6gmAXuwHZx1ar6mcU2KvUvl72v',
-  :client_secret  => '5737452143195133975'
+client = Restforce.new :username => 'your-username',
+  :password       => 'your-password',
+  :security_token => 'your-security-token',
+  :client_id      => 'your-client-id',
+  :client_secret  => 'your-client-secret'
 
 client.authenticate!
 
