@@ -32,10 +32,17 @@ class ChallengesController < ApplicationController
     # nillify blank entries
     params[:categories].delete_if{|v| v.blank?} if params[:categories]
     params.delete_if{|k, v| v.blank? || v.empty?}
+
+    # remove extra params taht rails adds
     params.delete_if{|k, v| ['utf8', 'action', 'controller'].include? k}
+    
+    # create the search object
     @search = Search::Search.new(params)
 
+    # get a list of existing category names
     @category_names = Search::Category.all.map(&:display_name).uniq
+    
+    # show the filtered challenges (all challenges by default)
     @challenges = Search::Challenge.filter(@search)
   end
 
