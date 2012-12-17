@@ -12,10 +12,17 @@
   <%= f.number_field :max_registered_members %>
 
   <%= f.label :categories %>
-  <%= f.select :categories, @category_names, {include_blank: true}, {multiple: true} %>
+  <% @category_names.each do |name| %>
+    <%= name %>
+    <%= f.check_box :categories, {multiple: true}, name, nil %>
+  <% end %>
 
   <%= f.label :communities %>
-  <%= f.select :communities, @community_names, {include_blank: true}, {multiple: true} %>
+  <% @community_names.each do |name| %>
+    <%= name %>
+    <%= f.check_box :communities, {multiple: true}, name, nil %>
+  <% end %>
+
   <br />
   <%= f.submit name: nil %>
 <% end %>
