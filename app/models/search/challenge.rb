@@ -1,4 +1,5 @@
 class Search::Challenge < Ohm::Model
+  extend ActiveModel::Naming
   include Ohm::Callbacks
 
   attribute :challenge_id
@@ -27,7 +28,7 @@ class Search::Challenge < Ohm::Model
 
   attribute :description
 
-  list :categories, Search::Category
+  set :categories, Search::Category
 
   attribute :community
   index :community
@@ -64,7 +65,7 @@ class Search::Challenge < Ohm::Model
     challenge.save
     hash["challenge_categories__r"]["records"].each do |cat|
       display_name = cat["display_name"]
-      Search::Category.create(display_name: display_name, challenge: challenge) unless challenge.categories.entries.include?({display_name: display_name})
+      challenge.categories.add Search::Category.create(display_name: display_name, challenge: challenge) unless challenge.categories.entries.include?({display_name: display_name})
     end
     challenge
   end

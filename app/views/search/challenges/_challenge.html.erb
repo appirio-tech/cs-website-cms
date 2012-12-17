@@ -1,0 +1,9 @@
+<p><%= challenge.name %>
+<p><%= challenge.challenge_type %>
+<p><%= challenge.registered_members %>
+<p><%= challenge.description %>
+<p><%= Time.at(challenge.end_date.to_i) %>
+<% challenge.categories.entries.each do |category| %>
+  <%= render category %>
+<% end %>
+<p><%= challenge.community %>
