@@ -52,6 +52,13 @@ class Search::Challenge < Ohm::Model
     result.map(&Search::Challenge)
   end
 
+  def self.all_community_names
+    rkey = Search::Challenge.key + ':indices:community:'
+    Redis.new.keys(rkey + '*').map do |c|
+      c.gsub rkey, ''
+    end.delete_if{|v| v.blank?}
+  end
+
   def parse(hash)
     challenge = Search::Challenge.find(challenge_id: hash["challenge_id"]).first || Search::Challenge.new
     challenge.name = hash["name"]

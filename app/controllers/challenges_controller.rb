@@ -36,6 +36,9 @@ class ChallengesController < ApplicationController
 
     # get a list of existing category names
     @category_names = Search::Category.all.map(&:display_name).uniq
+
+    # get a list of existing category names
+    @community_names = Search::Challenge.all_community_names
     
     # show the filtered challenges (all challenges by default)
     @challenges = Search::Challenge.filter(@search)

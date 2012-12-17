@@ -11,6 +11,6 @@
     <strong><%= number_to_currency challenge.total_prize_money, precision: 0 %> <%= challenge.categories.entries.map(&:display_name).join(", ") %></strong><br />
     due in <%= distance_of_time_in_words Time.now, Time.at(challenge.end_date.to_i) %> for<br />
     <%= pluralize challenge.registered_members, 'member' %> registered<br />
-    <p><span class="label label-inverse"><%= challenge.challenge_type %></span>
+    <p><span class="label label-inverse"><%= challenge.challenge_type.upcase %></span>
   </div>
 </div>

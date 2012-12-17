@@ -14,6 +14,8 @@
   <%= f.label :categories %>
   <%= f.select :categories, @category_names, {include_blank: true}, {multiple: true} %>
 
+  <%= f.label :communities %>
+  <%= f.select :communities, @community_names, {include_blank: true}, {multiple: true} %>
   <br />
   <%= f.submit name: nil %>
 <% end %>
