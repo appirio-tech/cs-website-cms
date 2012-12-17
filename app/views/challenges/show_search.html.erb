@@ -12,7 +12,7 @@
   <%= f.number_field :max_registered_members %>
 
   <%= f.label :categories %>
-  <%= f.select :categories, @category_names, {}, {multiple: true} %>
+  <%= f.select :categories, @category_names, {include_blank: true}, {multiple: true} %>
 
   <br />
   <%= f.submit %>

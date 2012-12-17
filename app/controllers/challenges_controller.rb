@@ -48,6 +48,7 @@ class ChallengesController < ApplicationController
   def search
     # nillify blank entries
     params[:search_search].delete_if{|k, v| v.blank?}
+    params[:search_search][:categories].delete_if{|v| v.blank?}
     session[:search] = Search::Search.new(params[:search_search])
     redirect_to search_searches_path
   end

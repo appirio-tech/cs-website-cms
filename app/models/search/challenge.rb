@@ -39,7 +39,16 @@ class Search::Challenge < Ohm::Model
   def self.filter(search)
     by_registered = range_by_score :registered_members, search.min_registered_members, search.max_registered_members
     by_prize = range_by_score :total_prize_money, search.min_total_prize_money, search.max_total_prize_money
-    (by_registered & by_prize).map(&Search::Challenge)
+    by_categories_query = Search::Category.find(display_name: nil)
+    result = (by_registered & by_prize)
+    unless search.categories.empty?
+      search.categories.each do |cat|
+        by_categories_query = by_categories_query.union(display_name: cat) unless cat.blank?
+      end
+      by_categories = by_categories_query.to_a.map(&:challenge).map(&:id).uniq
+      result = result & by_categories
+    end
+    result.map(&Search::Challenge)
   end
 
   def parse(hash)
@@ -55,7 +64,7 @@ class Search::Challenge < Ohm::Model
     challenge.save
     hash["challenge_categories__r"]["records"].each do |cat|
       display_name = cat["display_name"]
-      challenge.categories.push(Search::Category.create(display_name: display_name)) unless challenge.categories.entries.include?({display_name: display_name})
+      Search::Category.create(display_name: display_name, challenge: challenge) unless challenge.categories.entries.include?({display_name: display_name})
     end
     challenge
   end
