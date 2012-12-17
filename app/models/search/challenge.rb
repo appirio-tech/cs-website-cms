@@ -28,10 +28,9 @@ class Search::Challenge < Ohm::Model
   end
 
   def self.filter(search)
-    #by_registered = range_by_score :registered_members, search.min_registered_members, search.max_registered_members
+    by_registered = range_by_score :registered_members, search.min_registered_members, search.max_registered_members
     by_prize = range_by_score :top_prize, search.min_top_prize, search.max_top_prize
-    #(by_registered & by_prize).map(&Search::Challenge)
-    by_prize.map(&Search::Challenge)
+    (by_registered & by_prize).map(&Search::Challenge)
   end
 
   def parse(hash)
