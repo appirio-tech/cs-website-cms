@@ -1,4 +1,6 @@
 class Search::Challenge < Ohm::Model
+  include Ohm::Callbacks
+
   attribute :cid
   index :cid
 
@@ -19,27 +21,24 @@ class Search::Challenge < Ohm::Model
 
   attribute :description
 
-  collection :categories, :'Search::Category'
+  collection :categories, Search::Category
 
   def self.between(range, attribute)
-    set = self.find(attribute.to_sym => range.first)
-    range.each do |i|
-      set = set.union(attribute.to_sym => i)
-    end
-    set
+    range_by_score(attribute, range.first, range.last)
   end
 
   def self.filter(search)
-    by_registered = self.between(self.max_registered_members..search.min_registered_members, :registered_members)
-    by_prize = all.sort_by(:top_prize).to_a.reject {|e| e.top_prize.to_i < search.min_top_prize.to_i || e.top_prize.to_i > search.max_top_prize.to_i}
-    by_registered & by_prize
+    #by_registered = range_by_score :registered_members, search.min_registered_members, search.max_registered_members
+    by_prize = range_by_score :top_prize, search.min_top_prize, search.max_top_prize
+    #(by_registered & by_prize).map(&Search::Challenge)
+    by_prize.map(&Search::Challenge)
   end
 
   def parse(hash)
     self.name = hash["Name"]
-    self.end_date = Date.parse(hash["End_Date__c"])
+    self.end_date = Time.parse(hash["End_Date__c"]).to_i
     self.registered_members = hash["Registered_Members__c"].to_i
-    self.top_prize = hash["Top_Prize__c"]
+    self.top_prize = hash["Top_Prize__c"].delete('$').to_i
     self.is_open = hash["Is_Open__c"].to_b
     self.description = hash["Description__c"]
     self.cid = hash["ID__c"].to_i
@@ -48,6 +47,34 @@ class Search::Challenge < Ohm::Model
 
   def self.parse(hash)
     new.parse(hash)
+  end
+
+  def self.latest
+    range_by_score(:end_dates).map(&Search::Challenge).reverse
+  end
+
+protected
+
+  # add in filter params
+  def after_save
+    self.class.key[:end_dates].zadd(end_date, id)
+    self.class.key[:top_prize].zadd(top_prize, id)
+    self.class.key[:registered_members].zadd(registered_members, id)
+  end
+
+  # make sure the filter keys are removed
+  # In this case we use the raw *Redis* command
+  # [ZREM](http://redis.io/commands/zrem).
+  def after_delete
+    self.class.key[:end_dates].zrem(id)
+    self.class.key[:top_prize].zrem(id)
+    self.class.key[:registered_members].zrem(id)
+  end
+
+  def self.range_by_score(_key, beginning = '-inf', ending = '+inf')
+    beginning ||= '-inf'
+    ending ||= '+inf'
+    key[_key.to_sym].zrangebyscore(beginning, ending)
   end
 
 end

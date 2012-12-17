@@ -1,86 +1,10 @@
-<form id="search-form">
-<div class="row">
-  <div class="span12">
-    <input id="search-field" class="span6" type="text" value="" name="keywords" placeholder="Enter keywords here" />
-    <a id="search-btn" class="btn btn-primary btn-large">
-      Search
-    </a>
-  </div>
-</div>
+<%= form_for @search do |f| %>
+  <%= f.label :min_top_prize %>
+  <%= f.number_field :min_top_prize %>
 
-<!-- filters -->
-<div class="row">
-  <!-- open - radios -->
-  <div class="span2 search-radios" id="search-open">
-    <h5>Challenge status:</h5>
-    <label class="radio inline">
-      <input type="radio" name="open" value="true" checked="checked"> Open
-    </label>
-    <label class="radio inline">
-      <input type="radio" name="open" value="false"> Closed
-    </label>
-  </div>
-  <!-- order - radios -->
-  <div class="span3 search-radios" id="search-order">
-    <h5>Sort order:</h5>
-    <label class="radio inline">
-      <input type="radio" name="order" value="asc" checked="checked"> Ascending
-    </label>
-    <label class="radio inline">
-      <input type="radio" name="order" value="desc"> Descending
-    </label>
-  </div>
-  <!-- sort - radios -->
-  <div class="span4 search-radios" id="search-sort">
-    <h5>Sort by:</h5>
-    <label class="radio inline">
-      <input type="radio" name="sort" value="title" checked="checked"> Title
-    </label>
-    <label class="radio inline">
-      <input type="radio" name="sort" value="end_date"> End Date
-    </label>
-    <label class="radio inline">
-      <input id="relevance" type="radio" name="sort" value="relevance" disabled> Relevance
-    </label>
-  </div>
-</div>
-<br />
-<div class="row">
-  <!-- categories - checkboxes -->
-  <div class="span9 search-categories">
-    <h5>Categories:</h5>
-    <% @category_names.each_with_index do |category_name, index| %>
-      <label class="checkbox inline">
-        <input type="checkbox" name="categories[]" value="<%= category_name %>">
-        <%= category_name %>
-      </label>
-    <% end %>
-  </div>
-</div>
-</form>
-<hr />
-<!-- results table -->
-<div class="row">
-  <div style="width: 96%; padding-left: 20px;">
-    <table class="table table-striped" id="results">
-      <tr>
-        <td width="56%">Title</td>
-        <td width="20%">End Date</td>
-        <td width="10%">ID</td>
-        <td width="10%">Open?</td>
-      </tr>
-    </table>
-    <!-- no entries -->
-    <div id="results-no" style="display: none; width: 98%;">
-      <div class="alert">No entries ...</div>
-    </div>
-    <!-- ajax call error -->
-    <div id="results-error" style="display: none; width: 98%;">
-      <div class="warning">Error encountered ...</div>
-    </div>
-  </div>
-</div>
+  <%= f.label :max_top_prize %>
+  <%= f.number_field :max_top_prize %>
 
-<% @challenges.each do |challenge| %>
-  <%= challenge.inspect %>
+  <br />
+  <%= f.submit %>
 <% end %>

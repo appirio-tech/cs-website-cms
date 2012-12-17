@@ -51,6 +51,10 @@ gem 'dalli'
 gem 'encryptor'
 gem 'airbrake'
 gem 'ohm'
+gem 'ohm-contrib'
+gem 'ohm-zset', require: 'ohm-zset'
+gem 'uuidtools'
+gem 'sourcify'
 
 # Gems used only for assets and not required
 # in production environments by default.
