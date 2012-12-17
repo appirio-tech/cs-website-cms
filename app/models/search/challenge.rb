@@ -1,11 +1,17 @@
 class Search::Challenge < Ohm::Model
   include Ohm::Callbacks
 
-  attribute :cid
-  index :cid
+  attribute :challenge_id
+  index :challenge_id
+
+  attribute :challenge_type
+  index :challenge_type
 
   attribute :name
   index :name
+
+  attribute :start_date
+  index :start_date
 
   attribute :end_date
   index :end_date
@@ -13,15 +19,19 @@ class Search::Challenge < Ohm::Model
   attribute :registered_members
   index :registered_members
 
-  attribute :top_prize
-  index :top_prize
+  attribute :total_prize_money
+  index :total_prize_money
 
   attribute :is_open
   index :is_open
 
   attribute :description
 
-  collection :categories, Search::Category
+  attribute :categories
+  index :categories
+
+  attribute :community
+  index :community
 
   def self.between(range, attribute)
     range_by_score(attribute, range.first, range.last)
@@ -29,19 +39,22 @@ class Search::Challenge < Ohm::Model
 
   def self.filter(search)
     by_registered = range_by_score :registered_members, search.min_registered_members, search.max_registered_members
-    by_prize = range_by_score :top_prize, search.min_top_prize, search.max_top_prize
+    by_prize = range_by_score :total_prize_money, search.min_total_prize_money, search.max_total_prize_money
     (by_registered & by_prize).map(&Search::Challenge)
   end
 
   def parse(hash)
-    self.name = hash["Name"]
-    self.end_date = Time.parse(hash["End_Date__c"]).to_i
-    self.registered_members = hash["Registered_Members__c"].to_i
-    self.top_prize = hash["Top_Prize__c"].delete('$').to_i
-    self.is_open = hash["Is_Open__c"].to_b
-    self.description = hash["Description__c"]
-    self.cid = hash["ID__c"].to_i
-    self
+    challenge = Search::Challenge.find(challenge_id: hash["challenge_id"]).first || Search::Challenge.new
+    challenge.name = hash["name"]
+    challenge.end_date = Time.parse(hash["end_date"]).to_i
+    challenge.registered_members = hash["registered_members"].to_i
+    challenge.total_prize_money = hash["total_prize_money"]
+    challenge.is_open = hash["is_open"].to_b
+    challenge.description = hash["description"]
+    challenge.challenge_id = hash["challenge_id"].to_i
+    challenge.community = hash["community__r"]["name"] if hash["community__r"]
+    challenge.save
+    challenge
   end
 
   def self.parse(hash)
@@ -56,8 +69,8 @@ protected
 
   # add in filter params
   def after_save
-    self.class.key[:end_dates].zadd(end_date, id)
-    self.class.key[:top_prize].zadd(top_prize, id)
+    self.class.key[:end_date].zadd(end_date, id)
+    self.class.key[:total_prize_money].zadd(total_prize_money, id)
     self.class.key[:registered_members].zadd(registered_members, id)
   end
 
@@ -65,8 +78,8 @@ protected
   # In this case we use the raw *Redis* command
   # [ZREM](http://redis.io/commands/zrem).
   def after_delete
-    self.class.key[:end_dates].zrem(id)
-    self.class.key[:top_prize].zrem(id)
+    self.class.key[:end_date].zrem(id)
+    self.class.key[:total_prize_money].zrem(id)
     self.class.key[:registered_members].zrem(id)
   end
 

@@ -30,8 +30,8 @@ class ChallengesController < ApplicationController
 
   def show_search
     @category_names = Search::Category.all.map(&:display_name)
-    @challenges = Search::Challenge.all
-    @search = Search::Search.new
+    @search = session[:search] || Search::Search.new
+    @challenges = Search::Challenge.filter(@search)
   end
 
   def show_populate
@@ -48,8 +48,8 @@ class ChallengesController < ApplicationController
   def search
     # nillify blank entries
     params[:search_search].delete_if{|k, v| v.blank?}
-    search = Search::Search.new(params[:search_search])
-    raise Search::Challenge.filter(search).inspect
+    session[:search] = Search::Search.new(params[:search_search])
+    redirect_to search_searches_path
   end
 
 end
