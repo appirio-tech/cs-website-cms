@@ -45,7 +45,7 @@ class Search::Challenge < Ohm::Model
       search.categories.each do |cat|
         by_categories_query = by_categories_query.union(display_name: cat)
       end
-      by_categories = by_categories_query.to_a.map(&:challenge).map(&:id).uniq
+      by_categories = by_categories_query.to_a.map{|c| c.challenge.id}.uniq
       result = result & by_categories
     end
     result.map(&Search::Challenge)

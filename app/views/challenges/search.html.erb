@@ -1,4 +1,4 @@
-<%= form_for @search, method: :get do |f| %>
+<%= form_for @search, as: '', method: :get do |f| %>
   <%= f.label :min_total_prize_money %>
   <%= f.number_field :min_total_prize_money %>
 
@@ -15,7 +15,7 @@
   <%= f.select :categories, @category_names, {include_blank: true}, {multiple: true} %>
 
   <br />
-  <%= f.submit %>
+  <%= f.submit name: nil %>
 <% end %>
 
 <% @challenges.each do |challenge| %>

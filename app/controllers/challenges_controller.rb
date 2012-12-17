@@ -29,13 +29,11 @@ class ChallengesController < ApplicationController
   end
 
   def search
-    @search = Search::Search.new
-    if params.include?(:search_search)
-      # nillify blank entries
-      params[:search_search].delete_if{|k, v| v.blank?}
-      params[:search_search][:categories].delete_if{|v| v.blank?}
-      @search = Search::Search.new(params[:search_search])
-    end
+    # nillify blank entries
+    params[:categories].delete_if{|v| v.blank?} if params[:categories]
+    params.delete_if{|k, v| v.blank? || v.empty?}
+    params.delete_if{|k, v| ['utf8', 'action', 'controller'].include? k}
+    @search = Search::Search.new(params)
 
     @category_names = Search::Category.all.map(&:display_name).uniq
     @challenges = Search::Challenge.filter(@search)
