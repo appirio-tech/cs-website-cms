@@ -46,6 +46,16 @@ class ChallengesController < ApplicationController
     @challenges = Search::Challenge.filter(@search)
   end
 
+  def create_search
+    # nillify blank entries
+    params[:categories].delete_if{|v| v.blank?} if params[:categories]
+    params.delete_if{|k, v| v.blank? || v.empty?}
+
+    # remove extra params taht rails adds
+    params.delete_if{|k, v| ['utf8', 'action', 'controller'].include? k}
+    redirect_to search_searches_path(params)
+  end
+
   def show_populate
   end
 

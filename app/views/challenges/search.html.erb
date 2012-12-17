@@ -1,4 +1,4 @@
-<%= form_for @search, as: '', method: :get do |f| %>
+<%= form_for @search, as: '', :authenticity_token => false do |f| %>
   <%= f.label :min_total_prize_money %>
   <%= f.number_field :min_total_prize_money %>
 
