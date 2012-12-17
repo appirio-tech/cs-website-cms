@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="span10">
+    <label>
+      Enter the challenges JSON content here to add or update challenges
+      <br /><br /><em>The text field parameter name is "post"</em>
+    </label>
+    <%= form_tag :challenges_populate do %>
+      <textarea id="post-field" name="json" placeholder=""></textarea>
+      <br />
+      <button id="post-btn" class="btn btn-primary btn-large">Submit</a>
+    <% end %>
+  </div>
+</div>

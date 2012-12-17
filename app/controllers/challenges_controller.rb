@@ -27,4 +27,24 @@ class ChallengesController < ApplicationController
 
   def update
   end
+
+  def show_search
+    @category_names = Search::Category.all.map(&:display_name)
+    @challenges = Search::Challenge.all
+  end
+
+  def show_populate
+  end
+
+  def populate
+    json = JSON.parse(params[:json])
+    json.each do |j|
+      challenge = Search::Challenge.parse(j)
+      challenge.save
+    end
+  end
+
+  def search
+  end
+
 end
