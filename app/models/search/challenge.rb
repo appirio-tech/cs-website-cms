@@ -27,8 +27,7 @@ class Search::Challenge < Ohm::Model
 
   attribute :description
 
-  attribute :categories
-  index :categories
+  list :categories, Search::Category
 
   attribute :community
   index :community
@@ -54,6 +53,10 @@ class Search::Challenge < Ohm::Model
     challenge.challenge_id = hash["challenge_id"].to_i
     challenge.community = hash["community__r"]["name"] if hash["community__r"]
     challenge.save
+    hash["challenge_categories__r"]["records"].each do |cat|
+      display_name = cat["display_name"]
+      challenge.categories.push(Search::Category.create(display_name: display_name)) unless challenge.categories.entries.include?({display_name: display_name})
+    end
     challenge
   end
 

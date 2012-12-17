@@ -10,6 +10,10 @@
 
   <%= f.label :max_registered_members %>
   <%= f.number_field :max_registered_members %>
+
+  <%= f.label :categories %>
+  <%= f.select :categories, @category_names, {}, {multiple: true} %>
+
   <br />
   <%= f.submit %>
 <% end %>

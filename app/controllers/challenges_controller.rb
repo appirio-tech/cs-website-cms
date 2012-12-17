@@ -29,7 +29,7 @@ class ChallengesController < ApplicationController
   end
 
   def show_search
-    @category_names = Search::Category.all.map(&:display_name)
+    @category_names = Search::Category.all.map(&:display_name).uniq
     @search = session[:search] || Search::Search.new
     @challenges = Search::Challenge.filter(@search)
   end
