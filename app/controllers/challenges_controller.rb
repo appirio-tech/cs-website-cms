@@ -28,9 +28,16 @@ class ChallengesController < ApplicationController
   def update
   end
 
-  def show_search
+  def search
+    @search = Search::Search.new
+    if params.include?(:search_search)
+      # nillify blank entries
+      params[:search_search].delete_if{|k, v| v.blank?}
+      params[:search_search][:categories].delete_if{|v| v.blank?}
+      @search = Search::Search.new(params[:search_search])
+    end
+
     @category_names = Search::Category.all.map(&:display_name).uniq
-    @search = session[:search] || Search::Search.new
     @challenges = Search::Challenge.filter(@search)
   end
 
@@ -43,14 +50,6 @@ class ChallengesController < ApplicationController
       challenge = Search::Challenge.parse(j)
       challenge.save
     end
-  end
-
-  def search
-    # nillify blank entries
-    params[:search_search].delete_if{|k, v| v.blank?}
-    params[:search_search][:categories].delete_if{|v| v.blank?}
-    session[:search] = Search::Search.new(params[:search_search])
-    redirect_to search_searches_path
   end
 
 end

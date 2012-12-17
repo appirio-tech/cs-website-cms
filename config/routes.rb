@@ -26,8 +26,8 @@ CsWebsiteCms::Application.routes.draw do
   get 'challenges/closed'
   get 'challenges/recent'
 
-  post 'challenges/search'
-  get 'challenges/search', to: 'challenges#show_search', as: 'search_searches'
+  get 'challenges/search'
+  #get 'challenges/search', to: 'challenges#show_search', as: 'search_searches'
 
   post 'challenges/populate'
   get 'challenges/populate', to: 'challenges#show_populate'
