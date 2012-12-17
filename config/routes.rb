@@ -25,6 +25,12 @@ CsWebsiteCms::Application.routes.draw do
 
   get 'challenges/closed'
   get 'challenges/recent'
+
+  get 'challenges/search', as: 'search_searches'
+  post 'challenges/search', to: 'challenges#create_search'
+
+  post 'challenges/populate'
+  get 'challenges/populate', to: 'challenges#show_populate'
   resources :challenges, only: [:index, :create, :show, :update] do
     member do
       get 'comments'

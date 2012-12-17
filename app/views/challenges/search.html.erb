@@ -1,0 +1,72 @@
+<div class="row-fluid">
+  <div class="span12">
+    <%= form_for @search, as: '', :authenticity_token => false, html: { :class => 'form-horizontal'} do |f| %>
+      <div class="row">
+        <div class="span6">
+          <div class="control-group">
+            <%= f.label :min_total_prize_money, :class => 'control-label' %>
+            <div class="controls">
+              <%= f.number_field :min_total_prize_money %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :max_total_prize_money, :class => 'control-label'  %>
+              <div class="controls">
+                <%= f.number_field :max_total_prize_money %>
+            </div>
+          </div>
+        </div>
+
+        <div class="span6">
+          <div class="control-group">
+            <%= f.label :min_registered_members, :class => 'control-label'  %>
+            <div class="controls">
+              <%= f.number_field :min_registered_members %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :max_registered_members, :class => 'control-label'  %>
+            <div class="controls">
+              <%= f.number_field :max_registered_members %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span12">
+          <div class="control-group">
+            <%= f.label :categories, :class => 'control-label'  %>
+            <div style="float: left; margin-left: 20px;">
+              <% @category_names.each do |name| %>
+                <label class='checkbox inline'>
+                  <%= f.check_box :categories, {multiple: true}, name, nil %> <%= name %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :communities, :class => 'control-label'  %>
+            <% @community_names.each do |name| %>
+              <div style="float: left; margin-left: 20px;">
+                <label class='checkbox inline'>
+                  <%= f.check_box :communities, {multiple: true}, name, nil %> <%= name %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <%= f.submit name: nil, :class => 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% @challenges.each do |challenge| %>
+        <%= render challenge %>
+    <% end %>
+  </div>
+</div>
