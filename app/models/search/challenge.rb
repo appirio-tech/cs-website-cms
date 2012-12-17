@@ -62,6 +62,7 @@ class Search::Challenge < Ohm::Model
     challenge.description = hash["description"]
     challenge.challenge_id = hash["challenge_id"].to_i
     challenge.community = hash["community__r"]["name"] if hash["community__r"]
+    challenge.challenge_type = hash["challenge_type"]
     challenge.save
     hash["challenge_categories__r"]["records"].each do |cat|
       display_name = cat["display_name"]
