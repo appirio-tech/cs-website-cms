@@ -6,4 +6,11 @@ class ApplicationController < ActionController::Base
     #database will successfully run.
     false
   end
+
+
+  private
+
+  def after_sign_in_path_for(user)
+    "/refinery/dashboard"
+  end  
 end

@@ -8,12 +8,8 @@ class CreateRefineryUser < ActiveRecord::Migration
     role.save!    
     user = User.new(email: 'admin@example.com', password: 'madmin', username: 'admin')
     user.confirmed_at = DateTime.now
-<<<<<<< Updated upstream
-    user.save
-=======
     user.skip_confirmation!
-    user.save(:validate => false)
->>>>>>> Stashed changes
+    user.save
     user.roles << Role.find_by_title('Refinery')
     user.roles << Role.find_by_title('Superuser')
   end
