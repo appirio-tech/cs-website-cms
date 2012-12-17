@@ -49,6 +49,14 @@ class Search::Challenge < Ohm::Model
       by_categories = by_categories_query.to_a.map{|c| c.challenge.id}.uniq
       result = result & by_categories
     end
+    unless search.communities.nil? || search.communities.empty?
+      by_communities_query = Search::Challenge.find(community: search.communities.first)
+      search.communities.each do |com|
+        by_communities_query = by_communities_query.union(community: com)
+      end
+      by_communities = by_communities_query.to_a.map(&:id)
+      result = result & by_communities
+    end
     result.map(&Search::Challenge)
   end
 

@@ -70,6 +70,7 @@ private
 
     # nillify blank entries
     pclone[:categories].delete_if{|v| v.blank?} if pclone[:categories]
+    pclone[:communities].delete_if{|v| v.blank?} if pclone[:communities]
     pclone.delete_if{|k, v| v.blank? || v.empty?}
 
     # remove extra params that rails adds
