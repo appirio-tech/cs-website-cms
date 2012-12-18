@@ -65,6 +65,8 @@ group :development, :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
+  gem 'spork'
+  gem "guard-spork"
   gem 'growl'
   gem 'ruby-debug19'
   gem 'sqlite3'

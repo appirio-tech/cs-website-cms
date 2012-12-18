@@ -3,6 +3,7 @@ defaults: &defaults
     :challenges: 'http://cs-api-sandbox.herokuapp.com/v1/challenges'
     :members: 'http://cs-api-sandbox.herokuapp.com/v1/members'
   :expiry: 5
+  :access_token: "ACCESS_TOKEN"
 
 development:
   <<: *defaults
