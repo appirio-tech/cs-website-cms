@@ -35,14 +35,15 @@ describe ApiModel do
     end
 
     context "when model is new record" do
+      before { model.stub(:new_record?).and_return(true) }
       it "creates a new model" do
         model.should_receive(:create)
         model.save
       end
     end
     context "when model is not a nuew record" do
+      before { model.stub(:new_record?).and_return(false) }
       it "updates a model" do
-        model.id = "123"
         model.should_receive(:update)
         model.save
       end
