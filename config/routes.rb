@@ -30,6 +30,14 @@ CsWebsiteCms::Application.routes.draw do
       get 'comments'
       get 'registrants'
     end
+
+    resource :submission, only: [:show, :update] do
+      resources :deliverables, only: [:create, :update, :destroy] do
+        collection do
+          post "upload"
+        end
+      end
+    end
   end
 
   root to: 'refinery/pages#home'
