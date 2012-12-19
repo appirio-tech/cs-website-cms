@@ -90,6 +90,8 @@ Objects are actually a [Hashie::Mash](http://rdoc.info/github/intridea/hashie/Ha
 
 An example scaffolding has been setup to showcase how easy it is to use the models from a view/controller perspective -- it simply behaves just like any other ActiveRecord object that a Rails developer migth expect.
 
+#### save ####
+
 The idea regarding saving records is simple. 'save' method determines whether the model is a new record or not. If model is new, it creates a model, if not, it udpates model. 
 
 	challenge = Challenge.new
@@ -104,8 +106,7 @@ The idea regarding saving records is simple. 'save' method determines whether th
 Model is regarded as new record if id attribute exists. This behavior can be modified by overriding 'new_record?' method from the sub-class.
   
 #### update and create ####
-'update' method sends put request with Authorization header. Content type is json.
-'create' method sends post request. 
+'update' method sends put request with Authorization header. Content type is json. 'create' method sends post request. 
 
 update and create methods have a different endpoint. Each of endpoint is set by 'update_endpoint' and 'create_endpoint'
 
