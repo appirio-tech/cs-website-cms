@@ -41,6 +41,7 @@ class ApiModel
   def self.column_names
     @column_names
   end
+  
   def self.rel_column_names
     @rel_column_names ||= []
   end
