@@ -41,7 +41,7 @@ gem 'omniauth-salesforce'
 gem 'savon'
 
 gem 'redis'
-gem 'aws-s3', :require => 'aws/s3'
+gem 'aws-s3', :require => 'aws/s3' # no longer needed?
 gem 'thin'
 gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 gem "recaptcha", :require => "recaptcha/rails"

@@ -1,17 +1,4 @@
 .submission-wrapper
-  = simple_form_for @submission, url: challenge_submission_path(@challenge, @submission.id), remote: true, method: :put, html: {class: "submission form-horizontal"} do |f|
-    %h4 About Your Submission
-    = f.input :details, as: :text, required: false
-    = f.input :languages, collection: Submission::LANGUAGES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
-    = f.input :platforms, collection: Submission::PLATFORMS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
-    = f.input :apis, collection: Submission::APIS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
-    = f.input :technologies, collection: Submission::TECHNOLOGIES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
-
-    .control-group
-      .controls
-        = f.button :submit, "Save", class: "btn btn-primary"
-  
-  %hr
   %h4 Deliverables
   .deliverables
     - if @deliverables.present?
@@ -49,5 +36,19 @@
         .controls
           = f.button :submit, "Add Deliverable", class: "btn btn-primary"
           = link_to "Cancel", "#", class: "cancel"
+
+  %hr
+
+  = simple_form_for @submission, url: challenge_submission_path(@challenge, @submission.id), remote: true, method: :put, html: {class: "submission form-horizontal"} do |f|
+    %h4 Tell Us About Your Submission (Optional)
+    = f.input :details, as: :text, required: false
+    = f.input :languages, collection: Submission::LANGUAGES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :platforms, collection: Submission::PLATFORMS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :apis, collection: Submission::APIS, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+    = f.input :technologies, collection: Submission::TECHNOLOGIES, required: false, input_html: {multiple: true, style: "width: 500px", class: "chosen"}
+
+    .control-group
+      .controls
+        = f.button :submit, "Save", class: "btn btn-primary"          
 
 

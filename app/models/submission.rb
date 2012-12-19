@@ -7,7 +7,7 @@ class Submission < Hashie::Mash
   TECHNOLOGIES = ["redis", "mongodb", "rabbitmq", "Other"]
 
   class << self
-    def find(challenge_id, username)
+    def find(challenge_id, username='jeffdonthemic')
       key = "#{challenge_id}:#{username}"
       json = REDIS.hget(redis_key, key) || "{}"
       attrs = JSON.parse(json).symbolize_keys
@@ -30,10 +30,10 @@ class Submission < Hashie::Mash
       @storage ||= begin
         fog = Fog::Storage.new(
           :provider                 => 'AWS',
-          :aws_secret_access_key    => APP_CONFIG[:s3][:secret],
-          :aws_access_key_id        => APP_CONFIG[:s3][:key]
+          :aws_secret_access_key    => ENV['AWS_SECRET'],
+          :aws_access_key_id        => ENV['AWS_KEY']
         )
-        fog.directories.get APP_CONFIG[:s3][:bucket]
+        fog.directories.get(ENV['AWS_BUCKET'])
       end
     end
   end
@@ -82,7 +82,11 @@ class Submission < Hashie::Mash
 
 
   def upload_file(file)
-    file = storage.files.create key: storage_path(File.basename(file.original_filename)), body: file.read
+    file = storage.files.create(
+      :key    => storage_path(File.basename(file.original_filename)),
+      :body   => file.read,
+      :public => true
+    )
     create_deliverable type: "Unmanaged Package", url: file.key, source: "storage"
   end
 
