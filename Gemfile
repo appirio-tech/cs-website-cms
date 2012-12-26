@@ -54,6 +54,8 @@ gem 'airbrake'
 
 gem 'chosen-rails'
 gem 'fog'
+gem 'nest'
+gem 'text'
 
 # Gems used only for assets and not required
 # in production environments by default.

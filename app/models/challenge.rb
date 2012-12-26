@@ -1,10 +1,12 @@
 class Challenge < ApiModel
+  include Redis::ChallengeSearchable
+
   attr_accessor :id, :challenge_id, :challenge_type, :attributes,
     :prize_type, :total_prize_money, :top_prize,
     :start_date, :end_date, :usage_details, :requirements, :post_reg_info,
     :name, :description, :status, :release_to_open_source, :additional_info,
     :categories, :is_open, :discussion_board, :registered_members,
-    :submission_details, :winner_announced
+    :submission_details, :winner_announced, :community
 
   has_many :comments
 
@@ -14,8 +16,10 @@ class Challenge < ApiModel
 
   # Cleanup up the __r convention
   def initialize(params={})
-    params['categories'] = params.delete('challenge_categories__r')
-    params['participants'] = params.delete('challenge_participants__r')
+    params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
+    params['participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
+    params['community'] = params.delete('community__r') if params['community__r']
+
     super(params)
   end
 
@@ -31,6 +35,13 @@ class Challenge < ApiModel
   # Returns all the closed challenges
   def self.closed
     raw_get('closed').map {|challenge| Challenge.new challenge}
+  end
+  def self.open
+    raw_get.map {|challenge| Challenge.new challenge}
+  end
+
+  def self.all
+    closed + open
   end
 
   # Returns all the recent challenges
@@ -53,8 +64,16 @@ class Challenge < ApiModel
     @categories || 'nil'
   end
 
+  def category_names
+    categories.records.map(&:display_name)
+  end
+
+  def community_name
+    community.try(:name)
+  end
+
   def open?
-    !!@is_open
+    @is_open == "true"
   end
 
   def release_to_open_source?

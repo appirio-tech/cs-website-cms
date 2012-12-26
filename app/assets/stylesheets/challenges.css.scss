@@ -1,3 +1,101 @@
+.box-wrapper {
+  padding: 20px;
+  margin: 20px 0;
+  background: white;
+  border: 1px solid #CCC;
+  box-shadow: 6px 6px 12px #888;  
+}
+
+.search-form {
+  a.toggle-options {
+    color: #999;
+    font-size: 12px;
+    vertical-align: bottom;
+  }
+  input.query {
+    margin-bottom: 0;
+    padding: 4px;
+    height: 28px;
+  }
+  .btn[type=submit] {
+    line-height: 28px;
+  }
+  h5 {
+    color: #999;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .inline {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  label.inline {
+    
+    vertical-align: middle;
+    margin-right: 5px;
+    background-color: #F8F8F8;
+    padding: 3px;
+    border-radius: 5px;    
+    &:hover {
+      background-color: #ccc;
+      cursor: pointer;
+    }
+    input[type=radio], input[type=checkbox] {
+      margin-top: -3px;
+    }
+  }
+  input.prize-money {
+    width: 50px;
+  }
+  input.participants {
+    width: 30px;
+  }
+  .prize-money, .participants {
+    span.middle {
+      font-size: 30px;
+    }
+  }
+}
+
+.challenge-summary {
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 900px;
+  .summary {
+    float: left;
+    background-color: white;
+    padding: 10px;
+    width: 530px;
+    border-radius: 5px;
+    .name {
+      font-size: 16px;
+      margin-bottom: 5px;
+      font-weight: normal;
+      margin: 0 0 5px 0;
+      a {
+        color: #09F;
+      }
+    }
+    .desc {
+      color: #666;
+    }
+  }
+  .status {
+    float: left;
+    padding: 10px;
+    width: 330px;
+    color: #000C4C;
+    background-color: #eee;
+    min-height: 5em;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+
 .submission-wrapper {
   border: 1px solid #ccc;
   box-shadow: 0 1px 1px #DDD;
