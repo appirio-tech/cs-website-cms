@@ -18,7 +18,7 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.search params[:search]
   end
 
   def show

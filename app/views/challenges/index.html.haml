@@ -1,0 +1,11 @@
+.box-wrapper
+  .search-form.challenges
+    = render partial: "search_form"
+
+  %hr
+
+  .challenges
+    - if @challenges.present?
+      = render @challenges
+    - else
+      .empty No Challenges

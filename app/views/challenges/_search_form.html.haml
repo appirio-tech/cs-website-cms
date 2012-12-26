@@ -1,0 +1,46 @@
+= form_tag challenges_path, method: :get do
+  .row
+    .span12
+      = text_field_tag "search[query]", search_options[:query], placeholder: "Enter keywords here", class: "query span6"
+      = submit_tag "Search", class: "btn btn-primary"
+      = link_to "Search Options", "#", class: "toggle-options"
+  .options
+    .row
+      .status.radios.span2
+        %h5 Challenge Status:
+        = search_radio_button :state, "open"
+        = search_radio_button :state, "closed"
+      .sort-order.span2
+        %h5 Sort Order:
+        = search_radio_button :order, "asc"
+        = search_radio_button :order, "desc"
+
+      .sort-by.span7
+        %h5 Sort By:
+        = search_radio_button :sort_by, "title"
+        = search_radio_button :sort_by, "end_date"
+        = search_radio_button :sort_by, "prize_money"
+        = search_radio_button :sort_by, "participants"
+        = search_radio_button :sort_by, "challenge_type"
+
+    .row
+      .categories.span12
+        %h5 Categories:
+        - Challenge.redis_all_category_names.each do |cat|
+          = search_checkbox :categories, cat.downcase
+
+    .row
+      .community.span3
+        %h5 Community:
+        = select_tag "search[community]", options_for_select(Challenge.redis_all_community_names, search_options[:community]), prompt: "Any Community", class: "chosen"
+      .prize-money.span3
+        %h5 Prize Money:
+        = text_field_tag "search[prize_money][min]", search_options[:prize_money][:min], class: "prize-money", placeholder: "Min"
+        %span.middle ~ 
+        = text_field_tag "search[prize_money][max]", search_options[:prize_money][:max], class: "prize-money", placeholder: "Max"
+
+      .participants.span3
+        %h5 Participants:
+        = text_field_tag "search[participants][min]", search_options[:participants][:min], class: "participants", placeholder: "Min"
+        %span.middle ~ 
+        = text_field_tag "search[participants][max]", search_options[:participants][:max], class: "participants", placeholder: "Max"
