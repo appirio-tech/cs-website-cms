@@ -1,0 +1,10 @@
+<%- if params[:month].present? %>
+  var id = "for-month-leaders";
+<%- elsif params[:year].present? %>
+  var id = "for-year-leaders";
+<%- else %>
+  var id = "all-time-leaders";
+<%- end %>
+$("#" + id).empty().append(
+  "<%= escape_javascript(render(partial: 'leaders', locals: {leaders: @leaders, page_params: params}))%>"
+);

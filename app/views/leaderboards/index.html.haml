@@ -1,0 +1,29 @@
+.lb-wrapper
+  .lb-header
+    .clearfix
+      %h2 Leaderboards
+      .select-community
+        = form_tag leaderboards_path, method: :get do
+          %span Community : 
+          = select_tag "community", options_for_select(lb_community_names, params[:community])
+          = submit_tag "Go", class: "btn"
+    %ul.nav
+      - lb_category_names.each do |cat_name|
+        %li= category_nav_tag(cat_name)
+
+  .row
+    .span4.leader-box
+      #for-month-leaders
+        - now = Time.zone.now
+        - page_params = {month: now.month, year: now.year}
+        = render partial: "leaders", locals: {leaders: @for_month_leaders, page_params: page_params}
+
+    .span4.leader-box
+      #for-year-leaders
+        - page_params = {year: now.year}
+        = render partial: "leaders", locals: {leaders: @for_year_leaders, page_params: page_params}
+
+    .span4.leader-box
+      #all-time-leaders
+        - page_params = {}
+        = render partial: "leaders", locals: {leaders: @all_time_leaders, page_params: page_params}
