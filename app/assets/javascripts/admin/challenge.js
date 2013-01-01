@@ -6,7 +6,7 @@ $(function() {
   $elem.DatePicker({
     inline: true,
     date: [from, to],
-    calendars: 3,
+    calendars: 2,
     mode: 'range',
     onChange: function(dates,el) {
       // update the range display
@@ -34,7 +34,7 @@ $(function() {
   var $elem = $('#winner-announced-date')
   $elem.DatePicker({
     mode: 'single',
-    calendars: 3,
+    calendars: 2,
     inline: true,
     date: new Date(),
     onChange: function(date,el) {
@@ -80,6 +80,8 @@ $(function() {
     containerCssClass: "span12" // apply css that makes the dropdown taller
   }
   $('#admin_challenge_reviewers').select2(member_search_settings)
-  $('#admin_challenge_categories').select2()
+  $('#admin_challenge_categories').select2({
+    containerCssClass: "span12"
+  })
   $('#admin_challenge_commentNotifiers').select2(member_search_settings)
 })

@@ -7,18 +7,10 @@
   position:relative;
 }
 
-/* Remove default border from the custom widget since we're adding our own.  TBD: rework the dropdown calendar to use the default borders */
-  #datepicker-calendar div.datepicker {
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-}
-
-td.currency {
-  text-align: right;
-}
-
 div.datepicker td.datepickerFuture a {
   color: black;
+}
+
+#s2id_admin_challenge_categories {
+  margin-left: 0;
 }
