@@ -37,6 +37,10 @@ class Admin::Challenge
     Date.parse(@winner_announced) if @winner_announced
   end
 
+  def categories
+    @categories.delete_if {|n| n.blank?}
+  end
+
   def statuses
     Admin::Challenge::STATUSES
   end
@@ -56,14 +60,16 @@ class Admin::Challenge
           end_date: end_date.to_time.iso8601,
           description: description
           }, 
-        reviewers: [{name: "mess"}, {name: "jeffdonthemic"}],
-        categories: [{name: "java"}, {name: "heroku"}],
+        reviewers: reviewers,
+        categories: categories.map {|name| {name: name}},
         prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
         commentNotifiers: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
-        reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],
-        categories_to_delete: [{name: "java"}, {name: "heroku"}],
-        prizes_to_delete: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
-        commentNotifiers_to_delete: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
+
+        # TO BE IMPLEMENTED:
+        # reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],
+        # categories_to_delete: [{name: "java"}, {name: "heroku"}],
+        # prizes_to_delete: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
+        # commentNotifiers_to_delete: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
       }
     }
   end

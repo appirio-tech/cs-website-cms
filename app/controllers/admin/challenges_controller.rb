@@ -7,6 +7,7 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def create
+    #raise params.inspect
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     render json: @challenge.payload
   end

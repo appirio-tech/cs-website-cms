@@ -51,3 +51,12 @@ $(function() {
   $('#winner-announced-date span#display').text(from.getDate()+' '+from.getMonthName(true)+', '+from.getFullYear());
 
 })
+
+$(function() {
+  $('#admin_challenge_reviewers').select2({
+    placeholder: "Search for a member",
+    minimumInputLength: 1,
+  })
+  $('#admin_challenge_categories').select2()
+  $('#admin_challenge_commentNotifiers').select2()
+})

@@ -30,6 +30,18 @@
         </div>
       </div>
     
+      <%= f.input :reviewers do %>
+        <%= f.select :reviewers, [1,2,3,4], {}, {:multiple => true, :class => 'span12'} %>
+      <% end %>
+
+      <%= f.input :categories do %>
+        <%= f.select :categories, Category.names, {}, {:multiple => true, :class => 'span12'} %>
+      <% end %>
+
+      <%= f.input :commentNotifiers do %>
+        <%= f.select :commentNotifiers, [1,2,3,4], {}, {:multiple => true, :class => 'span12'} %>
+      <% end %>
+
       <%= f.button :submit %>
     </div>
 
