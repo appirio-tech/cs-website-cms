@@ -41,7 +41,7 @@ class ApiModel
   def self.column_names
     @column_names
   end
-  
+
   def self.rel_column_names
     @rel_column_names ||= []
   end
@@ -134,10 +134,34 @@ class ApiModel
     raw_get(entity).delete_if {|k, v| !column_names.include? k.to_sym}
   end
 
+  def self.endpoint_from_entities(entities = [])
+    entities = entities.respond_to?(:join) ? entities.join("/") : entities.to_s
+    entities.present? ? "#{api_endpoint}/#{entities}" : api_endpoint
+  end
+
+  def self.post(entities, data, headers = update_headers)
+    endpoint = endpoint_from_entities(entities)
+    data = data.to_json unless data.is_a?(String)
+
+    resp = RestClient.post endpoint, data, headers
+
+    Hashie::Mash.new(JSON.parse(resp))
+  end
+
+  def self.put(entities, data, headers = update_headers)
+    endpoint = endpoint_from_entities(entities)
+    data = data.to_json unless data.is_a?(String)
+
+    resp = RestClient.put endpoint, data, headers
+
+    Hashie::Mash.new(JSON.parse(resp))
+  end
+
+
   private
   def save_data
     columns = self.class.column_names - self.class.rel_column_names - [:id]
-    columns.inject({}) do |ret, column| 
+    columns.inject({}) do |ret, column|
       val = self.public_send(column)
       ret[column] = val if val.present?
       ret
@@ -146,20 +170,19 @@ class ApiModel
 
   # define update_endpoint to subclass if you want to use another url for update
   def update_endpoint
-    "#{self.class.api_endpoint}/#{id}"
+    id
   end
 
   # define create_endpoint to subclass if you want to use another url for create
   def create_endpoint
-    self.class.api_endpoint
+    ""
   end
 
   def update
-    RestClient.put update_endpoint, save_data.to_json, self.class.update_headers    
+    self.class.put update_endpoint, save_data
   end
 
   def create
-    RestClient.post create_endpoint, save_data.to_json, self.class.update_headers
+    self.class.post create_endpoint, save_data
   end
-
 end

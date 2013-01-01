@@ -87,7 +87,7 @@ describe ApiModel do
   describe "#create" do
     it "sends post request with access_token" do
       stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges")
-      .with(headers: headers, body: attrs.to_json)
+      .with(headers: headers, body: attrs.to_json).to_return(:body => "{}")
       model.send(:create)
     end
 
@@ -95,12 +95,12 @@ describe ApiModel do
       before do
         model.class.class_eval %q{
           def create_endpoint
-            "#{self.class.api_endpoint}/help_me"
+            "help_me"
           end
         }
       end
       it "sends post request to create_endpoint" do
-        stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me")
+        stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me").to_return(:body => "{}")
         model.send(:create)
       end
     end
@@ -113,7 +113,7 @@ describe ApiModel do
     end
     it "sends put request with access_token" do
       stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/123")
-      .with(headers: headers, body: attrs.to_json)
+      .with(headers: headers, body: attrs.to_json).to_return(:body => "{}")
       model.send(:update)
     end
 
@@ -121,12 +121,12 @@ describe ApiModel do
       before do
         model.class.class_eval %q{
           def update_endpoint
-            "#{self.class.api_endpoint}/help_me"
+            "help_me"
           end
         }
       end
       it "sends put request to update_endpoint" do
-        stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me")
+        stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me").to_return(:body => "{}")
         model.send(:update)
       end
     end
