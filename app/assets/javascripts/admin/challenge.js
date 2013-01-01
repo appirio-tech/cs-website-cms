@@ -42,10 +42,10 @@ $(function() {
       $('#winner-announced-date span#display').text(
         date.getDate()+' '+date.getMonthName(true)+', '+
         date.getFullYear())
-      $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0][0])
+      $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0])
     }
   })
-  $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0][0])
+  $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0])
 
   // initialize the special date dropdown field
   $('#winner-announced-date span#display').text(from.getDate()+' '+from.getMonthName(true)+', '+from.getFullYear());

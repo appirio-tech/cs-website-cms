@@ -22,8 +22,50 @@ class Admin::Challenge
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
                 :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete
 
+  # Return an object instead of a string
+  def start_date
+    Date.parse(@start_date) if @start_date
+  end
+
+  # Return an object instead of a string
+  def end_date
+    Date.parse(@end_date) if @end_date
+  end
+
+  # Return an object instead of a string
+  def winner_announced
+    Date.parse(@winner_announced) if @winner_announced
+  end
+
   def statuses
     Admin::Challenge::STATUSES
+  end
+
+  def payload
+    {
+      challenge: {
+        detail: {
+          winner_announced: winner_announced,
+          terms_of_service:"Standard Terms & Conditions",
+          scorecard_type:"Sandbox Scorecard",
+          submission_details: submission_details,
+          status: status,
+          start_date: start_date.to_time.iso8601,
+          requirements: requirements,
+          name: name,
+          end_date: end_date.to_time.iso8601,
+          description: description
+          }, 
+        reviewers: [{name: "mess"}, {name: "jeffdonthemic"}],
+        categories: [{name: "java"}, {name: "heroku"}],
+        prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
+        commentNotifiers: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
+        reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],
+        categories_to_delete: [{name: "java"}, {name: "heroku"}],
+        prizes_to_delete: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
+        commentNotifiers_to_delete: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
+      }
+    }
   end
 
 end
