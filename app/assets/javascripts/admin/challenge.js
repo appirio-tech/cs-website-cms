@@ -53,7 +53,7 @@ $(function() {
 })
 
 $(function() {
-  $('#admin_challenge_reviewers').select2({
+  var member_search_settings = {
     placeholder: "Search for a member",
     minimumInputLength: 1,
     multiple: true,
@@ -77,8 +77,9 @@ $(function() {
     formatSelection: function(member) {
       return member.name
     },
-    dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
-  })
+    containerCssClass: "span12" // apply css that makes the dropdown taller
+  }
+  $('#admin_challenge_reviewers').select2(member_search_settings)
   $('#admin_challenge_categories').select2()
-  $('#admin_challenge_commentNotifiers').select2()
+  $('#admin_challenge_commentNotifiers').select2(member_search_settings)
 })

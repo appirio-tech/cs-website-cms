@@ -1,7 +1,7 @@
 <%= simple_form_for @challenge, html: { :class => 'form-horizontal' } do |f| %>
   <div class="row-fluid">
     <div class="span6">
-      <%= f.input :name, required: true %>
+      <%= f.input :name, required: true, input_html: {required: true} %>
       <%= f.input :status, collection: @challenge.statuses %>
       <div class="control-group">
         <label class="control-label">Start and End Dates</label>
@@ -30,15 +30,13 @@
         </div>
       </div>
     
-      <%= f.input :reviewers, :class => "bigdrop" %>
+      <%= f.input :reviewers %>
 
       <%= f.input :categories do %>
         <%= f.select :categories, Category.names, {}, {:multiple => true, :class => 'span12'} %>
       <% end %>
 
-      <%= f.input :commentNotifiers do %>
-        <%= f.select :commentNotifiers, [1,2,3,4], {}, {:multiple => true, :class => 'span12'} %>
-      <% end %>
+      <%= f.input :commentNotifiers %>
 
       <%= f.button :submit %>
     </div>
