@@ -68,7 +68,7 @@ class Admin::Challenge
         },
         reviewers: reviewers.map {|name| {name: name}},
         categories: categories.map {|name| {name: name}},
-        prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
+        prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
         assets: assets.map {|url| {url: url}},
 

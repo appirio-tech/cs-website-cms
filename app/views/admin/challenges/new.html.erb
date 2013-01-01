@@ -1,6 +1,7 @@
 <%= simple_form_for @challenge, html: { :class => 'form-horizontal' } do |f| %>
   <div class="row-fluid">
     <div class="span6">
+      <legend>Challenge Info</legend>
       <%= f.input :name, required: true, input_html: {required: true} %>
       <%= f.input :status, collection: @challenge.statuses %>
       <div class="control-group">
@@ -40,6 +41,16 @@
 
       <%= f.hidden_field :assets %>
 
+      <div id="prizes">
+        <legend>Prizes</legend>
+        <%= render 'prizes' %>
+      </div>
+      <div class="controls">
+        <hr />
+        <a class='btn btn-info add-new-prize-set'>Add New Prize Set</a>
+      </div>
+
+      <legend>Assets</legend>
       <div id="uploader">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
         <script>
@@ -65,10 +76,12 @@
         </script>
       </div>
 
+      <hr />
       <%= f.button :submit %>
     </div>
 
     <div class="span6">
+      <legend>Challenge Details</legend>
       <%= f.input :description, :as => :text, input_html: { :class => 'ckeditor' } %>
       <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
       <%= f.input :submission_details, :as => :text, input_html: { :class => 'ckeditor' } %>
