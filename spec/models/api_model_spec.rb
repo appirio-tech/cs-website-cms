@@ -131,5 +131,37 @@ describe ApiModel do
       end
     end
   end
+
+  describe ".request" do
+    let(:data) { {by: "superuser"} }
+    let(:response) { {response: {success: "true"}} }
+    before do
+      stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/3/close")
+      .with(headers: headers, body: data.to_json).to_return(:body => response.to_json)      
+    end
+  
+    context "when method is post" do
+      it "sends post request with body to endpoint" do
+        TestApiModel.request(:post, "3/close", data)
+      end      
+    end
+
+    context "when entities is array" do
+      it "sends post request to endpoint" do
+        TestApiModel.request(:post, [3, "close"], data)
+      end      
+    end
+
+    context "when data is string" do
+      it "sends data without converting" do
+        TestApiModel.request(:post, "3/close", data.to_json)
+      end            
+    end
+
+    it "response is parsed" do
+      resp = TestApiModel.request(:post, "3/close", data)
+      resp.success.should == "true"
+    end
+  end
   
 end

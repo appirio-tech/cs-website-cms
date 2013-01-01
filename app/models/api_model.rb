@@ -120,12 +120,11 @@ class ApiModel
   # If given an array, will join the elements with '/'
   # If given a string, will use the argument as is
   def self.raw_get(entities = [])
-    entities = Array.new(1, entities) unless entities.respond_to? :join
-    endpoint = "#{api_endpoint}/#{entities.join('/')}"
+    endpoint = endpoint_from_entities(entities)
     Rails.logger.debug "calling api endpoint #{endpoint}"
+
     Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
-      Hashie::Mash.new(JSON.parse(RestClient.get "#{endpoint}"))
-      .response # we're only interested in the response portion of the reply
+      get_response(RestClient.get(endpoint))
     end
   end
 
@@ -139,22 +138,25 @@ class ApiModel
     entities.present? ? "#{api_endpoint}/#{entities}" : api_endpoint
   end
 
-  def self.post(entities, data, headers = update_headers)
+  def self.get_response(data)
+    Hashie::Mash.new(JSON.parse(data)).response
+  end
+
+  def self.request(method, entities, data, headers = update_headers)
     endpoint = endpoint_from_entities(entities)
     data = data.to_json unless data.is_a?(String)
 
-    resp = RestClient.post endpoint, data, headers
+    resp = RestClient.send method, endpoint, data, headers
 
-    Hashie::Mash.new(JSON.parse(resp))
+    get_response(resp)
+  end
+
+  def self.post(entities, data, headers = update_headers)
+    request :post, entities, data, headers
   end
 
   def self.put(entities, data, headers = update_headers)
-    endpoint = endpoint_from_entities(entities)
-    data = data.to_json unless data.is_a?(String)
-
-    resp = RestClient.put endpoint, data, headers
-
-    Hashie::Mash.new(JSON.parse(resp))
+    request :put, entities, data, headers
   end
 
 
