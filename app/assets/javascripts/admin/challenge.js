@@ -85,3 +85,4 @@ $(function() {
   })
   $('#admin_challenge_commentNotifiers').select2(member_search_settings)
 })
+

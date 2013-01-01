@@ -20,7 +20,7 @@ class Admin::Challenge
   attr_accessor :winner_announced, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
-                :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete
+                :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets
 
   # Return an object instead of a string
   def start_date
@@ -66,6 +66,7 @@ class Admin::Challenge
         categories: categories.map {|name| {name: name}},
         prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
+        assets: assets,
 
         # TO BE IMPLEMENTED:
         # reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],

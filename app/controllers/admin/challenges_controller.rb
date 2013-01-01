@@ -13,4 +13,9 @@ class Admin::ChallengesController < ApplicationController
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     render json: @challenge.payload
   end
+
+  def assets
+    # TODO: upload to s3 and return the asset url
+    @assets = {url: 'boo'}
+  end
 end

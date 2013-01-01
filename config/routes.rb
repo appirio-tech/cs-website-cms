@@ -42,6 +42,7 @@ CsWebsiteCms::Application.routes.draw do
 
   namespace :admin do
     resources :challenges, only: [:new, :create] # remove the restrictions once the new challenges are up
+    post 'challenges/assets'
   end
 
   root to: 'refinery/pages#home'

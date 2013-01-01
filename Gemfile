@@ -55,7 +55,7 @@ gem 'airbrake'
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data
 gem 'ckeditor_rails', git: 'git://github.com/tsechingho/ckeditor-rails.git'
-gem 's3_direct_upload'
+gem 'plupload-rails', git: 'git://github.com/thatdutchguy/plupload-rails.git'
 gem 'fog'
 
 # Gems used only for assets and not required
