@@ -282,7 +282,7 @@
       fill = function(el) {
         var options = $(el).data('datepicker');
         var cal = $(el);
-        var currentCal = Math.floor((options.calendars/2) - 1), date, data, dow, month, cnt = 0, days, indic, indic2, html, tblCal;
+        var currentCal = Math.floor(options.calendars/2), date, data, dow, month, cnt = 0, days, indic, indic2, html, tblCal;
         
         cal.find('td>table tbody').remove();
         for(var i = 0; i < options.calendars; i++) {

@@ -22,6 +22,19 @@ class Admin::Challenge
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
                 :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets
 
+  # Add validators as you like :)
+  validates :name, presence: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  validates_inclusion_of :status, in: STATUSES
+
+  validate  do
+    if start_date && end_date && winner_announced
+      errors.add(:end_date, 'must be after start date') unless end_date > start_date
+      errors.add(:winner_announced, 'must be after end date') unless winner_announced >= end_date.to_date
+    end
+  end
+
   # Return an object instead of a string
   def start_date
     Date.parse(@start_date) if @start_date

@@ -1,9 +1,9 @@
-<%= simple_form_for @challenge, html: { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal' } do |f| %>
   <div class="row-fluid">
     <div class="span6">
       <legend>Challenge Info</legend>
-      <%= f.input :name, required: true, input_html: {required: true} %>
-      <%= f.input :status, collection: @challenge.statuses %>
+      <%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
+      <%= f.input :status, required: true, collection: @challenge.statuses, input_html: {required: true} %>
       <div class="control-group">
         <label class="control-label">Start and End Dates</label>
         <div class="controls">
@@ -54,6 +54,7 @@
       <div id="uploader">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
         <script>
+          // I need ERB support hence it has to be inlined with the HTML :(
           $(function(){
             $("#uploader").pluploadQueue({
               runtimes: 'html5,flash',

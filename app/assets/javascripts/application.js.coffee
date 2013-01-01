@@ -10,6 +10,8 @@
 #= require jquery.plupload.queue
 #= require plupload.html5
 #= require plupload.flash
+#= require rails.validations
+#= require rails.validations.simple_form
 #= require_tree .
 
 # WARNING: KLUDGE

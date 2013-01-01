@@ -12,7 +12,11 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',')
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',')
     @challenge = Admin::Challenge.new(params[:admin_challenge])
-    render json: @challenge.payload
+    if @challenge.valid?
+      render json: @challenge.payload
+    else
+      redirect_to new_admin_challenge_path, notice: 'Validation failed'
+    end
   end
 
   def assets
