@@ -144,9 +144,14 @@ class ApiModel
 
   def self.request(method, entities, data, headers = update_headers)
     endpoint = endpoint_from_entities(entities)
-    data = data.to_json unless data.is_a?(String)
 
-    resp = RestClient.send method, endpoint, data, headers
+    if method.to_sym == :get
+      endpoint += "?#{data.to_param}"
+      resp = RestClient.send method, endpoint, headers
+    else
+      data = data.to_json unless data.is_a?(String)
+      resp = RestClient.send method, endpoint, data, headers
+    end
 
     get_response(resp)
   end

@@ -158,6 +158,16 @@ describe ApiModel do
       end            
     end
 
+    context "when method is get" do
+      before(:each) do
+        stub_request(:get, "http://cs-api-sandbox.herokuapp.com/v1/challenges/3/close?by=superuser")
+        .with(headers: headers).to_return(:body => response.to_json)              
+      end
+      it "appends data to url as query string" do
+        TestApiModel.request(:get, "3/close", data)
+      end                  
+    end
+
     it "response is parsed" do
       resp = TestApiModel.request(:post, "3/close", data)
       resp.success.should == "true"
