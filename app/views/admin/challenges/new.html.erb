@@ -1,0 +1,41 @@
+<%= simple_form_for @challenge, html: { :class => 'form-horizontal' } do |f| %>
+  <div class="row-fluid">
+    <div class="span6">
+      <%= f.input :name %>
+      <%= f.input :status, collection: @challenge.statuses %>
+      <div class="control-group">
+        <label class="control-label">Start and End Dates</label>
+        <div class="controls">
+          <div id="date-range">
+            <div id="start-end-date">
+              <span id="display"></span>
+            </div>
+            <div id="datepicker-calendar"></div>
+            <%= f.hidden_field :start_date, id: "date-range-hidden-start" %>
+            <%= f.hidden_field :end_date, id: "date-range-hidden-end" %>
+            <span class="help-inline">the first click will set the start date, the second click will set the end date</span>
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Winner Announced</label>
+        <div class="controls">
+          <div id="date-range">
+            <div id="winner-announced-date">
+              <span id="display"></span>
+            </div>
+            <div id="datepicker-calendar"></div>
+            <%= f.hidden_field :winner_announced, id: "winner-announced-hidden" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="span6">
+      <%= f.input :description, :as => :text, input_html: { :class => 'ckeditor' } %>
+      <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
+      <%= f.input :submission_details, :as => :text, input_html: { :class => 'ckeditor' } %>
+    </div>
+
+  </div>
+<% end %>

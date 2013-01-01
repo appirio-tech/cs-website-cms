@@ -1,0 +1,24 @@
+// Place all the styles related to the Admin::Challenge controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Style the calendar custom widget */
+#date-range {
+  position:relative;
+}
+
+/* Remove default border from the custom widget since we're adding our own.  TBD: rework the dropdown calendar to use the default borders */
+  #datepicker-calendar div.datepicker {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+td.currency {
+  text-align: right;
+}
+
+div.datepicker td.datepickerFuture a {
+  color: black;
+}

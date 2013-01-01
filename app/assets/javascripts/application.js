@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require datepicker
 //= require chosen-jquery
+//= require ckeditor-jquery
 //= require_tree .
 
 // WARNING: KLUDGE

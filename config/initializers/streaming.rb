@@ -8,6 +8,7 @@ client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
   :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
   :host           => ENV['SFDC_HOST']
 
+begin
 client.authenticate!
 
 EM.next_tick do
@@ -33,4 +34,7 @@ EM.next_tick do
     mail = mails.first
     puts "Streamed mail: To: #{mail.To__c}\n \tFrom: #{mail.From__c}\n \tSubject: #{mail.Subject__c}\n \tBody: #{mail.Body__c}"
   end
+end
+rescue Exception => e
+  puts e
 end

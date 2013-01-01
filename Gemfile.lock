@@ -24,6 +24,14 @@ GIT
     ruby-openid (2.1.8)
 
 GIT
+  remote: git://github.com/tsechingho/ckeditor-rails.git
+  revision: 61f32119b39413085fd0a2f622ec5020ffe05836
+  specs:
+    ckeditor_rails (4.0)
+      railties (~> 3.0)
+      thor (~> 0.14)
+
+GIT
   remote: http://github.com/hone/resque.git
   revision: c528f41f384b904296ef42df59e162747269df0a
   branch: keepalive
@@ -448,6 +456,7 @@ DEPENDENCIES
   aws-s3
   bootstrap-sass (= 2.1.1.0)
   chosen-rails
+  ckeditor_rails!
   coffee-rails (~> 3.2.1)
   compass!
   dalli

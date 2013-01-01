@@ -40,6 +40,10 @@ CsWebsiteCms::Application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :challenges, only: [:new, :create] # remove the restrictions once the new challenges are up
+  end
+
   root to: 'refinery/pages#home'
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
