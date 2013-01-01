@@ -41,6 +41,10 @@ class Admin::Challenge
     @categories.delete_if {|n| n.blank?} if @categories
   end
 
+  def assets
+    @assets.delete_if {|n| n.blank?} if @assets
+  end
+
   def statuses
     Admin::Challenge::STATUSES
   end
@@ -66,7 +70,7 @@ class Admin::Challenge
         categories: categories.map {|name| {name: name}},
         prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
-        assets: assets,
+        assets: assets.map {|url| {url: url}},
 
         # TO BE IMPLEMENTED:
         # reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],

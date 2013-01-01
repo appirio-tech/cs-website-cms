@@ -38,6 +38,8 @@
 
       <%= f.input :commentNotifiers %>
 
+      <%= f.hidden_field :assets %>
+
       <div id="uploader">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
         <script>
@@ -52,7 +54,11 @@
               init: {
                 FileUploaded: function(up, file, info) {
                   eval(info["response"]);
-                }
+                },
+                UploadComplete: function (up, file) {
+                  $(".plupload_buttons").css("display", "inline");
+                  $(".plupload_upload_status").css("display", "inline");
+              },
               }
             });
           });
