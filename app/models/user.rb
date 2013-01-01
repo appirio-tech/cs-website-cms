@@ -15,6 +15,21 @@ class User < ActiveRecord::Base
 
   validates :username, :presence => true
 
+  def create_account
+    resp = account.create
+    if resp.success == "true"
+      self.sfdc_username = resp.sfdc_username
+    else
+      errors.add :account, resp.message
+    end
+
+    resp.success == "true"
+  end
+
+  def account
+    @acount ||= Account.new(self)
+  end
+
   def plugins=(plugin_names)
     if persisted? # don't add plugins when the user_id is nil.
       UserPlugin.delete_all(:user_id => id)
