@@ -58,6 +58,7 @@ gem 'ckeditor_rails', git: 'git://github.com/tsechingho/ckeditor-rails.git'
 gem 'plupload-rails', git: 'git://github.com/thatdutchguy/plupload-rails.git'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'awesome_print'
 gem 'fog'
 
 # Gems used only for assets and not required
@@ -85,7 +86,6 @@ group :development, :test do
   gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
-  gem 'awesome_print'
 end
 
 group :test do
