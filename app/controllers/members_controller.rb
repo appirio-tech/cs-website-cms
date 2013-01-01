@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
   def search
+    @members = Member.search(params[:keyword])
+    render json: @members
   end
 
   def challenges

@@ -38,7 +38,7 @@ class Admin::Challenge
   end
 
   def categories
-    @categories.delete_if {|n| n.blank?}
+    @categories.delete_if {|n| n.blank?} if @categories
   end
 
   def statuses
@@ -59,7 +59,7 @@ class Admin::Challenge
           name: name,
           end_date: end_date.to_time.iso8601,
           description: description
-          }, 
+        },
         reviewers: reviewers,
         categories: categories.map {|name| {name: name}},
         prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
