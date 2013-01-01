@@ -8,6 +8,7 @@ class Admin::ChallengesController < ApplicationController
 
   def create
     #raise params.inspect
+    params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',')
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     render json: @challenge.payload
   end

@@ -60,7 +60,7 @@ class Admin::Challenge
           end_date: end_date.to_time.iso8601,
           description: description
         },
-        reviewers: reviewers,
+        reviewers: reviewers.map {|name| {name: name}},
         categories: categories.map {|name| {name: name}},
         prizes: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
         commentNotifiers: [{email: "jdouglas@appirio.com"}, {name: "mess"}],

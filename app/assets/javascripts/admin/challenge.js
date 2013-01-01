@@ -56,6 +56,28 @@ $(function() {
   $('#admin_challenge_reviewers').select2({
     placeholder: "Search for a member",
     minimumInputLength: 1,
+    multiple: true,
+    id: "name",
+    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        url: "/members/search",
+        dataType: 'jsonp',
+        data: function (term, page) {
+          return {
+            keyword: term, // search term
+          };
+        },
+        results: function (data, page) { // parse the results into the format expected by Select2.
+          // since we are using custom formatting functions we do not need to alter remote JSON data
+          return {results: data};
+        }
+    },
+    formatResult: function(member) {
+      return member.name
+    },
+    formatSelection: function(member) {
+      return member.name
+    },
+    dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
   })
   $('#admin_challenge_categories').select2()
   $('#admin_challenge_commentNotifiers').select2()

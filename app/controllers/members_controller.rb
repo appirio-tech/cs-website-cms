@@ -1,7 +1,10 @@
 class MembersController < ApplicationController
+  
+  # note that we provide our own search service so that we have greater control
+  # over the results; e.g. caching, endpoint configuration, result format, etc.
   def search
     @members = Member.search(params[:keyword])
-    render json: @members
+    render json: @members, :callback => params[:callback]
   end
 
   def challenges
