@@ -85,6 +85,7 @@ group :development, :test do
   gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
+  gem 'awesome_print'
 end
 
 group :test do

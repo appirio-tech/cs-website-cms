@@ -93,6 +93,7 @@ GEM
     arel (3.0.2)
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
+    awesome_print (1.1.0)
     aws-s3 (0.6.3)
       builder
       mime-types
@@ -466,6 +467,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   annotate (= 2.4.0)
+  awesome_print
   aws-s3
   bootstrap-sass (= 2.1.1.0)
   chosen-rails
