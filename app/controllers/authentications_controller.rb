@@ -17,7 +17,8 @@ class AuthenticationsController < ApplicationController
       user =  User.new
       user.apply_omniauth(omniauth)
       user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
-      if user.save        
+      user.create_account
+      if user.save
         user.roles << Role.find_by_title('Refinery')
         user.roles << Role.find_by_title('Superuser')      
         user.update_attribute(:confirmed_at, DateTime.now)

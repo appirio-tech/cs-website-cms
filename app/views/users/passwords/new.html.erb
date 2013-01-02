@@ -1,11 +1,9 @@
 <h2>Forgot your password?</h2>
 
+<%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
+
 <%= simple_form_for(resource, :as => resource_name, :url => user_password_path(resource), :html => { :method => :post }) do |f| %>
   <%= f.error_notification %>
-
-  <div class="inputs">
-    <%= f.input :email, :required => true %>
-  </div>
 
   <div class="inputs">
     <%= f.input :username, :required => true %>
