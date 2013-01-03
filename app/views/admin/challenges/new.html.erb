@@ -1,0 +1,92 @@
+<%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal' } do |f| %>
+  <div class="row-fluid">
+    <div class="span6">
+      <legend>Challenge Info</legend>
+      <%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
+      <%= f.input :status, required: true, collection: @challenge.statuses, input_html: {required: true} %>
+      <div class="control-group">
+        <label class="control-label">Start and End Dates</label>
+        <div class="controls">
+          <div id="date-range">
+            <div id="start-end-date">
+              <span id="display"></span>
+            </div>
+            <div id="datepicker-calendar"></div>
+            <%= f.hidden_field :start_date, id: "date-range-hidden-start" %>
+            <%= f.hidden_field :end_date, id: "date-range-hidden-end" %>
+            <span class="help-inline">the first click will set the start date, the second click will set the end date</span>
+          </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Winner Announced</label>
+        <div class="controls">
+          <div id="date-range">
+            <div id="winner-announced-date">
+              <span id="display"></span>
+            </div>
+            <div id="datepicker-calendar"></div>
+            <%= f.hidden_field :winner_announced, id: "winner-announced-hidden" %>
+          </div>
+        </div>
+      </div>
+    
+      <%= f.input :reviewers %>
+
+      <%= f.input :categories do %>
+        <%= f.select :categories, Category.names, {}, {:multiple => true, :class => 'span12'} %>
+      <% end %>
+
+      <%= f.input :commentNotifiers %>
+
+      <%= f.hidden_field :assets %>
+
+      <div id="prizes">
+        <legend>Prizes</legend>
+        <%= render 'prizes' %>
+      </div>
+      <div class="controls">
+        <hr />
+        <a class='btn btn-info add-new-prize-set'>Add New Prize Set</a>
+      </div>
+
+      <legend>Assets</legend>
+      <div id="uploader">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script>
+          // I need ERB support hence it has to be inlined with the HTML :(
+          $(function(){
+            $("#uploader").pluploadQueue({
+              runtimes: 'html5,flash',
+              url: '<%= admin_challenges_assets_path %>',
+              multipart_params: {
+                "<%= request_forgery_protection_token %>": "<%= form_authenticity_token %>",
+                "<%= request.session_options[:key] %>": "<%= request.session_options[:id] %>"
+              },
+              init: {
+                FileUploaded: function(up, file, info) {
+                  eval(info["response"]);
+                },
+                UploadComplete: function (up, file) {
+                  $(".plupload_buttons").css("display", "inline");
+                  $(".plupload_upload_status").css("display", "inline");
+              },
+              }
+            });
+          });
+        </script>
+      </div>
+
+      <hr />
+      <%= f.button :submit %>
+    </div>
+
+    <div class="span6">
+      <legend>Challenge Details</legend>
+      <%= f.input :description, :as => :text, input_html: { :class => 'ckeditor' } %>
+      <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
+      <%= f.input :submission_details, :as => :text, input_html: { :class => 'ckeditor' } %>
+    </div>
+
+  </div>
+<% end %>

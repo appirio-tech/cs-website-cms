@@ -6,7 +6,7 @@ defaults: &defaults
   :s3:
     :key: "key"
     :secret: "secret"
-    :bucket: "bucket"
+    :bucket: "bucket-for-cloudspokes-assets"
   :access_token: "ACCESS_TOKEN"
 
 development:

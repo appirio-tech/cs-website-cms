@@ -24,4 +24,8 @@ class Member < ApiModel
     'nil'
   end
 
+  def self.search(keyword)
+    raw_get("search?keyword=#{keyword}")
+  end
+
 end

@@ -11,7 +11,6 @@ client = Restforce.new :username => ENV['SFDC_ADMIN_USERNAME'],
   :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
   :host           => ENV['SFDC_HOST']
 
-begin
 
   client.authenticate!
   puts 'Successfully authenticated to salesforce.com'
