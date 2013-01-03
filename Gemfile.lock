@@ -138,7 +138,7 @@ GEM
       multipart-post (~> 1.1)
     faraday_middleware (0.8.8)
       faraday (>= 0.7.4, < 0.9)
-    faye (0.8.6)
+    faye (0.8.3)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
@@ -455,7 +455,7 @@ DEPENDENCIES
   databasedotcom-rails
   devise (~> 2.0.0)
   encryptor
-  faye
+  faye (= 0.8.3)
   flash_messages_helper
   fog
   growl

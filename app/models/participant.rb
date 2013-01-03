@@ -1,6 +1,6 @@
 class Participant < ApiModel
   def self.api_endpoint
-    APP_CONFIG[:cs_api][:challenges]
+    "#{ENV['CS_API_URL']}/challenges"
   end
 
   attr_accessor :id, :attributes, :has_submission, :member, :status, :challenge

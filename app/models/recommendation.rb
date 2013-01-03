@@ -3,7 +3,7 @@ class Recommendation < ApiModel
   :recommendation, :createddate, :from
 
   def self.api_endpoint
-    APP_CONFIG[:cs_api][:members]
+    "#{ENV['CS_API_URL']}/members"
   end
 
   # Cleanup up the __r convention

@@ -21,7 +21,7 @@ gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap
 gem 'rest-client', '1.6.7', require: 'rest_client'
 gem 'hashie', '1.2.0'
 
-gem 'faye'
+gem 'faye', '0.8.3'
 gem 'restforce'
 
 # gems from old site's gemfile

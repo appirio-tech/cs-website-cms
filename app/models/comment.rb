@@ -3,7 +3,7 @@ class Comment < ApiModel
   	:comment, :createddate, :member
 
   def self.api_endpoint
-    APP_CONFIG[:cs_api][:challenges]
+    "#{ENV['CS_API_URL']}/challenges"
   end
 
   # Cleanup up the __r convention

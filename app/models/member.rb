@@ -9,7 +9,7 @@ class Member < ApiModel
   has_many :challenges, parent: Member
 
   def self.api_endpoint
-    APP_CONFIG[:cs_api][:members]
+    "#{ENV['CS_API_URL']}/members"
   end
 
   # Used for resourceful routes (instead of id)

@@ -1,7 +1,7 @@
 class ApiModel
   include ActiveModel::Model
 
-  ENDPOINT_EXPIRY = APP_CONFIG[:expiry]
+  ENDPOINT_EXPIRY = ENV['CS_API_EXPIRY'].to_i
   ACCESS_TOKEN = APP_CONFIG[:access_token]
 
   # Implements the has_many relationship
@@ -123,7 +123,7 @@ class ApiModel
     entities = Array.new(1, entities) unless entities.respond_to? :join
     endpoint = "#{api_endpoint}/#{entities.join('/')}"
     Rails.logger.debug "calling api endpoint #{endpoint}"
-    Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
+    Rails.cache.fetch("#{endpoint}", expires_in: ENV['CS_API_EXPIRY'].to_i.minutes) do
       Hashie::Mash.new(JSON.parse(RestClient.get "#{endpoint}"))
       .response # we're only interested in the response portion of the reply
     end
