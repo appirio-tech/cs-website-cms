@@ -60,6 +60,8 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'awesome_print'
 gem 'fog'
+gem 'nest'
+gem 'text'
 
 # Gems used only for assets and not required
 # in production environments by default.

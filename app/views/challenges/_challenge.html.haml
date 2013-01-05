@@ -1,0 +1,19 @@
+.challenge-summary.clearfix
+  .summary
+    %h4.name= link_to challenge.name, challenge_path(challenge)
+    %p.desc= truncate challenge.description, length: 280
+  .status
+    %p
+      %strong
+        %span= number_to_currency challenge.total_prize_money, precision: 0
+        %span.blank
+        - challenge.category_names.each do |cat|
+          %span.label= cat
+    %p
+      %span.due-day= "due in #{distance_of_time_in_words Time.zone.now, challenge.end_date} for"
+      %br
+      %span.members= "#{challenge.participants.count} members participating with #{challenge.registered_members} registered"
+      %br
+      %span.label.label-inverse.type{title:"Challenge Type"}= challenge.challenge_type
+      - if challenge.community_name.present?
+        %span.label.label-info.type{title:"Community"}= challenge.community_name
