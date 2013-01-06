@@ -71,8 +71,6 @@ class Admin::Challenge
         detail: {
           winner_announced: winner_announced,
           terms_of_service: terms_of_service,
-          challenge_type: challenge_type,
-          comments: comments,
           scorecard_type:"Sandbox Scorecard",
           submission_details: submission_details,
           status: status,
@@ -80,13 +78,15 @@ class Admin::Challenge
           requirements: requirements,
           name: name,
           end_date: end_date.to_time.iso8601,
-          description: description
+          description: description,
+          comments: comments,
+          challenge_type: challenge_type,
         },
         reviewers: reviewers.map {|name| {name: name}},
         categories: categories.map {|name| {name: name}},
         prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
-        assets: assets.map {|url| {url: url}},
+        assets: assets && assets.map {|filename| {filename: filename}},
 
         # TO BE IMPLEMENTED:
         # reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],
@@ -112,15 +112,19 @@ end
 #       "name":"RSpec Challenge",
 #       "status":"Planned",
 #       "end_date":"2014-04-17T18:02:00.000+0000",
-#       "description":"sample Description"
+#       "description":"sample Description",
+#       "comments":"My challenge comments",
+#       "challenge_type":"Design"
 #       }, 
 #     "reviewers" : [{"name" : "mess"}, {"name" : "jeffdonthemic"}],
 #     "categories" : [{"name" : "java"}, {"name": "heroku"}],
 #     "prizes" : [{"place":2,"points":222,"prize":"122","value":1212}, {"place":1,"points":2120,"prize":"1000","value":21212}],
 #     "commentNotifiers" : [{"email" : "jdouglas@appirio.com"}, {"name" : "mess"}],
+#     "assets" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}],
 #     "reviewers_to_delete" : [{"name" : "mess"}, {"name" : "jeffdonthemic"}],
 #     "categories_to_delete" : [{"name" : "java"}, {"name": "heroku"}],
 #     "prizes_to_delete" : [{"place":2,"points":222,"prize":"122","value":1212}, {"place":1,"points":2120,"prize":"1000","value":21212}],
-#     "commentNotifiers_to_delete" : [{"email" : "jdouglas@appirio.com"}, {"name" : "mess"}]
+#     "commentNotifiers_to_delete" : [{"email" : "jdouglas@appirio.com"}, {"name" : "mess"}],
+#     "assets_to_delete" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}]
 #   }
 # }
