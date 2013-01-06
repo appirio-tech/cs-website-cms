@@ -41,3 +41,20 @@
 <% end %>
 
 <%= f.input :commentNotifiers %>
+
+<div class="accordion" id="advanced-options">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#advanced-options" href="#advanced-options-content">
+        Advanced Options (optional for power users -- click to edit)
+      </a>
+    </div>
+    <div id="advanced-options-content" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <%= f.input :challenge_type, collection: %w(Code First2Finish Design Bug), default: 'Code' %>
+        <%= f.input :terms_of_service, collection: ['Standard Terms & Conditions', 'Private Challenge'], default: 'Standard Terms & Conditions' %>
+        <%= f.input :comments, :as => :text, input_html: { :class => 'ckeditor' } %>
+      </div>
+    </div>
+  </div>
+</div>
