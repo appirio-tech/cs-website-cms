@@ -77,11 +77,12 @@ $(function() {
     formatSelection: function(member) {
       return member.name
     },
-    containerCssClass: "span12" // apply css that makes the dropdown taller
+    containerCssClass: "span6" // apply css that makes the dropdown taller
   }
+
   $('#admin_challenge_reviewers').select2(member_search_settings)
   $('#admin_challenge_categories').select2({
-    containerCssClass: "span12"
+    containerCssClass: "span6"
   })
   $('#admin_challenge_commentNotifiers').select2(member_search_settings)
 })
