@@ -20,7 +20,8 @@ class Admin::Challenge
   attr_accessor :winner_announced, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
-                :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets
+                :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets,
+                :challenge_type, :terms_of_service, :comments
 
   # Add validators as you like :)
   validates :name, presence: true
@@ -69,7 +70,9 @@ class Admin::Challenge
       challenge: {
         detail: {
           winner_announced: winner_announced,
-          terms_of_service:"Standard Terms & Conditions",
+          terms_of_service: terms_of_service,
+          challenge_type: challenge_type,
+          comments: comments,
           scorecard_type:"Sandbox Scorecard",
           submission_details: submission_details,
           status: status,
