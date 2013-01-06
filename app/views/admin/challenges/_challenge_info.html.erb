@@ -1,0 +1,42 @@
+<legend>Challenge Info</legend>
+<%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
+<%= f.input :status, required: true, collection: @challenge.statuses, input_html: {required: true} %>
+
+<%= f.input :description, :as => :text, input_html: { :class => 'ckeditor' } %>
+<%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
+<%= f.input :submission_details, :as => :text, input_html: { :class => 'ckeditor' } %>
+
+<div class="control-group">
+  <label class="control-label">Start and End Dates</label>
+  <div class="controls">
+    <div id="date-range">
+      <div id="start-end-date">
+        <span id="display"></span>
+      </div>
+      <div id="datepicker-calendar"></div>
+      <%= f.hidden_field :start_date, id: "date-range-hidden-start" %>
+      <%= f.hidden_field :end_date, id: "date-range-hidden-end" %>
+      <span class="help-inline">the first click will set the start date, the second click will set the end date</span>
+    </div>
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label">Winner Announced</label>
+  <div class="controls">
+    <div id="date-range">
+      <div id="winner-announced-date">
+        <span id="display"></span>
+      </div>
+      <div id="datepicker-calendar"></div>
+      <%= f.hidden_field :winner_announced, id: "winner-announced-hidden" %>
+    </div>
+  </div>
+</div>
+
+<%= f.input :reviewers %>
+
+<%= f.input :categories do %>
+  <%= f.select :categories, Category.names, {}, {:multiple => true, :class => 'span6'} %>
+<% end %>
+
+<%= f.input :commentNotifiers %>
