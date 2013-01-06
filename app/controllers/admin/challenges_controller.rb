@@ -8,14 +8,15 @@ class Admin::ChallengesController < ApplicationController
 
   def create
     #raise params.inspect
-    params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',')
-    params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',')
-    params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',')
+    params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
+    params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
+    params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     if @challenge.valid?
       ap @challenge.payload.as_json
       render json: @challenge.payload
     else
+      raise @challenge.errors.inspect
       redirect_to new_admin_challenge_path, notice: 'Validation failed'
     end
   end
@@ -61,6 +62,6 @@ class Admin::ChallengesController < ApplicationController
     )
 
     # create the file in this folder
-    @asset = {url: file.public_url}
+    @asset = {url: file.public_url, filename: params[:name]}
   end
 end

@@ -1,12 +1,14 @@
 $(function() {
   var to = new Date();
+  to.setDate(to.getDate() + 7)
+
   var from = new Date();
 
   var $elem = $('#start-end-date')
   $elem.DatePicker({
     inline: true,
     date: [from, to],
-    calendars: 2,
+    calendars: 3,
     mode: 'range',
     onChange: function(dates,el) {
       // update the range display
@@ -30,13 +32,14 @@ $(function() {
 })
 
 $(function() {
-  var from = new Date();
+  var to = new Date();
+  to.setDate(to.getDate() + 14)
   var $elem = $('#winner-announced-date')
   $elem.DatePicker({
     mode: 'single',
-    calendars: 2,
+    calendars: 3,
     inline: true,
-    date: new Date(),
+    date: to,
     onChange: function(date,el) {
       // update the range display
       $('#winner-announced-date span#display').text(
@@ -48,7 +51,7 @@ $(function() {
   $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0])
 
   // initialize the special date dropdown field
-  $('#winner-announced-date span#display').text(from.getDate()+' '+from.getMonthName(true)+', '+from.getFullYear());
+  $('#winner-announced-date span#display').text(to.getDate()+' '+to.getMonthName(true)+', '+to.getFullYear());
 
 })
 
