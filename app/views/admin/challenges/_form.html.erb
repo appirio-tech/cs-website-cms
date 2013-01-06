@@ -1,15 +1,32 @@
 <%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal' } do |f| %>
   <div class="row">
     <div class="span12">
-      <%= render 'challenge_info', {f: f} %>
 
-      <%= render 'prizes' %>
+      <div class='tabbable'>
 
-      <%= render 'assets', {f: f} %>
+        <ul class='nav nav-tabs'>
+          <li class="active"><a href="#challenge-info" data-toggle="tab">Challenge Info</a></li>
+          <li><a href="#prizes" data-toggle="tab">Prizes</a></li>
+          <li><a href="#assets" data-toggle="tab">Assets</a></li>
+        </ul>
+
+        <div class='tab-content'>
+          <div class='tab-pane active' id='challenge-info'>
+            <%= render 'challenge_info', {f: f} %>
+          </div>
+          <div class='tab-pane' id='prizes'>
+            <%= render 'prizes' %>
+          </div>
+          <div class='tab-pane' id='assets'>
+            <%= render 'assets', {f: f} %>
+          </div>
+        </div>
+
+      </div>
 
       <hr />
       <%= f.button :submit %>
-    </div>
 
+    </div>
   </div>
 <% end %>
