@@ -28,7 +28,7 @@ class Admin::ChallengesController < ApplicationController
   def edit
     #raise ::Challenge.find(params[:id]).raw_data.inspect
     challenge = ::Challenge.find(params[:id])
-    @challenge = Admin::Challenge.new(challenge_id: challenge.challenge_id)
+    @challenge = Admin::Challenge.new(challenge.raw_data)
   end
 
   def assets
