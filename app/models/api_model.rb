@@ -122,7 +122,7 @@ class ApiModel
   def self.raw_get(entities = [])
     endpoint = endpoint_from_entities(entities)
     Rails.logger.debug "calling api endpoint #{endpoint}"
-    Rails.cache.fetch("#{endpoint}", expires_in: ENV['CS_API_EXPIRY'].to_i.minutes) do
+    Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint))
     end
   end
