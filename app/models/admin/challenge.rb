@@ -21,7 +21,7 @@ class Admin::Challenge
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
                 :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets,
-                :challenge_type, :terms_of_service, :comments
+                :challenge_type, :terms_of_service, :comments, :challenge_id
 
   # Add validators as you like :)
   validates :name, presence: true

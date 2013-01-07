@@ -1,0 +1,10 @@
+<h2>Listing Challenges</h2>
+<ul>
+  <% @challenges.each do |challenge| %>
+    <li>
+      <%= link_to edit_admin_challenge_path(challenge.challenge_id) do %>
+        <%= challenge.challenge_id %> - <%= challenge.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

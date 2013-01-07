@@ -24,7 +24,7 @@ class Challenge < ApiModel
   end
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    APP_CONFIG[:cs_api][:challenges]
   end
 
   # Used for resourceful routes (instead of id)
