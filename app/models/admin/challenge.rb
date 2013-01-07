@@ -65,7 +65,7 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def winner_announced
-    Date.parse(@winner_announced) if @winner_announced
+    (Date.parse(@winner_announced) if @winner_announced) || Date.today
   end
 
   def categories
