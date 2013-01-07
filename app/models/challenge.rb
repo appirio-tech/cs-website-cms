@@ -28,6 +28,7 @@ class Challenge < ApiModel
     params['challenge_comments'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
     params['challenge_reviewers'] = params.delete('challenge_reviewers__r') if params['challenge_reviewers__r']
     params['challenge_comment_notifiers'] = params.delete('challenge_comment_notifiers__r') if params['challenge_comment_notifiers__r']
+    params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
 
     super(params)
   end
