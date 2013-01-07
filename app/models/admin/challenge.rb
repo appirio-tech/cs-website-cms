@@ -28,8 +28,8 @@ class Admin::Challenge
                 # fields don't exist -- we might need to clean up the __r bits
                 :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
                 :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
-                :registered_members, :challenge_comments__r, :additional_info,
-                :participating_members, :challenge_prizes__r, :terms_of_service__r,
+                :registered_members, :challenge_comments, :additional_info,
+                :participating_members, :challenge_prizes__r,
                 :top_prize, :id, :participants
 
   # Add validators as you like :)

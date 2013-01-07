@@ -19,6 +19,8 @@ class Challenge < ApiModel
     params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
     params['participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
     params['community'] = params.delete('community__r') if params['community__r']
+    params['terms_of_service'] = params.delete('terms_of_service__r') if params['terms_of_service__r']
+    params['challenge_comments'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
 
     super(params)
   end

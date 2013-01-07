@@ -26,7 +26,7 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def edit
-    #raise ::Challenge.find(params[:id]).raw_data.inspect
+    Rails.logger.debug(::Challenge.find(params[:id]).raw_data.to_yaml)
     challenge = ::Challenge.find(params[:id])
     @challenge = Admin::Challenge.new(challenge.raw_data)
   end
