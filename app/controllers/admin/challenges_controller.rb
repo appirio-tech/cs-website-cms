@@ -24,10 +24,10 @@ class Admin::ChallengesController < ApplicationController
     # TODO: fog is now used twice; should we extract this to a helper function?
     fog = Fog::Storage.new(
       :provider                 => 'AWS',
-      :aws_access_key_id        => ENV['AWS_KEY'] || APP_CONFIG[:s3][:key],
-      :aws_secret_access_key    => ENV['AWS_SECRET'] || APP_CONFIG[:s3][:secret],
+      :aws_access_key_id        => ENV['AWS_KEY'],
+      :aws_secret_access_key    => ENV['AWS_SECRET'],
     )
-    storage = fog.directories.get(APP_CONFIG[:s3][:bucket])
+    storage = fog.directories.get(ENV['AWS_BUCKET'])
 
     # create the folder for this challenge
     # QUESTION: How to name the challenge folder? Since this is a new challenge,
