@@ -2,6 +2,10 @@ class Admin::ChallengesController < ApplicationController
   # optionally, inherit from ::ProtectedController to gain any kind of protection
   # in a standard way; maybe username/password or refinery usertypes?
 
+  def index
+    @challenges = ::Challenge.all.sort_by {|c| c.challenge_id.to_i }
+  end
+
   def new
     @challenge = Admin::Challenge.new
   end
@@ -19,6 +23,12 @@ class Admin::ChallengesController < ApplicationController
       raise @challenge.errors.inspect
       redirect_to new_admin_challenge_path, notice: 'Validation failed'
     end
+  end
+
+  def edit
+    #raise ::Challenge.find(params[:id]).raw_data.inspect
+    challenge = ::Challenge.find(params[:id])
+    @challenge = Admin::Challenge.new(challenge_id: challenge.challenge_id)
   end
 
   def assets
