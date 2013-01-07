@@ -87,7 +87,7 @@ describe ApiModel do
   describe "#create" do
     it "sends post request with access_token" do
       stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges")
-      .with(headers: headers, body: attrs.to_json)
+      .with(headers: headers, body: attrs.to_json).to_return(:body => "{}")
       model.send(:create)
     end
 
@@ -95,12 +95,12 @@ describe ApiModel do
       before do
         model.class.class_eval %q{
           def create_endpoint
-            "#{self.class.api_endpoint}/help_me"
+            "help_me"
           end
         }
       end
       it "sends post request to create_endpoint" do
-        stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me")
+        stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me").to_return(:body => "{}")
         model.send(:create)
       end
     end
@@ -113,7 +113,7 @@ describe ApiModel do
     end
     it "sends put request with access_token" do
       stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/123")
-      .with(headers: headers, body: attrs.to_json)
+      .with(headers: headers, body: attrs.to_json).to_return(:body => "{}")
       model.send(:update)
     end
 
@@ -121,14 +121,56 @@ describe ApiModel do
       before do
         model.class.class_eval %q{
           def update_endpoint
-            "#{self.class.api_endpoint}/help_me"
+            "help_me"
           end
         }
       end
       it "sends put request to update_endpoint" do
-        stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me")
+        stub_request(:put, "http://cs-api-sandbox.herokuapp.com/v1/challenges/help_me").to_return(:body => "{}")
         model.send(:update)
       end
+    end
+  end
+
+  describe ".request" do
+    let(:data) { {by: "superuser"} }
+    let(:response) { {response: {success: "true"}} }
+    before do
+      stub_request(:post, "http://cs-api-sandbox.herokuapp.com/v1/challenges/3/close")
+      .with(headers: headers, body: data.to_json).to_return(:body => response.to_json)      
+    end
+  
+    context "when method is post" do
+      it "sends post request with body to endpoint" do
+        TestApiModel.request(:post, "3/close", data)
+      end      
+    end
+
+    context "when entities is array" do
+      it "sends post request to endpoint" do
+        TestApiModel.request(:post, [3, "close"], data)
+      end      
+    end
+
+    context "when data is string" do
+      it "sends data without converting" do
+        TestApiModel.request(:post, "3/close", data.to_json)
+      end            
+    end
+
+    context "when method is get" do
+      before(:each) do
+        stub_request(:get, "http://cs-api-sandbox.herokuapp.com/v1/challenges/3/close?by=superuser")
+        .with(headers: headers).to_return(:body => response.to_json)              
+      end
+      it "appends data to url as query string" do
+        TestApiModel.request(:get, "3/close", data)
+      end                  
+    end
+
+    it "response is parsed" do
+      resp = TestApiModel.request(:post, "3/close", data)
+      resp.success.should == "true"
     end
   end
   

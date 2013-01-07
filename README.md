@@ -127,3 +127,4 @@ ActiveModel::Model was copied and pasted into app/models because [it will only b
 
 * Jeff Douglas -> [jeffdonthemic](https://github.com/jeffdonthemic)
 * parasquid -> [parasquid](https://github.com/parasquid)
+* chang -> [aproxacs](https://github.com/aproxacs)
