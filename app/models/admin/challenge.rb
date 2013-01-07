@@ -25,11 +25,11 @@ class Admin::Challenge
                 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
-                # fields don't exist -- we might need to clean up the __r bits
+                # fields don't exist
                 :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
                 :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
                 :registered_members, :challenge_comments, :additional_info,
-                :participating_members, :challenge_prizes__r,
+                :participating_members, :challenge_prizes,
                 :top_prize, :id, :participants
 
   # Add validators as you like :)
@@ -49,6 +49,7 @@ class Admin::Challenge
     # the api names some fields as challenge_xxx where as the payload needs to be xxx
     params['reviewers'] = params.delete('challenge_reviewers')
     params['commentNotifiers'] = params.delete('challenge_comment_notifiers')
+    params['prizes'] = params.delete('challenge_prizes')
     super(params)
   end
 
