@@ -47,9 +47,9 @@ class Admin::Challenge
 
   def initialize(params={})
     # the api names some fields as challenge_xxx where as the payload needs to be xxx
-    params['reviewers'] = params.delete('challenge_reviewers')
-    params['commentNotifiers'] = params.delete('challenge_comment_notifiers')
-    params['prizes'] = params.delete('challenge_prizes')
+    params['reviewers'] = params.delete('challenge_reviewers') if params.include? 'challenge_reviewers'
+    params['commentNotifiers'] = params.delete('challenge_comment_notifiers') if params.include? 'challenge_comment_notifiers'
+    params['prizes'] = params.delete('challenge_prizes') if params.include? 'challenge_prizes'
     super(params)
   end
 

@@ -26,8 +26,19 @@ class Challenge < ApiModel
     params['community'] = params.delete('community__r') if params['community__r']
     params['terms_of_service'] = params.delete('terms_of_service__r') if params['terms_of_service__r']
     params['challenge_comments'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
+
+    # these fields need extra cleaning as they should only output arrays of strings
     params['challenge_reviewers'] = params.delete('challenge_reviewers__r') if params['challenge_reviewers__r']
+    params['challenge_reviewers'] = params['challenge_reviewers'].map do |entry|
+      entry['member__r']['name']
+    end if params['challenge_reviewers']
+
     params['challenge_comment_notifiers'] = params.delete('challenge_comment_notifiers__r') if params['challenge_comment_notifiers__r']
+    params['challenge_comment_notifiers'] = params['challenge_comment_notifiers'].map do |entry|
+      entry['member__r']['name']
+    end if params['challenge_comment_notifiers']
+
+
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
 
     super(params)
