@@ -21,7 +21,16 @@ class Admin::Challenge
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
                 :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets,
-                :challenge_type, :terms_of_service, :comments, :challenge_id
+                :challenge_type, :terms_of_service, :comments, :challenge_id,
+                
+                # these are fields from the challenge api that need to be there so we can
+                # just "eat" the json and avoid the model from complaining that these
+                # fields don't exist -- we might need to clean up the __r bits
+                :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
+                :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
+                :registered_members, :challenge_comments__r, :additional_info,
+                :participating_members, :challenge_prizes__r, :terms_of_service__r,
+                :top_prize, :id, :participants
 
   # Add validators as you like :)
   validates :name, presence: true
