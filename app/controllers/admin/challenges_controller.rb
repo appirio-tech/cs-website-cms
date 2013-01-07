@@ -29,6 +29,7 @@ class Admin::ChallengesController < ApplicationController
     Rails.logger.debug(::Challenge.find(params[:id]).raw_data.to_yaml)
     challenge = ::Challenge.find(params[:id])
     @challenge = Admin::Challenge.new(challenge.raw_data)
+    #raise (@challenge.end_date.to_time.utc.to_i * 1000).inspect
   end
 
   def assets
