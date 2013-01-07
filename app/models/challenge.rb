@@ -6,7 +6,11 @@ class Challenge < ApiModel
     :start_date, :end_date, :usage_details, :requirements, :post_reg_info,
     :name, :description, :status, :release_to_open_source, :additional_info,
     :categories, :is_open, :discussion_board, :registered_members,
-    :submission_details, :winner_announced, :community
+    :submission_details, :winner_announced, :community,
+
+    # these are only available if you call /admin on the model
+    # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
+    :challenge_reviewers, :challenge_comment_notifiers
 
   has_many :comments
 
@@ -16,11 +20,14 @@ class Challenge < ApiModel
 
   # Cleanup up the __r convention
   def initialize(params={})
+    # there has GOT to be some better way to clean this up ...
     params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
     params['participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
     params['community'] = params.delete('community__r') if params['community__r']
     params['terms_of_service'] = params.delete('terms_of_service__r') if params['terms_of_service__r']
     params['challenge_comments'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
+    params['challenge_reviewers'] = params.delete('challenge_reviewers__r') if params['challenge_reviewers__r']
+    params['challenge_comment_notifiers'] = params.delete('challenge_comment_notifiers__r') if params['challenge_comment_notifiers__r']
 
     super(params)
   end

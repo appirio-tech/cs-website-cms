@@ -45,6 +45,13 @@ class Admin::Challenge
     end
   end
 
+  def initialize(params={})
+    # the api names some fields as challenge_xxx where as the payload needs to be xxx
+    params['reviewers'] = params.delete('challenge_reviewers')
+    params['commentNotifiers'] = params.delete('challenge_comment_notifiers')
+    super(params)
+  end
+
   # Return an object instead of a string
   def start_date
     Date.parse(@start_date) if @start_date
