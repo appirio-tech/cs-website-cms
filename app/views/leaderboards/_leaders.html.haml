@@ -1,0 +1,44 @@
+- now = Time.zone.now
+.clearfix.time-nav
+  - if page_params[:month]
+    - current = Time.new page_params[:year], page_params[:month]
+    - prev_month = current.prev_month
+    - prev_link = leaders_path(params.slice(:category, :community).update(month: prev_month.month, year: prev_month.year))
+    - next_month = current.next_month
+
+    = link_to prev_link, remote: true, class: "prev" do
+      %i.icon-chevron-left
+
+    %h3= (now.year == current.year and now.month == current.month) ?  "This Month" : "#{current.year}-#{current.month}"
+    -  if next_month < now
+      - next_link = leaders_path(params.slice(:category, :community).update(month: next_month.month, year: next_month.year))
+
+      = link_to next_link, remote: true, class: "next" do
+        %i.icon-chevron-right
+
+  - elsif page_params[:year]
+    - current = Time.new page_params[:year]
+    - prev_year = current.prev_year
+    - prev_link = leaders_path(params.slice(:category, :community).update(year: prev_year.year))
+    - next_year = current.next_year
+
+    = link_to prev_link, remote: true, class: "prev" do
+      %i.icon-chevron-left
+
+    %h3= (now.year == current.year) ?  "This Year" : "#{current.year}"
+    -  if next_year < now
+      - next_link = leaders_path(params.slice(:category, :community).update(year: next_year.year))
+
+      = link_to next_link, remote: true, class: "next" do
+        %i.icon-chevron-right
+
+  - else
+    %h3 All Time
+
+%ul
+  - leaders.each do |leader|
+    = content_tag :li, class: member_rank_class_name(leader) do
+      = render partial: "member", locals: {member: leader}
+
+
+= will_paginate leaders, inner_window: 2, class: "apple_pagination", params: page_params.merge(controller: "leaderboards", action: "leaders") , renderer: "RemoteLinkRenderer"

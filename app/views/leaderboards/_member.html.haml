@@ -1,0 +1,11 @@
+.member-rank= member.rank
+.member-box
+  .image
+    = image_tag member.picture, with: 48, height: 48
+  .info
+    %span.money= number_to_currency member.total_prizes, precision: 0
+    %h4.name= member.name
+    %p.wins
+      %span # of Wins: &nbsp
+      %span= member.total_wins
+

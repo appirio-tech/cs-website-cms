@@ -1,0 +1,223 @@
+$lb-header-text-color: white;
+.lb-wrapper {
+  width: 980px;
+  box-shadow: 0px 0px 2px #456179;
+}
+
+.lb-header {
+  margin-top: 20px;
+  padding: 10px 20px;
+  position: relative;
+  color: $lb-header-text-color;
+  background-color: #456179;
+  box-shadow: #888 0px 2px 5px;
+  height: 130px;
+  h2 {
+    color: $lb-header-text-color;
+    float: left;
+    font-size: 32px;
+    padding: 10px 0 10px 0;
+    margin-left: 20px;
+  }
+  .select-community {
+    float: right;
+    margin: 30px 30px 0 0;
+    select {
+      margin: 0;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: $lb-header-text-color;
+  }
+  ul.nav {
+    margin-top: 10px;
+    li {
+      font-size: 20px;
+      float: left;
+      margin: 0 5px;
+      a {
+        background-color: #243643;
+        padding: 5px 10px;
+        font-size: 18px;
+        &.heroku {
+          color: yellow;
+        }
+        &.salesforce {
+          color: #DF9F2D;
+        }
+        &.google {
+          color: #649ADA;
+        }
+        &.box {
+          color: #649ADA;
+        }
+        &.mobile {
+          color: #54B1B6;
+        }
+        &.node {
+          color: #FADF43;
+        }
+        &.ruby {
+          color: #BB3D2B;
+        }
+        &.javascript {
+          color: #79C844;
+        }
+        &.java {
+          color: #DF9F2D;
+        }
+        &.other {
+          color: white;
+        }
+        &.all {
+          color: black;
+        }
+        &.active {
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.leader-box {
+  ul {
+    list-style: none;
+    margin-left: 10px;
+    li {
+      width: 280px;
+      &.gold {
+        .member-rank {
+          background-image: url(num-gold.gif);
+          color: #7B5B30;
+        }
+        .member-box {
+          img {
+            width: 48px;
+            height: 48px;
+          }
+          .info {
+            width: 170px;
+          }
+        }
+      }
+      &.silver .member-rank {
+        background-image: url(num-silver.gif);
+        color: #666;
+      }
+      &.bronze .member-rank {
+        background-image: url(num-bronze.gif);
+        color: #7A5A30;
+      }
+
+    }
+  }
+}
+
+
+.member-rank {
+  float: left;
+  background: url("num-default.gif") no-repeat center center;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  height: 31px;
+  letter-spacing: -2px;
+  line-height: 28px;
+  margin: 2px 4px 0 -2px;
+  position: relative;
+  text-align: center;
+  text-indent: -2px;
+  width: 28px;
+  color: #7E7E7E;
+}
+
+.member-box {
+  position: relative;
+  background-color: #DDEDED;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  padding: 10px;
+  img {
+    float: left;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+  .info {
+    width: 200px;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    .money {
+      float: right;
+      font-size: 16px;
+      color: #999;
+    }
+    float: left;
+    h4.name {
+      font-size: 16px;
+      width: 160px;
+      margin: 0;
+    }
+    .wins {
+      color: #999;
+    }
+  }
+}
+.apple_pagination {
+  text-align: center;
+  cursor: default;
+  margin-bottom: 20px;
+  a {
+    float: none;
+    text-decoration: none;
+    color: black;
+    padding: 0.2em 0.3em;
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+  span {
+    padding: 0.2em 0.3em;
+  }
+  .disabled {
+    color: #aaaaaa;
+  }
+  .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px;
+  }
+}
+
+.time-nav {
+  text-align: center;
+  margin: 10px 0;
+  .prev, .next {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+  }
+  h3 {
+    color: #6699C9;
+    display: inline-block;
+    margin: 0;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+}

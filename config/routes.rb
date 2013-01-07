@@ -45,6 +45,9 @@ CsWebsiteCms::Application.routes.draw do
     post 'challenges/assets'
   end
 
+  match "leaderboards" => "leaderboards#index"
+  match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
+
   root to: 'refinery/pages#home'
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
