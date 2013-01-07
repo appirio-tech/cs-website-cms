@@ -91,6 +91,7 @@ class Admin::Challenge
           comments: comments,
           challenge_type: challenge_type,
         },
+        challenge_id: challenge_id,
         reviewers: reviewers.map {|name| {name: name}},
         categories: categories.map {|name| {name: name}},
         prizes: prizes,

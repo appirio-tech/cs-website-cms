@@ -1,4 +1,6 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 <%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal' } do |f| %>
+  <%= f.hidden_field :challenge_id, value: @challenge.challenge_id %>
   <div class="row">
     <div class="span12">
 
