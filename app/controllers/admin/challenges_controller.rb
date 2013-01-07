@@ -15,6 +15,7 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
+    params[:admin_challenge][:categories] = params[:admin_challenge][:categories].split(',') if params[:admin_challenge][:categories]
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     if @challenge.valid?
       ap @challenge.payload.as_json
@@ -29,6 +30,7 @@ class Admin::ChallengesController < ApplicationController
     Rails.logger.debug(::Challenge.find(params[:id]).raw_data.to_yaml)
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
+    @challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
   end
 
   def assets

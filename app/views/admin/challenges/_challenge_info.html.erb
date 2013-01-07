@@ -76,7 +76,7 @@ $(function() {
     initSelection: function(element, callback) {
       var data = [];
       $(element.val().split(",")).each(function () {
-          data.push({name: this});
+        data.push({name: this});
       });
       callback(data);
     },
@@ -85,17 +85,17 @@ $(function() {
     multiple: true,
     id: "name",
     ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-        url: "/members/search",
-        dataType: 'jsonp',
-        data: function (term, page) {
-          return {
-            keyword: term, // search term
-          };
-        },
-        results: function (data, page) { // parse the results into the format expected by Select2.
-          // since we are using custom formatting functions we do not need to alter remote JSON data
-          return {results: data};
-        }
+      url: "/members/search",
+      dataType: 'jsonp',
+      data: function (term, page) {
+        return {
+          keyword: term, // search term
+        };
+      },
+      results: function (data, page) { // parse the results into the format expected by Select2.
+        // since we are using custom formatting functions we do not need to alter remote JSON data
+        return {results: data};
+      }
     },
     formatResult: function(member) {
       return member.name
@@ -106,18 +106,25 @@ $(function() {
     containerCssClass: "span6" // apply css that makes the dropdown taller
   }
 
-  console.log('<%= @challenge.reviewers.join(',') %>')
   $('#admin_challenge_reviewers').val("<%= @challenge.reviewers.join(',') %>").select2(member_search_settings)
-  $('#admin_challenge_categories').select2({
-    containerCssClass: "span6"
+  $('#admin_challenge_categories').val("<%= @challenge_categories %>").select2({
+    initSelection: function(element, callback) {
+      var data = [];
+      $(element.val().split(",")).each(function () {
+        data.push({id: this, text: this});
+        console.log(this)
+      });
+      callback(data);
+    },
+    multiple: true,
+    data:  <%= Category.names.map {|name| { id: name, text: name } }.to_json.html_safe %>,
+    containerCssClass: "span6" // apply css that makes the dropdown taller
   })
   $('#admin_challenge_commentNotifiers').val("<%= @challenge.commentNotifiers.join(',') %>").select2(member_search_settings)
 })
 </script>
 
-<%= f.input :categories do %>
-  <%= f.select :categories, Category.names, {}, {:multiple => true, :class => 'span6'} %>
-<% end %>
+<%= f.input :categories %>
 
 <%= f.input :commentNotifiers %>
 

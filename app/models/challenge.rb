@@ -38,7 +38,6 @@ class Challenge < ApiModel
       entry['member__r']['name']
     end if params['challenge_comment_notifiers']
 
-
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
 
     super(params)
@@ -82,7 +81,7 @@ class Challenge < ApiModel
 
   # TODO: blow up the categories into something useful
   def categories
-    @categories || 'nil'
+    @categories.records.map {|c| c.display_name}
   end
 
   def category_names
