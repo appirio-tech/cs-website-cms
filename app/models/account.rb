@@ -5,7 +5,7 @@ class Account < ApiModel
 
   class << self
     def api_endpoint
-      APP_CONFIG[:cs_api][:accounts]
+      "#{ENV['CS_API_URL']}/accounts"
     end
 
     def find(name, provider = "cloudspokes")
