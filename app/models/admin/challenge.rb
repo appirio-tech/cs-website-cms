@@ -55,12 +55,12 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def start_date
-    Date.parse(@start_date) if @start_date
+    (Date.parse(@start_date) if @start_date) || Date.today
   end
 
   # Return an object instead of a string
   def end_date
-    Date.parse(@end_date) if @end_date
+    (Date.parse(@end_date) if @end_date) || Date.today
   end
 
   # Return an object instead of a string
@@ -78,6 +78,14 @@ class Admin::Challenge
 
   def statuses
     Admin::Challenge::STATUSES
+  end
+
+  def reviewers
+    @reviewers || []
+  end
+
+  def commentNotifiers
+    @commentNotifiers || []
   end
 
   # formats the object to conform to the api format
