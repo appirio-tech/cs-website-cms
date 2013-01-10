@@ -1,6 +1,6 @@
 $(function() {
   $('.add-new-prize-set').on('click', function() {
-    $('#prizes').append('\
+    $('#prize-set').append('\
 <div class="controls"> \
   <hr /> \
 </div> \

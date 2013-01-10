@@ -8,6 +8,7 @@ class Admin::ChallengesController < ApplicationController
 
   def new
     @challenge = Admin::Challenge.new
+    @prizes = @challenge.prizes || []
   end
 
   def create
@@ -31,6 +32,7 @@ class Admin::ChallengesController < ApplicationController
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
     @challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
+    @prizes = @challenge.prizes || []
   end
 
   def assets
@@ -59,7 +61,7 @@ class Admin::ChallengesController < ApplicationController
     #   first step for now as a proof of concept; once the API endpoint for saving
     #   (and retrieving the challenge id assigned) is up, we can move this to
     #   the second step.
-    
+
     # for now, let's just use the form's authenticity token as the folder name
     folder = params[:authenticity_token]
 
