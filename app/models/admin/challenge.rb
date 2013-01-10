@@ -98,11 +98,7 @@ class Admin::Challenge
     # in this case. Plus the logic is much simpler too :)
 
     original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
-
     original_challenge_categories = original_challenge.categories.records.map(&:display_name)
-    puts (original_challenge.prizes.map {|c| c.to_hash }).inspect
-    puts (prizes).inspect
-    puts (original_challenge.prizes.map {|c| c.to_hash } - prizes).inspect
 
     {
       challenge: {
