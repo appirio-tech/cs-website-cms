@@ -32,6 +32,12 @@ class Admin::ChallengesController < ApplicationController
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
     @challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
+
+    # For the Prizes section, the "Prize" field should accept a string so that a
+    # prize can be "$100" or "50GB Box Upgrade". If the Prize field is a dollar
+    # amount, onblur fill the Points and Value fields with that amount. So if the
+    # user enters $500 in the prize field, onblur populate the points and value
+    # fields with 500.
     @prizes = @challenge.prizes || []
   end
 

@@ -1,6 +1,5 @@
 $('#admin_challenge_assets').val(function(i, v) {
   var arr = v.split(',')
-  console.log("<%= @asset[:filename] %>")
   arr.push('<%= @asset[:filename] %>')
   return arr.join(',')
 })
