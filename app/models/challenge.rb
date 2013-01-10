@@ -40,10 +40,9 @@ class Challenge < ApiModel
     end if params['challenge_comment_notifiers']
 
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
-    #raise params['challenge_prizes'].inspect
     params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
       { place: entry['place'], prize: entry['prize'] }
-    end
+    end if params['challenge_prizes']
 
     super(params)
   end
