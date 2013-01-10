@@ -22,7 +22,7 @@ class Admin::Challenge
                 :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
                 :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets,
                 :challenge_type, :terms_of_service, :comments, :challenge_id,
-                
+
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
                 # fields don't exist
@@ -91,6 +91,16 @@ class Admin::Challenge
   # formats the object to conform to the api format
   # maybe we should use RABL for this one instead?
   def payload
+    # Get the original challenge to figure out the stuff to be deleted.
+    # We are doing re-requesting the original challenge instead of tracking which
+    # entries are to be deleted client-side to minimize race conditions. Race
+    # conditions aren't totally eliminated, but the window is largely smaller
+    # in this case. Plus the logic is much simpler too :)
+
+    original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
+
+    original_challenge_categories = original_challenge.categories.records.map(&:display_name)
+
     {
       challenge: {
         detail: {
@@ -114,11 +124,12 @@ class Admin::Challenge
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
         assets: assets && assets.map {|filename| {filename: filename}},
 
+        categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
+        reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
+        commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
+
         # TO BE IMPLEMENTED:
-        # reviewers_to_delete: [{name: "mess"}, {name: "jeffdonthemic"}],
-        # categories_to_delete: [{name: "java"}, {name: "heroku"}],
         # prizes_to_delete: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
-        # commentNotifiers_to_delete: [{email: "jdouglas@appirio.com"}, {name: "mess"}],
       }
     }
   end
@@ -141,7 +152,7 @@ end
 #       "description":"sample Description",
 #       "comments":"My challenge comments",
 #       "challenge_type":"Design"
-#       }, 
+#       },
 #     "reviewers" : [{"name" : "mess"}, {"name" : "jeffdonthemic"}],
 #     "categories" : [{"name" : "java"}, {"name": "heroku"}],
 #     "prizes" : [{"place":2,"points":222,"prize":"122","value":1212}, {"place":1,"points":2120,"prize":"1000","value":21212}],
