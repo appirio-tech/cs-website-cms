@@ -41,7 +41,7 @@ class Challenge < ApiModel
 
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
     params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
-      { place: entry['place'], prize: entry['prize'] }
+      { place: entry['place'].to_s, prize: entry['prize'].to_s, points: entry['points'] || '', value: entry['value'] || '' }
     end if params['challenge_prizes']
 
     super(params)

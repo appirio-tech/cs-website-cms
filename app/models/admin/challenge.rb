@@ -69,11 +69,11 @@ class Admin::Challenge
   end
 
   def categories
-    @categories.delete_if {|n| n.blank?} if @categories
+    (@categories.delete_if {|n| n.blank?} if @categories) || []
   end
 
   def assets
-    @assets.delete_if {|n| n.blank?} if @assets
+    (@assets.delete_if {|n| n.blank?} if @assets) || []
   end
 
   def statuses
@@ -100,6 +100,9 @@ class Admin::Challenge
     original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
 
     original_challenge_categories = original_challenge.categories.records.map(&:display_name)
+    puts (original_challenge.prizes.map {|c| c.to_hash }).inspect
+    puts (prizes).inspect
+    puts (original_challenge.prizes.map {|c| c.to_hash } - prizes).inspect
 
     {
       challenge: {
@@ -122,14 +125,15 @@ class Admin::Challenge
         categories: categories.map {|name| {name: name}},
         prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
-        assets: assets && assets.map {|filename| {filename: filename}},
+        assets: assets.map {|filename| {filename: filename}},
 
         categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
         reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
         commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
+        prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes
 
         # TO BE IMPLEMENTED:
-        # prizes_to_delete: [{place:2,points:222,prize:"122",value:1212}, {place:1,points:2120,prize:"1000",value:21212}],
+        # "assets_to_delete" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}]
       }
     }
   end
