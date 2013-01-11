@@ -12,11 +12,23 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def create
-    #raise params.inspect
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
     params[:admin_challenge][:categories] = params[:admin_challenge][:categories].split(',') if params[:admin_challenge][:categories]
+
+    # add the time element
+    hour = params[:admin_challenge]['start_date(4i)']
+    min = params[:admin_challenge]['start_date(5i)']
+    t = Time.mktime(1 ,1 ,1 ,hour, min)
+    s = Time.parse(params[:admin_challenge][:start_date])
+    e = Time.parse(params[:admin_challenge][:end_date])
+    params[:admin_challenge][:start_date] = Time.mktime(s.year, s.month, s.day, t.hour, t.min).ctime
+    params[:admin_challenge][:end_date] = Time.mktime(e.year, e.month, e.day, t.hour, t.min).ctime
+
+    # cleanup the params hash
+    1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
+
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     if @challenge.valid?
       ap @challenge.payload.as_json
@@ -84,4 +96,5 @@ class Admin::ChallengesController < ApplicationController
     # create the file in this folder
     @asset = {url: file.public_url, filename: params[:name]}
   end
+
 end

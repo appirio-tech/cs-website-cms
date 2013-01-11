@@ -21,6 +21,8 @@
   </div>
 </div>
 
+<%= f.input :start_date, as: :time, label: 'Time', required: false, hint: 'Times are in your local time zone' %>
+
 <script>
 // we need erb here as well. for later refactoring, we should move these to
 // a data-attribute somewhere (or maybe use gon)
