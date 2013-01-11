@@ -78,7 +78,7 @@ class Admin::Challenge
   end
 
   def assets
-    (@assets.delete_if {|n| n.blank?} if @assets) || []
+    @assets || []
   end
 
   def statuses
@@ -135,7 +135,8 @@ class Admin::Challenge
         categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
         reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
         commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
-        prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes
+        prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,
+        assets_to_delete: (original_challenge.assets - assets).map {|filename| {filename: filename}},
 
         # TO BE IMPLEMENTED:
         # "assets_to_delete" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}]
