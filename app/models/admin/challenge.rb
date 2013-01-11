@@ -88,6 +88,10 @@ class Admin::Challenge
     @commentNotifiers || []
   end
 
+  def prizes
+    @prizes || []
+  end
+
   # formats the object to conform to the api format
   # maybe we should use RABL for this one instead?
   def payload
