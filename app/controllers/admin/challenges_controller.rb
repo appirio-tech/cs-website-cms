@@ -8,6 +8,10 @@ class Admin::ChallengesController < ApplicationController
 
   def new
     @challenge = Admin::Challenge.new
+
+    # defaulted to the current time so that the user can make changes if desired
+    @challenge.start_date = Time.now.ctime
+
     @prizes = @challenge.prizes || []
   end
 
