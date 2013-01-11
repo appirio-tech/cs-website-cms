@@ -92,7 +92,7 @@ class Admin::Challenge
   # maybe we should use RABL for this one instead?
   def payload
     # Get the original challenge to figure out the stuff to be deleted.
-    # We are doing re-requesting the original challenge instead of tracking which
+    # We are re-requesting the original challenge instead of tracking which
     # entries are to be deleted client-side to minimize race conditions. Race
     # conditions aren't totally eliminated, but the window is largely smaller
     # in this case. Plus the logic is much simpler too :)

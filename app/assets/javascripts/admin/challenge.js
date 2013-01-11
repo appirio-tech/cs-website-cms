@@ -1,10 +1,7 @@
 $(function() {
   $('.add-new-prize-set').on('click', function() {
     $('#prize-set').append('\
-<div class="controls"> \
-  <hr /> \
-</div> \
-<div class="control-group"> \
+<div class="well"><div class="control-group"> \
   <label class="control-label">Place</label> \
   <div class="controls"> \
     <input type="number" name="admin_challenge[prizes][][place]"></input> \
@@ -27,6 +24,6 @@ $(function() {
   <div class="controls"> \
     <input type="number" name="admin_challenge[prizes][][value]"></input> \
   </div> \
-</div>')
+</div></div>')
   })
 })
