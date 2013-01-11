@@ -1,5 +1,8 @@
 <legend>Assets</legend>
-<%= f.hidden_field :assets %>
+<%= f.hidden_field :assets, value: @challenge.assets.join(',') %>
+<% @challenge.assets.each do |asset| %>
+  <div><p><%= asset %> <a class='btn btn-danger btn-mini delete-asset' data-filename='<%= asset %>'>delete</a></p></div>
+<% end %>
 <div id="uploader">
   <script>
     // I need ERB support hence it has to be inlined with the HTML :(

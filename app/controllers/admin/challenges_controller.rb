@@ -8,7 +8,6 @@ class Admin::ChallengesController < ApplicationController
 
   def new
     @challenge = Admin::Challenge.new
-    @challenge.assets = @challenge.assets.join(',')
 
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
@@ -17,7 +16,6 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def create
-    raise params[:admin_challenge].inspect
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
@@ -48,7 +46,6 @@ class Admin::ChallengesController < ApplicationController
   def edit
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
-    @challenge.assets = @challenge.assets.join(',')
     @challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
 
     # For the Prizes section, the "Prize" field should accept a string so that a

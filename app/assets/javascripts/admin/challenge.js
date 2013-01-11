@@ -34,4 +34,23 @@ $(function() {
     $(this).parent().fadeOut().empty()
     e.preventDefault()
   })
+
+  $('a.delete-asset').on('click', function(e) {
+    filename = $(this).data('filename')
+
+    // remove the asset from the hidden field
+    $('#admin_challenge_assets').val(function(i, v) {
+      var arr = v.split(',')
+      for (var i in arr) {
+        if (arr[i] == filename) {
+          arr.splice(i, 1)
+          break
+        }
+      }
+      return arr.join(',')
+    })
+
+    $(this).parent().fadeOut()
+    e.preventDefault()
+  })
 })
