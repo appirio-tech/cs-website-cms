@@ -1,5 +1,5 @@
 $(function() {
-  $('.add-new-prize-set').on('click', function() {
+  $('.add-new-prize-set').on('click', function(e) {
     $('#prize-set').append('\
 <div class="well"><div class="control-group"> \
   <label class="control-label">Place</label> \
@@ -24,6 +24,14 @@ $(function() {
   <div class="controls"> \
     <input type="number" name="admin_challenge[prizes][][value]"></input> \
   </div> \
-</div></div>')
+</div> \
+<a class="btn btn-danger delete-prize-set">Delete This Prize Set</a> \
+</div>')
+    e.preventDefault()
+  })
+
+  $('.delete-prize-set').on('click', function(e) {
+    $(this).parent().fadeOut().empty()
+    e.preventDefault()
   })
 })
