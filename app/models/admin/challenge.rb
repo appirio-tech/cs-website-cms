@@ -26,6 +26,11 @@ class Admin::Challenge
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
                 # fields don't exist
+
+                # IDEA FOR REFACTORING:
+                # We should instead have a slave ::Challenge object to consume the original
+                # challenge params and extract out whatever data we need. The way this is
+                # being implemented right now smells of feature envy.
                 :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
                 :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
                 :registered_members, :challenge_comments, :additional_info,
@@ -55,17 +60,17 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def start_date
-    (Date.parse(@start_date) if @start_date) || Date.today
+    (Time.parse(@start_date) if @start_date) || Date.today
   end
 
   # Return an object instead of a string
   def end_date
-    (Date.parse(@end_date) if @end_date) || Date.today
+    (Time.parse(@end_date) if @end_date) || Date.today
   end
 
   # Return an object instead of a string
   def winner_announced
-    (Date.parse(@winner_announced) if @winner_announced) || Date.today
+    (Time.parse(@winner_announced) if @winner_announced) || Date.today
   end
 
   def categories
