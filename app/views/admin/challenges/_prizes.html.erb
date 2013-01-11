@@ -3,31 +3,30 @@
 <div>
   <div id="prize-set">
     <% @prizes.each do |prize| %>
-      <div class="controls">
-        <hr />
-      </div>
-      <div class="control-group">
-        <label class="control-label">Place</label>
-        <div class="controls">
-          <input type="number" name="admin_challenge[prizes][][place]" value='<%= prize.place %>'></input>
+      <div class="well">
+        <div class="control-group">
+          <label class="control-label">Place</label>
+          <div class="controls">
+            <input type="number" name="admin_challenge[prizes][][place]" value='<%= prize.place %>'></input>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Prize</label>
-        <div class="controls">
-          <input type="number" name="admin_challenge[prizes][][prize]" value='<%= prize.prize %>'></input>
+        <div class="control-group">
+          <label class="control-label">Prize</label>
+          <div class="controls">
+            <input type="number" name="admin_challenge[prizes][][prize]" value='<%= prize.prize %>'></input>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Points</label>
-        <div class="controls">
-          <input type="number" name="admin_challenge[prizes][][points]" value='<%= prize.points %>'></input>
+        <div class="control-group">
+          <label class="control-label">Points</label>
+          <div class="controls">
+            <input type="number" name="admin_challenge[prizes][][points]" value='<%= prize.points %>'></input>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Value</label>
-        <div class="controls">
-          <input type="number" name="admin_challenge[prizes][][value]" value='<%= prize.value %>'></input>
+        <div class="control-group">
+          <label class="control-label">Value</label>
+          <div class="controls">
+            <input type="number" name="admin_challenge[prizes][][value]" value='<%= prize.value %>'></input>
+          </div>
         </div>
       </div>
     <% end %>
