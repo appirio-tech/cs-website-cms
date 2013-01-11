@@ -65,12 +65,12 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def end_date
-    (Time.parse(@end_date) if @end_date) || Date.today
+    (Time.parse(@end_date) if @end_date) || Date.today + 7.days
   end
 
   # Return an object instead of a string
   def winner_announced
-    (Time.parse(@winner_announced) if @winner_announced) || Date.today
+    (Time.parse(@winner_announced) if @winner_announced) || Date.today + 14.days
   end
 
   def categories
@@ -106,10 +106,7 @@ class Admin::Challenge
     # conditions aren't totally eliminated, but the window is largely smaller
     # in this case. Plus the logic is much simpler too :)
 
-    original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
-    original_challenge_categories = original_challenge.categories.records.map(&:display_name)
-
-    {
+    result = {
       challenge: {
         detail: {
           winner_announced: winner_announced,
@@ -131,17 +128,21 @@ class Admin::Challenge
         prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
         assets: assets.map {|filename| {filename: filename}},
-
+      }
+    }
+    if self.challenge_id && !self.challenge_id.blank?
+      original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
+      original_challenge_categories = original_challenge.categories.records.map(&:display_name)
+      stuff_to_delete = {
         categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
         reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
         commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
         prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,
         assets_to_delete: (original_challenge.assets - assets).map {|filename| {filename: filename}},
-
-        # TO BE IMPLEMENTED:
-        # "assets_to_delete" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}]
       }
-    }
+      result[:challenge].update(stuff_to_delete)
+    end
+    result
   end
 
 end
