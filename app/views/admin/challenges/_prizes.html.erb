@@ -13,19 +13,19 @@
         <div class="control-group">
           <label class="control-label">Prize</label>
           <div class="controls">
-            <input type="number" name="admin_challenge[prizes][][prize]" value='<%= prize.prize %>'></input>
+            <input type="text" name="admin_challenge[prizes][][prize]" value='<%= prize.prize %>' class='prize-prize'></input>
           </div>
         </div>
         <div class="control-group">
           <label class="control-label">Points</label>
           <div class="controls">
-            <input type="number" name="admin_challenge[prizes][][points]" value='<%= prize.points %>'></input>
+            <input type="number" name="admin_challenge[prizes][][points]" value='<%= prize.points %>' class='prize-points'></input>
           </div>
         </div>
         <div class="control-group">
           <label class="control-label">Value</label>
           <div class="controls">
-            <input type="number" name="admin_challenge[prizes][][value]" value='<%= prize.value %>'></input>
+            <input type="number" name="admin_challenge[prizes][][value]" value='<%= prize.value %>' class='prize-value'></input>
           </div>
         </div>
         <a class='btn btn-danger delete-prize-set'>Delete This Prize Set</a>

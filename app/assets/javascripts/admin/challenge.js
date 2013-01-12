@@ -1,5 +1,6 @@
 $(function() {
-  $('.add-new-prize-set').on('click', function(e) {
+  // Add new prize sets
+  $('.add-new-prize-set').live('click', function(e) {
     $('#prize-set').append('\
 <div class="well"><div class="control-group"> \
   <label class="control-label">Place</label> \
@@ -10,19 +11,19 @@ $(function() {
 <div class="control-group"> \
   <label class="control-label">Prize</label> \
   <div class="controls"> \
-    <input type="number" name="admin_challenge[prizes][][prize]"></input> \
+    <input type="number" name="admin_challenge[prizes][][prize]" class="prize-value"></input> \
   </div> \
 </div> \
 <div class="control-group"> \
   <label class="control-label">Points</label> \
   <div class="controls"> \
-    <input type="number" name="admin_challenge[prizes][][points]"></input> \
+    <input type="number" name="admin_challenge[prizes][][points]" class="prize-points"></input> \
   </div> \
 </div> \
 <div class="control-group"> \
   <label class="control-label">Value</label> \
   <div class="controls"> \
-    <input type="number" name="admin_challenge[prizes][][value]"></input> \
+    <input type="number" name="admin_challenge[prizes][][value]" class="prize-value"></input> \
   </div> \
 </div> \
 <a class="btn btn-danger delete-prize-set">Delete This Prize Set</a> \
@@ -30,11 +31,13 @@ $(function() {
     e.preventDefault()
   })
 
-  $('.delete-prize-set').on('click', function(e) {
+  // Delete prize sets
+  $('.delete-prize-set').live('click', function(e) {
     $(this).parent().fadeOut().empty()
     e.preventDefault()
   })
 
+  // Add/Remove assets
   $('a.delete-asset').on('click', function(e) {
     filename = $(this).data('filename')
 
@@ -53,4 +56,17 @@ $(function() {
     $(this).parent().fadeOut()
     e.preventDefault()
   })
+
+  // onBlur thingie for prizes
+  $('input.prize-prize').live('blur', function(e) {
+    value = this.value.replace(/[$,]/g,"")
+    if (isNaN(value) == false) {
+      $great_grand_parent = $(this).parent().parent().parent()
+      $great_grand_parent.find('input.prize-points').val(value)
+      $great_grand_parent.find('input.prize-value').val(value)
+    }
+
+    // value
+  })
+
 })
