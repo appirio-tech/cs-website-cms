@@ -1,4 +1,0 @@
-client_id: ENV['DATABASEDOTCOM_CLIENT_ID']
-client_secret: ENV['DATABASEDOTCOM_CLIENT_SECRET']
-host: test.salesforce.com
-debugging: true

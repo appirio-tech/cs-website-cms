@@ -25,8 +25,6 @@ gem 'faye', '0.8.3'
 gem 'restforce'
 
 # gems from old site's gemfile
-gem 'databasedotcom' # we may get rid of this
-gem 'databasedotcom-rails' # we may get rid of this
 gem 'haml'
 gem 'will_paginate'
 gem 'httparty'
