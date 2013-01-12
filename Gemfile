@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 gem 'pg', '0.14.1'
 
 gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
