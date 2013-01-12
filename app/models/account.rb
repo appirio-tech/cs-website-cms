@@ -8,12 +8,12 @@ class Account < ApiModel
       "#{ENV['CS_API_URL']}/accounts"
     end
 
-    def find(name, provider = "cloudspokes")
+    def find(access_token, name, provider = "cloudspokes")
       data = {
         service: provider,
         service_username: name
       }
-      request :get, "find_by_service", data
+      request access_token, :get, "find_by_service", data
     end
   end
 
@@ -21,47 +21,28 @@ class Account < ApiModel
     @user = user
   end
 
-  def create
-    self.class.post("create", data_for_create)
+  def create(access_token, params)
+    self.class.post(access_token, "create", params)
   end
 
-  def authenticate(password)
+  def authenticate(access_token, password)
     data = {
       membername: user.username,
       password: password
     }
-    self.class.post("authenticate", data)
+    self.class.post(access_token, "authenticate", data)
   end
 
-  def reset_password
-    self.class.request(:get, ["reset_password", user.username], {})
+  def reset_password(access_token)
+    self.class.request(access_token, :get, ["reset_password", user.username], {})
   end
 
-  def update_password(passcode, new_password)
+  def update_password(access_token, passcode, new_password)
     data = {
       passcode: passcode,
       new_password: new_password
     }
-    self.class.put(["update_password", user.username], data)
-  end
-
-
-  private
-  def data_for_create
-    {username: user.username, email: user.email}.tap do |hash|
-      if user_auth.present?
-        # signed up with third-party
-        hash[:provider] = user_auth.provider
-        hash[:name] = user.username
-        hash[:provider_username] = user.username
-      else
-        hash[:password] = user.password
-      end
-    end
-  end
-
-  def user_auth
-    @user_auth ||= user.authentications.first
+    self.class.put(access_token, ["update_password", user.username], data)
   end
 
 end

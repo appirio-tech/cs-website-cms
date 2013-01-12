@@ -1,0 +1,26 @@
+<h2>Sign up</h2>
+
+<% if @signup_form.errors.any? %>
+    <% @signup_form.errors.full_messages.each do |msg| %>  
+      <li><%= msg %></li>  
+    <% end %>
+<% end %>
+
+<%= simple_form_for(@signup_form, :as => resource_name, :url => new_third_party_user_registration_path) do |f| %>
+
+	<%= f.hidden_field :provider %>
+	<%= f.hidden_field :provider_username %>
+
+  <div class="inputs">
+  	<%= f.input :name, :required => true %>
+  	<%= f.input :username, :required => true, :autofocus => true %>
+    <%= f.input :email, :required => true %>
+    <%= f.check_box :terms_of_service, :required => true %> I agree to the <%= link_to 'terms of service', tos_path, :target => '_blank' %>.
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "users/links" %>

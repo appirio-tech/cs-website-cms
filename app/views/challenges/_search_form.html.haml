@@ -1,4 +1,4 @@
-= form_tag challenges_path, method: :get do
+= form_tag challenges_search_path, method: :get do
   .row
     .span12
       = text_field_tag "search[query]", search_options[:query], placeholder: "Enter keywords here", class: "query span6"

@@ -25,7 +25,7 @@ CsWebsiteCms::Application.configure do
     :enable_starttls_auto => true,
     :domain         => 'gmail.com',
     :user_name      => 'jeffdonthemic.test@gmail.com',
-    :password       => '2dreamforcepass'
+    :password       => '6?J3<CB62s'
   }    
 
   # Print deprecation notices to the Rails logger
@@ -48,4 +48,6 @@ CsWebsiteCms::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  $stdout.sync = true
 end

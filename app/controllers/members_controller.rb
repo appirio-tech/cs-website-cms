@@ -3,7 +3,7 @@ class MembersController < ApplicationController
   # note that we provide our own search service so that we have greater control
   # over the results; e.g. caching, endpoint configuration, result format, etc.
   def search
-    @members = Member.search(params[:keyword])
+    @members = Member.search(access_token, params[:keyword])
     render json: @members, :callback => params[:callback]
   end
 
@@ -20,8 +20,7 @@ class MembersController < ApplicationController
   end
 
   def index
-    @members = Member.all
-
+    @members = Member.all(access_token)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @members }

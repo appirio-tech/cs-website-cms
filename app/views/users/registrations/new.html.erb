@@ -1,16 +1,20 @@
 <h2>Sign up</h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => user_registration_path(resource)) do |f| %>
+<% if @signup_form.errors.any? %>
+    <% @signup_form.errors.full_messages.each do |msg| %>  
+      <li><%= msg %></li>  
+    <% end %>
+<% end %>
 
-  <%= f.error_notification(message: f.object.errors.get(:account).try(:join, ", ")) %>
+<%= render "users/oauth_login" %>
+
+<%= simple_form_for(@signup_form, :as => resource_name, :url => user_registration_path(resource)) do |f| %>
 
   <div class="inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
     <%= f.input :username, :required => true %>
-    <%if resource.password_required?%>
-      <%= f.input :password, :required => true %>
-      <%= f.input :password_confirmation, :required => true %>
-    <%end%>
+    <%= f.input :email, :required => true, :autofocus => true %>
+    <%= f.input :password, :required => true %>
+    <%= f.input :password_confirmation, :required => true %>
   </div>
 
   <div class="actions">

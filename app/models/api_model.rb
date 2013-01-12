@@ -2,7 +2,15 @@ class ApiModel
   include ActiveModel::Model
 
   ENDPOINT_EXPIRY = ENV['CS_API_EXPIRY'].to_i
-  ACCESS_TOKEN = APP_CONFIG[:access_token]
+
+  def self.access_token1(type=:public)
+    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+      :client_id      => ENV['SALESFORCE_SANDBOX_ID'],
+      :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
+      :host           => ENV['SFDC_HOST']
+    client.authenticate!.access_token
+  end
 
   # Implements the has_many relationship
   # Passing :parent as an option allows modification of the calling class
@@ -53,8 +61,8 @@ class ApiModel
   end
 
   # Returns all the records from the CloudSpokes API
-  def self.all
-    raw_get.map { |item| new item }
+  def self.all(access_token)
+    request(access_token, :get, '', {}).map {|item| new item}
   end
 
   # Returns the first record
@@ -65,8 +73,10 @@ class ApiModel
   end
 
   # Finds an entity
-  def self.find(entity)
-    Kernel.const_get(self.name).new(raw_get entity)
+  def self.find(access_token, entity)
+    Rails.logger.info "========== running find for #{entity} for #{self.name}"
+    Rails.logger.info "=========== raw_get entity #{raw_get(entity).to_yaml}"
+    Kernel.const_get(self.name).new(raw_get access_token, entity)
   end
 
   # Wrap initialize with a sanitation clause
@@ -85,7 +95,6 @@ class ApiModel
   def persisted?
     !!id
   end
-
 
   def save
     new_record? ? create : update
@@ -108,9 +117,10 @@ class ApiModel
     obj
   end
 
-  def self.update_headers
-    @update_headers ||= {
-      "Authorization" => "Token token=#{ACCESS_TOKEN}",
+  def self.api_request_headers(access_token)
+    {
+      'oauth_token' => access_token,
+      'Authorization' => 'Token token="'+ENV['CS_API_KEY']+'"',
       'Content-Type' => 'application/json'
     }
   end
@@ -119,12 +129,12 @@ class ApiModel
   # Accepts an array or a string
   # If given an array, will join the elements with '/'
   # If given a string, will use the argument as is
-  def self.raw_get(entities = [])
+  def self.raw_get(access_token, entities = [])
+    Rails.logger.info "=====$$$$$ CALLING RAW GET $$$$$$======="
     endpoint = endpoint_from_entities(entities)
-    Rails.logger.debug "calling api endpoint #{endpoint}"
-    Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
-      get_response(RestClient.get(endpoint))
-    end
+    #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
+      get_response(RestClient.get(endpoint, api_request_headers(access_token)))
+    #end
   end
 
   # Sanitized response to only the attributes we've defined
@@ -141,54 +151,55 @@ class ApiModel
     Hashie::Mash.new(JSON.parse(data)).response
   end
 
-  def self.request(method, entities, data, headers = update_headers)
+  def self.request(access_token, method, entities, data)
+    Rails.logger.info "===== access_token: #{access_token}"
+    Rails.logger.info "===== method: #{method}"
     endpoint = endpoint_from_entities(entities)
-
+    Rails.logger.info "===== endpoint: #{endpoint}"    
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
-      resp = RestClient.send method, endpoint, headers
+      resp = RestClient.send method, endpoint, api_request_headers(access_token)
     else
       data = data.to_json unless data.is_a?(String)
-      resp = RestClient.send method, endpoint, data, headers
+      resp = RestClient.send method, endpoint, data, api_request_headers(access_token)
     end
-
     get_response(resp)
   end
 
-  def self.post(entities, data, headers = update_headers)
-    request :post, entities, data, headers
+  def self.post(access_token, entities, data)
+    request access_token, :post, entities, data
   end
 
-  def self.put(entities, data, headers = update_headers)
-    request :put, entities, data, headers
+  def self.put(access_token, entities, data)
+    request access_token, :put, entities, data
   end
-
 
   private
-  def save_data
-    columns = self.class.column_names - self.class.rel_column_names - [:id]
-    columns.inject({}) do |ret, column|
-      val = self.public_send(column)
-      ret[column] = val if val.present?
-      ret
+
+    def save_data
+      columns = self.class.column_names - self.class.rel_column_names - [:id]
+      columns.inject({}) do |ret, column|
+        val = self.public_send(column)
+        ret[column] = val if val.present?
+        ret
+      end
     end
-  end
 
-  # define update_endpoint to subclass if you want to use another url for update
-  def update_endpoint
-    id
-  end
+    # define update_endpoint to subclass if you want to use another url for update
+    def update_endpoint
+      id
+    end
 
-  # define create_endpoint to subclass if you want to use another url for create
-  def create_endpoint
-    ""
-  end
+    # define create_endpoint to subclass if you want to use another url for create
+    def create_endpoint
+      ""
+    end
 
-  def update
-    self.class.put update_endpoint, save_data
-  end
+    def update
+      self.class.put update_endpoint, save_data
+    end
 
-  def create
-    self.class.post create_endpoint, save_data
-  end
+    def create
+      self.class.post create_endpoint, save_data
+    end
 end

@@ -14,12 +14,11 @@ class Challenge < ApiModel
   # lacks many attributes. We simply just do another api call.
   has_many :participants
 
-  # Cleanup up the __r convention
+  # Cleanup up the __r convention -- may want to delete this
   def initialize(params={})
     params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
     params['participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
     params['community'] = params.delete('community__r') if params['community__r']
-
     super(params)
   end
 
@@ -33,20 +32,21 @@ class Challenge < ApiModel
   end
 
   # Returns all the closed challenges
-  def self.closed
-    raw_get('closed').map {|challenge| Challenge.new challenge}
-  end
-  def self.open
-    raw_get.map {|challenge| Challenge.new challenge}
+  def self.closed(access_token)
+    request(access_token, :get, 'closed', {}).map {|challenge| Challenge.new challenge}
   end
 
-  def self.all
-    closed + open
+  def self.open(access_token)
+    request(access_token, :get, '', {}).map {|challenge| Challenge.new challenge}
+  end
+
+  def self.all(access_token)
+    closed(access_token) + open(access_token)
   end
 
   # Returns all the recent challenges
-  def self.recent
-    raw_get('recent').map {|challenge| Challenge.new challenge}
+  def self.recent(access_token)
+    request(access_token, :get, 'recent', {}).map {|challenge| Challenge.new challenge}
   end
 
   # Return an object instead of a string

@@ -24,8 +24,9 @@ class Member < ApiModel
     'nil'
   end
 
-  def self.search(keyword)
-    raw_get("search?keyword=#{keyword}")
+  def self.search(access_token, keyword)
+    request(access_token, :get, "search", {:keyword => keyword})
+      .map {|member| Member.new member}
   end
 
 end

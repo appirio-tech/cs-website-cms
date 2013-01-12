@@ -1,5 +1,9 @@
 <tr>
   <% Comment.column_names.each do |column| %>
+<%
+=begin %>  
     <td><%= link_to truncate(comment.send(column).to_s), comment.member %></td>
+<%
+=end %>	    
   <% end %>
 </tr>

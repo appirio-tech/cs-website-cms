@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   def authenticate_account
     user = User.find_by_username(params[:user][:username])
     if user
-      resp = user.account.authenticate(params[:user][:password])
+      resp = user.account.authenticate(access_token, params[:user][:password])
       if resp.success == "true"
         user.update_attribute(:access_token, resp.access_token)
       else

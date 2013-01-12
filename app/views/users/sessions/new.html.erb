@@ -1,5 +1,9 @@
 <h2>Sign in</h2>
+
 <%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
+
+<%= render "users/oauth_login" %>
+
 <%= simple_form_for(resource, :as => resource_name, :url => user_session_path(resource)) do |f| %>
 
   <div class="inputs">

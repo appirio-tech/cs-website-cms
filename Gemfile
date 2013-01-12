@@ -88,6 +88,7 @@ group :development, :test do
   gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
+  gem 'quiet_assets'
 end
 
 group :test do

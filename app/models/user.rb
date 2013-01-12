@@ -16,14 +16,14 @@ class User < ActiveRecord::Base
   validates :username, :presence => true
 
   def create_account
-    resp = account.create
-    if resp.success == "true"
-      self.sfdc_username = resp.sfdc_username
-    else
-      errors.add :account, resp.message
-    end
-
-    resp.success == "true"
+    # not sure if we need this?
+    # resp = account.create
+    # if resp.success == "true"
+    #   self.sfdc_username = resp.sfdc_username
+    # else
+    #   errors.add :account, resp.message
+    # end
+    # resp.success == "true"
   end
 
   def account

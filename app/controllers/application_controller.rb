@@ -11,6 +11,19 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(user)
-    "/challenges"
+    "/about"
   end  
+
+  # TODO - this will eventually pull the access token from the current_user
+  # if present or use the guest user access_token
+  def access_token
+    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+      :client_id      => ENV['SALESFORCE_SANDBOX_ID'],
+      :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
+      :host           => ENV['SFDC_HOST']
+    client.authenticate!.access_token
+  end
+
+
 end

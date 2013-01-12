@@ -1,5 +1,11 @@
 <tr>
   <% Participant.column_names.each do |column| %>
-    <td><%= link_to truncate(participant.send(column).to_s), participant.member %></td>
+    <td>
+<%
+=begin %>
+    	<%= link_to truncate(participant.send(column).to_s), participant.member %>
+<%
+=end %>	
+    </td>
   <% end %>
 </tr>

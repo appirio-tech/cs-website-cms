@@ -4,14 +4,16 @@ CsWebsiteCms::Application.routes.draw do
 
   get "protected", to: 'protected#index'
 
-  match '/auth/:provider/callback', to: 'authentications#create'
+  match '/auth/:provider/callback', to: 'authentications#callback'
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
-  }
+  } do 
+    match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
+  end
 
   get 'members/search'
   resources :members, only: [:index, :show, :update] do
@@ -25,6 +27,7 @@ CsWebsiteCms::Application.routes.draw do
 
   get 'challenges/closed'
   get 'challenges/recent'
+  get 'challenges/search'
   resources :challenges, only: [:index, :create, :show, :update] do
     member do
       get 'comments'
@@ -47,6 +50,11 @@ CsWebsiteCms::Application.routes.draw do
 
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
+
+  match "/tos" => redirect("http://content.cloudspokes.com/terms-of-service")
+  match "/signup" => redirect("/users/sign_up")
+  match "/signin" => redirect("/users/sign_in")
+  match "/login" => redirect("/users/sign_in")
 
   root to: 'refinery/pages#home'
 
