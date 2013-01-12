@@ -11,7 +11,7 @@ $(function() {
 <div class="control-group"> \
   <label class="control-label">Prize</label> \
   <div class="controls"> \
-    <input type="number" name="admin_challenge[prizes][][prize]" class="prize-value"></input> \
+    <input type="number" name="admin_challenge[prizes][][prize]" class="prize-prize"></input> \
   </div> \
 </div> \
 <div class="control-group"> \
