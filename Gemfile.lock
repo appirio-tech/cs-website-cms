@@ -94,10 +94,6 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
-    aws-s3 (0.6.3)
-      builder
-      mime-types
-      xml-simple
     babosa (0.3.8)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.1.0)
@@ -457,7 +453,6 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
     will_paginate (3.0.3)
-    xml-simple (1.1.2)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -467,7 +462,6 @@ DEPENDENCIES
   airbrake
   annotate (= 2.4.0)
   awesome_print
-  aws-s3
   bootstrap-sass (= 2.1.1.0)
   chosen-rails
   ckeditor_rails!
