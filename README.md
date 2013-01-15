@@ -17,7 +17,7 @@ If your code is making any "destructive calls" (create, update, delete) with the
 
 ## Environment Variables
 
-If any of your code requires direct calls to Database.com (e.g., pub/sub with faye) then you will need to setup the following environment variables. Please contact support@cloudspokes.com with the subject "Sandbox Envirnmental Variables Request" and we'll send them to you for all future challenges of this type.
+If any of your code requires direct calls to Database.com (e.g., pub/sub with faye) then you will need to setup the following environment variables. Please contact support@cloudspokes.com with the subject "Sandbox Environment Variables Request" and we'll send them to you for all future challenges of this type.
 
 	SFDC_CLIENT_ID
 	SFDC_CLIENT_SECRET
@@ -26,12 +26,12 @@ If any of your code requires direct calls to Database.com (e.g., pub/sub with fa
 
 ## Local Development
 
-run sqlite3 in development. See config/config.yml for any application specific variables. Please add any new ones to this file.
+Run sqlite3 in development. We've recently switched to use (Foreman to develop locally)[https://devcenter.heroku.com/articles/procfile] per Heroku's recommendation. See .env-example for any application specific variables that you need for you .env file. Please add any new variables to this file. To get up and running, run:
 
 	bundle install
-	cp config/config.example.yml config/config.yml # your local config variables
-	rake db:migrate --trace
+	rake db:migrate
 	rake db:seed
+	foreman start -p 3000
 
 You can log into Devise/Refinery with the following credentials:
 
@@ -43,30 +43,6 @@ You can log into Devise/Refinery with the following credentials:
 Rspec uses VCR to make calls to the CloudSpokes API and caches them (as "casettes") for future tests. If you want to make new calls to the API instead of using the cassettes, simply delete the yaml file(s) in the /spec/fixtures/vcr_cassettes directories. 
 
 It's a little difficult to test the API since it's not possible to setup/teardown tests in a Database.com sandbox. Therefore, these test may change over time but we'll try and keep them running as successfully as possible.
-
-## Heroku Deployment
-
-Edit the config.yml and specify your endpoints and how long the app will cache the api endpoint responses
-
-Create your app on heroku
-
-	heroku apps:create <my-app>
-
-Setup the databases
-
-	heroku addons:add heroku-postgresql:dev
-	heroku run rake db:version
-	heroku run rake db:migrate --trace
-	heroku run rake db:seed
-	heroku restart
-
-Deploy to heroku
-
-	git push heroku master
-
-You can now use the application
-
-	heroku open
 
 ## Technical Specifications
 
@@ -126,5 +102,7 @@ ActiveModel::Model was copied and pasted into app/models because [it will only b
 ## Contributors
 
 * Jeff Douglas -> [jeffdonthemic](https://github.com/jeffdonthemic)
+* peakpado -> [peakpado](https://github.com/peakpado)
+* dineshmatta -> [dineshmatta](https://github.com/dineshmatta)
 * parasquid -> [parasquid](https://github.com/parasquid)
 * chang -> [aproxacs](https://github.com/aproxacs)
