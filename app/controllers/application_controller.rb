@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       :client_id      => ENV['SALESFORCE_SANDBOX_ID'],
       :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
       :host           => ENV['SFDC_HOST']
-    logger.info client.to_yaml 
+    logger.info client.to_yaml
     client.authenticate!.access_token
   end
 
