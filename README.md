@@ -26,7 +26,7 @@ If any of your code requires direct calls to Database.com (e.g., pub/sub with fa
 
 ## Local Development
 
-Run sqlite3 in development. We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. See .env-example for application specific variables that you need for you .env file. Please add any new variables to this example file. To get up and running, run:
+Run sqlite3 in development. We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. See .env-example for application specific variables that you need for your .env file. Please add any new variables to this example file. To get up and running, run:
 
 	bundle install
 	rake db:migrate
