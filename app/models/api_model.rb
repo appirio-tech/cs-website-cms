@@ -3,15 +3,6 @@ class ApiModel
 
   ENDPOINT_EXPIRY = ENV['CS_API_EXPIRY'].to_i
 
-  def self.access_token1(type=:public)
-    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-      :client_id      => ENV['SALESFORCE_SANDBOX_ID'],
-      :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
-      :host           => ENV['SFDC_HOST']
-    client.authenticate!.access_token
-  end
-
   # Implements the has_many relationship
   # Passing :parent as an option allows modification of the calling class
   # This is used mostly for has and belongs to many relationships, where
