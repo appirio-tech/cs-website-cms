@@ -2,7 +2,6 @@ language: ruby
 rvm:
   - 1.9.2
 before_script: 
- - "cp /home/travis/builds/cloudspokes/cs-website-cms/config/config.example.yml /home/travis/builds/cloudspokes/cs-website-cms/config/config.yml"
  - bundle exec rake db:migrate
  - bundle exec rake db:seed
 script: bundle exec rake test

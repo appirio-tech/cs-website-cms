@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
   def access_token
     client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
       :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-      :client_id      => ENV['SALESFORCE_SANDBOX_ID'],
-      :client_secret  => ENV['SALESFORCE_SANDBOX_SECRET'],
+      :client_id      => ENV['SFDC_CLIENT_ID'],
+      :client_secret  => ENV['SFDC_CLIENT_SECRET'],
       :host           => ENV['SFDC_HOST']
     logger.info client.to_yaml
     client.authenticate!.access_token
