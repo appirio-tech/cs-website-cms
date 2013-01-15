@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'pg', '0.14.1'
 
 gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem 'sass-rails',   '~> 3.2.3'
@@ -67,6 +66,10 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :production do
+  gem 'pg', '0.14.1'
 end
 
 group :development, :test do
