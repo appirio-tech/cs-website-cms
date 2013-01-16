@@ -44,7 +44,7 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :challenges, only: [:new, :create] # remove the restrictions once the new challenges are up
+    resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up
     post 'challenges/assets'
   end
 

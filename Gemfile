@@ -84,11 +84,11 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'sextant'
-  gem 'quiet_assets'  
+  gem 'quiet_assets'
   gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
-  gem 'quiet_assets'
+  gem 'meta_request', '0.2.1' # see https://github.com/dejan/rails_panel
 end
 
 group :test do
