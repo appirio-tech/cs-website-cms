@@ -3,6 +3,8 @@ class ApiModel
 
   ENDPOINT_EXPIRY = ENV['CS_API_EXPIRY'].to_i
 
+  cattr_accessor :access_token  
+
   # Implements the has_many relationship
   # Passing :parent as an option allows modification of the calling class
   # This is used mostly for has and belongs to many relationships, where
@@ -52,8 +54,8 @@ class ApiModel
   end
 
   # Returns all the records from the CloudSpokes API
-  def self.all(access_token)
-    request(access_token, :get, '', {}).map {|item| new item}
+  def self.all
+    request(:get, '', {}).map {|item| new item}
   end
 
   # Returns the first record
@@ -64,14 +66,14 @@ class ApiModel
   end
 
   # Finds an entity
-  def self.find(access_token, entity)
+  def self.find(entity)
     Rails.logger.info "========== running find for #{entity} for #{self.name}"
-    Rails.logger.info "=========== raw_get entity #{raw_get(entity).to_yaml}"
-    Kernel.const_get(self.name).new(raw_get access_token, entity)
+    Kernel.const_get(self.name).new(raw_get entity)
   end
 
   # Wrap initialize with a sanitation clause
   def initialize(params={})
+    Rails.logger.info "=====calling init with #{params}"
     @raw_data = params.dup
     params.delete_if {|k, v| !self.class.column_names.include? k.to_sym}
     super(params)
@@ -108,7 +110,7 @@ class ApiModel
     obj
   end
 
-  def self.api_request_headers(access_token)
+  def self.api_request_headers
     {
       'oauth_token' => access_token,
       'Authorization' => 'Token token="'+ENV['CS_API_KEY']+'"',
@@ -120,11 +122,11 @@ class ApiModel
   # Accepts an array or a string
   # If given an array, will join the elements with '/'
   # If given a string, will use the argument as is
-  def self.raw_get(access_token, entities = [])
-    Rails.logger.info "=====$$$$$ CALLING RAW GET $$$$$$======="
+  def self.raw_get(entities = [])
     endpoint = endpoint_from_entities(entities)
+    Rails.logger.info "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
-      get_response(RestClient.get(endpoint, api_request_headers(access_token)))
+      get_response(RestClient.get(endpoint, api_request_headers))
     #end
   end
 
@@ -142,27 +144,27 @@ class ApiModel
     Hashie::Mash.new(JSON.parse(data)).response
   end
 
-  def self.request(access_token, method, entities, data)
+  def self.request(method, entities, data)
     Rails.logger.info "===== access_token: #{access_token}"
     Rails.logger.info "===== method: #{method}"
     endpoint = endpoint_from_entities(entities)
     Rails.logger.info "===== endpoint: #{endpoint}"    
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
-      resp = RestClient.send method, endpoint, api_request_headers(access_token)
+      resp = RestClient.send method, endpoint, api_request_headers
     else
       data = data.to_json unless data.is_a?(String)
-      resp = RestClient.send method, endpoint, data, api_request_headers(access_token)
+      resp = RestClient.send method, endpoint, data, api_request_headers
     end
     get_response(resp)
   end
 
-  def self.post(access_token, entities, data)
-    request access_token, :post, entities, data
+  def self.post(entities, data)
+    request :post, entities, data
   end
 
-  def self.put(access_token, entities, data)
-    request access_token, :put, entities, data
+  def self.put(entities, data)
+    request :put, entities, data
   end
 
   private

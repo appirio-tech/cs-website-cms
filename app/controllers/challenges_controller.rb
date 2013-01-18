@@ -1,33 +1,39 @@
 class ChallengesController < ApplicationController
 
   def closed
-    @challenges = Challenge.closed(access_token)
+    @challenges = Challenge.closed
+    render :json => @challenges
   end
 
   def recent
-    @challenges = Challenge.recent(access_token)
+    @challenges = Challenge.recent
+    render :json => @challenges
   end
 
   def comments
   end
 
   def registrants
-    @participants = Challenge.find(access_token, params[:id]).participants
+    @participants = Challenge.find params[:id].participantsrender :json => @challenges
+    render :json => @participants
   end
 
   def survey
   end
 
   def index
-    @challenges = Challenge.open(access_token)
+    @challenges = Challenge.open
+    render :json => @challenges
   end
 
   def search
     @challenges = Challenge.search params[:search]
+    render :json => @challenges
   end  
 
   def show
-    @challenge = Challenge.find(access_token, params[:id])
+    @challenge = Challenge.find params[:id]
+    render :json => @challenge
   end
 
   def update

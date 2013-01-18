@@ -3,7 +3,7 @@ class Admin::ChallengesController < ApplicationController
   # in a standard way; maybe username/password or refinery usertypes?
 
   def index
-    @challenges = ::Challenge.all.sort_by {|c| c.challenge_id.to_i }
+    @challenges = ::Challenge.all(access_token).sort_by {|c| c.challenge_id.to_i }
   end
 
   def new
@@ -44,7 +44,7 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def edit
-    challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
+    challenge = ::Challenge.find(access_token, [params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
     @challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
 

@@ -3,10 +3,11 @@ class Category < ApiModel
     :name, :color
 
   def self.api_endpoint
-    'http://cs-api-sandbox.herokuapp.com/v1/categories'
+  	"#{ENV['CS_API_URL']}/categories"
   end
 
   def self.names
-    all.map {|category| category.name}
+    #all.map {|category| category.name}
+    ['dummy','data']
   end
 end

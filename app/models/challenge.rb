@@ -45,9 +45,9 @@ class Challenge < ApiModel
       { place: entry['place'].to_s, prize: entry['prize'].to_s, points: entry['points'] || '', value: entry['value'] || '' }
     end if params['challenge_prizes']
 
-    params['assets'] = params['assets'].map do |entry|
-      entry['filename']
-    end if params['assets']
+    # params['assets'] = params['assets'].map do |entry|
+    #   entry['filename']
+    # end if params['assets']
 
     super(params)
   end
@@ -62,21 +62,21 @@ class Challenge < ApiModel
   end
 
   # Returns all the closed challenges
-  def self.closed(access_token)
-    request(access_token, :get, 'closed', {}).map {|challenge| Challenge.new challenge}
+  def self.closed
+    request(:get, 'closed', {}).map {|challenge| Challenge.new challenge}
   end
 
-  def self.open(access_token)
-    request(access_token, :get, '', {}).map {|challenge| Challenge.new challenge}
+  def self.open
+    request(:get, '', {}).map {|challenge| Challenge.new challenge}
   end
 
-  def self.all(access_token)
-    closed(access_token) + open(access_token)
+  def self.all
+    closed + open
   end
 
   # Returns all the recent challenges
-  def self.recent(access_token)
-    request(access_token, :get, 'recent', {}).map {|challenge| Challenge.new challenge}
+  def self.recent
+    request(:get, 'recent', {}).map {|challenge| Challenge.new challenge}
   end
 
   # Return an object instead of a string
