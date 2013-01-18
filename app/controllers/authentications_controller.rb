@@ -7,12 +7,12 @@ class AuthenticationsController < ApplicationController
   def callback
     omniauth = request.env['omniauth.auth']
     # see if the user exists in sfdc
-    sfdc_account = Account.find(access_token, thirdparty_username(omniauth), omniauth['provider'])
+    sfdc_account = Account.find(thirdparty_username(omniauth), omniauth['provider'])
     logger.info "sfdc_account: #{sfdc_account.to_yaml}"
 
     # successfully found a user in sfdc
     if sfdc_account.success.to_bool
-      login_third_party(access_token, omniauth, sfdc_account)
+      login_third_party(omniauth, sfdc_account)
     else
       # capture their variables and redirect them to the signup page
       session[:auth] = {:email => omniauth['info']['email'], 
@@ -32,9 +32,9 @@ class AuthenticationsController < ApplicationController
 
   private 
 
-    def login_third_party(access_token, omniauth, sfdc_account)
+    def login_third_party(omniauth, sfdc_account)
       activate_account_in_sfdc
-      sfdc_authentication = Account.new(User.new(:username => ENV['SFDC_PUBLIC_USERNAME'])).authenticate(access_token, ENV['SFDC_PUBLIC_PASSWORD'])
+      sfdc_authentication = Account.new(User.new(:username => ENV['SFDC_PUBLIC_USERNAME'])).authenticate(ENV['SFDC_PUBLIC_PASSWORD'])
       db_authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
       # if the user is already in db
       if db_authentication

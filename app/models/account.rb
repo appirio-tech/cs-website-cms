@@ -8,12 +8,12 @@ class Account < ApiModel
       "#{ENV['CS_API_URL']}/accounts"
     end
 
-    def find(access_token, name, provider = "cloudspokes")
+    def find(name, provider = "cloudspokes")
       data = {
         service: provider,
         service_username: name
       }
-      request access_token, :get, "find_by_service", data
+      request :get, "find_by_service", data
     end
   end
 
@@ -21,28 +21,28 @@ class Account < ApiModel
     @user = user
   end
 
-  def create(access_token, params)
-    self.class.post(access_token, "create", params)
+  def create(params)
+    self.class.post("create", params)
   end
 
-  def authenticate(access_token, password)
+  def authenticate(password)
     data = {
       membername: user.username,
       password: password
     }
-    self.class.post(access_token, "authenticate", data)
+    self.class.post("authenticate", data)
   end
 
-  def reset_password(access_token)
-    self.class.request(access_token, :get, ["reset_password", user.username], {})
+  def reset_password
+    self.class.request(:get, ["reset_password", user.username], {})
   end
 
-  def update_password(access_token, passcode, new_password)
+  def update_password(passcode, new_password)
     data = {
       passcode: passcode,
       new_password: new_password
     }
-    self.class.put(access_token, ["update_password", user.username], data)
+    self.class.put(["update_password", user.username], data)
   end
 
 end

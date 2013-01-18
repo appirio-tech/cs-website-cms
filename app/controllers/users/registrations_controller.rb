@@ -34,7 +34,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         password_confirmation: params[:password])   
       user.username = params['username']      
       # try and create the user in sfdc
-      results = Account.new(user).create(access_token, params)
+      results = Account.new(user).create params
       if results.success.to_bool
         if user.save
           flash[:notice] = "#{results.message} Please confirm your email address before logging in. Check your inbox."
@@ -53,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user.apply_omniauth(session[:omniauth])
       user.username = params.username
       # try and create the user in sfdc
-      results = Account.new(user).create(access_token, params)
+      results = Account.new(user).create(params)
       if results.success.to_bool
         if user.save
           flash[:notice] = "#{results.message} Please confirm your email address before logging in. Check your inbox."
