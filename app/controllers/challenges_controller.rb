@@ -1,8 +1,8 @@
 class ChallengesController < ApplicationController
 
   def closed
-    @challenges = Challenge.closed
-    render :json => @challenges
+    # @challenges = Challenge.closed
+    # render :json => @challenges
   end
 
   def recent
@@ -22,8 +22,8 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    @challenges = Challenge.open
-    render :json => @challenges
+    # @challenges = Challenge.open
+    # render :json => @challenges
   end
 
   def search

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_access_token
 
   def set_access_token
+    # ApiModel.access_token = current_user.try(:access_token) || guest_access_token
     ApiModel.access_token = current_access_token
   end    
 
