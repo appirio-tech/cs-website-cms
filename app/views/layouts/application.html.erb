@@ -22,7 +22,7 @@
           ================================================== -->
   <div class="loginbar-wrapper">
       <div class="container">
-        <% if !current_user.nil? %>
+        <% if current_user.nil? %>
           <div class="login">
               <div>
                   <form class="login-form form-horizontal">
