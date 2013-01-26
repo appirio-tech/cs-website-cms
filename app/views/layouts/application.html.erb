@@ -18,252 +18,246 @@
 </head>
 <body>
 
+  <!-- LOGINBAR
+          ================================================== -->
+  <div class="loginbar-wrapper">
+      <div class="container">
+        <% if !current_user.nil? %>
+          <div class="login">
+              <div>
+                  <form class="login-form form-horizontal">
+                      <input placeholder="Username"/>
+                      <input placeholder="Password"/>
+                      <div class="btn"><input type="submit" class="btn" value="LOGIN"></div>
+                  </form>
+              </div>
+              <div>
+                  <span class="pull-left">LOGIN USING</span>
+                  <ul class="unstyled inline">
+                      <li><a href="/auth/github" class="circle-orange"><span class="github">github</span></a></li>
+                      <li><a href="/auth/facebook" class="circle-orange"><span class="facebook">facebook</span></a></li>
+                      <li><a href="/auth/twitter" class="circle-orange"><span class="twitter">twitter</span></a></li>
+                      <li><a href="/auth/google" class="circle-orange"><span class="googleplus">google+</span></a></li>
+                      <li><a href="/auth/salesforce" class="circle-orange"><span class="salesforce">salesforce</span></a></li>
+                  </ul>
+              </div>
+              <div>
+                  <a href="#forgot-password-modal" data-toggle="modal">FORGOT PASSWORD?</a>
+              </div>
+              <div class="last">
+                  <a href="#register-modal"  data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
+              </div>
+          </div>
+        <% else %>
+          <div class="logined">
+              <div class="pull-left">
+                  <a class="btn btn-grey" href="#"><span><em><i class="icon-green"></i></em>7 MEMBERS ONLINE</span></a>
+                  <a class="btn btn-grey" href="#"><span><em><i class="icon-orange"></i></em>52 MEMBERS WORKING</span></a>
+              </div>
 
-    <!-- LOGINBAR
-            ================================================== -->
-    <div class="loginbar-wrapper">
-        <div class="container">
-            <div class="login">
-                <div>
-                    <form class="login-form form-horizontal">
-                        <input placeholder="Username"/>
-                        <input placeholder="Password"/>
-                        <div class="btn"><input type="submit" class="btn" value="LOGIN"></div>
-                    </form>
-                </div>
-                <div>
-                    <span class="pull-left">LOGIN USING</span>
-                    <ul class="unstyled inline">
-                        <li><a href="#" class="circle-orange"><span class="github">github</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="facebook">facebook</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="twitter">twitter</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="googleplus">google+</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="salesforce">salesforce</span></a></li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="#forgot-password-modal" data-toggle="modal">FORGOT PASSWORD?</a>
-                </div>
-                <div class="last">
-                    <a href="#register-modal"  data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
-                </div>
-            </div>
+              <div class="pull-right">
+                  <%= image_tag(current_user.profile_pic, :width => "35x35") %>
+                  <a class="btn" href="<%= member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
+                  <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
+              </div>
+          </div>
+        <% end %>
 
-            <div class="logined hide">
-                <div class="pull-left">
-                    <a class="btn btn-grey" href="#"><span><em><i class="icon-green"></i></em>7 MEMBERS ONLINE</span></a>
-                    <a class="btn btn-grey" href="#"><span><em><i class="icon-orange"></i></em>52 MEMBERS WORKING</span></a>
-                </div>
-
-                <div class="pull-right">
-                    <img src="/assets/avatar-small.png">
-                    <a class="btn" href="#"><span>MY PUBLIC PROFILE</span></a>
-                    <a class="btn btn-grey btn-logout" href="1_home_client.html"><span>LOGOUT</span></a>
-                </div>
-            </div>
-
-        </div> <!-- /.container -->
-    </div><!-- /.loginbar-wrapper -->
-
-
-    <!-- NAVBAR
-        ================================================== -->
-    <div class="nav-wrapper">
-        <div class="container">
-
-            <a href="1_home_client.html" class="logo"><img src="/assets/logo.png"/></a>
-
-            <ul class="nav">
-                <li><a href="10_community.html">COMMUNITY</a></li>
-                <li class="active"><a href="14_challenges.html">CHALLENGES</a></li>
-                <li><a href="9_leaderboard.html">LEADERBOARD</a></li>
-                <li><a href="17_badges.html">BADGES</a></li>
-                <li><a href="18_faq.html">FAQ</a></li>
-                <li><a href="#">BLOG</a></li>
-            </ul>
-
-            <ul class="nav hide">
-                <li><a href="10_community.html">COMMUNITY</a></li>
-                <li class="active"><a href="14_challenges.html">CHALLENGES</a></li>
-                <li><a href="9_leaderboard.html">LEADERBOARD</a></li>
-                <li><a href="17_badges.html">BADGES</a></li>
-                <li><a href="18_faq.html">FAQ</a></li>
-                <li><a href="#">HELP</a></li>
-                <li><a href="#">FORUMS</a></li>
-                <li><a href="#">BLOG</a></li>
-                <li><a href="#">ACCOUNT</a></li>
-            </ul>
-
-            <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
-        </div> <!-- /.container -->
-    </div><!-- /.nav-wrapper -->
-
-    <%= yield %>
-
-    <!-- FOOTER
-            ================================================== -->
-    <div class="footer-wrapper">
-        <div class="container">
-
-            <div class="row-fluid">
-                <div class="pull-left">
-                    <h2>MAIN LINKS</h2>
-                    <ul class="links">
-                        <li><a href="1_home_client.html">Home</a></li>
-                        <li><a href="3_what_we_do.html">What We Do</a></li>
-                        <li><a href="7_how_it_works_member.html">How It Works / Members</a></li>
-                        <li><a href="8_How-It-Works_Customer.html">How It Works / Clients</a></li>
-                        <li><a href="22_about_us.html">About Us</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="20_privacy.html">Privacy & Terms</a></li>
-                        <li><a href="23_contact_us.html">Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="pull-left">
-                    <h2>MEMBER LINKS</h2>
-                    <ul class="links">
-                        <li><a href="10_community.html">Community</a></li>
-                        <li><a href="14_challenges.html">Challenges</a></li>
-                        <li><a href="9_leaderboard.html">Leaderboard</a></li>
-                        <li><a href="17_badges.html">BADGES</a></li>
-                        <li><a href="18_faq.html">FAQ</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Forums</a></li>
-                    </ul>
-                </div>
-
-                <div class="pull-left">
-                    <h2>SPOKES</h2>
-                    <ul class="links">
-                        <li><a href="#">Box</a></li>
-                        <li><a href="#">DocuSign</a></li>
-                    </ul>
-                </div>
-
-                <div class="pull-right">
-                    <ul class="links">
-                        <li><a href="#" class="circle-orange"><span class="googleplus-small">google+</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="facebook">facebook</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="twitter">twitter</span></a></li>
-                        <li><a href="#" class="circle-orange"><span class="linkedin">linkedin</span></a></li>
-                    </ul>
-                </div>
-
-                <div class="span3 pull-right">
-                    <h2>PLATFORMS</h2>
-                    <ul class="links">
-                        <li><a href="#">Amazon Web Services</a></li>
-                        <li><a href="#">Cloud Foundry</a></li>
-                        <li><a href="#">Google App Engine</a></li>
-                        <li><a href="#">Heroku</a></li>
-                        <li><a href="#">Salesforce & Force.com</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-        </div> <!-- /.container -->
-    </div><!-- /.loginbar-wrapper -->
+      </div> <!-- /.container -->
+  </div><!-- /.loginbar-wrapper -->
 
 
-    <!-- Modal -->
-    <div id="forgot-password-modal" class="modal hide fade" tabindex="-1" role="dialog"">
-    <div class="modal-header"></div>
-    <div class="modal-body">
-        <div class="title"><h1>RESET YOUR PASSWORD</h1></div>
-        <div class="content">
-            <form class="modal-form jqTransform forgot-password-form">
-                <p>Enter your CloudSpokes username and we'll send you instructions on how to reset your password.</p>
-                <input type="text" placeholder="USERNAME"/><div class="btn"><button class="btn" type="submit">SUBMIT</button></div>
-            </form>
-        </div>
+  <!-- NAVBAR
+      ================================================== -->
+  <div class="nav-wrapper">
+      <div class="container">
 
-        <br/>
-    </div>
-    <div class="modal-footer"></div>
-    <button type="button" class="close" data-dismiss="modal"></button>
-    </div>
+          <%= link_to image_tag("logo.png"), root_path, :class => "logo" %>
 
-    <!-- Modal -->
-    <div id="register-modal" class="modal hide fade" tabindex="-1" role="dialog">
-        <div class="modal-header"></div>
-        <div class="modal-body">
-            <div class="title"><h1>REGISTER USING ACCOUNT</h1></div>
-            <div class="content">
-                <p>Use your existing account from...</p>
-                <ul class="unstyled inline">
-                    <li><a href="#" class="circle-orange-large"><span class="github">github</span></a></li>
-                    <li><a href="#" class="circle-orange-large"><span class="facebook">facebook</span></a></li>
-                    <li><a href="#" class="circle-orange-large"><span class="twitter">twitter</span></a></li>
-                    <li><a href="#" class="circle-orange-large"><span class="googleplus">google+</span></a></li>
-                    <li><a href="#" class="circle-orange-large"><span class="salesforce">salesforce</span></a></li>
-                </ul>
-                <p>Using an existing account is quick and easy. Select the account you would like to use and we'll do the rest for you.</p>
-            </div>
+          <ul class="nav">
+              <li><%= link_to 'COMMUNITY', main_app.community_path %></li>
+              <li class="active"><%= link_to 'CHALLENGES', main_app.challenges_path %></li>
+              <li><%= link_to 'LEADERBOARD', main_app.leaderboard_path %></li>
+              <li><%= link_to 'BADGES', main_app.badges_path %></li>
+              <li><%= link_to 'FAQ', main_app.faq_path %></li>
+              <li><%= link_to 'BLOG', main_app.blog_path %></li>
+              <li><%= link_to 'HELP', main_app.help_path %></li>
+              <li><%= link_to 'FORUMS', main_app.forums_path %></li>
+              <li><%= link_to 'ACCOUNT', main_app.account_path %></li>
+          </ul>
 
-            <form class="form-horizontal jqTransform jqtransformdone">
-                <div class="title"><h1>REGISTER MANUALLY</h1></div>
-                <p>Create a new account with CloudSpokes:</p>
+          <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
+      </div> <!-- /.container -->
+  </div><!-- /.nav-wrapper -->
 
-                <div class="control-group">
-                    <label class="control-label" for="input-name">USERNAME</label>
-                    <div class="controls">
-                        <input type="text" id="input-name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="input-email">EMAIL</label>
-                    <div class="controls">
-                        <input type="text" id="input-email">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="input-pwd">Password</label>
-                    <div class="controls">
-                        <div class="control">
-                            <input type="password" id="input-pwd">
-                        </div>
-                    </div>
-                    <div class="help-block">8 characters with letters & numbers</div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="input-pwd-again">Password confirmation</label>
-                    <div class="controls">
-                        <input type="password" id="input-pwd-again">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox"> I agree to the <a href="21_terms.html" target="_blank">terms of service</a>.*
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="btn"><input type="submit" value="SIGN UP"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer"></div>
-        <button type="button" class="close" data-dismiss="modal"></button>
-    </div>
+  <%= yield %>
 
-    <!-- Modal -->
-    <div id="thank-modal" class="modal hide fade" tabindex="-1" role="dialog"">
-    <div class="modal-header"></div>
-    <div class="modal-body">
-        <div class="title"><h1>Thank You</h1></div>
-        <div class="content">
-            <p>Your request has been sent. You will receive an email from support, shortly.</p>
-        </div>
+  <!-- FOOTER
+          ================================================== -->
+  <div class="footer-wrapper">
+      <div class="container">
 
-        <br/>
-    </div>
-    <div class="modal-footer"></div>
-    <button type="button" class="close" data-dismiss="modal"></button>
-    </div>
+          <div class="row-fluid">
+              <div class="pull-left">
+                  <h2>MAIN LINKS</h2>
+                  <ul class="links">
+                      <li><%= link_to 'Home', main_app.root_path %></li>
+                      <li><%= link_to 'What We Do', main_app.what_we_do_path %></li>
+                      <li><%= link_to 'How It Works / Members', main_app.how_it_works_members_path %></li>
+                      <li><%= link_to 'How It Works / Clients', main_app.how_it_works_clients_path %></li>
+                      <li><%= link_to 'About Us', main_app.about_path %></li>
+                      <li><%= link_to 'Blog', main_app.blog_path %></li>
+                      <li><%= link_to 'Privacy & Terms', Refinery::Page.find('privacy').path.downcase %></li>
+                      <li><%= link_to 'Contact Us', main_app.contact_path %></li>
+                  </ul>
+              </div>
+
+              <div class="pull-left">
+                  <h2>MEMBER LINKS</h2>
+                  <ul class="links">
+                      <li><%= link_to 'Community', main_app.community_path %></li>
+                      <li><%= link_to 'Challenges', main_app.challenges_path %></li>
+                      <li><%= link_to 'Leaderboard', main_app.leaderboard_path %></li>
+                      <li><%= link_to 'Badges', main_app.badges_path %></li>
+                      <li><%= link_to 'FAQ', main_app.faq_path %></li>
+                      <li><%= link_to 'Help', main_app.help_path %></li>
+                      <li><%= link_to 'Forums', main_app.forums_path %></li>
+                  </ul>
+              </div>
+
+              <div class="pull-left">
+                  <h2>SPOKES</h2>
+                  <ul class="links">
+                      <li><a href="#">Box</a></li>
+                      <li><a href="#">DocuSign</a></li>
+                  </ul>
+              </div>
+
+              <div class="pull-right">
+                  <ul class="links">
+                      <li><a href="https://plus.google.com/u/1/communities/115902133021389200378" class="circle-orange"><span class="googleplus-small">google+</span></a></li>
+                      <li><a href="http://www.facebook.com/CloudSpokes" class="circle-orange"><span class="facebook">facebook</span></a></li>
+                      <li><a href="https://twitter.com/cloudspokes" class="circle-orange"><span class="twitter">twitter</span></a></li>
+                      <li><a href="http://www.linkedin.com/groups/CloudSpokes-3876560" class="circle-orange"><span class="linkedin">linkedin</span></a></li>
+                  </ul>
+              </div>
+
+              <div class="span3 pull-right">
+                  <h2>PLATFORMS</h2>
+                  <ul class="links">
+                      <li><a href="#">Amazon Web Services</a></li>
+                      <li><a href="#">Cloud Foundry</a></li>
+                      <li><a href="#">Google App Engine</a></li>
+                      <li><a href="#">Heroku</a></li>
+                      <li><a href="#">Salesforce & Force.com</a></li>
+                  </ul>
+              </div>
+
+          </div>
+
+      </div> <!-- /.container -->
+  </div><!-- /.loginbar-wrapper -->
+
+
+  <!-- Modal -->
+  <div id="forgot-password-modal" class="modal hide fade" tabindex="-1" role="dialog"">
+  <div class="modal-header"></div>
+  <div class="modal-body">
+      <div class="title"><h1>RESET YOUR PASSWORD</h1></div>
+      <div class="content">
+          <form class="modal-form jqTransform forgot-password-form">
+              <p>Enter your CloudSpokes username and we'll send you instructions on how to reset your password.</p>
+              <input type="text" placeholder="USERNAME"/><div class="btn"><button class="btn" type="submit">SUBMIT</button></div>
+          </form>
+      </div>
+
+      <br/>
+  </div>
+  <div class="modal-footer"></div>
+  <button type="button" class="close" data-dismiss="modal"></button>
+  </div>
+
+  <!-- Modal -->
+  <div id="register-modal" class="modal hide fade" tabindex="-1" role="dialog">
+      <div class="modal-header"></div>
+      <div class="modal-body">
+          <div class="title"><h1>REGISTER USING ACCOUNT</h1></div>
+          <div class="content">
+              <p>Use your existing account from...</p>
+              <ul class="unstyled inline">
+                  <li><a href="#" class="circle-orange-large"><span class="github">github</span></a></li>
+                  <li><a href="" class="circle-orange-large"><span class="facebook">facebook</span></a></li>
+                  <li><a href="#" class="circle-orange-large"><span class="twitter">twitter</span></a></li>
+                  <li><a href="#" class="circle-orange-large"><span class="googleplus">google+</span></a></li>
+                  <li><a href="#" class="circle-orange-large"><span class="salesforce">salesforce</span></a></li>
+              </ul>
+              <p>Using an existing account is quick and easy. Select the account you would like to use and we'll do the rest for you.</p>
+          </div>
+
+          <form class="form-horizontal jqTransform jqtransformdone">
+              <div class="title"><h1>REGISTER MANUALLY</h1></div>
+              <p>Create a new account with CloudSpokes:</p>
+
+              <div class="control-group">
+                  <label class="control-label" for="input-name">USERNAME</label>
+                  <div class="controls">
+                      <input type="text" id="input-name">
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="input-email">EMAIL</label>
+                  <div class="controls">
+                      <input type="text" id="input-email">
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="input-pwd">Password</label>
+                  <div class="controls">
+                      <div class="control">
+                          <input type="password" id="input-pwd">
+                      </div>
+                  </div>
+                  <div class="help-block">8 characters with letters & numbers</div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="input-pwd-again">Password confirmation</label>
+                  <div class="controls">
+                      <input type="password" id="input-pwd-again">
+                  </div>
+              </div>
+              <div class="control-group">
+                  <div class="controls">
+                      <label class="checkbox">
+                          <input type="checkbox"> I agree to the <a href="21_terms.html" target="_blank">terms of service</a>.*
+                      </label>
+                  </div>
+              </div>
+              <div class="control-group">
+                  <div class="controls">
+                      <div class="btn"><input type="submit" value="SIGN UP"></div>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer"></div>
+      <button type="button" class="close" data-dismiss="modal"></button>
+  </div>
+
+  <!-- Modal -->
+  <div id="thank-modal" class="modal hide fade" tabindex="-1" role="dialog"">
+  <div class="modal-header"></div>
+  <div class="modal-body">
+      <div class="title"><h1>Thank You</h1></div>
+      <div class="content">
+          <p>Your request has been sent. You will receive an email from support, shortly.</p>
+      </div>
+
+      <br/>
+  </div>
+  <div class="modal-footer"></div>
+  <button type="button" class="close" data-dismiss="modal"></button>
+  </div>
+  <%= link_to 'logout', main_app.destroy_user_session_path, :id => 'logout', :method => :delete %>
+  <%= debug(current_user) if Rails.env.development? && !current_user.nil? %>
 </body>
 </html>

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(user)
-    "/about"
+    "/challenges"
   end  
 
   # TODO - this will eventually pull the access token from the current_user

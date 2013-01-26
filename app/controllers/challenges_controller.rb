@@ -22,8 +22,8 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    # @challenges = Challenge.open
-    # render :json => @challenges
+    @challenges = Challenge.open
+    puts @challenges.first.to_yaml
   end
 
   def search

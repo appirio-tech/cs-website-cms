@@ -1,1 +1,12 @@
-<%= render '/refinery/content_page' %>
+<!-- CONTENT
+            ================================================== -->
+    <div class="content-wrapper">
+        <div class="container">
+
+            <div>
+                <div class="title"><h1><%= @page.browser_title %></h1></div>
+                <%= raw @page.content_for(:body) %>
+            </div>
+
+        </div> <!-- /.container -->
+    </div><!-- /.loginbar-wrapper -->

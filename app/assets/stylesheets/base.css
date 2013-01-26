@@ -2466,7 +2466,7 @@ legend + .control-group {
 
 .modal {
   position: fixed;
-  top: 198px;
+  top: 50px;
   left: 50%;
   z-index: 1050;
   width: 1040px;
