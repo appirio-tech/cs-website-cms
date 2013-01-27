@@ -1,0 +1,119 @@
+/* line 6, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar_content {
+  height: 47px;
+  position: relative;
+  margin: 0px auto 10px auto;
+  text-align: left;
+  width: 990px;
+}
+
+/* line 13, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar {
+  background: #22a7f2;
+  border-bottom: 0px none;
+}
+
+/* line 17, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+a#site_bar_refinery_cms_logo {
+  left: 448px;
+}
+
+/* line 20, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar, #site_bar * {
+  color: white;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* line 26, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#editor_switch, #site_bar_branding, a#site_bar_refinery_cms_logo {
+  position: absolute;
+}
+
+/* line 27, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#editor_switch {
+  left: 0px;
+}
+/* line 29, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#editor_switch a, #editor_switch a:hover {
+  color: white;
+  background: #e7682c url(/assets/refinery/orange_button.png) repeat-x;
+  border-bottom: 0px none;
+  padding: 4px 14px;
+  border: 1px solid #fca87f;
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
+}
+/* line 39, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#editor_switch span {
+  border: 1px solid #0280c7;
+  height: 26px;
+  line-height: 26px;
+  margin-top: 9px;
+  display: block;
+  cursor: pointer;
+}
+/* line 47, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#editor_switch a, #editor_switch span {
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/* line 51, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar {
+  height: 47px;
+  background: #22a7f2;
+  padding: 0px;
+}
+/* line 55, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar * {
+  line-height: 47px;
+}
+/* line 58, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar a {
+  text-decoration: none;
+}
+/* line 61, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar #site_bar_branding {
+  right: 0px;
+}
+/* line 63, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar #site_bar_branding a {
+  font-weight: normal;
+}
+/* line 65, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar #site_bar_branding a#logout {
+  margin-left: 12px;
+}
+/* line 70, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+#site_bar #site_bar_company_name {
+  font-weight: bold;
+}
+
+/* line 74, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+a#site_bar_refinery_cms_logo {
+  left: 44.5%;
+  border-bottom: none;
+  line-height: 29px;
+  height: 29px;
+  margin-top: 9px;
+  overflow: hidden;
+}
+/* line 81, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+a#site_bar_refinery_cms_logo:hover {
+  border-bottom: none;
+  opacity: 1;
+}
+/* line 84, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+a#site_bar_refinery_cms_logo:hover img {
+  margin-top: -29px;
+}
+
+/* line 89, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/site_bar.css.scss */
+.ie7 #site_bar #editor_switch a {
+  height: 26px;
+  line-height: 26px;
+}
