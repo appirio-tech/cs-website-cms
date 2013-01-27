@@ -107,7 +107,7 @@
                       <li><%= link_to 'How It Works / Clients', main_app.how_it_works_clients_path %></li>
                       <li><%= link_to 'About Us', '' %></li>
                       <li><%= link_to 'Blog', main_app.blog_path %></li>
-                      <li><%= link_to 'Privacy & Terms', '' %></li>
+                      <li><%= link_to 'Privacy & Terms', Refinery::Page.find('privacy').path.downcase %></li>
                       <li><%= link_to 'Contact Us', main_app.contact_path %></li>
                   </ul>
               </div>
