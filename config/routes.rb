@@ -2,16 +2,11 @@ CsWebsiteCms::Application.routes.draw do
 
   get 'community', to: 'protected#index'
   get 'leaderboard', to: 'protected#index'
-  get 'badges', to: 'protected#index'
   get 'faq', to: 'protected#index'
   get 'help', to: 'protected#index'
   get 'forums', to: 'protected#index'
   get 'account', to: 'protected#index'
   get 'blog', to: 'protected#index'
-  get 'what_we_do', to: 'protected#index'
-  get 'how_it_works_members', to: 'protected#index'
-  get 'how_it_works_clients', to: 'protected#index'
-  get 'contact', to: 'protected#index'
   get 'forgot_password', to: 'protected#index'
 
   resources :authentications
