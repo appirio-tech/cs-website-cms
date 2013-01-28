@@ -19,8 +19,7 @@ If your code is making any "destructive calls" (create, update, delete) with the
 
 Run sqlite3 in development. We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. See .env-example for application specific variables that you need for your .env file. Please add any new variables to this example file. To get up and running, run:
 
-  git clone https://github.com/cloudspokes/cs-website-cms.git
-  cd cs-website-cms
+  # fork this repo and clone
 	bundle install
 	rake db:migrate
 	rake db:seed
