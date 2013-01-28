@@ -17,8 +17,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def after_sign_in_path_for(user)
-    "/challenges"
+  def after_sign_in_path_for(resource)
+    puts "========== redirect to #{stored_location_for(resource)}"
+    stored_location_for(resource) || challenges_path
   end  
 
   # TODO - this will eventually pull the access token from the current_user

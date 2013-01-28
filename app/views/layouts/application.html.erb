@@ -25,9 +25,9 @@
         <% if current_user.nil? %>
           <div class="login">
               <div>
-                  <form class="login-form form-horizontal">
-                      <input placeholder="Username"/>
-                      <input placeholder="Password"/>
+                  <form action="/users/sign_in" method="post" class="login-form form-horizontal">
+                      <input placeholder="Username" type="text" name="user[username]"/>
+                      <input placeholder="Password" type="password" name="user[password]"/>
                       <div class="btn"><input type="submit" class="btn" value="LOGIN"></div>
                   </form>
               </div>
@@ -59,6 +59,7 @@
                   <%= image_tag(current_user.profile_pic, :width => "35x35") %>
                   <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
                   <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
+                  <% link_to 'Sign out', main_app.destroy_user_session_path, :method => :delete %>
               </div>
           </div>
         <% end %>
@@ -128,8 +129,8 @@
               <div class="pull-left">
                   <h2>SPOKES</h2>
                   <ul class="links">
-                      <li><a href="#">Box</a></li>
-                      <li><a href="#">DocuSign</a></li>
+                      <li><a href="#">Box</a> (TBD)</li>
+                      <li><a href="#">DocuSign</a> (TBD)</li>
                   </ul>
               </div>
 
@@ -257,7 +258,6 @@
   <div class="modal-footer"></div>
   <button type="button" class="close" data-dismiss="modal"></button>
   </div>
-  <%= link_to 'logout', main_app.destroy_user_session_path, :id => 'logout', :method => :delete %>
   <%= debug(current_user) if Rails.env.development? && !current_user.nil? %>
 </body>
 </html>

@@ -23,7 +23,6 @@ class ChallengesController < ApplicationController
 
   def index
     @challenges = Challenge.open
-    puts @challenges.first.to_yaml
   end
 
   def search

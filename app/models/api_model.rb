@@ -158,6 +158,7 @@ class ApiModel
   end
 
   def self.post(entities, data)
+    puts "======= calling post with: #{data}"
     request :post, entities, data
   end
 

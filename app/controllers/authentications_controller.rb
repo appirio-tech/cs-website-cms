@@ -30,6 +30,10 @@ class AuthenticationsController < ApplicationController
     redirect_to authentications_url, :notice => "Successfully signed out."
   end
 
+  def login_with_email
+    redirect_to "/challenges"
+  end
+
   private 
 
     def login_third_party(omniauth, sfdc_account)
@@ -96,40 +100,3 @@ class AuthenticationsController < ApplicationController
     end    
 
 end
-
-=begin
-
-    authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-    # already registered and in the db
-    if authentication
-      logger.info "[CS-WEBSITE-CMS][AuthenticationsController][CREATE] authentication"
-      sfdc_account = Account.find(provider_username(omniauth),omniauth['provider'])
-      logger.info "[CS-WEBSITE-CMS] #{sfdc_account.to_yaml}"
-      update_user_with_sfdc_info(authentication.user_id, sfdc_account)
-      flash[:notice] = "Signed in successfully (authenticate)."
-      sign_in_and_redirect(:user, User.find(authentication.user_id))
-    elsif current_user
-      logger.info "[CS-WEBSITE-CMS][AuthenticationsController][CREATE] current_user"
-      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
-      redirect_to authentications_url, :notice => "Authentication successfull."      
-    else
-      logger.info "[CS-WEBSITE-CMS][AuthenticationsController][CREATE] else new user"
-      user =  User.new
-      user.apply_omniauth(omniauth)
-      user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
-      user.create_account
-      if user.save
-        logger.info "[CS-WEBSITE-CMS][AuthenticationsController][CREATE] else new user -- save"
-        user.roles << Role.find_by_title('Refinery')
-        user.roles << Role.find_by_title('Superuser')      
-        user.update_attribute(:confirmed_at, DateTime.now)
-        flash[:notice] = "Signed in successfully (new user)."
-        sign_in_and_redirect(:user, user)
-      else
-        logger.info "[CS-WEBSITE-CMS][AuthenticationsController][CREATE] else new user -- save error"
-        session[:omniauth] = omniauth.except('extra')
-        redirect_to new_user_registration_url
-      end
-    end
-
-=end

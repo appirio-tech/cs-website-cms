@@ -9,6 +9,7 @@ $(document).ready(function() {
     }
 
     $('.login-form .btn').click(function() {
+        /*
         $('.loginbar-wrapper .login').hide();
         $('.loginbar-wrapper .logined').show();
         $('.nav.hide a').each(function() {
@@ -17,12 +18,17 @@ $(document).ready(function() {
         })
         $('.nav').toggleClass('hide');
         return false;
+        */
+        return true;        
     });
     $('.btn-logout').click(function() {
+        /*
         $('.loginbar-wrapper .login').show();
         $('.loginbar-wrapper .logined').hide();
         $('.nav').toggleClass('hide');
         return false;
+        */
+        return true;
     });
 
     $('.modal').on('show', function () {
