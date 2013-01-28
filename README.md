@@ -15,28 +15,28 @@ We will be using our [new API](https://github.com/cloudspokes/cs-api) with this 
 
 If your code is making any "destructive calls" (create, update, delete) with the new API, you will need to pass an API Key in the header of each request. Please email support@cloudspokes.com with the subject "Sandbox API Key Request" and we'll generate a key for you that will be good for all future challenges of this type.
 
-## Environment Variables
-
-If any of your code requires direct calls to Database.com (e.g., pub/sub with faye) then you will need to setup the following environment variables. Please contact support@cloudspokes.com with the subject "Sandbox Environment Variables Request" and we'll send them to you for all future challenges of this type.
-
-	SFDC_CLIENT_ID
-	SFDC_CLIENT_SECRET
-	SFDC_PUBLIC_USERNAME
-	SFDC_PUBLIC_PASSWORD
-
 ## Local Development
 
 Run sqlite3 in development. We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. See .env-example for application specific variables that you need for your .env file. Please add any new variables to this example file. To get up and running, run:
 
+  git clone https://github.com/cloudspokes/cs-website-cms.git
+  cd cs-website-cms
 	bundle install
 	rake db:migrate
 	rake db:seed
+	touch .env
+	# copy the contents from .env-example to .env
+	# add the enviroment variables (see below)
 	foreman start -p 3000
 
-You can log into Devise/Refinery with the following credentials:
+## Environment Variables
 
-	username: admin
-	password: madmin
+If any of your code requires direct calls to Database.com (e.g., pub/sub with faye) then you will need to setup the following environment variables. Please contact support@cloudspokes.com with the subject "Rails Sandbox Environment Variables Request" and we'll send them to you for all future challenges of this type.
+
+	SFDC_CLIENT_ID
+	SFDC_CLIENT_SECRET
+	SFDC_PUBLIC_USERNAME
+	SFDC_PUBLIC_PASSWORD	
 
 ## Running Specs
 
