@@ -57,7 +57,7 @@
 
               <div class="pull-right">
                   <%= image_tag(current_user.profile_pic, :width => "35x35") %>
-                  <a class="btn" href="<%= member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
+                  <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
                   <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
               </div>
           </div>
@@ -105,9 +105,9 @@
                       <li><%= link_to 'What We Do', main_app.what_we_do_path %></li>
                       <li><%= link_to 'How It Works / Members', main_app.how_it_works_members_path %></li>
                       <li><%= link_to 'How It Works / Clients', main_app.how_it_works_clients_path %></li>
-                      <li><%= link_to 'About Us', '' %></li>
+                      <li><%= link_to 'About Us', '/about' %></li>
                       <li><%= link_to 'Blog', main_app.blog_path %></li>
-                      <li><%= link_to 'Privacy & Terms', Refinery::Page.find('privacy').path.downcase %></li>
+                      <li><%= link_to 'Privacy & Terms', '/privacy' %></li>
                       <li><%= link_to 'Contact Us', main_app.contact_path %></li>
                   </ul>
               </div>

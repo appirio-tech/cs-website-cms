@@ -88,7 +88,6 @@ group :development, :test do
   gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
-  gem 'meta_request', '0.2.1' # see https://github.com/dejan/rails_panel
 end
 
 group :test do
@@ -99,3 +98,10 @@ group :test do
   gem 'webmock'
   gem "mocha"
 end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request', '0.2.1' # see https://github.com/dejan/rails_panel
+end
+
