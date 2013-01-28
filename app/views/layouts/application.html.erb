@@ -103,13 +103,13 @@
                   <h2>MAIN LINKS</h2>
                   <ul class="links">
                       <li><%= link_to 'Home', main_app.root_path %></li>
-                      <li><%= link_to 'What We Do', main_app.what_we_do_path %></li>
-                      <li><%= link_to 'How It Works / Members', main_app.how_it_works_members_path %></li>
-                      <li><%= link_to 'How It Works / Clients', main_app.how_it_works_clients_path %></li>
-                      <li><%= link_to 'About Us', 'about' %></li> <!-- refinery -->
-                      <li><%= link_to 'Blog', main_app.blog_path %></li>
+                      <li><%= link_to 'What We Do', '/what_we_do' %></li>
+                      <li><%= link_to 'How It Works / Members', '/how_it_works_members' %></li>
+                      <li><%= link_to 'How It Works / Clients', '/how_it_works_clients' %></li>
+                      <li><%= link_to 'About Us', '/about' %></li>
+                      <li><%= link_to 'Blog', 'http://blog.cloudspokes.ocm' %></li>
                       <li><%= link_to 'Privacy & Terms', '/privacy' %></li>
-                      <li><%= link_to 'Contact Us', main_app.contact_path %></li>
+                      <li><%= link_to 'Contact Us', '/contact' %></li>
                   </ul>
               </div>
 
@@ -119,10 +119,10 @@
                       <li><%= link_to 'Community', main_app.community_path %></li>
                       <li><%= link_to 'Challenges', main_app.challenges_path %></li>
                       <li><%= link_to 'Leaderboard', main_app.leaderboard_path %></li>
-                      <li><%= link_to 'Badges', main_app.badges_path %></li>
-                      <li><%= link_to 'FAQ', main_app.faq_path %></li>
-                      <li><%= link_to 'Help', main_app.help_path %></li>
-                      <li><%= link_to 'Forums', main_app.forums_path %></li>
+                      <li><%= link_to 'Badges', '/badges' %></li>
+                      <li><%= link_to 'FAQ', '/faq' %></li>
+                      <li><%= link_to 'Help', '/help' %></li>
+                      <li><%= link_to 'Forums', /forums' %></li>
                   </ul>
               </div>
 
