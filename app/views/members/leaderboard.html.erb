@@ -1,59 +1,57 @@
-    <!-- CONTENT
-            ================================================== -->
-    <div class="content-wrapper">
-        <div class="container">
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
 
-            <div>
-                <div class="title"><h1>LEADERBOARD</h1></div>
+        <div>
+            <div class="title"><h1>LEADERBOARD</h1></div>
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span4">
+                <div class="title"><h1>THIS MONTH</h1></div>
+                <% @this_month.each do |member| %>
+                <div class="placement well">
+                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= link_to member['username'], member_path(member['username']) %>
+                    # of Wins: <%= member['wins'].to_i %>
+                    <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                    <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
+                </div>
+                <% end %>
+                <%= will_paginate @this_month, :param_name => :page_this_month, :inner_window => 1, :outer_window => 1 %>
             </div>
 
-            <div class="row-fluid">
-
-                <div class="span4">
-                    <div class="title"><h1>THIS MONTH</h1></div>
-                    <% @this_month.each do |member| %>
-                    <div class="placement well">
-                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                        <%= link_to member['username'], member_path(member['username']) %>
-                        # of Wins: <%= member['wins'].to_i %>
-                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
-                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
-                    </div>
-                    <% end %>
-                    <%= will_paginate @this_month, :param_name => :page_this_month, :inner_window => 1, :outer_window => 1 %>
+            <div class="span4">
+                <div class="title"><h1>THIS YEAR</h1></div>
+                <% @this_year.each do |member| %>
+                <div class="placement well">
+                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= link_to member['username'], member_path(member['username']) %>
+                    # of Wins: <%= member['wins'].to_i %>
+                    <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                    <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
                 </div>
-
-
-                <div class="span4">
-                    <div class="title"><h1>THIS YEAR</h1></div>
-                    <% @this_year.each do |member| %>
-                    <div class="placement well">
-                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                        <%= link_to member['username'], member_path(member['username']) %>
-                        # of Wins: <%= member['wins'].to_i %>
-                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
-                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
-                    </div>
-                    <% end %>
-                    <%= will_paginate @this_year, :param_name => :page_this_year, :inner_window => 1, :outer_window => 1 %>
-                </div>
-
-
-                <div class="span4">
-                    <div class="title"><h1>ALL TIME</h1></div>
-                    <% @all_time.each do |member| %>
-                    <div class="placement well">
-                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                        <%= link_to member['username'], member_path(member['username']) %>
-                        # of Wins: <%= member['wins'].to_i %>
-                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
-                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
-                    </div>
-                    <% end %>
-                    <%= will_paginate @all_time, :param_name => :page_all_time, :inner_window => 1, :outer_window => 1 %>
-                </div>
-
+                <% end %>
+                <%= will_paginate @this_year, :param_name => :page_this_year, :inner_window => 1, :outer_window => 1 %>
             </div>
 
-        </div> <!-- /.container -->
-    </div><!-- /.loginbar-wrapper -->
+            <div class="span4">
+                <div class="title"><h1>ALL TIME</h1></div>
+                <% @all_time.each do |member| %>
+                <div class="placement well">
+                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= link_to member['username'], member_path(member['username']) %>
+                    # of Wins: <%= member['wins'].to_i %>
+                    <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                    <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
+                </div>
+                <% end %>
+                <%= will_paginate @all_time, :param_name => :page_all_time, :inner_window => 1, :outer_window => 1 %>
+            </div>
+
+        </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

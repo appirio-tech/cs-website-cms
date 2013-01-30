@@ -7,7 +7,7 @@ class MembersController < ApplicationController
     @stats = Platform.stats
     @open_challenges = Challenge.open
     @featured_challenge =  Challenge.find @stats['featured_challenge_id']
-    @leaderboard = Platform.leaderboard
+    @leaderboard = Platform.leaderboard(current_access_token, :category => nil, :limit => 3)
   end   
 
   def leaderboard
