@@ -67,8 +67,7 @@
             <% end %>
 
             <%= will_paginate @challenges, class: "pagination pagination-centered", next_label: "<span>Next</span>", previous_label: "<span>Prev</span>" %>
-
-            <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
+            <%= link_to "Subscribe to the feed for this set of challenges", challenges_path(filters: params[:filters], format: "rss"), class: "rss" %>
 
         </div> <!-- /.container -->
     </div><!-- /.loginbar-wrapper -->
