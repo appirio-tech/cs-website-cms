@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    @challenges = Challenge.open
+    @challenges = Challenge.all params[:filters], params[:page]
   end
 
   def search

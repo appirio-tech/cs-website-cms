@@ -66,12 +66,33 @@ class Challenge < ApiModel
     request(:get, 'closed', {}).map {|challenge| Challenge.new challenge}
   end
 
-  def self.open
+  def self.open    
     request(:get, '', {}).map {|challenge| Challenge.new challenge}
   end
 
-  def self.all
-    closed + open
+  def self.per_page
+    10
+  end
+
+  # options are
+  #   technology, platform, category, order_by
+  def self.all(options, page = 1)
+    options = (options || {}).dup
+    options.each {|k,v| options.delete(k) if v.blank? }
+    state = options.delete(:state) || "open" # default is open
+    page = (page || 1).to_i
+
+    total = request(:get, '', options).count 
+
+    options[:offset] = (page-1)*per_page
+    options[:limit] = per_page
+   
+    WillPaginate::Collection.create(page, per_page, total) do |pager|
+      entity = (state == "open" ? "" : state)
+      challenges = request(:get, entity, options).map {|challenge| Challenge.new challenge}
+      pager.replace(challenges)
+    end
+
   end
 
   # Returns all the recent challenges

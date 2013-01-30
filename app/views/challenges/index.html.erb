@@ -5,33 +5,38 @@
 
             <div>
                 <div class="title"><h1>CHALLENGES</h1></div>
-
-                <div class="filter well well-large">
-                    <form class="jqTransform">
+                <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
+                    <div class="filter well well-large">
+                        <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
                         <label>SHOW</label>
-                        <select>
-                            <option>ALL PLATFORMS</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL TECHNOLOGIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL CATEGORIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <label>SORT BY</label>
-                        <select>
-                            <option>CHALLENGE TITLE</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option> 
-                        </select>
-                </div>
+                        <%= select_tag "filters[platform]", options_for_select(Platform.names, filters[:platform]), prompt: "All Platforms" %>
+                        <%= select_tag "filters[technology]", options_for_select(Technology.names, filters[:technology]), prompt: "All Technologies" %>
+                        <%= select_tag "filters[category]", options_for_select(Category.names, filters[:caterogy]), prompt: "All Categories" %>
 
+                        <label>SORT BY</label>
+                        <% options = [["Challenge Title", "name"]]%>
+                        <%= select_tag "filters[order_by]", options_for_select(options, filters[:order_by]) %>
+                    </div>
+
+                    <div class="state">
+                        <label class="radio inline">
+                            <%= radio_button_tag "filters[state]", "open", filters[:state] == "open" %>
+                            <span>Active Challenges</span>
+                        </label>
+                        <label class="radio inline">
+                            <%= radio_button_tag "filters[state]", "closed", filters[:state] == "closed" %>
+                            <span>Closed Challenges</span>
+                        </label>
+
+                    </div>
+                <% end %>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("form.challenges-filter select, form.challenges-filter input").change(function() {
+                            $(this).parents("form").submit();
+                        });
+                    });
+                </script>
             </div>
 
             <% @challenges.each do |c| %>
@@ -60,17 +65,7 @@
             </div>
             <% end %>
 
-            <div class="pagination pagination-centered">
-                <ul>
-                    <li class="disabled"><a href="#" class="prev"><span>Prev</span></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#" class="next"><span>Next</span></a></li>
-                </ul>
-            </div>
+            <%= will_paginate @challenges, class: "pagination pagination-centered", next_label: "<span>Next</span>", previous_label: "<span>Prev</span>" %>
 
             <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
 

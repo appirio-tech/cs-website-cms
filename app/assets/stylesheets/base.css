@@ -4232,3 +4232,15 @@ ul.inline a {
 .res li a span i.icon-team {
   background-position: -414px -706px;
 }
+
+form.challenges-filter .filter {
+  margin-bottom: 10px;
+}
+form.challenges-filter .state {
+  margin: 0 0 20px 20px;
+
+}
+form.challenges-filter .state label {
+  width: 150px;
+}
+
