@@ -5,6 +5,9 @@ gem 'rails', '3.2.11'
 gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails', '~> 2.0.0'
+gem 'redis'
+gem 'thin'
+gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
@@ -15,19 +18,17 @@ gem 'refinerycms-dashboard'
 gem 'refinerycms-images'
 gem 'refinerycms-pages'
 gem 'refinerycms-resources'
-
 gem 'refinerycms-bootstrap', git: 'git://github.com/ghoppe/refinerycms-bootstrap.git'
 gem 'rest-client', '1.6.7', require: 'rest_client'
 gem 'hashie', '1.2.0'
-
 gem 'faye', '0.8.3'
 gem 'restforce'
 
 # gems from old site's gemfile
 gem 'haml'
 gem 'will_paginate'
-gem 'httparty'
 
+# are these 8 needed any longer?
 gem 'ruby-openid', :git => "git://github.com/mbleigh/ruby-openid.git"
 gem 'openid_active_record_store'
 gem 'omniauth-twitter'
@@ -36,11 +37,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-openid'
 gem 'omniauth-salesforce'
-gem 'savon'
 
-gem 'redis'
-gem 'thin'
-gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'flash_messages_helper'
 gem 'remote_syslog_logger'

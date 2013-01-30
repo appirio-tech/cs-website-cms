@@ -76,15 +76,15 @@
           <%= link_to image_tag("logo.png"), root_path, :class => "logo" %>
 
           <ul class="nav">
-              <li><%= link_to 'COMMUNITY', main_app.community_path %></li>
-              <li class="active"><%= link_to 'CHALLENGES', main_app.challenges_path %></li>
-              <li><%= link_to 'LEADERBOARD', main_app.leaderboard_path %></li>
+              <li<% if @community_tick %> class="active"<% end %>><%= link_to 'COMMUNITY', main_app.community_path %></li>
+              <li<% if @challenges_tick %> class="active"<% end %>><%= link_to 'CHALLENGES', main_app.challenges_path %></li>
+              <li<% if @leaderboard_tick %> class="active"<% end %>><%= link_to 'LEADERBOARD', main_app.leaderboard_path %></li>
               <li><%= link_to 'BADGES', '/badges' %></li>
               <li><%= link_to 'FAQ', '/faq' %></li>
               <li><%= link_to 'BLOG', 'http://blog.cloudspokes.com' %></li>
               <li><%= link_to 'HELP', '/help' %></li>
-              <li><%= link_to 'FORUMS', '/forums' %></li>
-              <li><%= link_to 'ACCOUNT', main_app.account_path %></li>
+              <li<% if @forums_tick %> class="active"<% end %>><%= link_to 'FORUMS', '/forums' %></li>
+              <li<% if @account_tick %> class="active"<% end %>><%= link_to 'ACCOUNT', main_app.account_path %></li>
           </ul>
 
           <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
@@ -103,9 +103,9 @@
                   <h2>MAIN LINKS</h2>
                   <ul class="links">
                       <li><%= link_to 'Home', main_app.root_path %></li>
-                      <li><%= link_to 'What We Do', '/what_we_do' %></li>
-                      <li><%= link_to 'How It Works / Members', '/how_it_works_members' %></li>
-                      <li><%= link_to 'How It Works / Clients', '/how_it_works_clients' %></li>
+                      <li><%= link_to 'What We Do', '/what-we-do' %></li>
+                      <li><%= link_to 'How It Works / Members', '/how-it-works-members' %></li>
+                      <li><%= link_to 'How It Works / Clients', '/how-it-works-clients' %></li>
                       <li><%= link_to 'About Us', '/about' %></li>
                       <li><%= link_to 'Blog', 'http://blog.cloudspokes.com' %></li>
                       <li><%= link_to 'Privacy & Terms', '/privacy' %></li>

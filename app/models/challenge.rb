@@ -5,7 +5,7 @@ class Challenge < ApiModel
     :prize_type, :total_prize_money, :top_prize,
     :start_date, :end_date, :usage_details, :requirements, :post_reg_info,
     :name, :description, :status, :release_to_open_source, :additional_info,
-    :categories, :is_open, :discussion_board, :registered_members,
+    :categories, :is_open, :discussion_board, :registered_members, :challenge_prizes,
     :submission_details, :winner_announced, :community, :days_till_close,
 
     # these are only available if you call /admin on the model
@@ -42,7 +42,8 @@ class Challenge < ApiModel
     end if params['challenge_comment_notifiers']
 
     params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
-      { place: entry['place'].to_s, prize: entry['prize'].to_s, points: entry['points'] || '', value: entry['value'] || '' }
+      prize = "$#{Integer(entry['prize'])}" rescue entry['prize'].to_s
+      { place: entry['place'].to_i.ordinalize, prize: prize, points: entry['points'] || '', value: entry['value'] || '' }
     end if params['challenge_prizes']
 
     # params['assets'] = params['assets'].map do |entry|

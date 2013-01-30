@@ -1,1 +1,311 @@
 /*add own css*/
+
+.jqTransformRadioWrapper {
+	margin-top: 0;
+}
+.jqTransformRadio {
+  display: block;
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+  background: transparent url(../i/radio.png) no-repeat center top;
+}
+.jqTransformRadioWrapper  a.jqTransformChecked {
+  background-position: 0 -21px;
+}
+textarea {
+	border: 1px solid #d1d1d1;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/** header **/
+.loginbar-wrapper {
+	height: 59px;
+	overflow: hidden;
+}
+.loginbar-wrapper .login > div {
+	padding-top: 9px;
+	padding-right: 18px;
+	padding-bottom: 9px;
+}
+.loginbar-wrapper .login-form input {
+	margin-bottom: 0;
+	margin-right: 9px;
+	font-size: 12px;
+	line-height: 41px;
+}
+.loginbar-wrapper .login-form a.btn {
+	margin: 2px 0 0 5px;
+}
+	.loginbar-wrapper .login-form a.btn span {
+		line-height: 38px;
+		font-size: 13px;
+		padding-right: 17px;
+		padding-left: 20px;
+	}
+.loginbar-wrapper .login div.login-using {
+	padding-right: 13px;
+}
+	.loginbar-wrapper .login div.login-using span {
+		font-size: 12px;
+		line-height: 41px;
+	}
+	.loginbar-wrapper .login-using ul.inline {
+		margin-top: -1px;
+	}
+.loginbar-wrapper .login div.forgot-pwd {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+	.loginbar-wrapper .login div.forgot-pwd a {
+		font-size: 12px;
+		line-height: 41px;
+	}
+.loginbar-wrapper .last a.btn {
+	margin-top: 2px
+}
+	.loginbar-wrapper .last a.btn span {
+		line-height: 38px;
+		font-size: 13px;
+		padding-right: 17px;
+		padding-left: 20px;
+	}
+
+.logined .pull-right {
+	width: 330px;
+}
+/** end of header **/
+
+/* nav */
+.form-search {
+	margin-top: 0;
+	margin-bottom: 0;
+	*clear: both;
+}
+	.form-search .jqTransformInputWrapper {
+		margin-right: 0;
+	}
+	.form-search .btn-search {
+		right: 6px;
+	}
+/* end of nav */
+
+/* content */
+
+/* banner */
+.banner {
+	margin: 30px 0 0 0;
+	background: url(../i/banner-bg.png) 0 0 repeat-x;
+}
+	.banner-unit {
+		top: 0;
+		width: 1024px;
+		height: 296px;
+		position: relative;
+	}
+		.banner-unit img {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.banner-unit .buttons {
+			position: absolute;
+			text-align: right;
+		}
+		.crowdsouced-banner .buttons {
+			top: 160px;
+			left: 625px;
+		}
+		.compete-code-win-banner .buttons {
+			top: 170px;
+			left: 70px;
+		}
+		.build-it-a-banner .buttons {
+			top: 150px;
+			left: 70px;
+		}
+		.build-it-b-banner .buttons {
+			top: 150px;
+			left: 70px;
+		}
+		.connect-with-cloud-banner .buttons {
+			top: 180px;
+			left: 695px;
+		}
+			.banner-unit a.get-started {
+				display: block;
+				height: 65px;
+				color: #fff;
+				text-align: center;
+				background: url("../i/tab-large.png") 0 0 no-repeat;
+				padding-left: 3px;
+			}
+				.banner-unit a.get-started span {
+					display: block;
+					padding-right: 3px;
+					background: url(../i/tab-large.png) 100% -195px no-repeat;
+				}
+					.banner-unit a.get-started span span {
+						display: block;
+						width: 217px;
+						height: 65px;
+						font-size: 30px;
+						padding: 0 9px;
+						font-weight: bold;
+						line-height: 65px;
+						background: url("../i/tab-large.png") 0 -390px repeat-x;
+					}
+			.banner-unit a.get-started:hover {
+				background-position: 0 -65px;
+				text-decoration: none;
+			}
+				.banner-unit a.get-started:hover span {
+					background-position: 100% -260px;
+				}
+					.banner-unit a.get-started:hover span span {
+						background-position: 0 -455px;
+					}
+
+			.banner-unit a.learn-more {
+				display: block;
+				color: #fff;
+				font-size: 14px;
+				line-height: 30px;
+				margin-right: 5px;
+			}
+/* banner */
+
+.res li a span {
+	*margin-left: 0;	
+}
+.placement .place {
+	width: 40px;
+	padding: 0 14px 0 4px;
+	text-align: center;
+}
+.radio-filter { /* filter in challenge page */
+	height: 21px;
+	width: 1024px;
+	margin: -10px 0 18px 0;
+}
+	.radio-filter label {
+		height: 21px;
+		line-height: 21px;
+	}
+	.radio-filter .jqTransformRadioWrapper {
+		margin-left: 20px;
+	}
+
+ul.share {
+	clear: both;
+	height: 39px;
+	margin-bottom: 20px;
+}
+ul.share li {
+	width: 39px;
+	*float: left;
+	*display: inline;
+}
+
+.view-challenges { /* button in challenges_detail page */ 
+	clear: both;
+	height: 40px;
+	padding: 10px 0;
+}
+
+/* end of content */
+
+/* modal */
+.modal {
+	position: absolute;
+	top: 100px;
+}
+.modal-backdrop {
+	background: #000;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 200;
+}
+.modal-backdrop.fade.in {
+	opacity: 0.7;
+}
+
+#register-modal {
+	width: 866px;
+	margin-left: -433px;
+}
+#register-modal .title {
+	margin-bottom: 0;
+}
+#register-modal p {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+#register-modal ul.unstyled, ol.unstyled {
+  	margin: 0;
+  	clear: both;
+  	height: 71px;
+}
+	#register-modal ul.unstyled li {
+		width: 71px;
+		*float: left;
+		*display: inline;
+	}
+	#register-modal .form-horizontal .title {
+		margin-bottom: 0;
+	}
+	#register-modal .form-horizontal .content {
+		padding-top: 0;
+	}
+	#register-modal .form-horizontal .control-group {
+		margin: 15px 0 0 0;
+	}
+	#register-modal .form-horizontal .control-label {
+		font-weight: bold;
+		width: 200px;
+		padding-right: 15px;
+	}
+	#register-modal .form-horizontal .help-block {
+		padding-left: 215px;
+	}
+	#register-modal .form-horizontal .controls {
+		margin-left: 215px;
+	}
+	#register-modal .control-group.error .help-inline {
+		font-weight: bold;
+		padding-left: 15px;
+	}
+
+#forgot-password-modal p {
+  font-weight: bold;
+}
+
+#team-member-modal .title {
+	margin-bottom: 0;
+}
+#team-member-modal .photo {
+	width: 173px;
+	height: 173px;
+	margin: 0 30px;
+}
+#team-member-modal .info {
+	width: 740px;
+}
+#team-member-modal .well {
+	background: transparent;
+	padding: 0 0 10px 0;
+	margin-bottom: 0;
+}
+#team-member-modal .share li {
+	padding: 0;
+}
+#team-member-modal p {
+	font-size: 15px;
+	line-height: 24px;
+}
+/* end of modal */

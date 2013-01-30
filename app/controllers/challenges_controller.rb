@@ -1,40 +1,26 @@
 class ChallengesController < ApplicationController
 
-  def closed
-    # @challenges = Challenge.closed
-    # render :json => @challenges
-  end
+  before_filter :set_nav_tick
 
-  def recent
-    @challenges = Challenge.recent
-    render :json => @challenges
-  end
-
-  def comments
-  end
-
-  def registrants
-    @participants = Challenge.find params[:id].participantsrender :json => @challenges
-    render :json => @participants
-  end
-
-  def survey
-  end
-
+  # list of challenges including open/closed status & pagination
   def index
     @challenges = Challenge.open
   end
-
-  def search
-    @challenges = Challenge.search params[:search]
-    render :json => @challenges
-  end  
 
   def show
     @challenge = Challenge.find params[:id]
     render :json => @challenge
   end
 
-  def update
-  end
+  # rss feed based upon the selected platform, technology & category
+  def feed
+
+  end 
+
+  private
+
+    def set_nav_tick
+      @challenges_tick = true
+    end
+
 end

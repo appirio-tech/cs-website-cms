@@ -1,4 +1,20 @@
 class MembersController < ApplicationController
+
+  def community
+    @community_tick = true
+    @stats = Platform.stats
+    @open_challenges = Challenge.open
+    @featured_challenge =  Challenge.find @stats['featured_challenge_id']
+    @leaderboard = Platform.leaderboard
+  end   
+
+  def leaderboard
+    @leaderboard_tick = true
+  end
+
+  def forums
+    @forums_tick = true
+  end  
   
   # note that we provide our own search service so that we have greater control
   # over the results; e.g. caching, endpoint configuration, result format, etc.

@@ -1,78 +1,78 @@
 <!-- CONTENT
-            ================================================== -->
-    <div class="content-wrapper">
-        <div class="container">
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
 
-            <div>
-                <div class="title"><h1>CHALLENGES</h1></div>
+        <div>
+            <div class="title"><h1>CHALLENGES</h1></div>
 
-                <div class="filter well well-large">
-                    <form class="jqTransform">
-                        <label>SHOW</label>
-                        <select>
-                            <option>ALL PLATFORMS</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL TECHNOLOGIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL CATEGORIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <label>SORT BY</label>
-                        <select>
-                            <option>CHALLENGE TITLE</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option> 
-                        </select>
-                </div>
-
+            <div class="filter well well-large">
+                <form class="jqTransform">
+                    <label>SHOW</label>
+                    <select>
+                        <option>ALL PLATFORMS</option>
+                        <option>LOREM IPSUM</option>
+                        <option>LOREM IPSUM</option>
+                    </select>
+                    <select>
+                        <option>ALL TECHNOLOGIES</option>
+                        <option>LOREM IPSUM</option>
+                        <option>LOREM IPSUM</option>
+                    </select>
+                    <select>
+                        <option>ALL CATEGORIES</option>
+                        <option>LOREM IPSUM</option>
+                        <option>LOREM IPSUM</option>
+                    </select>
+                    <label>SORT BY</label>
+                    <select>
+                        <option>CHALLENGE TITLE</option>
+                        <option>LOREM IPSUM</option>
+                        <option>LOREM IPSUM</option> 
+                    </select>
             </div>
 
-            <% @challenges.each do |c| %>
-            <div class="row-fluid">
-                <div class="span6">
-                    <div class="challenge well well-large">
-                        <h3><a href="15_challenges_detail.html"><%= c.name %></a></h3>
-                        Due in <%= pluralize(c.days_till_close, 'day') %><br>
-                        13 members participating, <%= c.registered_members %> registered<br/>
-                        <strong>$1,600 Salesforce.com</strong><br>
-                        Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
-                        <table class="type task"><tr><td>TASK</td></tr></table>
-                    </div>
-                </div>
+        </div>
 
-                <div class="span6">
-                    <div class="challenge well well-large">
-                        <h3><a href="15_challenges_detail.html">Android Qualifier - Sliding Menu</a></h3>
-                        Due in 10 days<br>
-                        13 members participating, 9 registered<br/>
-                        <strong>$1,600 Salesforce.com</strong><br>
-                        Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
-                        <table class="type sweep-stakes"><tr><td>SWEEP<br/>STAKES</td></tr></table>
-                    </div>
+        <% @challenges.each do |c| %>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="challenge well well-large">
+                    <h3><a href="15_challenges_detail.html"><%= c.name %></a></h3>
+                    Due in <%= pluralize(c.days_till_close, 'day') %><br>
+                    13 members participating, <%= c.registered_members %> registered<br/>
+                    <strong>$1,600 Salesforce.com</strong><br>
+                    Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
+                    <table class="type task"><tr><td>TASK</td></tr></table>
                 </div>
             </div>
-            <% end %>
 
-            <div class="pagination pagination-centered">
-                <ul>
-                    <li class="disabled"><a href="#" class="prev"><span>Prev</span></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#" class="next"><span>Next</span></a></li>
-                </ul>
+            <div class="span6">
+                <div class="challenge well well-large">
+                    <h3><a href="15_challenges_detail.html">Android Qualifier - Sliding Menu</a></h3>
+                    Due in 10 days<br>
+                    13 members participating, 9 registered<br/>
+                    <strong>$1,600 Salesforce.com</strong><br>
+                    Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
+                    <table class="type sweep-stakes"><tr><td>SWEEP<br/>STAKES</td></tr></table>
+                </div>
             </div>
+        </div>
+        <% end %>
 
-            <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
+        <div class="pagination pagination-centered">
+            <ul>
+                <li class="disabled"><a href="#" class="prev"><span>Prev</span></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" class="next"><span>Next</span></a></li>
+            </ul>
+        </div>
 
-        </div> <!-- /.container -->
-    </div><!-- /.loginbar-wrapper -->
+        <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

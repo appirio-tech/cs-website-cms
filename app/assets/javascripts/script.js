@@ -101,6 +101,11 @@ $(document).ready(function() {
             $(e).popover({animation:false,html:true,placement:lr,trigger:'manual'}).popover('show');
         });
     }
+
+    if(exist('.banner')) {
+        $(".banner .container").hide().show(); // fix layout issue in IE7
+    }
+    
 });
 
 function exist(el) {

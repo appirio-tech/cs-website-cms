@@ -1,17 +1,14 @@
 CsWebsiteCms::Application.routes.draw do
 
-  get 'community', to: 'protected#index'
-  get 'leaderboard', to: 'protected#index'
   get 'faq', to: 'protected#index'
   get 'help', to: 'protected#index'
-  get 'forums', to: 'protected#index'
   get 'account', to: 'protected#index'
   get 'blog', to: 'protected#index'
   get 'forgot_password', to: 'protected#index'
 
   resources :authentications
 
-  get "protected", to: 'protected#index'
+  get 'protected', to: 'protected#index'
 
   match '/auth/:provider/callback', to: 'authentications#callback'
 
@@ -25,6 +22,9 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   get 'members/search'
+  get 'forums', to: 'members#forums'
+  get '/community', to: 'members#community'
+  get '/leaderboard', to: 'members#leaderboard'
   resources :members, only: [:index, :show, :update] do
     member do
       get 'challenges'

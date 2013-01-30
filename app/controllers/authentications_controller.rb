@@ -30,10 +30,6 @@ class AuthenticationsController < ApplicationController
     redirect_to authentications_url, :notice => "Successfully signed out."
   end
 
-  def login_with_email
-    redirect_to "/challenges"
-  end
-
   private 
 
     def login_third_party(omniauth, sfdc_account)
@@ -62,8 +58,8 @@ class AuthenticationsController < ApplicationController
         user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
         user.create_account
         if user.save
-          user.roles << Role.find_by_title('Refinery')
-          user.roles << Role.find_by_title('Superuser')      
+          #user.roles << Role.find_by_title('Refinery')
+          #user.roles << Role.find_by_title('Superuser')      
           user.update_attribute(:confirmed_at, DateTime.now)
           flash[:notice] = "Signed in successfully (login_third_party new user)."
           sign_in_and_redirect(:user, user)
