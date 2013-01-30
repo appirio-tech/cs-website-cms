@@ -13,6 +13,7 @@
 
     <!-- script -->
     <script src="/assets/base.js"></script>
+    <script src="/assets/bootstrap-typeahead.js"></script>
     <script src="/assets/script.js"></script>
 
 </head>
@@ -87,7 +88,11 @@
               <li><%= link_to 'ACCOUNT', main_app.account_path %></li>
           </ul>
 
-          <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
+
+          <form class="form-search jqTransform pull-right">
+              <input type="text" class="search-query typeahead" placeholder="Search Members or Challenges"/>
+              <a href="#" class="btn-search"></a>
+          </form>
       </div> <!-- /.container -->
   </div><!-- /.nav-wrapper -->
 
