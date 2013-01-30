@@ -1,6 +1,6 @@
 class Comment < ApiModel
   attr_accessor :id, :attributes,
-  	:comment, :createddate, :member
+  	:comment, :createddate, :member, :replies, :reply_to
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/challenges"
@@ -9,20 +9,24 @@ class Comment < ApiModel
   # Cleanup up the __r convention
   def initialize(params={})
     params['member'] = params.delete('member__r')
+    params['replies'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
+
     super(params)
   end
 
   def createddate
-    Date.parse(@createddate) if @createddate
+    Time.parse(@createddate) if @createddate
   end
 
-  # has_one :member
-  # Note that we're not using the from data in the json because it
-  # lacks many attributes. We simply just do another api call
-  def member
-    Member.find @member.name
+  def replies
+    return [] if @replies.blank?
+
+    @replies.records.map {|c| Comment.new(c)}
   end
 
+  def reply?
+    @reply_to.present?
+  end
 end
 
 # http://cs-api-sandbox.herokuapp.com/v1/challenges/2/comments

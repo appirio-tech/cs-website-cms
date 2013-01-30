@@ -20,7 +20,7 @@
         <p> <%= @challenge.submission_details.html_safe %> </p>
 
         <h2>additional info</h2>
-        <p> <%= @challenge.additional_info.html_safe %> </p>
+        <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
         <br/>
         <br/>
 
@@ -30,7 +30,7 @@
         </div>
 
         <h2 class="discussion">DISCUSSION</h2>
-        <%= render partial: "discussions", locals: {discussions: @challenge.comments} %>
+        <%= render partial: "discussions", locals: {challenge: @challenge} %>
       </div>
 
       <div class="span4">

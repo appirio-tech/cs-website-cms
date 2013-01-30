@@ -36,4 +36,10 @@ class ChallengesController < ApplicationController
 
   def update
   end
+
+  def comment
+    # verify recaptca
+
+    # create comment
+  end
 end

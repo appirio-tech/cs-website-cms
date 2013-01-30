@@ -80,7 +80,7 @@ class Challenge < ApiModel
 
   # options are
   #   technology, platform, category, order_by
-  def self.all(options, page = 1)
+  def self.all(options = {}, page = 1)
     options = (options || {}).dup
     options.each {|k,v| options.delete(k) if v.blank? }
     state = options.delete(:state) || "open" # default is open

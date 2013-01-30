@@ -1,0 +1,13 @@
+<% if signed_in? %>
+  <%= form_tag comment_challenge_path(challenge), class: "new-comment #{"reply" if comment}" do %>  
+    <%= hidden_field "comment[challenge_id]", challenge.challenge_id %>
+    <%= hidden_field "comment[membername]", current_user.username %>
+    <%= hidden_field "comment[reply_to]", comment.id if comment %>
+
+    <%= text_area_tag "comment[comments]", nil, placeholder: "Press SHIFT-ENTER for a line break. Max 2000 characters." %>
+    <%= recaptcha_tags unless comment %>
+    <%= submit_tag "Save", class: "btn" %>
+  <% end %>
+<% else %>
+  <p> Please <%= link_to "Sign In", login_path %> to post a commnet </p> 
+<% end %>

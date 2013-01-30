@@ -1,0 +1,15 @@
+<div class="comment clearfix <%= "reply" if comment.reply? %>">
+  <div class="profile-picture">
+    <%= image_tag comment.member.profile_pic %>
+  </div>
+  <div class="main">
+    <div class="text"> <%= comment.comment %> </div>
+    <div class="info">
+      <span class="name"><%= comment.member.name %></span>,
+      <span class="time"><%= comment.createddate.strftime("%b %d, %Y at %H:%M %p") %></span>
+      <% unless comment.reply? %>
+        <a href="#" class="reply">reply</a>
+      <% end %>
+    </div>
+  </div>
+</div>

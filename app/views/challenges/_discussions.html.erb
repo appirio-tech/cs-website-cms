@@ -1,1 +1,11 @@
-<%= discussions.count %>
+<% challenge.comments.each do |comment| %>
+  <%= render partial: "comment", locals: {comment: comment} %>
+  <% comment.replies.each do |reply| %>
+    <%= render partial: "comment", locals: {comment: reply} %>
+  <% end %>
+<% end %>
+
+<hr/>
+
+<h4> Post a Comment </h4>
+<%= render partial: "new_comment", locals: {challenge: challenge, comment: nil} %>

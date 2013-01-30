@@ -4244,3 +4244,49 @@ form.challenges-filter .state label {
   width: 150px;
 }
 
+
+.comment {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.comment.reply, form.new-comment.reply {
+  margin-left: 40px;
+}
+.comment .profile-picture {
+  float: left;
+  width: 60px;
+  padding: 10px;
+}
+.comment .profile-picture img {
+  width: 50px;
+  height: 50px;
+}
+.comment .main {
+  margin-left: 80px;
+  padding: 10px;
+}
+.comment .main .text {
+  color: #444;
+  margin-bottom: 10px;
+}
+.comment .main .info {
+  font-size: 12px;
+}
+.comment .main .info .time {
+  color: #999;
+}
+form input[type=submit] {
+  border: none;
+  padding: 0 10px;
+}
+form.new-comment textarea {
+  height: 6em;
+  width: 90%;
+}
+form.new-comment.reply {
+  display: none;
+}
+form.new-comment.reply textarea {
+  height: 3em;
+}
