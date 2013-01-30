@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class MembersController < ApplicationController
 
   def community
@@ -10,6 +12,13 @@ class MembersController < ApplicationController
 
   def leaderboard
     @leaderboard_tick = true
+    @this_month = Platform.leaderboard(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
+    @this_year = Platform.leaderboard(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
+    @all_time = Platform.leaderboard(current_access_token, :category => params[:category] || nil, :limit => 1000)
+
+    @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
+    @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
+    @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
   end
 
   def forums

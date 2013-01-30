@@ -5,261 +5,55 @@
 
             <div>
                 <div class="title"><h1>LEADERBOARD</h1></div>
-
-                <div class="filter well well-large">
-                    <form class="jqTransform">
-                        <label>SHOW</label>
-                        <select>
-                            <option>ALL PLATFORMS</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL TECHNOLOGIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <select>
-                            <option>ALL CATEGORIES</option>
-                            <option>LOREM IPSUM</option>
-                            <option>LOREM IPSUM</option>
-                        </select>
-                        <label>SORT BY</label>
-                        <select>
-                            <option>ASSENDING</option>
-                            <option>DESCENDING</option>
-                        </select>
-                    </form>
-                </div>
             </div>
 
             <div class="row-fluid">
 
                 <div class="span4">
                     <div class="title"><h1>THIS MONTH</h1></div>
-
+                    <% @this_month.each do |member| %>
                     <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p1">1st</span>
+                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                        <%= link_to member['username'], member_path(member['username']) %>
+                        # of Wins: <%= member['wins'].to_i %>
+                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
                     </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p2">2nd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p3">3rd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">4th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">5th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">6th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">7th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">8th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">9th</span>
-                    </div>
+                    <% end %>
+                    <%= will_paginate @this_month, :param_name => :page_this_month, :inner_window => 1, :outer_window => 1 %>
                 </div>
 
 
                 <div class="span4">
                     <div class="title"><h1>THIS YEAR</h1></div>
-
+                    <% @this_year.each do |member| %>
                     <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p1">1st</span>
+                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                        <%= link_to member['username'], member_path(member['username']) %>
+                        # of Wins: <%= member['wins'].to_i %>
+                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
                     </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p2">2nd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p3">3rd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">4th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">5th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">6th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">7th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">8th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">9th</span>
-                    </div>
+                    <% end %>
+                    <%= will_paginate @this_year, :param_name => :page_this_year, :inner_window => 1, :outer_window => 1 %>
                 </div>
 
 
                 <div class="span4">
                     <div class="title"><h1>ALL TIME</h1></div>
-
+                    <% @all_time.each do |member| %>
                     <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p1">1st</span>
+                        <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                        <%= link_to member['username'], member_path(member['username']) %>
+                        # of Wins: <%= member['wins'].to_i %>
+                        <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
+                        <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
                     </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p2">2nd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place p3">3rd</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">4th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">5th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">6th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">7th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">8th</span>
-                    </div>
-                    <div class="placement well">
-                        <img src="i/avatar.png" class="pull-left photo"/>
-                        <a href="#">smulyono</a>
-                        # of Wins: 8
-                        <span class="prize">$1,000</span>
-                        <span class="place">9th</span>
-                    </div>
+                    <% end %>
+                    <%= will_paginate @all_time, :param_name => :page_all_time, :inner_window => 1, :outer_window => 1 %>
                 </div>
 
             </div>
-
-
-
-
-
-            <div class="pagination pagination-centered">
-                <ul>
-                    <li class="disabled"><a class="prev"><span>Prev</span></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#" class="next"><span>Next</span></a></li>
-                </ul>
-            </div>
-
-            <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
 
         </div> <!-- /.container -->
     </div><!-- /.loginbar-wrapper -->
