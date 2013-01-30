@@ -43,11 +43,12 @@
             <div class="row-fluid">
                 <div class="span6">
                     <div class="challenge well well-large">
-                        <h3><a href="15_challenges_detail.html"><%= c.name %></a></h3>
+                        <h3><%= link_to c.name, challenge_path(c)  %></h3>
                         Due in <%= pluralize(c.days_till_close, 'day') %><br>
-                        13 members participating, <%= c.registered_members %> registered<br/>
-                        <strong>$1,600 Salesforce.com</strong><br>
-                        Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
+                        <%= c.participating_members %> members participating, <%= c.registered_members %> registered<br/>
+                        <strong><%= number_to_currency c.total_prize_money, precision: 0 %> Salesforce.com</strong><br>
+
+                        Tags: <%= challenge_tag_links(c) %>
                         <table class="type task"><tr><td>TASK</td></tr></table>
                     </div>
                 </div>

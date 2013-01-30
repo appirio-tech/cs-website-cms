@@ -7,6 +7,8 @@ class Challenge < ApiModel
     :name, :description, :status, :release_to_open_source, :additional_info,
     :categories, :is_open, :discussion_board, :registered_members,
     :submission_details, :winner_announced, :community, :days_till_close,
+    :platforms, :technologies, :submissions, :participating_members,
+    :challenge_prizes,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
@@ -30,6 +32,8 @@ class Challenge < ApiModel
     params['challenge_comment_notifiers'] = params.delete('challenge_comment_notifiers__r') if params['challenge_comment_notifiers__r']
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
     params['assets'] = params.delete('assets__r') if params['assets__r']
+    params['platforms'] = params.delete('challenge_platforms__r') if params['challenge_platforms__r']
+    params['technologies'] = params.delete('challenge_technologies__r') if params['challenge_technologies__r']
 
     # these fields need extra cleaning as they should only output arrays of strings
     # they also have an awful lot of duplication that can benefit with a bit of refactoring
@@ -102,25 +106,38 @@ class Challenge < ApiModel
 
   # Return an object instead of a string
   def start_date
-    Date.parse(@start_date) if @start_date
+    Time.parse(@start_date) if @start_date
   end
 
   # Return an object instead of a string
   def end_date
-    Date.parse(@end_date) if @end_date
+    Time.parse(@end_date) if @end_date
   end
 
   # TODO: blow up the categories into something useful
   def categories
+    return [] if @categories.blank?
     @categories.records.map {|c| c.display_name}
   end
 
   def category_names
-    categories.records.map(&:display_name)
+    return [] if @categories.blank?
+    @categories.records.map(&:display_name)
+  end
+
+  def platforms
+    return [] if @platforms.blank?
+    @platforms.records.map(&:name)    
+  end
+
+  def technologies
+    return [] if @technologies.blank?
+    @technologies.records.map(&:name)    
   end
 
   def assets
-    assets.records.map(&:filename)
+    return [] if @assets.blank?
+    @assets.records.map(&:filename)
   end
 
   def community_name

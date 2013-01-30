@@ -32,7 +32,6 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find params[:id]
-    render :json => @challenge
   end
 
   def update
