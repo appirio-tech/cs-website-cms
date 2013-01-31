@@ -145,12 +145,13 @@ class ApiModel
   end
 
   def self.request(method, entities, data)
-    endpoint = endpoint_from_entities(entities)
-    Rails.logger.info "===== request method endpoint: #{endpoint}"    
+    endpoint = endpoint_from_entities(entities)  
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
+      Rails.logger.info "===== request method endpoint: #{endpoint}"  
       resp = RestClient.send method, endpoint, api_request_headers
     else
+      Rails.logger.info "===== request method endpoint: #{endpoint}"  
       data = data.to_json unless data.is_a?(String)
       resp = RestClient.send method, endpoint, data, api_request_headers
     end

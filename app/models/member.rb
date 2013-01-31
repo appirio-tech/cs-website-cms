@@ -29,4 +29,8 @@ class Member < ApiModel
       .map {|member| Member.new member}
   end
 
+  def self.login_type(membername)
+    request(:get, "#{membername}/login_type", nil)
+  end
+
 end

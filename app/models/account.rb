@@ -33,16 +33,24 @@ class Account < ApiModel
     self.class.post("authenticate", data)
   end
 
+  def update_password_token(token)
+    data = { token: token }
+    self.class.put(["update_password_token", user.username], data)
+  end
+
+  def update_password(token, new_password)
+    data = {
+      token: token,
+      new_password: new_password
+    }
+    self.class.put(["change_password_with_token", user.username], data)
+  end    
+
+  # DEPRECATED
   def reset_password
     self.class.request(:get, ["reset_password", user.username], {})
   end
 
-  def update_password(passcode, new_password)
-    data = {
-      passcode: passcode,
-      new_password: new_password
-    }
-    self.class.put(["update_password", user.username], data)
-  end
+
 
 end

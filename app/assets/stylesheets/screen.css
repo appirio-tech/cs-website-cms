@@ -8,7 +8,7 @@
   width: 21px;
   height: 21px;
   vertical-align: middle;
-  background: transparent url(../i/radio.png) no-repeat center top;
+  background: transparent url(/assets/radio.png) no-repeat center top;
 }
 .jqTransformRadioWrapper  a.jqTransformChecked {
   background-position: 0 -21px;
@@ -97,7 +97,7 @@ textarea {
 /* banner */
 .banner {
 	margin: 30px 0 0 0;
-	background: url(../i/banner-bg.png) 0 0 repeat-x;
+	background: url(/assets/banner-bg.png) 0 0 repeat-x;
 }
 	.banner-unit {
 		top: 0;
@@ -139,13 +139,13 @@ textarea {
 				height: 65px;
 				color: #fff;
 				text-align: center;
-				background: url("../i/tab-large.png") 0 0 no-repeat;
+				background: url("/assets/tab-large.png") 0 0 no-repeat;
 				padding-left: 3px;
 			}
 				.banner-unit a.get-started span {
 					display: block;
 					padding-right: 3px;
-					background: url(../i/tab-large.png) 100% -195px no-repeat;
+					background: url(/assets/tab-large.png) 100% -195px no-repeat;
 				}
 					.banner-unit a.get-started span span {
 						display: block;
@@ -155,7 +155,7 @@ textarea {
 						padding: 0 9px;
 						font-weight: bold;
 						line-height: 65px;
-						background: url("../i/tab-large.png") 0 -390px repeat-x;
+						background: url("/assets/tab-large.png") 0 -390px repeat-x;
 					}
 			.banner-unit a.get-started:hover {
 				background-position: 0 -65px;

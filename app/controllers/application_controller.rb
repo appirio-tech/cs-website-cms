@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
       :client_secret  => ENV['SFDC_CLIENT_SECRET'],
       :host           => ENV['SFDC_HOST']
     client.authenticate!.access_token
-  end
+  end 
 
 end

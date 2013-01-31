@@ -4,7 +4,6 @@ CsWebsiteCms::Application.routes.draw do
   get 'help', to: 'protected#index'
   get 'account', to: 'protected#index'
   get 'blog', to: 'protected#index'
-  get 'forgot_password', to: 'protected#index'
 
   resources :authentications
 
@@ -27,6 +26,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/leaderboard', to: 'members#leaderboard'
   resources :members, only: [:index, :show, :update] do
     member do
+      post 'login_managed_by'
       get 'challenges'
       get 'payments'
       get 'recommendations'

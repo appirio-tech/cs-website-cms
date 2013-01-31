@@ -1,21 +1,28 @@
-<h2>Change your password</h2>
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
 
-<%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
+    <div>
+        <div class="title"><h1>CHANGE YOUR PASSWORD</h1></div>
+    </div>      
 
-  <%= f.input :reset_password_token, :as => :hidden %>
-  <%= f.input :username, :as => :hidden %>
-  <%= f.full_error :reset_password_token %>
+    <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= f.error_notification %>
 
-  <div class="inputs">
-    <%= f.input :password, :label => "New password", :required => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
-  </div>
+      <%= f.input :reset_password_token, :as => :hidden %>
+      <%= f.input :username, :as => :hidden %>
+      <%= f.full_error :reset_password_token %>
 
-  <div class="actions">
-    <%= f.button :submit, "Change my password" %>
-  </div>
-<% end %>
+      <div class="inputs">
+        <%= f.input :password, :label => "New password", :required => true %>
+        <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+      </div>
 
-<%= render "links" %>
+      <div class="actions">
+        <%= f.button :submit, "Change my password" %>
+      </div>
+    <% end %>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

@@ -12,8 +12,10 @@
     <link href="/assets/screen.css" rel="stylesheet">
 
     <!-- script -->
-    <script src="/assets/base.js"></script>
-    <script src="/assets/script.js"></script>
+    <%= javascript_include_tag "base" %>
+    <%= javascript_include_tag "script" %>
+    <!-- not sure why this is not being picked up in applcition.js?? -->
+    <%= javascript_include_tag "cloudspokes" %>
 
 </head>
 <body>
@@ -45,7 +47,7 @@
                   <a href="#forgot-password-modal" data-toggle="modal">FORGOT PASSWORD?</a>
               </div>
               <div class="last">
-                  <a href="#register-modal"  data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
+                  <a href="#register-modal" data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
               </div>
           </div>
         <% else %>
@@ -90,6 +92,8 @@
           <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
       </div> <!-- /.container -->
   </div><!-- /.nav-wrapper -->
+
+  <%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
 
   <%= yield %>
 
@@ -161,16 +165,17 @@
 
 
   <!-- Modal -->
-  <div id="forgot-password-modal" class="modal hide fade" tabindex="-1" role="dialog"">
+  <div id="forgot-password-modal" class="modal hide fade" tabindex="-1" role="dialog">
   <div class="modal-header"></div>
   <div class="modal-body">
       <div class="title"><h1>RESET YOUR PASSWORD</h1></div>
       <div class="content">
           <form class="modal-form jqTransform forgot-password-form">
               <p>Enter your CloudSpokes username and we'll send you instructions on how to reset your password.</p>
-              <input type="text" placeholder="USERNAME"/><div class="btn"><button class="btn" type="submit">SUBMIT</button></div>
+              <input type="text" placeholder="USERNAME" id="reset-username"/><div class="btn"><button class="btn" type="submit">SUBMIT</button></div>
           </form>
       </div>
+      <div class="reset-results" style="padding-left:15px;padding-right:15px;padding-top:15px"></div>
 
       <br/>
   </div>
@@ -229,7 +234,7 @@
               <div class="control-group">
                   <div class="controls">
                       <label class="checkbox">
-                          <input type="checkbox"> I agree to the <a href="21_terms.html" target="_blank">terms of service</a>.*
+                          <input type="checkbox"> I agree to the <a href="/terms-of-service" target="_blank">terms of service</a>.*
                       </label>
                   </div>
               </div>
@@ -245,7 +250,7 @@
   </div>
 
   <!-- Modal -->
-  <div id="thank-modal" class="modal hide fade" tabindex="-1" role="dialog"">
+  <div id="thank-modal" class="modal hide fade" tabindex="-1" role="dialog">
   <div class="modal-header"></div>
   <div class="modal-body">
       <div class="title"><h1>Thank You</h1></div>

@@ -45,9 +45,8 @@ $(document).ready(function() {
         $($(this).attr('rel')).removeClass('hide');
     });
 
-    $('#forgot-password-modal button.btn[type="submit"]').click(function() {
-        $('#thank-modal .content').html('<p>Your request has been sent. You will receive an email from support, shortly.</p>');
-        $('#thank-modal').modal('show');
+    $('#forgot-password-modal111 button.btn[type="submit"]').click(function() {
+        $('#forgot-password-modal .content').html('<p>3Your request has been sent. You will receive an email from support, shortly.</p>');
         return false;
     });
     $('#register-modal input[type="submit"]').click(function() {

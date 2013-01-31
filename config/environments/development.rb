@@ -49,7 +49,8 @@ CsWebsiteCms::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-  config.assets.initialize_on_precompile = false
+  config.assets.initialize_on_precompile = true
+  config.assets.compile = true
 
   $stdout.sync = true
 end
