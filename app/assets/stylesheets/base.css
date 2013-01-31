@@ -4250,7 +4250,7 @@ form.challenges-filter .state label {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-.comment.reply, form.new-comment.reply {
+.comment.reply, .reply-form {
   margin-left: 40px;
 }
 .comment .profile-picture {
