@@ -18,19 +18,36 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
-    puts "========== redirect to #{stored_location_for(resource)}"
     stored_location_for(resource) || challenges_path
   end  
 
-  # TODO - this will eventually pull the access token from the current_user
-  # if present or use the guest user access_token
   def current_access_token
-    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-      :client_id      => ENV['SFDC_CLIENT_ID'],
-      :client_secret  => ENV['SFDC_CLIENT_SECRET'],
-      :host           => ENV['SFDC_HOST']
-    client.authenticate!.access_token
+    if current_user.nil?
+      guest_access_token
+    else
+      member_access_token
+    end
   end 
+
+  def guest_access_token
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+      puts "=========== fetcing guest access token"
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client.authenticate!.access_token
+    end
+    puts "=========== returning guest access token"
+    guest_token
+  end  
+
+  def member_access_token
+    puts "=========== returning member access token"
+    current_user.access_token
+  end
+
+
 
 end
