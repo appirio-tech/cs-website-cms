@@ -4284,12 +4284,6 @@ form.new-comment textarea {
   height: 6em;
   width: 90%;
 }
-form.new-comment.reply {
-  display: none;
-}
-form.new-comment.reply textarea {
-  height: 3em;
-}
 
 .typeahead.dropdown-menu {
   margin-top: 7px;

@@ -156,6 +156,11 @@ class Challenge < ApiModel
     Date.parse(@winner_announced) if @winner_announced
   end
 
+  def create_comment(attrs)
+    attrs[:challenge_id] = challenge_id
+    self.class.post [challenge_id, "comment"], {data: attrs}
+  end
+
   # has_one :status
   # TODO (this requires authentication)
   # edit Nov 22: apparently not? O_O

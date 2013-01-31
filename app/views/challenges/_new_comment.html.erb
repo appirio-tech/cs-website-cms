@@ -1,11 +1,10 @@
 <% if signed_in? %>
-  <%= form_tag comment_challenge_path(challenge), class: "new-comment #{"reply" if comment}" do %>  
-    <%= hidden_field "comment[challenge_id]", challenge.challenge_id %>
-    <%= hidden_field "comment[membername]", current_user.username %>
-    <%= hidden_field "comment[reply_to]", comment.id if comment %>
+  <%= form_tag comment_challenge_path(challenge), class: "new-comment", id: "new-comment-form" do %>  
+    <%= hidden_field_tag "comment[membername]", current_user.username %>
+    <%= hidden_field_tag "comment[reply_to]", params[:reply_to] if params[:reply_to] %>
 
-    <%= text_area_tag "comment[comments]", nil, placeholder: "Press SHIFT-ENTER for a line break. Max 2000 characters." %>
-    <%= recaptcha_tags unless comment %>
+    <%= text_area_tag "comment[comments]", flash[:unsaved_comments], placeholder: "Press SHIFT-ENTER for a line break. Max 2000 characters." %>
+    <%= recaptcha_tags %>
     <%= submit_tag "Save", class: "btn" %>
   <% end %>
 <% else %>

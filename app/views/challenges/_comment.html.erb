@@ -1,4 +1,4 @@
-<div class="comment clearfix <%= "reply" if comment.reply? %>">
+<div class="comment clearfix <%= "reply" if comment.reply? %>" id="<%= comment.id %>">
   <div class="profile-picture">
     <%= image_tag comment.member.profile_pic %>
   </div>
@@ -8,7 +8,7 @@
       <span class="name"><%= comment.member.name %></span>,
       <span class="time"><%= comment.createddate.strftime("%b %d, %Y at %H:%M %p") %></span>
       <% unless comment.reply? %>
-        <a href="#" class="reply">reply</a>
+        <%= link_to "reply", challenge_path(challenge, reply_to: comment.id, anchor: "new-comment-form") %>
       <% end %>
     </div>
   </div>

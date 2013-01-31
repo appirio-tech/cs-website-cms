@@ -1,5 +1,5 @@
 <% challenge.comments.each do |comment| %>
-  <%= render partial: "comment", locals: {comment: comment} %>
+  <%= render partial: "comment", locals: {comment: comment, challenge: challenge} %>
   <% comment.replies.each do |reply| %>
     <%= render partial: "comment", locals: {comment: reply} %>
   <% end %>
@@ -7,5 +7,5 @@
 
 <hr/>
 
-<h4> Post a Comment </h4>
-<%= render partial: "new_comment", locals: {challenge: challenge, comment: nil} %>
+<h4> Post a <%= params[:reply_to] ? "Reply" : "Comment" %> </h4>
+<%= render partial: "new_comment", locals: {challenge: challenge} %>

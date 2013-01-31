@@ -1,6 +1,9 @@
 <div class="content-wrapper">
   <div class="container">
 
+    <%= content_tag :div, flash[:notice], class: "alert alert-success" if flash[:notice] %>
+    <%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
+
     <div class="title"><h1>CHALLENGE DETAIL</h1></div>
 
     <div class="row-fluid">
@@ -17,7 +20,7 @@
         <br/>
         
         <h2>submission details</h2>
-        <p> <%= @challenge.submission_details.html_safe %> </p>
+        <p> <%= @challenge.submission_details.try(:html_safe) %> </p>
 
         <h2>additional info</h2>
         <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
