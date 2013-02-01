@@ -65,15 +65,15 @@ class ApiModel
     all.first
   end
 
-  # Finds an entity
-  def self.find(entity)
-    Rails.logger.info "========== running find for #{entity} for #{self.name}"
-    Kernel.const_get(self.name).new(raw_get entity)
+  # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
+  def self.find(entity, params={})
+    puts "========== running find for #{entity} for #{self.name} with params #{params}"
+    Kernel.const_get(self.name).new(raw_get entity, params)
   end
 
   # Wrap initialize with a sanitation clause
   def initialize(params={})
-    Rails.logger.info "=====calling init with #{params}"
+    puts "=====calling init with #{params}"
     @raw_data = params.dup
     params.delete_if {|k, v| !self.class.column_names.include? k.to_sym}
     super(params)
@@ -122,9 +122,10 @@ class ApiModel
   # Accepts an array or a string
   # If given an array, will join the elements with '/'
   # If given a string, will use the argument as is
-  def self.raw_get(entities = [])
+  def self.raw_get(entities = [], params)
     endpoint = endpoint_from_entities(entities)
-    Rails.logger.info "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
+    endpoint << "?#{params.to_param}" unless params.empty?
+    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
@@ -148,10 +149,10 @@ class ApiModel
     endpoint = endpoint_from_entities(entities)  
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
-      Rails.logger.info "===== request method endpoint: #{endpoint}"  
+      puts "===== request method endpoint: #{endpoint}"  
       resp = RestClient.send method, endpoint, api_request_headers
     else
-      Rails.logger.info "===== request method endpoint: #{endpoint}"  
+      puts "===== request method endpoint: #{endpoint}"  
       data = data.to_json unless data.is_a?(String)
       resp = RestClient.send method, endpoint, data, api_request_headers
     end
