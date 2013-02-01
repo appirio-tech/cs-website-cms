@@ -49,7 +49,7 @@ $(document).ready(function() {
         $('#forgot-password-modal .content').html('<p>3Your request has been sent. You will receive an email from support, shortly.</p>');
         return false;
     });
-    $('#register-modal input[type="submit"]').click(function() {
+    $('#1register-modal input[type="submit"]').click(function() {
 
         $('#register-modal input').each(function() {
             if($(this).val()==''){
@@ -78,8 +78,8 @@ $(document).ready(function() {
         }
 
         if($('#register-modal .error').length==0){
-            $('#thank-modal .content').html('<p>Your request has been sent. You will receive a confirmation email from us, shortly.</p>');
-            $('#thank-modal').modal('show');
+            //$('#thank-modal .content').html('<p>Your request has been sent. You will receive a confirmation email from us, shortly.</p>');
+            //$('#thank-modal').modal('show');
         }
 
         return false;

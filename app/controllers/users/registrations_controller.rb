@@ -1,16 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
-    results = create_member_from_email params[:user]
-=begin    
-    build_resource
-    if @user.create_account
-      super
-      session[:omniauth] = nil unless @user.new_record?
-    else
-      respond_with resource
-    end
-=end    
+    render :text => create_member_from_email(params[:user])
   end
 
   def new
@@ -31,20 +22,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def create_member_from_email(params)
       user = User.new(email: params[:email], username: params[:username], password: params[:password], 
-        password_confirmation: params[:password])   
-      user.username = params['username']      
+        password_confirmation: params[:password_confirm])   
+      user.username = params[:username]      
       # try and create the user in sfdc
       results = Account.new(user).create params
       if results.success.to_bool
         if user.save
-          flash[:notice] = "#{results.message} Please confirm your email address before logging in. Check your inbox."
-          redirect_to root_path
+          message = "#{results.message} Please confirm your email address before logging in. Check your inbox."
+          #redirect_to root_path
         else
-          flash.now[:error] = user.errors.full_messages
+          message = user.errors.full_messages
         end        
       else
-        render :text => results.message
+        message = results.message
       end
+      puts "======== create from email in sfdc: #{message}"
+      message
     end  
 
     def create_member_from_third_party(params)

@@ -44,7 +44,7 @@
                   </ul>
               </div>
               <div>
-                  <a href="#forgot-password-modal" data-toggle="modal">FORGOT PASSWORD?</a>
+                  <a href="#register-modal" data-toggle="modal">FORGOT PASSWORD?</a>
               </div>
               <div class="last">
                   <a href="#register-modal" data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
@@ -187,47 +187,44 @@
   <div id="register-modal" class="modal hide fade" tabindex="-1" role="dialog">
       <div class="modal-header"></div>
       <div class="modal-body">
-          <div class="title"><h1>REGISTER USING ACCOUNT</h1></div>
+          <div class="title"><h1>REGISTER USING AN EXISTING ACCOUNT</h1></div>
           <div class="content">
-              <p>Use your existing account from...</p>
-              <ul class="unstyled inline">
-                  <li><a href="#" class="circle-orange-large"><span class="github">github</span></a></li>
-                  <li><a href="" class="circle-orange-large"><span class="facebook">facebook</span></a></li>
-                  <li><a href="#" class="circle-orange-large"><span class="twitter">twitter</span></a></li>
-                  <li><a href="#" class="circle-orange-large"><span class="googleplus">google+</span></a></li>
-                  <li><a href="#" class="circle-orange-large"><span class="salesforce">salesforce</span></a></li>
-              </ul>
               <p>Using an existing account is quick and easy. Select the account you would like to use and we'll do the rest for you.</p>
+              <ul class="unstyled inline">
+                  <li><a href="/auth/github" class="circle-orange-large"><span class="github">github</span></a></li>
+                  <li><a href="/auth/facebook" class="circle-orange-large"><span class="facebook">facebook</span></a></li>
+                  <li><a href="/auth/twitter" class="circle-orange-large"><span class="twitter">twitter</span></a></li>
+                  <li><a href="/auth/google" class="circle-orange-large"><span class="googleplus">google+</span></a></li>
+                  <li><a href="/auth/salesforce" class="circle-orange-large"><span class="salesforce">salesforce</span></a></li>
+              </ul>
           </div>
 
           <form class="form-horizontal jqTransform jqtransformdone">
-              <div class="title"><h1>REGISTER MANUALLY</h1></div>
+              <div class="title"><h1>REGISTER USING YOUR EMAIL</h1></div>
               <p>Create a new account with CloudSpokes:</p>
 
               <div class="control-group">
-                  <label class="control-label" for="input-name">USERNAME</label>
-                  <div class="controls">
+                  <label class="control-label" for="input-name">Username</label>
+                  <div class="controls" id="input-username-container">
                       <input type="text" id="input-name">
                   </div>
               </div>
               <div class="control-group">
-                  <label class="control-label" for="input-email">EMAIL</label>
-                  <div class="controls">
+                  <label class="control-label" for="input-email">Email</label>
+                  <div class="controls" id="input-email-container">
                       <input type="text" id="input-email">
                   </div>
               </div>
               <div class="control-group">
                   <label class="control-label" for="input-pwd">Password</label>
-                  <div class="controls">
-                      <div class="control">
-                          <input type="password" id="input-pwd">
-                      </div>
+                  <div class="controls" id="input-password-container">
+                      <input type="password" id="input-pwd">
                   </div>
                   <div class="help-block">8 characters with letters & numbers</div>
               </div>
               <div class="control-group">
                   <label class="control-label" for="input-pwd-again">Password confirmation</label>
-                  <div class="controls">
+                  <div class="controls" id="input-password-again-container">
                       <input type="password" id="input-pwd-again">
                   </div>
               </div>
