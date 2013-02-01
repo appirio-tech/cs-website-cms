@@ -1,6 +1,6 @@
 $(document).ready(function() {
     if(location.href.lastIndexOf('#logined')!=-1){
-        $('.nav.hide a').each(function() {
+        $('.nav.hide a,.sidebar li a').each(function() {
             console.log($(this).attr('href'))
             $(this).attr('href',$(this).attr('href')+'#logined')
         })
@@ -9,25 +9,9 @@ $(document).ready(function() {
     }
 
     $('.login-form .btn').click(function() {
-        /*
-        $('.loginbar-wrapper .login').hide();
-        $('.loginbar-wrapper .logined').show();
-        $('.nav.hide a').each(function() {
-            console.log($(this).attr('href'))
-            $(this).attr('href',$(this).attr('href')+'#logined')
-        })
-        $('.nav').toggleClass('hide');
-        return false;
-        */
-        return true;        
+        return true;
     });
     $('.btn-logout').click(function() {
-        /*
-        $('.loginbar-wrapper .login').show();
-        $('.loginbar-wrapper .logined').hide();
-        $('.nav').toggleClass('hide');
-        return false;
-        */
         return true;
     });
 
@@ -41,49 +25,18 @@ $(document).ready(function() {
         if($(this).hasClass('active')) return;
         $('#res-swicher a.active').removeClass('active');
         $(this).addClass('active');
+
         $('.res').addClass('hide');
-        $($(this).attr('rel')).removeClass('hide');
-    });
-
-    $('#forgot-password-modal111 button.btn[type="submit"]').click(function() {
-        $('#forgot-password-modal .content').html('<p>3Your request has been sent. You will receive an email from support, shortly.</p>');
+        $($(this).attr('data-toggle')).removeClass('hide');
         return false;
     });
-    $('#1register-modal input[type="submit"]').click(function() {
 
-        $('#register-modal input').each(function() {
-            if($(this).val()==''){
-                $(this).parents('.control-group').addClass('error');
-                if($(this).parents('.controls').find('.help-inline').length==0){
-                    $(this).parents('.controls').append('<div class="help-inline">*All fields are required.</div>')
-                }else{
-                    $(this).parents('.controls').find('.help-inline').html("*All fields are required.");
-                }
-            }else{
-                $(this).parents('.control-group').removeClass('error');
-                if($(this).parents('.controls').find('.help-inline').length!=0){
-                    $(this).parents('.controls').find('.help-inline').remove();
-                }
-            }
-        })
-
-        if($('#register-modal input[type=checkbox]:checked').length==0){
-            var checkbox=$('#register-modal input[type=checkbox]');
-            checkbox.parents('.control-group').addClass('error');
-            if(checkbox.parents('.controls').find('.help-inline').length==0){
-                checkbox.parents('.controls label').append('<div class="help-inline">*You must agree to the terms of service.</div>')
-            }else{
-                checkbox.parents('.controls').find('.help-inline').html("*You must agree to the terms of service.");
-            }
-        }
-
-        if($('#register-modal .error').length==0){
-            //$('#thank-modal .content').html('<p>Your request has been sent. You will receive a confirmation email from us, shortly.</p>');
-            //$('#thank-modal').modal('show');
-        }
-
-        return false;
-    });
+    $('.techs a').mouseover(function() {
+        var i=$(this).parent().index();
+        $('.tip .col5').addClass('hide');
+        $('.tip .col5:eq('+i+')').removeClass('hide');
+        $('.tip .arrow').css({left:$(this).position().left-$(this).parents("ul").position().left+40})
+    })
 
     if(exist('form.jqTransform')) {
         $('form.jqTransform').jqTransform();
@@ -100,11 +53,43 @@ $(document).ready(function() {
             $(e).popover({animation:false,html:true,placement:lr,trigger:'manual'}).popover('show');
         });
     }
-
     if(exist('.banner')) {
         $(".banner .container").hide().show(); // fix layout issue in IE7
     }
-    
+        if(exist('.member-profile')) {
+        $(".member-profile .stat .place .count").each(function() {
+            var count = $(this);
+            count.css("width", 3.3*count.data("count"));
+        });
+        $(".member-profile .recommend-this-member").click(function() {
+            $(this).parent().hide();
+            $(".recommendation").show();
+        });
+    }
+
+    /* about us modal */
+    if(exist('#team-member-modal')) {
+        $(".team a[href='#team-member-modal']").click(function() {
+            var team = $(this).parentsUntil('.team');
+            team = $(team[team.length-1]).parent();
+            var large = $('.photo', team).data("large");
+            var name = $('h2 a', team).text();
+            var modal = $("#team-member-modal");
+            $(".photo", modal).attr("src", large);
+            $("h2 a", modal).text(name);
+        });
+    }
+
+    /* file upload */
+    $('.btn-file input[type=file]').change(function() {
+        var filePath = $(this).val().split('\\');
+        var fname = filePath[filePath.length - 1];
+        if(fname=="") fname="No file chosen";
+        $(this).next().text(fname);
+    }).hover(function() {
+            $(this).prev().toggleClass('hover');
+        });
+
 });
 
 function exist(el) {
