@@ -6,7 +6,7 @@
         <div class="title"><h1>HAPPENING NOW</h1></div>
         <div class="row-fluid" id="status">
             <div>
-                <span class="icon-active-members"></span><strong><%= @stats['members'] %></strong>ACTIVE MEMBERS
+                <span class="icon-active-members"></span><strong><%= number_with_delimiter(@stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS
             </div>
             <div>
                 <span class="icon-competing-today"></span><strong><%= @stats['competing_today'] %></strong>COMPETING TODAY
@@ -106,26 +106,12 @@
         <div class="row-fluid">
             <div class="span6">
                 <div class="title"><h1 class="rss">PRESS</h1></div>
-                <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </a>
-                <p>Ut faucibus rutrum mi, nec blandit felis faucibus et. Nullam venenatis tortor vel ipsum lacinia et bibendum velit hendrerit...</p>
-
-                <a href="#">Donec posuere, arcu non egestas tempor.</a>
-                <p>Ante nisi egestas lorem, vitae sollicitudin nibh ligula et lacus. Aliquam ut odio orci, ut iaculis est rutrum mi, nec blandit...</p>
-
-                <a href="#">Consectetur adipiscing egestas tempor.</a>
-                <p>Ante nisi egestas lorem, vitae sollicitudin nibh ligula et lacus. Aliquam ut odio orci, ut iaculis est rutrum mi, nec blandit. Ut faucibus rutrum nec...</p>
+                <%= render :partial => "shared/feed_items", :locals => { :items => @press_feed_items } %>
             </div>
 
             <div class="span6">
                 <div class="title"><h1 class="rss">POSTS</h1></div>
-                <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </a>
-                <p>Ut faucibus rutrum mi, nec blandit felis faucibus et. Nullam venenatis tortor vel ipsum lacinia et bibendum velit hendrerit...</p>
-
-                <a href="#">Donec posuere, arcu non egestas tempor.</a>
-                <p>Ante nisi egestas lorem, vitae sollicitudin nibh ligula et lacus. Aliquam ut odio orci, ut iaculis est rutrum mi, nec blandit...</p>
-
-                <a href="#">Consectetur adipiscing egestas tempor.</a>
-                <p>Ante nisi egestas lorem, vitae sollicitudin nibh ligula et lacus. Aliquam ut odio orci, ut iaculis est rutrum mi, nec blandit. Ut faucibus rutrum nec...</p>
+                <%= render :partial => "shared/feed_items", :locals => { :items => @post_feed_items } %>
             </div>
         </div>
         <br/>

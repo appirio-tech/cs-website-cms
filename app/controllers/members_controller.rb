@@ -12,6 +12,8 @@ class MembersController < ApplicationController
     @open_challenges = Challenge.open
     @featured_challenge =  Challenge.find @stats['featured_challenge_id']
     @leaderboard = Platform.leaderboard(current_access_token, :category => nil, :limit => 3)
+    @press_feed_items = CloudspokesFeed.where(:entry_type => 'press').order('created_at desc').limit(3)
+    @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('created_at desc').limit(3)    
   end   
 
   def leaderboard
@@ -58,8 +60,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find params[:id]
-    render :json => @member
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic' })
   end
 
   def update

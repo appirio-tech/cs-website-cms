@@ -1,44 +1,262 @@
-<h2>Member Information</h2>
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper member-profile">
+    <div class="container">
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Member.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @member %>
-  </tbody>
-</table>
+        <div class="title"><h1>MEMBER PROFILE</h1></div>
+        <div class="container">
+            <div class="span6 border-right">
+                <%= image_tag(@member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+                <div class="pull-left info">
+                    <div class="well">
+                        <div class="top">
+                            <h2><a href="#"><%= @member.name %></a></h2>
+                            <span>United States</span>
+                        </div>
+                        <div class="bottom">
+                            <strong>15,200</strong> pts<br>
+                            <strong>12</strong> Rewards
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <h3>Level 3 Adventurer</h3>
+                <div class="level">
+                    <span class="progress"></span>
+                    <span class="from level3">Adventurer</span>
+                    <span class="to level4-gray">Ninja<i></i></span>
+                </div>
+            </div>
+        </div>
 
-<h2>Challenges</h2>
+        <div id="quotes">
+            <div class="item">
+                <div class="quote">
+                    Live as if you were to die tomorrow. Learn as if you were to live forever
+                </div>
+            </div>
+        </div>
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Challenge.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @member.challenges %>
-  </tbody>
-</table>
+        <div class="row-fluid">
 
-<h2>Recommendations</h2>
+            <div class="span8">
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Recommendation.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @member.recommendations %>
-  </tbody>
-</table>
+                <h2>RECENT ACHIEVEMENTS</h2>
+                <ul class="brief-info unstyled">
+                    <li>
+                        <img src="/assets/discussion-champion.png" height="67" alt=""/>
+                        <div class="info">
+                            <span>Discussion Champion</span><br>
+                            <span class="gray">Sept 11, 2012</span>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="/assets/member-of-month.png" height="67" alt=""/>
+                        <div class="info">
+                            <span>Member of the Month</span><br>
+                            <span class="gray">Sept 4, 2012</span>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="/assets/force-dot-com.png" height="67" alt=""/>
+                        <div class="info last">
+                            <span>Force.com Adventurer</span><br>
+                            <span class="gray">Aug 23, 2012</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <h2>STATS &amp; ACHIEVEMENTS</h2>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="place">
+                            <span class="label">1st Places</span>
+                            <span class="count count1" data-count="24">
+                            </span>
+                            <span>24x</span>
+                        </div>
+                        <div class="place">
+                            <span class="label">2nd Places</span>
+                            <span class="count count2" data-count="6">
+                            </span>
+                            <span>6x</span>
+                        </div>
+                        <div class="place">
+                            <span class="label">3rd Places</span>
+                            <span class="count count3" data-count="10">
+                            </span>
+                            <span>10x</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <p>
+                            Contest Entered: <strong>56</strong>
+                        </p>
+                        <p>
+                            TotalPoints: <strong>21600</strong>
+                        </p>
+                        <p>
+                            Total Money: <strong>$12,600</strong>
+                        </p>
+                    </div>
+                    <div class="stat">
+                        <p>
+                            Points: <strong>15,200</strong>
+                        </p>
+                        <p>
+                            Mobile Points: <strong>0</strong>
+                        </p>
+                        <p>
+                            SFDC Points: <strong>00</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <h2>RECENT ACTIVITY</h2>
+                <ul class="brief-info unstyled">
+                    <li class="wider">
+                        <img src="/assets/discussion-champion.png" height="67" alt=""/>
+                        <div class="info">
+                            <span>logontokartik unlocked<br>the Discussion Champion badge.</span><br>
+                            <span class="gray">September 11, 2012</span>
+                        </div>
+                    </li>
+                    <li class="wider">
+                        <img src="/assets/discussion-champion.png" height="67" alt=""/>
+                        <div class="info last">
+                            <span>logontokartik unlocked<br>the Lorem Ipsum badge.</span><br>
+                            <span class="gray">September 14, 2012</span>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <h2>
+                    MISSIONS
+                    <small>1 of 10 missions complete</small>
+                </h2>
+                <div class="slider missions">
+                    <div class="scrollable">
+                        <div class="items">
+                            <div class="item">
+                                <span class="first">Skills - Box</span>
+                                <img src="/assets/box.png" alt=""/>
+                                <span>0/4</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Cloud Foundry</span>
+                                <img src="/assets/cloud-foundry.png" alt=""/>
+                                <span>0/5</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Force.com</span>
+                                <img src="/assets/force-dot-com-2.png" alt=""/>
+                                <span class="orange">Complete</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Android Tech Misson</span>
+                                <img src="/assets/box.png" alt=""/>
+                                <span>0/4</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Box</span>
+                                <img src="/assets/box.png" alt=""/>
+                                <span>0/4</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Cloud Foundry</span>
+                                <img src="/assets/cloud-foundry.png" alt=""/>
+                                <span>0/5</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Force.com</span>
+                                <img src="/assets/force-dot-com-2.png" alt=""/>
+                                <span class="orange">Complete</span>
+                            </div>
+                            <div class="item">
+                                <span class="first">Skills - Android Tech Misson</span>
+                                <img src="/assets/box.png" alt=""/>
+                                <span>0/4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="prev"><span>Prev</span></a>
+                    <a href="#" class="next"><span>Next</span></a>
+                </div>
+
+                <h2 class="discussion">6 RECOMMENDATIONS</h2>
+                <div class="right-button">
+                    <a href="javascript:;" class="btn recommend-this-member pull-right"><span>RECOMMEND THIS MEMBER</span></a>
+                </div>
+                <div class="recommendation hide">
+                    <form class="jqTransform">
+                        <h4>Post a Recommendation</h4>
+                        <textarea></textarea>
+                        <a href="javascript:;" class="btn pull-right"><span>POST</span></a>
+                    </form>
+                </div>
+                NOTE: client widget here
+            </div>
+
+            <div class="span4">
+                <h2>3 ACTIVE CHALLENGES</h2>
+                <div class="content">
+                    <a href="#" class="title-link">Salesforce Print Dialog</a>
+                    <p>
+                        Provide print dialog functionality to produce different types of PDF output in Salesforce.com.. <a href="#">see detail</a><br>
+                        <span class="gray">$0 for Salesforce.com</span>
+                    </p>
+                    <a href="#" class="title-link">Custom Search for CRM Content, Chatter &amp; Custom Objects</a>
+                    <p>
+                        Create a Visualfore Page that implements custom search functionality that is very similar to the salesforce.com global...  <a href="#">see detail</a><br>
+                        <span class="gray">$0 for Salesforce.com</span>
+                    </p>
+                    <a href="#" class="title-link">Case Trigger Matcher-Upper</a>
+                    <p>
+                        Create a Trigger for the Case object and two custom objects (specs are in the additional info field) to find an associated... <a href="#">see detail</a><br>
+                        <span class="gray">$0 for Salesforce.com</span>
+                    </p>
+                </div>
+
+                <h2>53 PAST CHALLENGES</h2>
+                <div class="slider">
+                    <div class="content scrollable">
+                        <div class="items">
+                        <div class="item"><!-- group every 3 challenges for slide -->
+                            <a href="#" class="title-link">Email on custom case assignment</a>
+                            <p>
+                                For this challenge you will write a trigger on the case and a custom email class that fires when a custom lookup..  <a href="#">see detail</a><br>
+                                <span class="gray">1st $550 for Salesforce.com</span>
+                            </p>
+                            <a href="#" class="title-link">Salesforce Opportunity Pipeline to SmartSheet</a>
+                            <p>
+                                We want you to build a simple integration from Salesforce that allows a user to...   <a href="#">see detail</a><br>
+                                <span class="gray">1st $550 for Salesforce.com</span>
+                            </p>
+                            <a href="#" class="title-link">Salesforce Custom Case view </a>
+                            <p>
+                                For this challenge you will create a custom Visual Force page using BootstrapJS and what ever table library you like...  <a href="#">see detail</a><br>
+                                <span class="gray">1st $550 for Salesforce.com</span>
+                            </p>
+                        </div><!-- end of item -->
+                    </div>
+                    </div>
+                    <a href="#" class="prev"><span>Prev</span></a>
+                    <a href="#" class="next"><span>Next</span></a>
+                </div>
+                <div class="content total-link">
+                    <a href="#" class="title-link">View All Past Challenges</a>
+                </div>
+
+                <h2>53 PAST CHALLENGES</h2>
+                <div class="content">
+                    <p>
+                        Twitter: <a href="#">www.twitter.com/logontokartik</a><br>
+                        Website: <a href="#">http://peregrinusforce.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

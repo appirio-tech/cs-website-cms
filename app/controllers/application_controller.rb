@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
 
   def guest_access_token
     guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
-      puts "=========== fetcing guest access token"
       client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
         :password       => ENV['SFDC_PUBLIC_PASSWORD'],
         :client_id      => ENV['SFDC_CLIENT_ID'],
@@ -39,7 +38,6 @@ class ApplicationController < ActionController::Base
         :host           => ENV['SFDC_HOST']
       client.authenticate!.access_token
     end
-    puts "=========== returning guest access token"
     guest_token
   end  
 

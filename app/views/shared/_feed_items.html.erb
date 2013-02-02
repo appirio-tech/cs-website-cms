@@ -1,0 +1,4 @@
+<% items.each do |item| %>
+    <%= link_to item.name, item.url, :target => 'blank' %>
+    <p><%= item.summary %></p>
+<% end %>

@@ -55,6 +55,7 @@ gem 'awesome_print'
 gem 'fog'
 gem 'nest'
 gem 'text'
+gem 'feedzirra'
 
 # Gems used only for assets and not required
 # in production environments by default.

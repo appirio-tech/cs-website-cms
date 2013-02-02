@@ -32,6 +32,13 @@
                     </select>
             </div>
 
+            <div class="control-group radio-filter">
+                <form class="jqTransform controls">
+                    <input type="radio" class="radio" name="chanllenges-type"/><label class="pull-left">Active Challenges</label>
+                    <input type="radio" class="radio" name="chanllenges-type"/><label class="pull-left">Closed Challenges</label>
+                </form>
+            </div>            
+
         </div>
 
         <% @challenges.each do |c| %>
