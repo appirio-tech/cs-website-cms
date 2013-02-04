@@ -39,8 +39,9 @@
                 </script>
             </div>
 
-            <% @challenges.each do |c| %>
+            <% @challenges.in_groups_of(2) do |row_challenges| %>
             <div class="row-fluid">
+                <% for c in row_challenges %>
                 <div class="span6">
                     <div class="challenge well well-large">
                         <h3><%= link_to c.name, challenge_path(c)  %></h3>
@@ -52,19 +53,9 @@
                         <table class="type task"><tr><td>TASK</td></tr></table>
                     </div>
                 </div>
-
-            <div class="span6">
-                <div class="challenge well well-large">
-                    <h3><a href="15_challenges_detail.html">Android Qualifier - Sliding Menu</a></h3>
-                    Due in 10 days<br>
-                    13 members participating, 9 registered<br/>
-                    <strong>$1,600 Salesforce.com</strong><br>
-                    Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
-                    <table class="type sweep-stakes"><tr><td>SWEEP<br/>STAKES</td></tr></table>
-                </div>
+                <% end %> 
             </div>
-        </div>
-        <% end %>
+            <% end %>
 
         <%= will_paginate @challenges, class: "pagination pagination-centered", next_label: "<span>Next</span>", previous_label: "<span>Prev</span>" %>
         <%= link_to "Subscribe to the feed for this set of challenges", challenges_path(filters: params[:filters], format: "rss"), class: "rss" %>
