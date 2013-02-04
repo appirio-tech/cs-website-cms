@@ -4,7 +4,7 @@
     <div class="container">
 
             <div>
-                <div class="title"><h1>CHALLENGES</h1></div>
+                <div class="title"><h1>OPEN CHALLENGES</h1></div>
                 <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
                     <div class="filter well well-large">
                         <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>

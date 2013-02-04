@@ -97,17 +97,17 @@ $(document).ready(function() {
         itemSelected: function (item){
           var url = null;
           if(item.challenge_id) {
-            url = "http://www.cloudspokes.com/challenges/" + item.challenge_id;
+            url = gon.website_url + "/challenges/" + item.challenge_id;
           }
           else {
-            url = "http://www.cloudspokes.com/members/" + item.name;
+            url = gon.website_url + "/members/" + item.name;
           }
           window.location = url;
         },
         sources: [{
           name: "Challenges", 
           type: "jsonp", 
-          url: "http://cs-api-sandbox.herokuapp.com/v1/challenges/search", 
+          url: gon.cs_api_url + "/challenges/search", 
           queryName: "keyword",
           val: {},
           sourceTmpl: function(item) {
@@ -123,7 +123,7 @@ $(document).ready(function() {
         {
           name: "Members", 
           type: "jsonp", 
-          url: "http://cs-api-sandbox.herokuapp.com/v1/members/search", 
+          url: gon.cs_api_url + "/members/search", 
           queryName: "keyword",
           val: {},
           sourceTmpl: function(item) {

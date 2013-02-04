@@ -188,6 +188,9 @@ GEM
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
+    gon (4.0.2)
+      actionpack (>= 2.3.0)
+      json
     growl (1.0.3)
     guard (1.5.4)
       listen (>= 0.4.2)
@@ -476,6 +479,7 @@ DEPENDENCIES
   feedzirra
   flash_messages_helper
   fog
+  gon
   growl
   guard
   guard-bundler

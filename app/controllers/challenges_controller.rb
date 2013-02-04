@@ -44,6 +44,7 @@ class ChallengesController < ApplicationController
       flash[:alert] = "[#{resp.message}] There was an error posting your comments. Please try again."
       return redirect_to :back
     end
+  end
 
   private
 

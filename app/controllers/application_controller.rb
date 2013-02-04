@@ -2,11 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_access_token
+  before_filter :set_gon_variables
 
   def set_access_token
     # ApiModel.access_token = current_user.try(:access_token) || guest_access_token
     ApiModel.access_token = current_access_token
   end    
+
+  def set_gon_variables
+    gon.cs_api_url = ENV['CS_API_URL']
+    gon.website_url = ENV['WEBSITE_URL']
+  end      
 
   def show_welcome_page?
     #overriding refinery initialization wizard behavior, so unpopulated test

@@ -12,6 +12,8 @@ gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
 gem 'simple_form', '2.0.4'
+gem 'will_paginate'
+gem 'gon'
 
 #gem 'refinerycms', '2.0.8'
 gem 'refinerycms-dashboard'
@@ -26,7 +28,6 @@ gem 'restforce'
 
 # gems from old site's gemfile
 gem 'haml'
-gem 'will_paginate'
 
 # are these 8 needed any longer?
 gem 'ruby-openid', :git => "git://github.com/mbleigh/ruby-openid.git"
