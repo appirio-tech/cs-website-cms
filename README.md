@@ -35,7 +35,8 @@ If any of your code requires direct calls to Database.com (e.g., pub/sub with fa
 	SFDC_CLIENT_ID
 	SFDC_CLIENT_SECRET
 	SFDC_PUBLIC_USERNAME
-	SFDC_PUBLIC_PASSWORD	
+	SFDC_PUBLIC_PASSWORD
+	CS_API_KEY
 
 ## Running Specs
 
