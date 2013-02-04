@@ -2,7 +2,6 @@ CsWebsiteCms::Application.routes.draw do
 
   get 'faq', to: 'protected#index'
   get 'help', to: 'protected#index'
-  get 'account', to: 'protected#index'
   get 'blog', to: 'protected#index'
 
   resources :authentications
@@ -23,7 +22,7 @@ CsWebsiteCms::Application.routes.draw do
   get 'members/search'
   get 'forums', to: 'members#forums'
   get '/community', to: 'members#community'
-  get '/leaderboard', to: 'members#leaderboard'
+  get '/leaderboard', to: 'members#leaderboard' # this is temp
   resources :members, only: [:index, :show, :update] do
     member do
       post 'login_managed_by'
@@ -56,6 +55,22 @@ CsWebsiteCms::Application.routes.draw do
     resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up
     post 'challenges/assets'
   end
+
+  get '/account', to: 'accounts#challenges'
+  get '/account/details', to: 'accounts#details'
+  get '/account/payment-info', to: 'accounts#payment_info'
+  get '/account/school-and-work', to: 'accounts#school_and_work'
+  get '/account/public-profile', to: 'accounts#public_profile'
+  get '/account/change-password', to: 'accounts#change_password'
+  get '/account/challenges', to: 'accounts#challenges'
+  get '/account/communities', to: 'accounts#communities'
+  get '/account/referred-members', to: 'accounts#referred_members'
+  get '/account/invite-friends', to: 'accounts#invite_friends'
+
+  get '/judging/outstanding-reviews', to: 'judging#outstanding_reviews'
+  get '/judging/judging-queue', to: 'judging#judging_queue'
+  get '/judging/scorecards', to: 'judging#scorecards'
+  get '/judging/scorecard', to: 'judging#scorecard'
 
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
