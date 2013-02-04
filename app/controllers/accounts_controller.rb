@@ -1,7 +1,9 @@
 class AccountsController < ApplicationController
+	before_filter :authenticate_user!
 
 	def details
-
+		@member = Member.find(current_user.username, { fields: 'id,name,profile_pic,address_line1' })
+		puts @member.to_yaml
 	end
 
 	def payment_info

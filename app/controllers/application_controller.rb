@@ -14,6 +14,35 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  def guest_access_token
+    puts "=========== using guest access token"
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client.authenticate!.access_token
+    end
+  end  
+
+  def admin_access_token
+    puts "=========== using admin access token"
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client.authenticate!.access_token
+    end
+  end    
+
+  def member_access_token
+    puts "=========== using member access token"
+    current_user.access_token
+  end  
+
 
   private
 
@@ -28,24 +57,5 @@ class ApplicationController < ActionController::Base
       member_access_token
     end
   end 
-
-  def guest_access_token
-    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
-      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-        :client_id      => ENV['SFDC_CLIENT_ID'],
-        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
-        :host           => ENV['SFDC_HOST']
-      client.authenticate!.access_token
-    end
-    guest_token
-  end  
-
-  def member_access_token
-    puts "=========== returning member access token"
-    current_user.access_token
-  end
-
-
 
 end
