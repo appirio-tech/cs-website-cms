@@ -1,6 +1,6 @@
-class Category < ApiModel
+class Platform < ApiModel
   def self.api_endpoint
-  	"#{ENV['CS_API_URL']}/categories"
+    "#{ENV['CS_API_URL']}/platforms"
   end
 
   def self.names

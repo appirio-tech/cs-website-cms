@@ -13,6 +13,7 @@
 
     <!-- script -->
     <%= javascript_include_tag "base" %>
+    <script src="/assets/bootstrap-typeahead.js"></script>
     <%= javascript_include_tag "script" %>
     <!-- not sure why this is not being picked up in applcition.js?? -->
     <%= javascript_include_tag "cloudspokes" %>
@@ -89,7 +90,11 @@
               <li<% if @account_tick %> class="active"<% end %>><%= link_to 'ACCOUNT', main_app.account_path %></li>
           </ul>
 
-          <form class="form-search jqTransform pull-right"><input class="search-query" placeholder="Search Members or Challenges"/><a href="#" class="btn-search"></a></form>
+
+          <form class="form-search jqTransform pull-right">
+              <input type="text" class="search-query typeahead" placeholder="Search Members or Challenges"/>
+              <a href="#" class="btn-search"></a>
+          </form>
       </div> <!-- /.container -->
   </div><!-- /.nav-wrapper -->
 

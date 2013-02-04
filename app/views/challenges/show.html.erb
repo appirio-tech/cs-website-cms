@@ -1,44 +1,111 @@
-<h2>Challenge Information</h2>
+<div class="content-wrapper">
+  <div class="container">
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Challenge.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @challenge %>
-  </tbody>
-</table>
+    <%= content_tag :div, flash[:notice], class: "alert alert-success" if flash[:notice] %>
+    <%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
 
-<h2>Participants</h2>
+    <div class="title"><h1>CHALLENGE DETAIL</h1></div>
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Participant.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @challenge.participants %>
-  </tbody>
-</table>
+    <div class="row-fluid">
 
-<h2>Comments</h2>
+      <div class="span8">
+        <h1><%= @challenge.name %></h1>
 
-<table class='table table-striped'>
-  <thead>
-    <tr>
-      <% Comment.column_names.each do |column| %>
-        <th><%= column.to_s.humanize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @challenge.comments %>
-  </tbody>
-</table>
+        <h2>OVERVIEW</h2>
+        <p> <%= @challenge.description.html_safe %> </p>
+
+        <h2>requirements</h2>
+        <p> <%= @challenge.requirements.html_safe %> </p>
+        <br/>
+        <br/>
+        
+        <h2>submission details</h2>
+        <p> <%= @challenge.submission_details.try(:html_safe) %> </p>
+
+        <h2>additional info</h2>
+        <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
+        <br/>
+        <br/>
+
+        <div class="btn-group-vertical">
+          <%= link_to content_tag(:span, "REGISTER FOR CHALLENGE"), challenge_path(@challenge), class: "btn" %>
+          <%= link_to content_tag(:span, "ADD TO MY WATCH LIST"), challenge_path(@challenge), class: "btn" %>
+        </div>
+
+        <h2 class="discussion">DISCUSSION</h2>
+        <%= render partial: "discussions", locals: {challenge: @challenge} %>
+      </div>
+
+      <div class="span4">
+        <h1>
+          <%= link_to content_tag(:span, "VIEW ALL CHALLENGES"), challenges_path, class: "btn" %>
+        </h1>
+
+        <h2>PLATFORM / TECH / CATEGORY</h2>
+        <p>
+          <%= challenge_tag_links(@challenge) %>
+        </p>
+
+        <h2>DEADLINE</h2>
+        <p>
+          <%= @challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
+          <br/>
+          <% distance = Time.at(@challenge.end_date - Time.zone.now) %>
+          <%= "Due in #{distance.day} days #{distance.hour} hours #{distance.min} minutes" %>
+          <br/>
+          <%= "Winner Announced on #{@challenge.winner_announced.to_s(:long)}" %>
+          <br/>
+        </p>
+
+        <h2>PRIZES</h2>
+        <p>
+          Total: <strong><%= number_to_currency @challenge.total_prize_money, precision: 0 %></strong><br/>
+          <% @challenge.challenge_prizes.each do |prize| %>
+            <%= "#{prize.place}st:" %> <strong><%= prize.prize %></strong>
+            <br/>
+          <% end %>
+        </p>
+
+        <h2>PARTICIPATION</h2>
+        <p>
+          <%= link_to @challenge.participating_members, "#" %> members participating
+          <br/>
+          <%= link_to @challenge.registered_members, "#" %> members registered
+        </p>
+
+        <h2>ASSETS</h2>
+        <ul class="unstyled">
+          <% @challenge.assets.each do |asset| %>
+            <li><%= link_to asset, "#" %></li>
+          <% end %>
+        </ul>
+
+        <h2>DELIVERY FORMATS</h2>
+        <p>
+            HTML
+            Word
+            Google Doc
+            Text
+            RT
+            Other: Upload a text document with details on
+            how to retrieve your submission.
+        </p>
+
+        <h2>SHARE</h2>
+        <ul class="unstyled inline">
+            <li><a href="#" class="circle-orange"><span class="github">github</span></a></li>
+            <li><a href="#" class="circle-orange"><span class="facebook">facebook</span></a></li>
+            <li><a href="#" class="circle-orange"><span class="twitter">twitter</span></a></li>
+            <li><a href="#" class="circle-orange"><span class="linkedin">linkedin</span></a></li>
+        </ul>
+
+        <h2>Chrome Extension</h2>
+        <p>Install the <a href="#">CloudSpokes Chrome Extension</a>
+            for quick and easy access to the latest
+            CloudSpokes challenges, your payments,
+            leaderboards and more!</p>
+      </div>
+    </div>
+  </div> <!-- /.container -->
+</div>
+

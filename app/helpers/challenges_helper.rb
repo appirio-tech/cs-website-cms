@@ -19,4 +19,16 @@ module ChallengesHelper
       (params[:search] || {}).reverse_merge(default)
     end
   end
+
+  def challenge_tag_links(challenge)
+    tags = []
+    challenge.platforms.each do |platform| 
+      tags.push link_to(platform, challenges_path(platform: platform))
+    end
+    challenge.technologies.each do |platform| 
+      tags.push link_to(platform, challenges_path(technology: platform))
+    end
+
+    tags.join(" | ").html_safe
+  end
 end

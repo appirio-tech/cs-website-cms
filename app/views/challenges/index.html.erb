@@ -3,56 +3,55 @@
 <div class="content-wrapper">
     <div class="container">
 
-        <div>
-            <div class="title"><h1>CHALLENGES</h1></div>
+            <div>
+                <div class="title"><h1>CHALLENGES</h1></div>
+                <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
+                    <div class="filter well well-large">
+                        <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
+                        <label>SHOW</label>
+                        <%= select_tag "filters[platform]", options_for_select(Platform.names, filters[:platform]), prompt: "All Platforms" %>
+                        <%= select_tag "filters[technology]", options_for_select(Technology.names, filters[:technology]), prompt: "All Technologies" %>
+                        <%= select_tag "filters[category]", options_for_select(Category.names, filters[:caterogy]), prompt: "All Categories" %>
 
-            <div class="filter well well-large">
-                <form class="jqTransform">
-                    <label>SHOW</label>
-                    <select>
-                        <option>ALL PLATFORMS</option>
-                        <option>LOREM IPSUM</option>
-                        <option>LOREM IPSUM</option>
-                    </select>
-                    <select>
-                        <option>ALL TECHNOLOGIES</option>
-                        <option>LOREM IPSUM</option>
-                        <option>LOREM IPSUM</option>
-                    </select>
-                    <select>
-                        <option>ALL CATEGORIES</option>
-                        <option>LOREM IPSUM</option>
-                        <option>LOREM IPSUM</option>
-                    </select>
-                    <label>SORT BY</label>
-                    <select>
-                        <option>CHALLENGE TITLE</option>
-                        <option>LOREM IPSUM</option>
-                        <option>LOREM IPSUM</option> 
-                    </select>
+                        <label>SORT BY</label>
+                        <% options = [["Challenge Title", "name"]]%>
+                        <%= select_tag "filters[order_by]", options_for_select(options, filters[:order_by]) %>
+                    </div>
+
+                    <div class="state">
+                        <label class="radio inline">
+                            <%= radio_button_tag "filters[state]", "open", filters[:state] == "open" %>
+                            <span>Active Challenges</span>
+                        </label>
+                        <label class="radio inline">
+                            <%= radio_button_tag "filters[state]", "closed", filters[:state] == "closed" %>
+                            <span>Closed Challenges</span>
+                        </label>
+
+                    </div>
+                <% end %>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("form.challenges-filter select, form.challenges-filter input").change(function() {
+                            $(this).parents("form").submit();
+                        });
+                    });
+                </script>
             </div>
 
-            <div class="control-group radio-filter">
-                <form class="jqTransform controls">
-                    <input type="radio" class="radio" name="chanllenges-type"/><label class="pull-left">Active Challenges</label>
-                    <input type="radio" class="radio" name="chanllenges-type"/><label class="pull-left">Closed Challenges</label>
-                </form>
-            </div>            
+            <% @challenges.each do |c| %>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="challenge well well-large">
+                        <h3><%= link_to c.name, challenge_path(c)  %></h3>
+                        Due in <%= pluralize(c.days_till_close, 'day') %><br>
+                        <%= c.participating_members %> members participating, <%= c.registered_members %> registered<br/>
+                        <strong><%= number_to_currency c.total_prize_money, precision: 0 %> Salesforce.com</strong><br>
 
-        </div>
-
-        <% @challenges.each do |c| %>
-        <div class="row-fluid">
-            <div class="span6">
-                <div class="challenge well well-large">
-                    <h3><a href="15_challenges_detail.html"><%= c.name %></a></h3>
-                    Due in <%= pluralize(c.days_till_close, 'day') %><br>
-                    13 members participating, <%= c.registered_members %> registered<br/>
-                    <strong>$1,600 Salesforce.com</strong><br>
-                    Tags: <a href="#">javascript</a> | <a href="#">jQuery Mobile</a> | <a href="#">Android</a>
-                    <table class="type task"><tr><td>TASK</td></tr></table>
+                        Tags: <%= challenge_tag_links(c) %>
+                        <table class="type task"><tr><td>TASK</td></tr></table>
+                    </div>
                 </div>
-            </div>
 
             <div class="span6">
                 <div class="challenge well well-large">
@@ -67,19 +66,8 @@
         </div>
         <% end %>
 
-        <div class="pagination pagination-centered">
-            <ul>
-                <li class="disabled"><a href="#" class="prev"><span>Prev</span></a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#" class="next"><span>Next</span></a></li>
-            </ul>
-        </div>
-
-        <a class="rss" href="#">Subscribe to the feed for this set of challenges</a>
+        <%= will_paginate @challenges, class: "pagination pagination-centered", next_label: "<span>Next</span>", previous_label: "<span>Prev</span>" %>
+        <%= link_to "Subscribe to the feed for this set of challenges", challenges_path(filters: params[:filters], format: "rss"), class: "rss" %>
 
     </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->
