@@ -12,7 +12,12 @@ class AccountsController < ApplicationController
 	end
 
 	def payment_info
+		fields = 'id,name,preferred_payment,paperwork_received,paperwork_sent,paperwork_year,paypal_payment_address'
+		@member = Member.find(current_user.username, fields: fields)
 
+		@payments = @member.payments
+		@paid_payments = @payments.select(&:paid?)
+		@outstanding_payments = @payments - @paid_payments
 	end
 
 	def school_and_work

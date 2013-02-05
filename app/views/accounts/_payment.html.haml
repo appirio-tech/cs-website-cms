@@ -1,0 +1,11 @@
+.well.well-large.paid
+  %span.id= "ID : #{payment.name}"
+  %span= "Ref # : #{payment.reference_number}" if payment.reference_number
+  %div= "Status : #{payment.status}"
+  %div= "Challenge : #{payment.challenge.name}"
+  %div= "Reason : #{payment.reason}"
+  %div= "Type : #{payment.type}" if payment.type
+  %div= "Paid : #{payment.payment_sent}" if payment.payment_sent
+  %span.prize= number_to_currency payment.money, precision: 0
+  %span{class:"place p#{payment.place}"}= payment.place.to_i.ordinalize
+
