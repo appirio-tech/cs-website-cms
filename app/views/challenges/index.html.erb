@@ -27,9 +27,9 @@
                 </script>
             </div><br/>
 
-            <% @challenges.in_groups_of(2) do |row_challenges| %>
+            <% @challenges.in_groups_of(2, false) do |row_challenges| %>
             <div class="row-fluid">
-                <% for c in row_challenges %>
+            <% for c in row_challenges %>                
                 <div class="span6">
                     <div class="challenge well well-large">
                         <h3><%= link_to c.name, challenge_path(c)  %></h3>
@@ -40,7 +40,7 @@
                         <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
                     </div>
                 </div>
-                <% end %> 
+            <% end %> 
             </div>
             <% end %>
 

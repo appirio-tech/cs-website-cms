@@ -96,4 +96,6 @@ vendor/extensions/**/spec/dummy
 config/initializers/development_settings.rb
 /config/config.yml
 .env
+.env-production
+.env-sandbox
 all routes.txt

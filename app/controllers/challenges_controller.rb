@@ -5,12 +5,10 @@ class ChallengesController < ApplicationController
   # list of challenges including open/closed status & pagination
   def index
     @challenges = Challenge.all params[:filters], params[:page]
-    puts @challenges.first.to_yaml
   end
 
   def show
     @challenge = Challenge.find params[:id]
-    #render :json => @challenge.comments
   end
 
   # rss feed based upon the selected platform, technology & category
