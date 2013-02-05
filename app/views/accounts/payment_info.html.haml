@@ -1,0 +1,68 @@
+= content_wrapper do
+  .span8
+    .title
+      %h1 PAYMENT INFO
+    %p 
+      %span If you've won money from a challenge here is how you get it. Make sure you check here often to ensure we are not waiting on something from you. Payments are paid on dates depending on the method that you define below. Please see the 
+      %a{href: "http://www.google.com/calendar/embed?src=appirio.com_bhga3musitat85mhdrng9035jg%40group.calendar.google.com&ctz=America/New_York", target: "_blank"} CloudSpokes calendar
+      %span for specific payment dates for types of payment. If you have any questions, please contact us at 
+      %a{href:"mailto:support@cloudspokes.com"} support@cloudspokes.com
+
+    %p
+      %span In order for us to send your payments, you need to complete the appropriate tax form. If you are a
+      %strong US citizen
+      %span, please 
+      - url = "#{ENV['DOCUSIGN_SIGNING_DOMAIN']}/sign/#{@member.id}/#{current_user.username}/#{ENV['DOCUSIGN_US_TAX_TEMPLATE']}/#{current_user.email}"
+      = link_to "complete this W-9 tax form", url, target: "_blank"
+      %span If you are 
+      %strong not a US citizen
+      %span , please 
+      - url = "#{ENV['DOCUSIGN_SIGNING_DOMAIN']}/sign/#{@member.id}/#{current_user.username}/#{ENV['DOCUSIGN_INTL_TAX_TEMPLATE']}"
+      = link_to "complete this W-8BEN tax form", url, target: "_blank" 
+      %span You only need to fill out this tax form once per year and we will keep it on file.</td>
+
+    = form_tag account_path, method: "put", class: "form-horizontal jqTransform" do
+      .control-group
+        %label.control-label Preferred Payment
+        .controls
+          = select_tag "account[preferred_payment__c]", options_for_select(preferred_payment_options, @member.preferred_payment)
+
+      .control-group
+        %label.control-label Paperwork Status:
+        .controls= @member.paperwork_received
+      .control-group
+        %label.control-label Paperwork Sent:
+        .controls= @member.paperwork_sent
+      .control-group
+        %label.control-label Paperwork for Year:
+        .controls= @member.paperwork_year
+      .control-group
+        %label.control-label PayPal Address:
+        .controls
+          = text_field_tag "account[paypal_payment_address__c]", @member.paypal_payment_address
+
+      .control-group
+        .controls
+          = submit_tag "SUBMIT", class: "btn"
+
+    .title
+      %h1 OUTSTANDING
+
+    - if @outstanding_payments.present?
+      - @outstanding_payments.each do |payment|
+        = render "payment", payment: payment
+    - else
+      %p No outstanding payments found.
+
+    .title
+      %h1 PAID
+
+    - if @paid_payments.present?
+      - @paid_payments.each do |payment|
+        = render "payment", payment: payment
+    - else
+      %p No paid payments found.
+
+
+
+  = render 'shared/account_menu', :selected_item => 'payment_info'
