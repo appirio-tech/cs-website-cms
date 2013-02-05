@@ -8,7 +8,7 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env['omniauth.auth']
     # see if the user exists in sfdc
     sfdc_account = Account.find(thirdparty_username(omniauth), omniauth['provider'])
-    logger.info "sfdc_account: #{sfdc_account.to_yaml}"
+    #puts "sfdc_account: #{sfdc_account.to_yaml}"
 
     # successfully found a user in sfdc
     if sfdc_account.success.to_bool
@@ -34,7 +34,7 @@ class AuthenticationsController < ApplicationController
 
     def login_third_party(omniauth, sfdc_account)
       activate_account_in_sfdc
-      sfdc_authentication = Account.new(User.new(:username => ENV['SFDC_PUBLIC_USERNAME'])).authenticate(ENV['SFDC_PUBLIC_PASSWORD'])
+      sfdc_authentication = Account.new(User.new(:username => sfdc_account.username)).authenticate(ENV['THIRD_PARTY_PASSWORD'])
       db_authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
       # if the user is already in db
       if db_authentication
@@ -79,11 +79,21 @@ class AuthenticationsController < ApplicationController
 
     # update database with their info from sfdc
     def update_user_with_sfdc_info(id, sfdc_account_info, sfdc_authentication)
+      puts "sfdc_account_info #{sfdc_account_info.to_yaml}"
+      puts "sfdc_authentication #{sfdc_authentication.to_yaml}"
       u = User.find(id)
       u.access_token = sfdc_authentication.access_token
       u.sfdc_username = sfdc_account_info.sfdc_username
       u.profile_pic = sfdc_account_info.profile_pic
       u.accountid = sfdc_account_info.accountid
+      if u.save
+        puts "========== user successfully updated in pg with access token"
+        puts u.to_yaml
+      # error saving, send them back
+      else
+        puts "========== ERROR updating in pg with access token"
+        puts u.errors.full_messages
+      end      
       u.save
     end
 
