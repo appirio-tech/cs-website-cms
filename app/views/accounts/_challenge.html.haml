@@ -1,0 +1,21 @@
+- status = challenge.raw_data.participants.records.first.status
+
+.challenge.well.well-large
+  %h3= link_to challenge.name, challenge_path(challenge)
+  .status= status
+  %strong
+    %span= "#{number_to_currency(challenge.total_prize_money, :precision => 0)} for"
+    - challenge.categories.each do |category|
+      %span{:class =>category}= category
+
+  .submit-status= format_close_date_time(challenge.end_date)
+
+  .tags
+    %span Tags:
+    = challenge_tag_links(challenge)
+
+  - if challenge.active?
+    - if status == "Watching"
+      = link_to content_tag(:span, "REGISTER"), challenge_path(challenge), class: "btn pull-right-bottom"
+    - else
+      = link_to content_tag(:span, "SUBMIT"), challenge_submission_path(challenge), class: "btn pull-right-bottom"

@@ -157,5 +157,9 @@ class Challenge < ApiModel
   def submission_of(user)
     Submission.find(challenge_id, user.username)
   end
+
+  def active?
+    ['Created', 'Review', 'Review - Pending'].include?(status)
+  end
 end
 
