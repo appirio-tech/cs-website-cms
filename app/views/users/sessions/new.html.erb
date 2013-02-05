@@ -1,20 +1,19 @@
-<h2>Sign in</h2>
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
 
-<%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
+	    <div>
+	        <div class="title"><h1>LOGIN REQUIRED</h1></div>
 
-<%= render "users/oauth_login" %>
+	        <p>You need to sign in or sign up before continuing.</p>
 
-<%= simple_form_for(resource, :as => resource_name, :url => user_session_path(resource)) do |f| %>
+				  <a href="/users/confirmation/new">Didn&#x27;t receive confirmation instructions?</a><br />
+				  <a href="/users/unlock/new">Didn&#x27;t receive unlock instructions?</a><br />    
 
-  <div class="inputs">
-    <%= f.input :username, :required => false, :autofocus => true %>
-    <%= f.input :password, :required => false %>
-    <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-  </div>
+				  <div style="padding-bottom: 50px"></div> 
 
-  <div class="actions">
-    <%= f.button :submit, "Sign in" %>
-  </div>
-<% end %>
+			</div>
 
-<%= render "users/links" %>
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

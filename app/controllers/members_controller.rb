@@ -60,7 +60,17 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote' })
+    @active_challenges = []
+    @past_challenges = []
+    @member.challenges.each do |challenge|
+      if !challenge.participants.first.status.eql?('Watching') &&
+        ACTIVE_CHALLENGE_STATUSES.include?(challenge.status)
+        @active_challenges << challenge
+      elsif challenge.participants.first.has_submission
+        @past_challenges << challenge
+      end
+    end
   end
 
   def update

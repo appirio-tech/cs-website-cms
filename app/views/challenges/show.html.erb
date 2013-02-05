@@ -14,18 +14,20 @@
         <h2>OVERVIEW</h2>
         <p> <%= @challenge.description.html_safe %> </p>
 
-        <h2>requirements</h2>
+        <h2>REQUIREMENTS</h2>
         <p> <%= @challenge.requirements.html_safe %> </p>
-        <br/>
-        <br/>
         
-        <h2>submission details</h2>
-        <p> <%= @challenge.submission_details.try(:html_safe) %> </p>
+        <% if @challenge.submission_details %>
+          <h2>SUBMISSION DETAILS</h2>
+          <p> <%= @challenge.submission_details.try(:html_safe) %> </p>
+        <% end %>
 
-        <h2>additional info</h2>
-        <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
-        <br/>
-        <br/>
+        <% if @challenge.additional_info %>
+          <h2>ADDITIONAL INFO</h2>
+          <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
+        <% end %>
+
+        <br/><br/>
 
         <div class="btn-group-vertical">
           <%= link_to content_tag(:span, "REGISTER FOR CHALLENGE"), challenge_path(@challenge), class: "btn" %>
@@ -37,13 +39,9 @@
       </div>
 
       <div class="span4">
-        <h1>
-          <%= link_to content_tag(:span, "VIEW ALL CHALLENGES"), challenges_path, class: "btn" %>
-        </h1>
-
-        <h2>PLATFORM / TECH / CATEGORY</h2>
+        <h2>TECHNOLOGIES</h2>
         <p>
-          <%= challenge_tag_links(@challenge) %>
+          <%= platform_and_technology_tag_links(@challenge) %>
         </p>
 
         <h2>DEADLINE</h2>
@@ -68,8 +66,7 @@
 
         <h2>PARTICIPATION</h2>
         <p>
-          <%= link_to pluralize(@challenge.participating_members, 'member'), "#" %> participating
-          <br/>
+          <%= link_to pluralize(@challenge.participating_members, 'member'), "#" %> participating<br/>
           <%= link_to pluralize(@challenge.registered_members, 'member'), "#" %> registered
         </p>
 
@@ -91,10 +88,8 @@
         </ul>
 
         <h2>Chrome Extension</h2>
-        <p>Install the <a href="#">CloudSpokes Chrome Extension</a>
-            for quick and easy access to the latest
-            CloudSpokes challenges, your payments,
-            leaderboards and more!</p>
+        <p>Install the <a href="#">CloudSpokes Chrome Extension</a> for quick and easy access to the latest
+          CloudSpokes challenges, your payments, leaderboards and more!</p>
       </div>
     </div>
   </div> <!-- /.container -->

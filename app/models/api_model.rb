@@ -137,6 +137,7 @@ class ApiModel
   def self.raw_get_has_many(entities = [], params)
     endpoint = endpoint_from_entities(entities)
     endpoint << "/#{params.to_param}" unless params.empty?
+    puts "=====$$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
