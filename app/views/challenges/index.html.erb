@@ -17,18 +17,6 @@
                         <% options = [["Challenge Title", "name"]]%>
                         <%= select_tag "filters[order_by]", options_for_select(options, filters[:order_by]) %>
                     </div>
-
-                    <div class="state">
-                        <label class="radio inline">
-                            <%= radio_button_tag "filters[state]", "open", filters[:state] == "open" %>
-                            <span>Active Challenges</span>
-                        </label>
-                        <label class="radio inline">
-                            <%= radio_button_tag "filters[state]", "closed", filters[:state] == "closed" %>
-                            <span>Closed Challenges</span>
-                        </label>
-
-                    </div>
                 <% end %>
                 <script type="text/javascript">
                     $(document).ready(function() {
@@ -37,7 +25,7 @@
                         });
                     });
                 </script>
-            </div>
+            </div><br/>
 
             <% @challenges.in_groups_of(2) do |row_challenges| %>
             <div class="row-fluid">
@@ -48,9 +36,8 @@
                         Due in <%= pluralize(c.days_till_close, 'day') %><br>
                         <%= c.participating_members %> members participating, <%= c.registered_members %> registered<br/>
                         <strong><%= number_to_currency c.total_prize_money, precision: 0 %> Salesforce.com</strong><br>
-
                         Tags: <%= challenge_tag_links(c) %>
-                        <table class="type task"><tr><td>TASK</td></tr></table>
+                        <table class="type task"><tr><td><%= c.challenge_type.upcase %></td></tr></table>
                     </div>
                 </div>
                 <% end %> 

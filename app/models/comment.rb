@@ -1,6 +1,5 @@
 class Comment < ApiModel
-  attr_accessor :id, :attributes,
-  	:comment, :createddate, :member, :replies, :reply_to
+  attr_accessor :id, :comment, :createddate, :member, :replies, :reply_to
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/challenges"
@@ -8,7 +7,7 @@ class Comment < ApiModel
 
   # Cleanup up the __r convention
   def initialize(params={})
-    params['member'] = params.delete('member__r')
+    params['member'] = params.delete('member__r') if params['member__r']
     params['replies'] = params.delete('challenge_comments__r') if params['challenge_comments__r']
 
     super(params)

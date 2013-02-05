@@ -61,35 +61,26 @@
         <p>
           Total: <strong><%= number_to_currency @challenge.total_prize_money, precision: 0 %></strong><br/>
           <% @challenge.challenge_prizes.each do |prize| %>
-            <%= "#{prize.place}st:" %> <strong><%= prize.prize %></strong>
+            <%= prize.place %> <strong><%= prize.prize %></strong>
             <br/>
           <% end %>
         </p>
 
         <h2>PARTICIPATION</h2>
         <p>
-          <%= link_to @challenge.participating_members, "#" %> members participating
+          <%= link_to pluralize(@challenge.participating_members, 'member'), "#" %> participating
           <br/>
-          <%= link_to @challenge.registered_members, "#" %> members registered
+          <%= link_to pluralize(@challenge.registered_members, 'member'), "#" %> registered
         </p>
 
+        <% if @challenge.assets.present? %>
         <h2>ASSETS</h2>
         <ul class="unstyled">
           <% @challenge.assets.each do |asset| %>
             <li><%= link_to asset, "#" %></li>
           <% end %>
         </ul>
-
-        <h2>DELIVERY FORMATS</h2>
-        <p>
-            HTML
-            Word
-            Google Doc
-            Text
-            RT
-            Other: Upload a text document with details on
-            how to retrieve your submission.
-        </p>
+        <% end %>
 
         <h2>SHARE</h2>
         <ul class="unstyled inline">

@@ -35,16 +35,6 @@ class Challenge < ApiModel
     params['platforms'] = params.delete('challenge_platforms__r') if params['challenge_platforms__r']
     params['technologies'] = params.delete('challenge_technologies__r') if params['challenge_technologies__r']
 
-    # these fields need extra cleaning as they should only output arrays of strings
-    # they also have an awful lot of duplication that can benefit with a bit of refactoring
-    params['challenge_reviewers'] = params['challenge_reviewers'].map do |entry|
-      entry['member__r']['name']
-    end if params['challenge_reviewers']
-
-    params['challenge_comment_notifiers'] = params['challenge_comment_notifiers'].map do |entry|
-      entry['member__r']['name']
-    end if params['challenge_comment_notifiers']
-
     params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
       prize = "$#{Integer(entry['prize'])}" rescue entry['prize'].to_s
       { place: entry['place'].to_i.ordinalize, prize: prize, points: entry['points'] || '', value: entry['value'] || '' }
@@ -64,11 +54,6 @@ class Challenge < ApiModel
   # Used for resourceful routes (instead of id)
   def to_param
     challenge_id
-  end
-
-  # Returns all the closed challenges
-  def self.closed
-    request(:get, 'closed', {}).map {|challenge| Challenge.new challenge}
   end
 
   def self.open    
@@ -100,11 +85,6 @@ class Challenge < ApiModel
 
   end
 
-  # Returns all the recent challenges
-  def self.recent
-    request(:get, 'recent', {}).map {|challenge| Challenge.new challenge}
-  end
-
   # Return an object instead of a string
   def start_date
     Time.parse(@start_date) if @start_date
@@ -115,7 +95,12 @@ class Challenge < ApiModel
     Time.parse(@end_date) if @end_date
   end
 
-  # TODO: blow up the categories into something useful
+  def challenge_comments
+    return [] if @challenge_comments.blank?
+    @challenge_comments.records.map {|comment| Comment.new(comment)}
+  end
+
+  # TODO: DEPRECATED
   def categories
     return [] if @categories.blank?
     @categories.records.map {|c| c.display_name}
