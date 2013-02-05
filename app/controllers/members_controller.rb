@@ -56,7 +56,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,percent_submitted,total_1st_place,total_2nd_place,total_3st_place' })
     @active_challenges = []
     @past_challenges = []
     @member.challenges.each do |challenge|
@@ -67,6 +67,8 @@ class MembersController < ApplicationController
         @past_challenges << challenge
       end
     end
+    @total_past_challenges = @past_challenges.count
+    @past_challenges = @past_challenges.paginate(:page => params[:page] || 1, :per_page => 5) 
   end
 
   def update
