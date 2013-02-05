@@ -1,0 +1,30 @@
+= content_wrapper do
+  .span8
+
+    .title
+      %h1 MY ACTIVE CHALLENGES
+    - if @active_challenges.present?
+      - @active_challenges.each do |challenge|
+        = render "challenge", :challenge => challenge
+    - else
+      %p No active challenge found
+
+    .title
+      %h1 MY FOLLOWED CHALLENGES
+    - if @followed_challenges.present?
+      - @followed_challenges.each do |challenge|
+        = render "challenge", :challenge => challenge
+    - else
+      %p No followed challenge found
+
+    .title
+      %h1 MY PAST CHALLENGES
+    - if @past_challenges.present?
+      - @past_challenges.each do |challenge|
+        = render "challenge", :challenge => challenge
+    - else
+      %p No past challenge found
+
+
+
+  = render 'shared/account_menu', :selected_item => 'account_details'

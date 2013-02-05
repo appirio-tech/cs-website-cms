@@ -29,7 +29,24 @@ class AccountsController < ApplicationController
 	end
 
 	def challenges
-		
+    @followed_challenges = []
+    @active_challenges   = []
+    @past_challenges     = []
+
+    # Sort challenges depending of the end date or status
+    member = Member.find current_user.username
+    member.challenges.each do |challenge|
+    	if challenge.active?
+    		status = challenge.raw_data.participants.records.first.status
+    		if status == "Watching"
+    			@followed_challenges << challenge
+    		else
+    			@active_challenges << challenge
+    		end
+    	else
+    		@past_challenges << challenge
+    	end
+    end
 	end
 
 	def communities
