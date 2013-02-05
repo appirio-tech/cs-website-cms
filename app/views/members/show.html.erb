@@ -1,29 +1,3 @@
-<div style="width:300px;height:350px;" > 
-
-
-  <script>
-    window.BadgevilleAsynchInit = function() {
-      Badgeville.extend( Badgeville.Settings, {
-        key: '85f33a5f6c9e246b87833b4526eab177',
-        domain: 'www.cloudspokes.com'
-        // Add other Badgeville.Settings changes
-
-      });
-      // Call Badgeville.setPlayer, bind to events, configure Badgeville.Defaults, etc.
-      BV.setPlayer( '4f46c6dd1850867c44000002' );  
-
-      Badgeville.ready(function() {
-        // Display any Gears or other chores that require Badgeville to be initialized
-        Badgeville.Gears.levelStatus( Badgeville.Settings.player, {"noTip":false} ).appendTo( document.body );
-      });
-    };
-    (function() {
-      var s = document.createElement( 'script' );
-      s.async = true;
-      s.src =  'https://api.badgeville.com/v4/badgeville-current.js';
-      document.body.appendChild( s );
-    }());
-  </script>
 <!-- CONTENT
         ================================================== -->
 <div class="content-wrapper member-profile">
