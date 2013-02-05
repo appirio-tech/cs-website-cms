@@ -10,6 +10,7 @@ class Member < ApiModel
   has_many :recommendations
   has_many :challenges, parent: Member
   has_many :payments
+  has_many :referrals
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/members"

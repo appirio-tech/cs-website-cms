@@ -58,11 +58,18 @@ class AccountsController < ApplicationController
 	end
 
 	def referred_members
-		
+    @member = Member.find(current_user.username)		
+    @referrals = @member.referrals
 	end
 
 	def invite_friends
-		
+		if request.post?
+			params[:emails].each do |email|
+				puts "send invitation email to #{email}"
+				# Resque.enqueue(InviteEmailSender, current_user.username, email.second)
+			end
+			flash.now[:notice] = 'Your invites have been sent!'
+		end		
 	end
 
 end

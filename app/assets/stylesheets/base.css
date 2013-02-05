@@ -4698,3 +4698,7 @@ form.new-comment textarea {
 .dropdown-menu li.active a span.prizes, .dropdown-menu li.active a span.wins {
   color: white;
 }
+
+form.invite-friends .item {
+  margin-bottom: 5px;
+}

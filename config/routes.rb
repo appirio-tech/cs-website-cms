@@ -68,7 +68,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/challenges', to: 'accounts#challenges'
   get '/account/communities', to: 'accounts#communities'
   get '/account/referred-members', to: 'accounts#referred_members'
-  get '/account/invite-friends', to: 'accounts#invite_friends'
+  match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
 
   get '/judging/outstanding-reviews', to: 'judging#outstanding_reviews'
   get '/judging/judging-queue', to: 'judging#judging_queue'
@@ -83,6 +83,7 @@ CsWebsiteCms::Application.routes.draw do
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
 
+  match "/siginup/:username" => redirect("/users/sign_up"), as: "ref_siginup"
   root to: 'refinery/pages#home'
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
