@@ -14,9 +14,10 @@ CsWebsiteCms::Application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords',
     registrations: 'users/registrations',
-    confirmations: 'users/confirmations'
+    confirmations: 'users/confirmations',
   } do 
     match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
+    get "users/unlock/new",   :to => "users/passwords#unlock"
   end
 
   get 'members/search'

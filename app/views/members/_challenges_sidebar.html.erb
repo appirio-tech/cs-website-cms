@@ -1,0 +1,8 @@
+<% challenges.each do |challenge| %>
+<%= link_to challenge.name, challenge_path(challenge) %>
+<p>
+    <%= raw(truncate(challenge.description.gsub(/<\/?[^>]*>/, ""), :length => 200, :separator => ' ')) %>
+    <%= link_to 'see details', challenge_path(challenge) %><br>
+    <span class="gray"><%= number_to_currency challenge.total_prize_money, precision: 0 %> for <%= platform_display(challenge) %></span>
+</p>
+<% end %>

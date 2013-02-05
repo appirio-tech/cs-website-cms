@@ -8,19 +8,19 @@ class MembersController < ApplicationController
 
   def community
     @community_tick = true
-    @stats = Platform.stats
+    @stats = CsPlatform.stats
     @open_challenges = Challenge.open
     @featured_challenge =  Challenge.find @stats['featured_challenge_id']
-    @leaderboard = Platform.leaderboard(current_access_token, :category => nil, :limit => 3)
+    @leaderboard = CsPlatform.leaderboard(current_access_token, :category => nil, :limit => 3)
     @press_feed_items = CloudspokesFeed.where(:entry_type => 'press').order('created_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('created_at desc').limit(3)    
   end   
 
   def leaderboard
     @leaderboard_tick = true
-    @this_month = Platform.leaderboard(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
-    @this_year = Platform.leaderboard(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
-    @all_time = Platform.leaderboard(current_access_token, :category => params[:category] || nil, :limit => 1000)
+    @this_month = CsPlatform.leaderboard(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
+    @this_year = CsPlatform.leaderboard(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
+    @all_time = CsPlatform.leaderboard(current_access_token, :category => params[:category] || nil, :limit => 1000)
 
     @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
@@ -60,7 +60,17 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote' })
+    @active_challenges = []
+    @past_challenges = []
+    @member.challenges.each do |challenge|
+      if !challenge.participants.first.status.eql?('Watching') &&
+        ACTIVE_CHALLENGE_STATUSES.include?(challenge.status)
+        @active_challenges << challenge
+      elsif challenge.participants.first.has_submission
+        @past_challenges << challenge
+      end
+    end
   end
 
   def update

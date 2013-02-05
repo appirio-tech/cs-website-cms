@@ -11,10 +11,12 @@ class ApiModel
   # a model collection will have a different endpoint
   # Case in point: Members and Challenges
   def self.has_many(entity, options={})
+    puts "======= calling has_many for #{entity}"
     # add in this relationship to the column_names table
     @column_names << entity.to_sym
     rel_column_names << entity.to_sym
     parent = options[:parent]
+    puts "parent: #{parent}"
 
     # dynamically create a method on this instance that will reference the collection
     define_method("#{entity.to_sym}=") do |accessor_value|
@@ -23,7 +25,9 @@ class ApiModel
 
     define_method(entity.to_sym) do
       klass = entity.to_s.classify.constantize
-      (parent || klass).raw_get([to_param, entity.to_s]).map do |e|
+      puts "klass #{klass}"
+      puts "to_param: #{to_param} -- #{entity.to_s}"
+      (parent || klass).raw_get_has_many([to_param, entity.to_s]).map do |e|
         next if e.respond_to?(:last) # we got an array instead of a Hashie::Mash
         klass.new e
       end
@@ -129,6 +133,15 @@ class ApiModel
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
   end
+
+  def self.raw_get_has_many(entities = [], params)
+    endpoint = endpoint_from_entities(entities)
+    endpoint << "/#{params.to_param}" unless params.empty?
+    puts "=====$$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
+    #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
+      get_response(RestClient.get(endpoint, api_request_headers))
+    #end
+  end  
 
   # Sanitized response to only the attributes we've defined
   def self.get(entity = '')

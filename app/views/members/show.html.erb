@@ -33,7 +33,7 @@
         <div id="quotes">
             <div class="item">
                 <div class="quote">
-                    Live as if you were to die tomorrow. Learn as if you were to live forever
+                    <%= @member.quote %>
                 </div>
             </div>
         </div>
@@ -200,26 +200,12 @@
             </div>
 
             <div class="span4">
-                <h2>3 ACTIVE CHALLENGES</h2>
+                <h2><%= pluralize(@active_challenges.count, "ACTIVE CHALLENGE").upcase %></h2>
                 <div class="content">
-                    <a href="#" class="title-link">Salesforce Print Dialog</a>
-                    <p>
-                        Provide print dialog functionality to produce different types of PDF output in Salesforce.com.. <a href="#">see detail</a><br>
-                        <span class="gray">$0 for Salesforce.com</span>
-                    </p>
-                    <a href="#" class="title-link">Custom Search for CRM Content, Chatter &amp; Custom Objects</a>
-                    <p>
-                        Create a Visualfore Page that implements custom search functionality that is very similar to the salesforce.com global...  <a href="#">see detail</a><br>
-                        <span class="gray">$0 for Salesforce.com</span>
-                    </p>
-                    <a href="#" class="title-link">Case Trigger Matcher-Upper</a>
-                    <p>
-                        Create a Trigger for the Case object and two custom objects (specs are in the additional info field) to find an associated... <a href="#">see detail</a><br>
-                        <span class="gray">$0 for Salesforce.com</span>
-                    </p>
+                     <%= render partial: "challenges_sidebar", locals: {challenges: @active_challenges} %>
                 </div>
 
-                <h2>53 PAST CHALLENGES</h2>
+                <h2><%= pluralize(@past_challenges.count, "PAST CHALLENGE").upcase %></h2>
                 <div class="slider">
                     <div class="content scrollable">
                         <div class="items">

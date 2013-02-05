@@ -20,7 +20,7 @@ module ChallengesHelper
     end
   end
 
-  def challenge_tag_links(challenge)
+  def platform_and_technology_tag_links(challenge)
     tags = []
     challenge.platforms.each do |platform| 
       tags.push link_to(platform, challenges_path(platform: platform))
@@ -30,6 +30,29 @@ module ChallengesHelper
     end
 
     tags.join(" | ").html_safe
+  end  
+
+  def technology_tag_links(challenge)
+    tags = []
+    challenge.technologies.each do |platform| 
+      tags.push link_to(platform, challenges_path(technology: platform))
+    end
+
+    tags.join(" | ").html_safe
+  end
+
+  def platform_display(challenge)
+    tags = []
+    challenge.platforms.each do |platform| 
+      tags.push platform
+    end
+
+    tags.join(", ").html_safe
+  end  
+
+  def challenge_type_label(value)
+    return 'SWEEP<br>STAKES' if value.eql?('SWEEPSTAKES')
+    value
   end
 
   def format_close_date_time(end_time)

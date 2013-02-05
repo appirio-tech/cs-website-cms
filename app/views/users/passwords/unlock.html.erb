@@ -4,9 +4,9 @@
     <div class="container">
 
       <div>
-          <div class="title"><h1>RESEND CONFIRMATION INSTRUCTIONS</h1></div>
+          <div class="title"><h1>RESEND UNLOCK INSTRUCTIONS</h1></div>
 
-          <%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+          <%= simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
             <%= f.error_notification %>
 
             <div class="inputs">
@@ -22,7 +22,7 @@
             </div>
           <% end %>
 
-          <div style="padding-bottom: 50px"></div> 
+					<div style="padding-bottom: 50px"></div>
 
           <a href="/users/confirmation/new">Didn&#x27;t receive confirmation instructions?</a><br />
           <a href="/users/unlock/new">Didn&#x27;t receive unlock instructions?</a><br />    
