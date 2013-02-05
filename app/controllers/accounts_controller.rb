@@ -59,7 +59,8 @@ class AccountsController < ApplicationController
 	end
 
 	def referred_members
-		
+    @member = Member.find(current_user.username)		
+    @referrals = @member.referrals
 	end
 
 	def invite_friends
