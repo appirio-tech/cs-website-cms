@@ -1,0 +1,25 @@
+= content_wrapper do
+  .span8
+    = content_tag :div, flash[:notice], class: "alert alert-success" if flash[:notice]
+    .title
+      %h1 INVITE YOUR FRIENDS
+    %p Every time that someone you referred to CloudSpokes wins money, so will you! During their first year, you’ll earn 10% of all money that your friends win competing in CloudSpokes challenges. So if a friend wins $1000 in a coding challenge, we’ll give you an additional $100.
+
+    %p Refer as many friends as you like. Here’s your invite code for you to give out:
+
+    - url = ref_siginup_url(username: current_user.username)
+    %h1= link_to url, url
+    %br
+    %p Send invites to your friends using the handy invite form below.
+
+    = form_tag invite_friends_path, class: "form-horizontal jqTransform invite-friends" do
+      .emails.clearfix
+        .item.clearfix
+          = text_field_tag "emails[]", nil, placeholder: "Email address..."
+
+      %br
+      .actions
+        = submit_tag "Send Invites", class: "btn"
+        = link_to "Add Email", "#", class: "btn-add-email"
+
+  = render 'shared/account_menu', :selected_item => 'invite_friends'
