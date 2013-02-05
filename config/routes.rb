@@ -1,6 +1,5 @@
 CsWebsiteCms::Application.routes.draw do
 
-  get 'faq', to: 'protected#index'
   get 'help', to: 'protected#index'
   get 'blog', to: 'protected#index'
 
@@ -78,6 +77,8 @@ CsWebsiteCms::Application.routes.draw do
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
 
+
+  match "/faq" => redirect("/forums#/categories/faqs")
   match "/tos" => redirect("http://content.cloudspokes.com/terms-of-service")
   match "/signup" => redirect("/users/sign_up")
   match "/signin" => redirect("/users/sign_in")

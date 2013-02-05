@@ -53,21 +53,17 @@ class MembersController < ApplicationController
   def index
     @members = Member.all
     render :json => @members
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @members }
-    # end
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money' })
     @active_challenges = []
     @past_challenges = []
     @member.challenges.each do |challenge|
-      if !challenge.participants.first.status.eql?('Watching') &&
+      if !challenge.challenge_participants.records.first.status.eql?('Watching') &&
         ACTIVE_CHALLENGE_STATUSES.include?(challenge.status)
         @active_challenges << challenge
-      elsif challenge.participants.first.has_submission
+      elsif challenge.challenge_participants.records.first.has_submission
         @past_challenges << challenge
       end
     end

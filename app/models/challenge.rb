@@ -8,7 +8,7 @@ class Challenge < ApiModel
     :categories, :is_open, :discussion_board, :registered_members, :challenge_prizes,
     :submission_details, :winner_announced, :community, :days_till_close,
     :platforms, :technologies, :submissions, :participating_members,
-    :challenge_prizes,
+    :challenge_prizes, :challenge_participants,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
@@ -24,7 +24,7 @@ class Challenge < ApiModel
   def initialize(params={})
     # there has GOT to be some better way to clean this up ...
     params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
-    params['participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
+    params['challenge_participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
     params['community'] = params.delete('community__r') if params['community__r']
     params['terms_of_service'] = params.delete('terms_of_service__r') if params['terms_of_service__r']
     params['challenge_comments'] = params.delete('challenge_comments__r') if params['challenge_comments__r']

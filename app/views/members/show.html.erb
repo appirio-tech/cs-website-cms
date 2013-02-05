@@ -1,3 +1,29 @@
+<div style="width:300px;height:350px;" > 
+
+
+  <script>
+    window.BadgevilleAsynchInit = function() {
+      Badgeville.extend( Badgeville.Settings, {
+        key: '85f33a5f6c9e246b87833b4526eab177',
+        domain: 'www.cloudspokes.com'
+        // Add other Badgeville.Settings changes
+
+      });
+      // Call Badgeville.setPlayer, bind to events, configure Badgeville.Defaults, etc.
+      BV.setPlayer( '4f46c6dd1850867c44000002' );  
+
+      Badgeville.ready(function() {
+        // Display any Gears or other chores that require Badgeville to be initialized
+        Badgeville.Gears.levelStatus( Badgeville.Settings.player, {"noTip":false} ).appendTo( document.body );
+      });
+    };
+    (function() {
+      var s = document.createElement( 'script' );
+      s.async = true;
+      s.src =  'https://api.badgeville.com/v4/badgeville-current.js';
+      document.body.appendChild( s );
+    }());
+  </script>
 <!-- CONTENT
         ================================================== -->
 <div class="content-wrapper member-profile">
@@ -11,11 +37,11 @@
                     <div class="well">
                         <div class="top">
                             <h2><a href="#"><%= @member.name %></a></h2>
-                            <span>United States</span>
+                            <span><%= @member.country %></span>
                         </div>
                         <div class="bottom">
-                            <strong>15,200</strong> pts<br>
-                            <strong>12</strong> Rewards
+                            <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong> pts<br>
+                            <strong><%= number_to_currency(@member.total_public_money, :precision => 0) %></strong>
                         </div>
                     </div>
                 </div>
@@ -206,31 +232,10 @@
                 </div>
 
                 <h2><%= pluralize(@past_challenges.count, "PAST CHALLENGE").upcase %></h2>
-                <div class="slider">
-                    <div class="content scrollable">
-                        <div class="items">
-                        <div class="item"><!-- group every 3 challenges for slide -->
-                            <a href="#" class="title-link">Email on custom case assignment</a>
-                            <p>
-                                For this challenge you will write a trigger on the case and a custom email class that fires when a custom lookup..  <a href="#">see detail</a><br>
-                                <span class="gray">1st $550 for Salesforce.com</span>
-                            </p>
-                            <a href="#" class="title-link">Salesforce Opportunity Pipeline to SmartSheet</a>
-                            <p>
-                                We want you to build a simple integration from Salesforce that allows a user to...   <a href="#">see detail</a><br>
-                                <span class="gray">1st $550 for Salesforce.com</span>
-                            </p>
-                            <a href="#" class="title-link">Salesforce Custom Case view </a>
-                            <p>
-                                For this challenge you will create a custom Visual Force page using BootstrapJS and what ever table library you like...  <a href="#">see detail</a><br>
-                                <span class="gray">1st $550 for Salesforce.com</span>
-                            </p>
-                        </div><!-- end of item -->
-                    </div>
-                    </div>
-                    <a href="#" class="prev"><span>Prev</span></a>
-                    <a href="#" class="next"><span>Next</span></a>
+                <div class="content">
+                     <%= render partial: "challenges_sidebar", locals: {challenges: @past_challenges} %>
                 </div>
+
                 <div class="content total-link">
                     <a href="#" class="title-link">View All Past Challenges</a>
                 </div>
