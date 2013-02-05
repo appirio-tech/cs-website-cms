@@ -37,4 +37,14 @@ module ApplicationHelper
     return content.html_safe
   end                          
 
+  def content_wrapper(&block)
+    content_tag(:div, class: "content-wrapper") do
+      content_tag(:div, class: "container") do
+        content_tag(:div, class: "row-fluid") do
+          capture(&block) if block_given?
+        end
+      end
+    end
+  end
+
 end

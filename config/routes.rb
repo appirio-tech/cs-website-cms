@@ -58,6 +58,7 @@ CsWebsiteCms::Application.routes.draw do
     post 'challenges/assets'
   end
 
+  put '/account', to: 'accounts#update'
   get '/account', to: 'accounts#challenges'
   get '/account/details', to: 'accounts#details'
   get '/account/payment-info', to: 'accounts#payment_info'

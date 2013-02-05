@@ -93,6 +93,7 @@ class ApiModel
   end
 
   def save
+    puts "new record? #{new_record?}"
     new_record? ? create : update
   end
 
@@ -161,10 +162,10 @@ class ApiModel
     endpoint = endpoint_from_entities(entities)  
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
-      puts "===== request method endpoint: #{endpoint}"  
+      puts "===== request method endpoint (get): #{endpoint}"  
       resp = RestClient.send method, endpoint, api_request_headers
     else
-      puts "===== request method endpoint: #{endpoint}"  
+      puts "===== request method endpoint (not get): #{endpoint}"  
       data = data.to_json unless data.is_a?(String)
       resp = RestClient.send method, endpoint, data, api_request_headers
     end
@@ -172,11 +173,12 @@ class ApiModel
   end
 
   def self.post(entities, data)
-    puts "======= calling post with: #{data}"
+    puts "======= calling post #{entities} with: #{data}"
     request :post, entities, data
   end
 
   def self.put(entities, data)
+    puts "======= calling puts #{entities} #{to_param} with: #{data}"
     request :put, entities, data
   end
 

@@ -3,7 +3,8 @@ class Member < ApiModel
     :challenges_entered, :active_challenges, :time_zone,
     :total_1st_place, :total_2nd_place, :total_3st_place,
     :total_wins, :total_public_money, :total_points, :valid_submissions,
-    :summary_bio, :payments, :quote
+    :summary_bio, :payments, :quote,
+    :first_name, :last_name, :email, :address_line1, :address_line2, :city, :zip, :state, :phone_mobile, :time_zone, :country
 
   has_many :recommendations
   has_many :challenges, parent: Member

@@ -1,0 +1,76 @@
+= content_wrapper do
+  .span8
+    .title
+      %h1 ACCOUNT DETAILS
+    %p Sometimes we need to send you stuff. Like award money. So keep your contact info up to date so we can get in touch! We promise to never ever use your information for evil (unless we have your permission).
+
+    = form_tag account_path, method: "put", class: "form-horizontal jqTransform form-account" do
+      .controls-row
+        .control-group.pull-left
+          %label.control-label First Name
+          .controls
+            = text_field_tag "account[last_name]", @member.first_name, class: "input-medium"
+        .control-group.pull-left
+          %label.control-label Username:
+          .controls= current_user.username
+
+      .controls-row
+        .control-group.pull-left
+          %label.control-label Last Name
+          .controls
+            = text_field_tag "account[last_name]", @member.last_name, class: "input-medium"            
+        .control-group.pull-left
+          %label.control-label Email Address:
+          .controls
+            = text_field_tag "account[email]", @member.email, class: "input-large"            
+
+      .controls-row
+        .control-group
+          %label.control-label Address 1
+          .controls
+            = text_field_tag "account[address_line1]", @member.address_line1, class: "input-xxxlarge"
+
+      .controls-row
+        .control-group
+          %label.control-label Address 2
+          .controls
+            = text_field_tag "account[address_line2]", @member.address_line2, class: "input-xxxlarge"
+
+      .controls-row
+        .control-group.pull-left
+          %label.control-label City
+          .controls 
+            = text_field_tag  "account[city]", @member.city, class: "input-medium"
+        .control-group.pull-left
+          %label.control-label State
+          .controls 
+            = text_field_tag  "account[state]", @member.state, class: "input-small"
+        .control-group.pull-left
+          %label.control-label Zip
+          .controls 
+            = text_field_tag  "account[zip]", @member.zip, class: "input-small"
+
+      .controls-row
+        .control-group
+          %label.control-label Country
+          .controls
+            = select_tag "account[country]", country_options_for_select(@member.country, ["United States"]), class: "input-medium"
+
+      .controls-row
+        .control-group
+          %label.control-label Phone
+          .controls
+            = text_field_tag "account[phone_mobile]", @member.phone_mobile, class: "input-medium"
+
+      .controls-row
+        .control-group
+          %label.control-label Time Zone
+          .controls
+            = select_tag "account[time_zone]", time_zone_options_for_select(@member.time_zone, ActiveSupport::TimeZone.us_zones), class: "select-xxxlarge"
+
+      .control-group
+        = submit_tag "SUBMIT", class: "btn pull-right"
+        
+
+
+  = render 'shared/account_menu', :selected_item => 'account_details'
