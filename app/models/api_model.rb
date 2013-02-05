@@ -126,9 +126,9 @@ class ApiModel
   # Accepts an array or a string
   # If given an array, will join the elements with '/'
   # If given a string, will use the argument as is
-  def self.raw_get(entities = [], params)
+  def self.raw_get(entities = [], params = nil)
     endpoint = endpoint_from_entities(entities)
-    endpoint << "?#{params.to_param}" unless params.empty?
+    endpoint << "?#{params.to_param}" if params.present?
     puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))

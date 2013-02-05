@@ -54,4 +54,17 @@ module ChallengesHelper
     return 'SWEEP<br>STAKES' if value.eql?('SWEEPSTAKES')
     value
   end
+
+  def format_close_date_time(end_time)
+    if end_time.past?
+        display = "Completed"
+    else
+      secs = end_time - Time.now
+      display = "due in "
+      display += pluralize((secs/86400).floor, 'day')
+      secs = secs%86400
+      display += " " + pluralize((secs/3600).floor, 'hour') + " " + pluralize(((secs%3600)/60).round, 'minute')
+    end
+  end
+
 end
