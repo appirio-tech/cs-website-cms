@@ -11,7 +11,7 @@ class MembersController < ApplicationController
     @stats = CsPlatform.stats
     @open_challenges = Challenge.open
     @featured_challenge =  Challenge.find @stats['featured_challenge_id']
-    @leaderboard = CsPlatform.leaderboard(current_access_token, :category => nil, :limit => 3)
+    @leaderboard = CsPlatform.leaderboard(current_access_token, :category => nil, :limit => 1000)
     @press_feed_items = CloudspokesFeed.where(:entry_type => 'press').order('created_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('created_at desc').limit(3)    
   end   

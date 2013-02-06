@@ -34,7 +34,7 @@
                     <div class="challenge well well-large">
                         <h3><%= link_to c.name, challenge_path(c)  %></h3>
                         Due in <%= pluralize(c.days_till_close, 'day') %><br>
-                        <%= c.participating_members %> members participating, <%= c.registered_members %> registered<br/>
+                        <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                         <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
                         Tags: <%= technology_tag_links(c) %>
                         <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
