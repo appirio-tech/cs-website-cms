@@ -2,14 +2,21 @@ class AccountsController < ApplicationController
 	before_filter :authenticate_user!
 
 	def update
-    params[:account].delete("years_of_experience__c") if params[:account][:years_of_experience__c].blank?
+    account_attrs = params[:account].dup
+    account_attrs.delete("years_of_experience__c") if account_attrs[:years_of_experience__c].blank?
+
+    if params[:profile_picture]
+      resp = Cloudinary::Uploader.upload(params[:profile_picture])
+      account_attrs["Profile_Pic__c"] = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 82, height: 82, crop: "fill"
+    end
     
-    response = Member.put(current_user.username, params[:account])
+    response = Member.put(current_user.username, account_attrs)
     if response.success == "false"
       flash[:alert] = "Failed to update, reason : #{response.message}"
     else
       flash[:notice] = "Updated successfully"
     end
+    
 		redirect_to :back
 	end
 
@@ -33,7 +40,8 @@ class AccountsController < ApplicationController
 	end
 
 	def public_profile
-
+    fields = 'id,name,profile_pic,summary_bio,quote,website,twitter,github,facebook,linkedin'
+    @member = Member.find(current_user.username, fields: fields)
 	end
 
 	def change_password

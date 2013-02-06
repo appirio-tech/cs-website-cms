@@ -6,7 +6,8 @@ class Member < ApiModel
     :summary_bio, :quote,
     :first_name, :last_name, :email, :address_line1, :address_line2, :city, :zip, :state, :phone_mobile, :time_zone, :country,
     :preferred_payment, :paperwork_received, :paperwork_sent, :paperwork_year, :paypal_payment_address,
-    :company, :school, :years_of_experience, :work_status, :shirt_size, :age_range, :gender
+    :company, :school, :years_of_experience, :work_status, :shirt_size, :age_range, :gender,
+    :website, :twitter, :github, :facebook, :linkedin
 
   has_many :recommendations
   has_many :challenges, parent: Member
