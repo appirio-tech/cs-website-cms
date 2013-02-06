@@ -11,6 +11,23 @@ class Participant < ApiModel
     super(params)
   end
 
+  def self.current_status(challenge_id, membername)
+    participant = naked_get "participants/#{membername}/#{challenge_id}"
+    if participant
+      Participant.new naked_get "participants/#{membername}/#{challenge_id}"
+    else
+      Participant.new :status => 'Not Registered'
+    end
+  end   
+
+  def self.change_status(challenge_id, membername, params)
+    if current_status(challenge_id, membername).registered?
+      naked_put "participants/#{membername}/#{challenge_id}", {'fields' => params}
+    else
+      naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
+    end
+  end  
+
   # has_one :member
   # Note that we're not using the member data in the json because it
   # lacks many attributes. We simply just do another api call
@@ -21,6 +38,18 @@ class Participant < ApiModel
   # Typecast into Boolean
   def has_submission
     !!@has_submission
+  end
+
+  def registered?
+    @status.eql?('Not Registered') ? false : true
+  end  
+
+  def submitted?
+    !['not registered', 'registered', 'watching'].include?(@status.downcase)
+  end
+
+  def status
+    @status
   end
 
 end

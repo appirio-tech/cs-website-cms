@@ -122,6 +122,27 @@ class ApiModel
     }
   end
 
+  def self.naked_get(endpoint, params = nil)
+    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
+    endpoint << "?#{params.to_param}" if params.present?
+    puts "=====$$$$$ CALLING NAKED GET for #{endpoint}"
+    get_response(RestClient.get(endpoint, api_request_headers))
+  end  
+
+  def self.naked_post(endpoint, params)
+    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
+    params = params.to_json unless params.is_a?(String)
+    resp = RestClient.send 'post', endpoint, params, api_request_headers
+    get_response(resp)
+  end    
+
+  def self.naked_put(endpoint, params)
+    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
+    params = params.to_json unless params.is_a?(String)
+    resp = RestClient.send 'put', endpoint, params, api_request_headers
+    get_response(resp)
+  end    
+
   # Convenience method to request an entity from the CloudSpokes RESTful source
   # Accepts an array or a string
   # If given an array, will join the elements with '/'

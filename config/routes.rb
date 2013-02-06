@@ -14,7 +14,6 @@ CsWebsiteCms::Application.routes.draw do
   } do 
     match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
     get "users/unlock/new",   :to => "users/passwords#unlock"
-    get "users/unlock/create",   :to => "users/passwords#unlock"
   end
 
   get 'members/search'
@@ -40,6 +39,9 @@ CsWebsiteCms::Application.routes.draw do
       get 'comments'
       get 'registrants'
       post "comment"
+      get 'register'
+      get 'watch'
+      get 'participant'
     end
 
     resource :submission, only: [:show, :update] do

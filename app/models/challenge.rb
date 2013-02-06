@@ -134,6 +134,11 @@ class Challenge < ApiModel
     @is_open == "true"
   end
 
+  def closed_for_registration?
+    false
+    # @challenge_detail['Registration_End_Date__c'].nil? ? false : Time.parse(@challenge_detail['Registration_End_Date__c']).past?
+  end  
+
   def release_to_open_source?
     !!@release_to_open_source
   end

@@ -17,6 +17,9 @@ class Users::SessionsController < Devise::SessionsController
       # see if the user exists in the database
       user = User.find_by_username(params[:user][:username])
       if user
+        # flush the access token so it will be reset
+        user.access_token = nil
+        user.save
         sign_in_and_redirect(:user, user)
       # user exists in sfdc but not in db so create a new record
       else

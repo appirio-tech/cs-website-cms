@@ -39,12 +39,12 @@ class AuthenticationsController < ApplicationController
       # if the user is already in db
       if db_authentication
         update_user_with_sfdc_info(db_authentication.user_id, sfdc_account, sfdc_authentication)
-        flash[:notice] = "Signed in successfully (login_third_party authenticate)."
+        flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, User.find(db_authentication.user_id)) 
       # if current user
       elsif current_user
         current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
-        redirect_to authentications_url, :notice => "Authentication successfull."         
+        redirect_to authentications_url, :notice => "Signed in successfully."         
       # create a new user
       else
         user =  User.new
@@ -61,7 +61,7 @@ class AuthenticationsController < ApplicationController
           #user.roles << Role.find_by_title('Refinery')
           #user.roles << Role.find_by_title('Superuser')      
           user.update_attribute(:confirmed_at, DateTime.now)
-          flash[:notice] = "Signed in successfully (login_third_party new user)."
+          flash[:notice] = "Signed in successfully."
           sign_in_and_redirect(:user, user)
         # error saving, send them back
         else
