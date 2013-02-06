@@ -72,6 +72,8 @@
       </div> <!-- /.container -->
   </div><!-- /.loginbar-wrapper -->
 
+  <%= content_tag :div, flash[:notice], class: "alert alert-success", style: "margin: 20px 20px 20px 20px;" if flash[:notice] %>
+  <%= content_tag :div, flash[:alert], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:alert] %>
 
   <!-- NAVBAR
       ================================================== -->
@@ -99,8 +101,6 @@
           </form>
       </div> <!-- /.container -->
   </div><!-- /.nav-wrapper -->
-
-  <%= content_tag :div, flash[:alert], class: "alert alert-error" if flash[:alert] %>
 
   <%= yield %>
 
@@ -139,8 +139,8 @@
               <div class="pull-left">
                   <h2>SPOKES</h2>
                   <ul class="links">
-                      <li><a href="#">Box</a> (TBD)</li>
-                      <li><a href="#">DocuSign</a> (TBD)</li>
+                      <li><a href="#">TBD1</a></li>
+                      <li><a href="#">TBD2</a></li>
                   </ul>
               </div>
 
@@ -156,11 +156,11 @@
               <div class="span3 pull-right">
                   <h2>PLATFORMS</h2>
                   <ul class="links">
-                      <li><a href="#">Amazon Web Services</a></li>
-                      <li><a href="#">Cloud Foundry</a></li>
-                      <li><a href="#">Google App Engine</a></li>
-                      <li><a href="#">Heroku</a></li>
-                      <li><a href="#">Salesforce & Force.com</a></li>
+                      <li><a href="http://aws.amazon.com">Amazon Web Services</a></li>
+                      <li><a href="http://www.cloudfoundry.com">Cloud Foundry</a></li>
+                      <li><a href="https://cloud.google.com">Google App Engine</a></li>
+                      <li><a href="http://www.heroku.com">Heroku</a></li>
+                      <li><a href="http://developer.force.com">Salesforce & Force.com</a></li>
                   </ul>
               </div>
 
@@ -178,7 +178,7 @@
       <div class="content">
           <form class="modal-form jqTransform forgot-password-form">
               <p>Enter your CloudSpokes username and we'll send you instructions on how to reset your password.</p>
-              <input type="text" placeholder="USERNAME" id="reset-username"/><div class="btn"><button class="btn" type="submit">SUBMIT</button></div>
+              <input type="text" placeholder="USERNAME" id="reset-username"/><div class="btn"><button id="forgot-password-btn" class="btn" type="submit">SUBMIT</button></div>
           </form>
       </div>
       <div class="reset-results" style="padding-left:15px;padding-right:15px;padding-top:15px"></div>
@@ -243,7 +243,7 @@
               </div>
               <div class="control-group">
                   <div class="controls">
-                      <div class="btn"><input type="submit" value="SIGN UP"></div>
+                      <div class="btn"><input id="sign-up-btn" type="submit" value="SIGN UP"></div>
                   </div>
               </div>
           </form>
@@ -253,19 +253,17 @@
   </div>
 
   <!-- Modal -->
-  <div id="thank-modal" class="modal hide fade" tabindex="-1" role="dialog">
+  <div id="signup-success-modal" class="modal hide fade" tabindex="-1" role="dialog">
   <div class="modal-header"></div>
   <div class="modal-body">
-      <div class="title"><h1>Thank You</h1></div>
-      <div class="content">
-          <p>Your request has been sent. You will receive an email from support, shortly.</p>
-      </div>
-
-      <br/>
+      <div class="title"><h1>Thanks for Registering!</h1></div>
+      <div class="content"></div><br/>
   </div>
   <div class="modal-footer"></div>
   <button type="button" class="close" data-dismiss="modal"></button>
   </div>
+
   <%= debug(current_user) if Rails.env.development? && !current_user.nil? %>
+  <%= debug(params) if Rails.env.development? %>  
 </body>
 </html>

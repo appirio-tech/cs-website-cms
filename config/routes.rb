@@ -1,8 +1,5 @@
 CsWebsiteCms::Application.routes.draw do
 
-  get 'help', to: 'protected#index'
-  get 'blog', to: 'protected#index'
-
   resources :authentications
 
   get 'protected', to: 'protected#index'
@@ -17,6 +14,7 @@ CsWebsiteCms::Application.routes.draw do
   } do 
     match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
     get "users/unlock/new",   :to => "users/passwords#unlock"
+    get "users/unlock/create",   :to => "users/passwords#unlock"
   end
 
   get 'members/search'
@@ -29,6 +27,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'challenges'
       get 'payments'
       get 'recommendations'
+      match 'past-challenges' => 'members#past_challenges'
       match 'recommendations' => 'members#create_recommendations', via: [:post]
     end
   end
@@ -77,7 +76,8 @@ CsWebsiteCms::Application.routes.draw do
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
 
-
+  match "/blog" => redirect("http://blog.cloudspokes.com")
+  match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
   match "/tos" => redirect("http://content.cloudspokes.com/terms-of-service")
   match "/signup" => redirect("/users/sign_up")

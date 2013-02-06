@@ -36,7 +36,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         message = results.message
       end
-      puts "======== create from email in sfdc: #{message}"
       message
     end  
 

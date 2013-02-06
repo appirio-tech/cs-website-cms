@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_access_token
   before_filter :set_gon_variables
 
-  ACTIVE_CHALLENGE_STATUSES     = ['Created', 'Review', 'Review - Pending']
+  ACTIVE_CHALLENGE_STATUSES = ['Created', 'Review', 'Review - Pending']
 
   def set_access_token
     # ApiModel.access_token = current_user.try(:access_token) || guest_access_token
@@ -17,8 +17,6 @@ class ApplicationController < ActionController::Base
   end      
 
   def show_welcome_page?
-    #overriding refinery initialization wizard behavior, so unpopulated test
-    #database will successfully run.
     false
   end
 
@@ -62,8 +60,34 @@ class ApplicationController < ActionController::Base
     if current_user.nil?
       guest_access_token
     else
-      member_access_token
+      if current_user.access_token
+        # check and see if it's an hour old
+        update_user_with_sfdc_info if Time.now > 60.minutes.since(current_user.updated_at)
+      else
+        update_user_with_sfdc_info
+      end
+      current_user.access_token
     end
   end 
+
+  def update_user_with_sfdc_info
+
+    # authenticate to sfdc with the admin's access token
+    ApiModel.access_token = admin_access_token    
+
+    # TODO --- just set the member's access token to the guest token
+    # sfdc_authentication = Account.new(current_user).authenticate('12345678a')
+    # current_user.access_token = sfdc_authentication.access_token
+    current_user.access_token = guest_access_token
+
+    sfdc_account = Account.find(current_user.username, 'cloudspokes')
+    current_user.sfdc_username = sfdc_account.sfdc_username
+    current_user.email = sfdc_account.email
+    current_user.profile_pic = sfdc_account.profile_pic
+    current_user.accountid = sfdc_account.accountid
+    # update the user in pg
+    puts 'Error saving current_user with sfdc data: #current_user.errors.full_messages' unless current_user.save
+
+  end
 
 end

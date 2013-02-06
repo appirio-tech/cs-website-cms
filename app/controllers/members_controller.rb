@@ -67,9 +67,17 @@ class MembersController < ApplicationController
         @past_challenges << challenge
       end
     end
-    @total_past_challenges = @past_challenges.count
-    @past_challenges = @past_challenges.paginate(:page => params[:page] || 1, :per_page => 5) 
   end
+
+  def past_challenges
+    @member = Member.find(params[:id])
+    @past_challenges = []
+    @member.challenges.each do |challenge|
+      if challenge.challenge_participants.records.first.has_submission
+        @past_challenges << challenge
+      end
+    end    
+  end  
 
   def update
   end

@@ -1,16 +1,20 @@
 $ ->
 	$('#forgot-password-modal button.btn[type="submit"]').click ->
-		$('#forgot-password-modal .reset-results').html('<p>Processing....</p>')
+		$('#forgot-password-modal .reset-results').html('<p></p>')	
 		username = $('#reset-username').val()
-		$.ajax
-		  type: 'POST'
-		  url: '/users/password'
-		  data: { username: username }
-		  success: (data, textStatus, jqHXR) ->
-		    $('#forgot-password-modal .reset-results').html('<p>' + data + '</p>')
-		    false
-		  error: (jqXHR, textStatus, errorThrown) ->	
-			  $('#forgot-password-modal .reset-results').html('<p>Sorry! We could not process your request: ' + errorThrown + '</p>')  
+		if username.length > 0
+			$('#forgot-password-btn').html('Processing....')		
+			$.ajax
+			  type: 'POST'
+			  url: '/users/password'
+			  data: { username: username }
+			  success: (data, textStatus, jqHXR) ->
+			    $('#forgot-password-modal .reset-results').html('<p>' + data + '</p>')
+			    $('#forgot-password-btn').html('SUBMIT')
+			    false
+			  error: (jqXHR, textStatus, errorThrown) ->
+				  $('#forgot-password-btn').html('SUBMIT')	
+				  $('#forgot-password-modal .reset-results').html('<p>Sorry! We could not process your request successfully.</p>')  
 		false
 
 	$('#register-modal input[type="submit"]').click ->
@@ -19,6 +23,7 @@ $ ->
 		email = $('#input-email').val()
 		password = $('#input-pwd').val()
 		password_again = $('#input-pwd-again').val()
+		has_missing_fields = false;
 
 		$('#register-modal input').each ->
 				if($(this).val()=='')
@@ -41,43 +46,55 @@ $ ->
 					checkbox.parents('.controls').find('.help-inline').html("You must agree to the terms of service.")
 
 			password_container = $('#input-password-container')
-			password_again_container = $('#input-password-again-container')	
-
-			# check the password length and if ok make sure they match
-			if(password.length < 8)
-				password_container.parents('.control-group').addClass('error')
-				password_container.append('<div class="help-inline">8 characters with letters & numbers</div>')
-			else
-				if(password != password_again)
-					password_container.parents('.control-group').addClass('error')
-					password_container.append('<div class="help-inline">Passwords do not match</div>')
-					password_again_container.parents('.control-group').addClass('error')
-					password_again_container.append('<div class="help-inline">Passwords do not match</div>')				
+			password_again_container = $('#input-password-again-container')		
 
 			if($('#register-modal .error').length==0)
+				# check the password length and if ok make sure they match
+				if(password.length < 8)
+					password_container.parents('.control-group').addClass('error')
+					password_container.append('<div class="help-inline">8 characters with letters & numbers</div>')
+				else
+					if(password != password_again)
+						password_container.parents('.control-group').addClass('error')
+						password_container.append('<div class="help-inline">Passwords do not match</div>')
+						password_again_container.parents('.control-group').addClass('error')
+						password_again_container.append('<div class="help-inline">Passwords do not match</div>')				
+
+			if($('#register-modal .error').length==0)
+				$('#sign-up-btn').val('Processing....')	
 				$.ajax
 					type: 'POST'
 					url: '/users'
 					data: { user: {username: username, email: email, password: password, password_confirm: password_again} }
 					success: (results, textStatus, jqHXR) ->
 						console.log results
-						if (results.indexOf('email') != -1)
+						
+						# success!
+						if (results.indexOf('Member created successfully') == 0)
+							$('#signup-success-modal .content').html('<p style="text-align:center">'+results+'</p>')
+							$('#signup-success-modal').modal('show')
+						# bad email address
+						else if (results.indexOf('email') != -1)
 							email_container = $('#input-email-container')
 							email_container.parents('.control-group').addClass('error')
 							email_container.append('<div class="help-inline">'+results+'</div>')	
 						# catch Username and username
-						if (results.indexOf('sername') != -1)
+						else if (results.indexOf('sername') != -1)
 							username_container = $('#input-username-container')
 							username_container.parents('.control-group').addClass('error')
 							username_container.append('<div class="help-inline">'+results+'</div>')
-						if (results.indexOf('assword') != -1)
+						# invalid password
+						else if (results.indexOf('assword') != -1)
 							if results.indexOf('INVALID_NEW_PASSWORD: Your password m' != -1)
 								results = "M#{results.slice(37)}"
 							password_container = $('#input-password-container')
 							password_container.parents('.control-group').addClass('error')
-							password_container.append('<div class="help-inline">'+results+'</div>')						
+							password_container.append('<div class="help-inline">'+results+'</div>')	
+
+						$('#sign-up-btn').val('Signup')							
 					error: (jqXHR, textStatus, errorThrown) ->	
 						console.log textStatus
+						$('#sign-up-btn').val('Signup')			
 			false
 
 	maxEmailCount = 10
