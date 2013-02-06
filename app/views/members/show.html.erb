@@ -195,7 +195,7 @@
 
                 <h2><%= pluralize(@past_challenges.count, "PAST CHALLENGE").upcase %></h2>
                 <div class="content">
-                     <%= render partial: "challenges_sidebar", locals: {challenges: @past_challenges[1..3]} %>
+                     <%= render partial: "challenges_sidebar", locals: {challenges: @past_challenges[0..2]} %>
                 </div>
 
                 <div class="content total-link">

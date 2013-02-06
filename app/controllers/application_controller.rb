@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_access_token
   before_filter :set_gon_variables
 
-  ACTIVE_CHALLENGE_STATUSES = ['Created', 'Review', 'Review - Pending']
-
   def set_access_token
     # ApiModel.access_token = current_user.try(:access_token) || guest_access_token
     ApiModel.access_token = current_access_token

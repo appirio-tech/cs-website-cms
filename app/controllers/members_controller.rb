@@ -56,12 +56,11 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,percent_submitted,total_1st_place,total_2nd_place,total_3st_place' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place' })
     @active_challenges = []
     @past_challenges = []
     @member.challenges.each do |challenge|
-      if !challenge.challenge_participants.records.first.status.eql?('Watching') &&
-        ACTIVE_CHALLENGE_STATUSES.include?(challenge.status)
+      if !challenge.challenge_participants.records.first.status.eql?('Watching') && challenge.active?
         @active_challenges << challenge
       elsif challenge.challenge_participants.records.first.has_submission
         @past_challenges << challenge
