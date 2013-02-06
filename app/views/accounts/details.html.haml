@@ -9,7 +9,7 @@
         .control-group.pull-left
           %label.control-label First Name
           .controls
-            = text_field_tag "account[last_name]", @member.first_name, class: "input-medium"
+            = text_field_tag "account[first_name__c]", @member.first_name, class: "input-medium"
         .control-group.pull-left
           %label.control-label Username:
           .controls= current_user.username
@@ -18,55 +18,55 @@
         .control-group.pull-left
           %label.control-label Last Name
           .controls
-            = text_field_tag "account[last_name]", @member.last_name, class: "input-medium"            
+            = text_field_tag "account[last_name__c]", @member.last_name, class: "input-medium"            
         .control-group.pull-left
           %label.control-label Email Address:
           .controls
-            = text_field_tag "account[email]", @member.email, class: "input-large"            
+            = text_field_tag "account[email__c]", @member.email, class: "input-large"            
 
       .controls-row
         .control-group
           %label.control-label Address 1
           .controls
-            = text_field_tag "account[address_line1]", @member.address_line1, class: "input-xxxlarge"
+            = text_field_tag "account[address_line1__c]", @member.address_line1, class: "input-xxxlarge"
 
       .controls-row
         .control-group
           %label.control-label Address 2
           .controls
-            = text_field_tag "account[address_line2]", @member.address_line2, class: "input-xxxlarge"
+            = text_field_tag "account[address_line2__c]", @member.address_line2, class: "input-xxxlarge"
 
       .controls-row
         .control-group.pull-left
           %label.control-label City
           .controls 
-            = text_field_tag  "account[city]", @member.city, class: "input-medium"
+            = text_field_tag  "account[city__c]", @member.city, class: "input-medium"
         .control-group.pull-left
           %label.control-label State
           .controls 
-            = text_field_tag  "account[state]", @member.state, class: "input-small"
+            = text_field_tag  "account[state__c]", @member.state, class: "input-small"
         .control-group.pull-left
           %label.control-label Zip
           .controls 
-            = text_field_tag  "account[zip]", @member.zip, class: "input-small"
+            = text_field_tag  "account[zip__c]", @member.zip, class: "input-small"
 
       .controls-row
         .control-group
           %label.control-label Country
           .controls
-            = select_tag "account[country]", country_options_for_select(@member.country, ["United States"]), class: "input-medium"
+            = select_tag "account[country__c]", country_options_for_select(@member.country, ["United States"]), class: "input-medium"
 
       .controls-row
         .control-group
           %label.control-label Phone
           .controls
-            = text_field_tag "account[phone_mobile]", @member.phone_mobile, class: "input-medium"
+            = text_field_tag "account[phone_mobile__c]", @member.phone_mobile, class: "input-medium"
 
       .controls-row
         .control-group
           %label.control-label Time Zone
           .controls
-            = select_tag "account[time_zone]", time_zone_options_for_select(@member.time_zone, ActiveSupport::TimeZone.us_zones), class: "select-xxxlarge"
+            = select_tag "account[time_zone__c]", time_zone_options_for_select(@member.time_zone, ActiveSupport::TimeZone.us_zones), class: "select-xxxlarge"
 
       .control-group
         = submit_tag "SUBMIT", class: "btn pull-right"
