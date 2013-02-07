@@ -33,7 +33,7 @@ class Participant < ApiModel
   # Note that we're not using the member data in the json because it
   # lacks many attributes. We simply just do another api call
   def member
-    Member.find(@member.name)
+    Member.new @member
   end
 
   # Typecast into Boolean
