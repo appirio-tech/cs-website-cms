@@ -3911,6 +3911,10 @@ h2.message {
   margin-left: 0;
 }
 
+#badges > div:first-child{
+    margin-left: 0;
+}
+
 .controls div {
   color: #d7d7d7;
 }
