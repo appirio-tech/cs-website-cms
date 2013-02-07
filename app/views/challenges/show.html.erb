@@ -36,7 +36,7 @@
         <h2>GET STARTED</h2>
 
           <p>
-          <% if @current_member_participant.submitted? %>
+          <% if @current_member_participant.try('submitted?') %>
               <% if user_signed_in? %>
                 <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), register_challenge_path(@challenge), class: "btn" %>
               <% end %>
@@ -45,7 +45,7 @@
             <% if user_signed_in? %>
               <% if !@current_member_participant.registered? && !@challenge.closed_for_registration? %>
                 <%= link_to content_tag(:span, "REGISTER"), register_challenge_path(@challenge), class: "btn" %>
-                <%= link_to content_tag(:span, "ADD TO WATCH LIST"), challenge_path(@challenge), class: "btn" %>
+                <%= link_to content_tag(:span, "ADD TO WATCH LIST"), watch_challenge_path(@challenge), class: "btn" %>
                 <br/><br/>
                 We may also periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry however, we highly recommend that you register for this challenge if you have any interested in participating or would simply like to stay informed.
 
@@ -54,11 +54,11 @@
                 <br/><br/>
                 Being registered for a challenge will allow you to receive all comments posted to the discussion board plus we may periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry.
 
-              <% elsif @current_member_participant.registered? %>
+              <% elsif @current_member_participant.try('registered?') %>
                 <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), register_challenge_path(@challenge), class: "btn" %>
               <% end %>                    
             <% else %>
-                <strong>Please login to submit for this challenge.</strong>
+                Please login to register and submit for this challenge.
             <% end %>
             </div>
           <% end %>
@@ -100,21 +100,24 @@
         <h2>PARTICIPATION</h2>
         <p>
           <% if user_signed_in? %>
-          Your status: <%= @current_member_participant.status %><br/>
+            Your status: <%= @current_member_participant.status %><br/>
           <% end %>
-          <%= link_to pluralize(@challenge.participating_members, 'member'), "#" %> participating<br/>
-          <%= link_to pluralize(@challenge.registered_members, 'member'), "#" %> registered
+
+          <%= link_to "#{pluralize(@challenge.participating_members, 'member')} participating with #{@challenge.registered_members} registered", participants_challenge_path(@challenge) %>
+
         </p>
 
         <% if @challenge.assets.present? %>
         <h2>ASSETS</h2>
-        <ul class="unstyled">
+        <p><ul class="unstyled">
           <% @challenge.assets.each do |asset| %>
-            <li><%= link_to asset, "#" %></li>
+            <li><%= link_to asset, "https://s3.amazonaws.com/#{ENV['AMAZON_S3_DEFAULT_BUCKET']}/challenges/#{params[:id]}/#{asset}", :target => '_blank' %></li>
           <% end %>
-        </ul>
+        </ul></p>
         <% end %>
 
+<%
+=begin
         <h2>SHARE</h2>
         <ul class="unstyled inline">
             <li><a href="#" class="circle-orange"><span class="github">github</span></a></li>
@@ -122,9 +125,11 @@
             <li><a href="#" class="circle-orange"><span class="twitter">twitter</span></a></li>
             <li><a href="#" class="circle-orange"><span class="linkedin">linkedin</span></a></li>
         </ul>
+=end 
+%>       
 
         <h2>Chrome Extension</h2>
-        <p>Install the <a href="#">CloudSpokes Chrome Extension</a> for quick and easy access to the latest
+        <p>Install the <a href="https://chrome.google.com/webstore/detail/gdlkedihjlddoaplefphpmiibpnnpeap">CloudSpokes Chrome Extension</a> for quick and easy access to the latest
           CloudSpokes challenges, your payments, leaderboards and more!</p>
       </div>
     </div>

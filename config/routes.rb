@@ -41,7 +41,7 @@ CsWebsiteCms::Application.routes.draw do
       post "comment"
       get 'register'
       get 'watch'
-      get 'participant'
+      get 'participants'
     end
 
     resource :submission, only: [:show, :update] do

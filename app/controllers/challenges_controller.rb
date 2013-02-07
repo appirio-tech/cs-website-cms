@@ -11,7 +11,7 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find params[:id]
-    puts "======== submitted #{@current_member_participant.submitted?}"
+    puts @challenge.assets.to_yaml
   end
 
   # rss feed based upon the selected platform, technology & category
@@ -22,16 +22,25 @@ class ChallengesController < ApplicationController
   def update
   end
 
-  def participant
-    render :json => Participant.current_status(params[:id], current_user.username).status
+  def participants
+    @challenge = Challenge.find params[:id]
   end
 
+  # TODO - MAKE SURE THEY AGREE TO TOS
   def register
-    render :json => Participant.change_status(params[:id], current_user.username, {:status => 'Registered'})
+    results = Participant.change_status(params[:id], current_user.username, 
+      {:status => 'Registered'})
+    flash[:notice] = "You have been registered for this challenge." if results.success.eql?('true')
+    flash[:alert]  = "There was an error registering you for this challenge." if results.success.eql?('false')
+    redirect_to challenge_path(params[:id])
   end
 
   def watch
-    render :json => Participant.change_status(params[:id], current_user.username, {:status => 'Watching'})
+    results = Participant.change_status(params[:id], current_user.username, 
+      {:status => 'Watching'})
+    flash[:notice] = "You are now watching this challenge." if results.success.eql?('true')
+    flash[:alert]  = "There was an error adding you to the watch list." if results.success.eql?('false')
+    redirect_to challenge_path(params[:id])
   end  
 
   def comment

@@ -1,0 +1,27 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="title"><h1>PAST CHALLENGES</h1></div>
+
+        <% @past_challenges.in_groups_of(2, false) do |row_challenges| %>
+        <div class="row-fluid">
+        <% for c in row_challenges %>                
+            <div class="span6">
+                <div class="challenge well well-large">
+                    <h3><%= link_to c.name, challenge_path(c)  %></h3>
+                    <strong><%= c.challenge_participants.records.first.status %></strong><br/>
+                    Ended <%= c.end_date.strftime("%B %d, %Y") %><br/>
+                    <%= pluralize(c.participating_members, 'member') %> participated<br/>
+                    <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
+                    Tags: <%= technology_tag_links(c) %>
+                    <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
+                </div>
+            </div>
+        <% end %> 
+        </div>
+        <% end %>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

@@ -3,7 +3,8 @@ class Participant < ApiModel
     "#{ENV['CS_API_URL']}/challenges"
   end
 
-  attr_accessor :id, :attributes, :has_submission, :member, :status, :challenge
+  attr_accessor :id, :has_submission, :member, :status, :challenge, 
+    :country, :total_wins, :total_public_money
 
   # Cleanup up the __r convention
   def initialize(params={})
