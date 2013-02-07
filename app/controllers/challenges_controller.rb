@@ -5,6 +5,7 @@ class ChallengesController < ApplicationController
   before_filter :current_user_participant, :only => [:show]
 
   def index
+    # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     @challenges = Challenge.all params[:filters]
   end
