@@ -24,6 +24,9 @@
           <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
         <% end %>
 
+        <%= render partial: "call_to_action", locals: {challenge: @challenge, 
+          current_member_participant: @current_member_participant} %>        
+
         <br/>
 
         <h2 class="discussion">DISCUSSION</h2>
@@ -32,39 +35,10 @@
 
       <div class="span4">
 
-        <% unless @challenge.challenge_type.eql?("Info Only - No Registration") %>
         <h2>GET STARTED</h2>
-
-          <p>
-          <% if @current_member_participant.try('submitted?') %>
-              <% if user_signed_in? %>
-                <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), register_challenge_path(@challenge), class: "btn" %>
-              <% end %>
-          <% elsif @challenge.open? %>   
-            <div>
-            <% if user_signed_in? %>
-              <% if !@current_member_participant.registered? && !@challenge.closed_for_registration? %>
-                <%= link_to content_tag(:span, "REGISTER"), register_challenge_path(@challenge), class: "btn" %>
-                <%= link_to content_tag(:span, "ADD TO WATCH LIST"), watch_challenge_path(@challenge), class: "btn" %>
-                <br/><br/>
-                We may also periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry however, we highly recommend that you register for this challenge if you have any interested in participating or would simply like to stay informed.
-
-              <% elsif @current_member_participant.status.eql?('Watching') && !@challenge.closed_for_registration? %>
-                <%= link_to content_tag(:span, "REGISTER"), register_challenge_path(@challenge), class: "btn" %>
-                <br/><br/>
-                Being registered for a challenge will allow you to receive all comments posted to the discussion board plus we may periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry.
-
-              <% elsif @current_member_participant.try('registered?') %>
-                <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), register_challenge_path(@challenge), class: "btn" %>
-              <% end %>                    
-            <% else %>
-                Please login to register and submit for this challenge.
-            <% end %>
-            </div>
-          <% end %>
-
+        <%= render partial: "call_to_action", locals: {challenge: @challenge, 
+          current_member_participant: @current_member_participant} %>
         </p>
-        <% end %>
 
         <h2>ADMINISTRATION</h2>
         <p>
@@ -116,17 +90,20 @@
         </ul></p>
         <% end %>
 
-<%
-=begin
         <h2>SHARE</h2>
-        <ul class="unstyled inline">
-            <li><a href="#" class="circle-orange"><span class="github">github</span></a></li>
-            <li><a href="#" class="circle-orange"><span class="facebook">facebook</span></a></li>
-            <li><a href="#" class="circle-orange"><span class="twitter">twitter</span></a></li>
-            <li><a href="#" class="circle-orange"><span class="linkedin">linkedin</span></a></li>
-        </ul>
-=end 
-%>       
+        <p>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5113b62254784963"></script>
+        <!-- AddThis Button END -->
+        </p>  
 
         <h2>Chrome Extension</h2>
         <p>Install the <a href="https://chrome.google.com/webstore/detail/gdlkedihjlddoaplefphpmiibpnnpeap">CloudSpokes Chrome Extension</a> for quick and easy access to the latest

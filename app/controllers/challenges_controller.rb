@@ -48,26 +48,22 @@ class ChallengesController < ApplicationController
 
     unless verify_recaptcha
       flash[:unsaved_comments] = comments
-      flash[:alert] = "There was an error with the recaptcha code below. Please resubmit your comment."
-      return redirect_to :back
+      return redirect_to :back, :alert => 'There was an error with the recaptcha code below. Please resubmit your comment.'
     end      
 
     if comments.length > 2000
       flash[:unsaved_comments] = comments
-      flash[:alert] = "Comments cannot be longer than 2000 characters. Please try again."        
-      return redirect_to :back
+      return redirect_to :back, :alert => 'Comments cannot be longer than 2000 characters. Please try again.'
     end
 
     challenge = Challenge.find params[:id]
     params[:comment][:comments] = params[:comment][:comments].gsub(/\n/, "<br/>")
     resp = challenge.create_comment(params[:comment])
     if resp.success == "true"
-      flash[:notice] = "Comment is created successfully."
-      redirect_to challenge_path(challenge)
+      redirect_to challenge_path(challenge), :notice => 'Comment successfully posted to discussions.'
     else
       flash[:unsaved_comments] = comments
-      flash[:alert] = "[#{resp.message}] There was an error posting your comments. Please try again."
-      return redirect_to :back
+      return redirect_to :back, :alert => "[#{resp.message}] There was an error posting your comments. Please try again."
     end
   end
 
