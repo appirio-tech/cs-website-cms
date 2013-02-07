@@ -59,6 +59,7 @@ class ChallengesController < ApplicationController
     end
 
     challenge = Challenge.find params[:id]
+    params[:comment][:comments] = params[:comment][:comments].gsub(/\n/, "<br/>")
     resp = challenge.create_comment(params[:comment])
     if resp.success == "true"
       flash[:notice] = "Comment is created successfully."
