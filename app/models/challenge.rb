@@ -66,23 +66,9 @@ class Challenge < ApiModel
 
   # options are
   #   technology, platform, category, order_by
-  def self.all(options = {}, page = 1)
-    options = (options || {}).dup
-    options.each {|k,v| options.delete(k) if v.blank? }
-    state = options.delete(:state) || "open" # default is open
-    page = (page || 1).to_i
-
-    total = request(:get, '', options).count 
-
-    options[:offset] = (page-1)*per_page
-    options[:limit] = per_page
-   
-    WillPaginate::Collection.create(page, per_page, total) do |pager|
-      entity = (state == "open" ? "" : state)
-      challenges = request(:get, entity, options).map {|challenge| Challenge.new challenge}
-      pager.replace(challenges)
-    end
-
+  def self.all(options = {})
+    options.each {|k,v| options.delete(k) if v.blank? } if options
+    naked_get('challenges', options).map {|challenge| Challenge.new challenge}
   end
 
   # Return an object instead of a string

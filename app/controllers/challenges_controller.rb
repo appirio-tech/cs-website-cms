@@ -4,14 +4,13 @@ class ChallengesController < ApplicationController
   # before_filter :authenticate_user!
   before_filter :current_user_participant, :only => [:show]
 
-  # list of challenges including open/closed status & pagination
   def index
-    @challenges = Challenge.all params[:filters], params[:page]
+    params[:filters] = {:technology => params[:technology] } if params[:technology] 
+    @challenges = Challenge.all params[:filters]
   end
 
   def show
     @challenge = Challenge.find params[:id]
-    puts @challenge.assets.to_yaml
   end
 
   # rss feed based upon the selected platform, technology & category

@@ -7,7 +7,7 @@ class AuthenticationsController < ApplicationController
   def callback
     omniauth = request.env['omniauth.auth']
     # see if the user exists in sfdc
-    sfdc_account = Account.find(thirdparty_username(omniauth), omniauth['provider'])
+    sfdc_account = Account.find_by_service(thirdparty_username(omniauth), omniauth['provider'])
     #puts "sfdc_account: #{sfdc_account.to_yaml}"
 
     # successfully found a user in sfdc

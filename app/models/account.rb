@@ -8,7 +8,7 @@ class Account < ApiModel
       "#{ENV['CS_API_URL']}/accounts"
     end
 
-    def find(name, provider = "cloudspokes")
+    def find_by_service(name, provider = "cloudspokes")
       data = {
         service: provider,
         service_username: name

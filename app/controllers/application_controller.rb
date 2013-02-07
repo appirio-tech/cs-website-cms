@@ -59,8 +59,9 @@ class ApplicationController < ActionController::Base
       guest_access_token
     else
       if current_user.access_token
+        puts "====== Has Access Token expired?: #{Time.now.utc} - #{current_user.updated_at} - expired #{Time.now.utc > 10.minutes.since(current_user.updated_at)}"
         # check and see if it's an hour old
-        update_user_with_sfdc_info if Time.now > 60.minutes.since(current_user.updated_at)
+        update_user_with_sfdc_info if Time.now.utc > 10.minutes.since(current_user.updated_at)
       else
         update_user_with_sfdc_info
       end
@@ -69,22 +70,22 @@ class ApplicationController < ActionController::Base
   end 
 
   def update_user_with_sfdc_info
-
+    puts '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
     # authenticate to sfdc with the admin's access token
     ApiModel.access_token = admin_access_token    
 
     # TODO --- just set the member's access token to the guest token
     # sfdc_authentication = Account.new(current_user).authenticate('12345678a')
     # current_user.access_token = sfdc_authentication.access_token
-    current_user.access_token = guest_access_token
-
-    sfdc_account = Account.find(current_user.username, 'cloudspokes')
-    current_user.sfdc_username = sfdc_account.sfdc_username
-    current_user.email = sfdc_account.email
-    current_user.profile_pic = sfdc_account.profile_pic
-    current_user.accountid = sfdc_account.accountid
-    # update the user in pg
-    puts 'Error saving current_user with sfdc data: #current_user.errors.full_messages' unless current_user.save
+    sfdc_account = Account.find(current_user.username)
+    user = User.find(current_user.id)
+    user.access_token = guest_access_token
+    user.sfdc_username = sfdc_account.user.sfdc_username
+    user.email = sfdc_account.user.email
+    user.profile_pic = sfdc_account.user.profile_pic
+    user.accountid = sfdc_account.user.accountid  
+    user.skip_confirmation!
+    puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" if !user.save
 
   end
 
