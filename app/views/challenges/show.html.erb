@@ -85,7 +85,7 @@
         <h2>ASSETS</h2>
         <p><ul class="unstyled">
           <% @challenge.assets.each do |asset| %>
-            <li><%= link_to asset, "https://s3.amazonaws.com/#{ENV['AMAZON_S3_DEFAULT_BUCKET']}/challenges/#{params[:id]}/#{asset}", :target => '_blank' %></li>
+            <li><%= link_to asset, "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{asset}", :target => '_blank' %></li>
           <% end %>
         </ul></p>
         <% end %>
