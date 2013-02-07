@@ -6,8 +6,8 @@
 
     <%= text_area_tag "comment[comments]", flash[:unsaved_comments], placeholder: "Press SHIFT-ENTER for a line break. Max 2000 characters." %>
     <%= recaptcha_tags %>
-    <%= submit_tag "Save", class: "btn" %>
+    <%= submit_tag "Post Comment", class: "btn" %>
   <% end %>
 <% else %>
-  <p> Please <%= link_to "Sign In", login_path %> to post a commnet </p> 
+  <p> Please <%= link_to "login", '#login' %> to post a comment.</p> 
 <% end %>

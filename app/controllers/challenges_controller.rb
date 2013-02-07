@@ -58,11 +58,11 @@ class ChallengesController < ApplicationController
       return redirect_to :back
     end
 
-    @challenge = Challenge.find params[:id]
-    resp = @challenge.create_comment(params[:comment])
+    challenge = Challenge.find params[:id]
+    resp = challenge.create_comment(params[:comment])
     if resp.success == "true"
       flash[:notice] = "Comment is created successfully."
-      redirect_to challenge_path(@challenge)
+      redirect_to challenge_path(challenge)
     else
       flash[:unsaved_comments] = comments
       flash[:alert] = "[#{resp.message}] There was an error posting your comments. Please try again."
