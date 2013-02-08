@@ -9,13 +9,15 @@
         <div class="row-fluid">
             <% for p in row_participants %> 
             <div class="span4">
-                <div class=" well well-large">
+                <div class="well well-large">
                     <%= image_tag(p.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
-                    <h2><%= link_to p.member.name, member_path(p.member) %></h2>
-                    <%= p.member.country %><br/>
-                    <%= number_to_currency p.member.total_public_money, precision: 0 %><br/>
-                    <%= pluralize(p.total_wins, 'win') %><br>
-                    <%= p.status %>
+                    <div class="detail">
+                        <h2><%= link_to p.member.name, member_path(p.member) %></h2>
+                        <%= p.member.country %><br/>
+                        <%= number_to_currency p.member.total_public_money, precision: 0 %><br/>
+                        <%= pluralize(p.total_wins, 'win') %><br>
+                        <%= p.status %>
+                    </div>
                 </div>
             </div>
             <% end %>

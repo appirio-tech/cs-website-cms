@@ -1927,6 +1927,10 @@ legend + .control-group {
   right: 20px;
 }
 
+.well.well-large .detail{
+  margin-left: 100px;
+}
+
 .well-small {
   padding: 9px;
 }
