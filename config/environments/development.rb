@@ -52,5 +52,7 @@ CsWebsiteCms::Application.configure do
   config.assets.initialize_on_precompile = true
   config.assets.compile = true
 
+  Refinery::Core.config.s3_backend = true
+
   $stdout.sync = true
 end
