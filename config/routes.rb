@@ -20,7 +20,7 @@ CsWebsiteCms::Application.routes.draw do
   get 'forums', to: 'members#forums'
   get '/community', to: 'members#community'
   get '/leaderboard', to: 'members#leaderboard' # this is temp
-  resources :members, only: [:index, :show, :update] do
+  resources :members, only: [:show, :update] do
     member do
       post 'login_managed_by'
       get 'challenges'

@@ -127,6 +127,8 @@ class ApiModel
     endpoint << "?#{params.to_param}" if params.present?
     puts "=====$$$$$ CALLING NAKED GET for #{endpoint}"
     get_response(RestClient.get(endpoint, api_request_headers))
+  rescue RestClient::ResourceNotFound => e
+    raise ApiExceptions::EntityNotFoundError.new    
   end  
 
   def self.naked_post(endpoint, params)
@@ -154,6 +156,8 @@ class ApiModel
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
+  rescue RestClient::ResourceNotFound => e
+    raise ApiExceptions::EntityNotFoundError.new
   end
 
   def self.raw_get_has_many(entities = [], params)
@@ -163,6 +167,8 @@ class ApiModel
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
+  rescue RestClient::ResourceNotFound => e
+    raise ApiExceptions::EntityNotFoundError.new    
   end  
 
   # Sanitized response to only the attributes we've defined
