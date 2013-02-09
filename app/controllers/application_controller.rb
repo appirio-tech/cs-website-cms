@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
     user.email = sfdc_account.user.email
     user.profile_pic = sfdc_account.user.profile_pic
     user.accountid = sfdc_account.user.accountid  
-    user.skip_confirmation!
+    # user.skip_confirmation!
     puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" if !user.save
 
   end

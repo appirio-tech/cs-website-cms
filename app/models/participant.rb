@@ -9,31 +9,40 @@ class Participant < ApiModel
   # Cleanup up the __r convention
   def initialize(params={})
     params['member'] = params.delete('member__r')
+    params['challenge'] = params.delete('challenge__r')
     super(params)
   end
 
+  def self.find_by_member(challenge_id, membername)
+    Participant.new naked_get "participants/#{membername}/#{challenge_id}"
+  end
+
   def self.current_status(challenge_id, membername)
-    participant = naked_get "participants/#{membername}/#{challenge_id}"
-    if participant
-      Participant.new naked_get "participants/#{membername}/#{challenge_id}"
-    else
-      Participant.new :status => 'Not Registered'
-    end
+    participant = find_by_member(challenge_id, membername)
+    return Participant.new :status => 'Not Registered' unless participant
+    participant
   end   
 
   def self.change_status(challenge_id, membername, params)
-    if current_status(challenge_id, membername).registered?
+    if find_by_member(challenge_id, membername).registered?
       naked_put "participants/#{membername}/#{challenge_id}", {'fields' => params}
     else
       naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
     end
   end  
 
-  # has_one :member
-  # Note that we're not using the member data in the json because it
-  # lacks many attributes. We simply just do another api call
+  def submission_deliverables
+    #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
+    puts challenge
+    self.class.naked_get("participants/#{member.name}/#{challenge.challenge_id}/deliverables").map {|submission| SubmissionDeliverable.new(submission)}
+  end
+
   def member
     Member.new @member
+  end
+
+  def challenge
+    Challenge.new @challenge
   end
 
   # Typecast into Boolean

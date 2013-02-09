@@ -2,7 +2,10 @@ class SubmissionsController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @deliverables = submission.deliverables
+    #@deliverables = submission.deliverables
+    participant = Participant.find_by_member(params[:challenge_id], current_user.username)
+    # current submissions from sfdc -- returns a collection of SubmissionDeliverables
+    render :json => participant.submission_deliverables
   end
 
   def update

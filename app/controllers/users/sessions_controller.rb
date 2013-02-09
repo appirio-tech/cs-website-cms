@@ -26,7 +26,7 @@ class Users::SessionsController < Devise::SessionsController
         user =  User.new
         user.username = params[:user][:username]
         user.password = params[:user][:password]
-        user.skip_confirmation!
+        # user.skip_confirmation!
         user.create_account
 
         # save their record, sign them in and redirect

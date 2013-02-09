@@ -54,7 +54,7 @@ class AuthenticationsController < ApplicationController
         user.profile_pic = sfdc_account.profile_pic
         user.accountid = sfdc_account.accountid
         user.username = sfdc_account.username
-        user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
+        # user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
         user.create_account
         if user.save
           #user.roles << Role.find_by_title('Refinery')
