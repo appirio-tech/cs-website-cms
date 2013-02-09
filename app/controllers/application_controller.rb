@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  rescue_from ApiExceptions::EntityNotFoundError, :with => :not_found
-  rescue_from ApiExceptions::AccessDenied, :with => :access_denied
+  #rescue_from ApiExceptions::EntityNotFoundError, :with => :not_found
+  #rescue_from ApiExceptions::AccessDenied, :with => :access_denied
 
   before_filter :set_access_token
   before_filter :set_gon_variables
@@ -21,13 +21,13 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def not_found
-    redirect_to '/not_found'
-  end  
+  # def not_found
+  #   redirect_to '/not_found'
+  # end  
 
-  def access_denied
-    redirect_to '/access_denied'
-  end    
+  # def access_denied
+  #   redirect_to '/access_denied'
+  # end    
 
   def guest_access_token
     puts "=========== using guest access token"
