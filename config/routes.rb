@@ -40,8 +40,12 @@ CsWebsiteCms::Application.routes.draw do
       get 'registrants'
       post "comment"
       get 'register'
+      match 'agree-tos' => 'challenges#agree_tos'
       get 'watch'
       get 'participants'
+      get 'preview'
+      get 'submissions'
+      get 'results'
     end
 
     resource :submission, only: [:show, :update] do

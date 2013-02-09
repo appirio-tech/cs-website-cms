@@ -106,7 +106,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.months
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -127,7 +127,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 12.hours
   
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false

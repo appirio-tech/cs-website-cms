@@ -1,0 +1,38 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+    <div class="title"><h1>RESULTS</h1></div>
+
+					<div class="row-fluid">
+						<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
+            <div class="span6">
+            		<% for s in scorecard_row %> 
+                <div class="placement well">
+                    <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+                    <div class="detail">
+	                    <%= link_to s.member.name, member_path(s.member) %>
+	                    <%= s.member.country %><br/><%= number_to_currency(s.money_awarded, :precision => 0) %><br/>
+	                    Score: <%= s.score %>
+	                  </div>
+	                  <div style="padding-top:10px;padding-left:10px">
+	                  <table>
+	                  <% s.judges_scores.each do |judge| %>
+	                  <tr>
+	                  <td><%= judge.reviewer__r.name %></td><td>&nbsp;&nbsp;</td>
+	                  <td><%= number_with_precision(judge.final_score, :precision => 2) %></td><td>&nbsp;&nbsp;</td>
+	                  <td>Scorecard</td>
+	                  </tr>
+	                  <% end %>
+		                </table>
+	                	</div>
+                    <span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
+        </div>    
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

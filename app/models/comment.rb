@@ -19,7 +19,6 @@ class Comment < ApiModel
 
   def replies
     return [] if @replies.blank?
-
     @replies.records.map {|c| Comment.new(c)}
   end
 
@@ -27,26 +26,3 @@ class Comment < ApiModel
     @reply_to.present?
   end
 end
-
-# http://cs-api-sandbox.herokuapp.com/v1/challenges/2/comments
-
-# {
-#     "attributes": {
-#         "type": "Challenge_Comment__c",
-#         "url": "/services/data/v22.0/sobjects/Challenge_Comment__c/a09J0000003TRecIAG"
-#     },
-#     "member__r": {
-#         "attributes": {
-#             "type": "Member__c",
-#             "url": "/services/data/v22.0/sobjects/Member__c/a0IJ0000000fSAGMA2"
-#         },
-#         "name": "test2localhost",
-#         "id": "a0IJ0000000fSAGMA2",
-#         "profile_pic": "http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"
-#     },
-#     "comment": "test",
-#     "member": "a0IJ0000000fSAGMA2",
-#     "createddate": "2012-10-30T09:10:31.000+0000",
-#     "id": "a09J0000003TRecIAG",
-#     "challenge": "a0GJ0000002ZBv7MAG"
-# },

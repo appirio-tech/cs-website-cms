@@ -7,18 +7,17 @@ class Challenge < ApiModel
     :name, :description, :status, :release_to_open_source, :additional_info,
     :categories, :is_open, :discussion_board, :registered_members, :challenge_prizes,
     :submission_details, :winner_announced, :community, :days_till_close,
-    :platforms, :technologies, :submissions, :participating_members,
-    :challenge_prizes, :challenge_participants,
+    :platforms, :technologies, :submissions, :participating_members, :default_tos,
+    :challenge_prizes, :challenge_participants, :registration_end_date, :account,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
     :challenge_reviewers, :challenge_comment_notifiers, :assets
 
   has_many :comments
-
-  # Note that we're not using the participants data in the json because it
-  # lacks many attributes. We simply just do another api call.
   has_many :participants
+  has_many :submission_deliverables
+  has_many :scorecards
 
   # Cleanup up the __r convention -- may want to delete this
   def initialize(params={})
@@ -71,6 +70,10 @@ class Challenge < ApiModel
     naked_get('challenges', options).map {|challenge| Challenge.new challenge}
   end
 
+  # def submission_deliverables
+  #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
+  # end
+
   # Return an object instead of a string
   def start_date
     Time.parse(@start_date) if @start_date
@@ -80,6 +83,10 @@ class Challenge < ApiModel
   def end_date
     Time.parse(@end_date) if @end_date
   end
+
+  def winner_announced
+    Date.parse(@winner_announced) if @winner_announced
+  end  
 
   def challenge_comments
     return [] if @challenge_comments.blank?
@@ -112,6 +119,14 @@ class Challenge < ApiModel
     @assets.records.map(&:filename)
   end
 
+  def uses_default_tos?
+    raw_data.terms_of_service.default_tos
+  end  
+
+  def tos
+    raw_data.terms_of_service.id
+  end
+
   def community_name
     community.try(:name)
   end
@@ -121,16 +136,11 @@ class Challenge < ApiModel
   end
 
   def closed_for_registration?
-    false
-    # @challenge_detail['Registration_End_Date__c'].nil? ? false : Time.parse(@challenge_detail['Registration_End_Date__c']).past?
+    @registration_end_date.nil? ? false : Time.parse(@registration_end_date).past?
   end  
 
   def release_to_open_source?
     !!@release_to_open_source
-  end
-
-  def winner_announced
-    Date.parse(@winner_announced) if @winner_announced
   end
 
   def create_comment(attrs)
@@ -138,15 +148,12 @@ class Challenge < ApiModel
     self.class.post [challenge_id, "comment"], {data: attrs}
   end
 
-  # has_one :status
-  # TODO (this requires authentication)
-  # edit Nov 22: apparently not? O_O
-  # def status
-  #   'nil'
-  # end
-
   def submission_of(user)
     Submission.find(challenge_id, user.username)
+  end 
+
+  def preview?
+    @status.downcase == "planned"
   end
 
   def active?

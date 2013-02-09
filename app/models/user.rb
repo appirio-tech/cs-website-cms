@@ -30,6 +30,18 @@ class User < ActiveRecord::Base
     @acount ||= Account.new(self)
   end
 
+  def challenge_admin?(challenge) 
+    challenge_sponsor?(challenge) || appirio?
+  end  
+
+  def challenge_sponsor?(challenge)
+    accountid == challenge.account
+  end  
+
+  def appirio?
+    email.include?('@appirio.com')
+  end
+
   def plugins=(plugin_names)
     if persisted? # don't add plugins when the user_id is nil.
       UserPlugin.delete_all(:user_id => id)

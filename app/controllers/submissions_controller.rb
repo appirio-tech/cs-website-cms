@@ -1,5 +1,6 @@
 class SubmissionsController < ApplicationController
   before_filter :authenticate_user!
+
   def show
     @deliverables = submission.deliverables
   end
@@ -14,11 +15,13 @@ class SubmissionsController < ApplicationController
   end
 
   private
-  def challenge
-    @challenge ||= Challenge.find(access_token, params[:challenge_id])
-  end
+  
+    def challenge
+      @challenge ||= Challenge.find(access_token, params[:challenge_id])
+    end
 
-  def submission
-    @submission ||= challenge.submission_of(current_user)
-  end
+    def submission
+      @submission ||= challenge.submission_of(current_user)
+    end
+
 end

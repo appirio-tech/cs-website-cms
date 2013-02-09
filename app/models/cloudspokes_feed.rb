@@ -1,12 +1,12 @@
 class CloudspokesFeed < ActiveRecord::Base
   attr_accessible :guid, :name, :published_at, :summary, :entry_type, :url
 
-  def self.update_press_from_feed
-    update_from_feed('http://blog.cloudspokes.com/feeds/posts/default/-/news?alt=rss','press')
+  def self.update_news_from_feed
+    update_from_feed('http://blog.cloudspokes.com/feeds/posts/default/-/news?alt=rss','news')
   end
 
   def self.update_posts_from_feed
-    update_from_feed('http://feeds.feedburner.com/TheCloudSpokesBlog','posts')
+    update_from_feed('http://blog.cloudspokes.com/feeds/posts/default/-/CloudSpokes?alt=rss','posts')
   end  
 
   private

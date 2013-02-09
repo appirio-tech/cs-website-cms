@@ -1,0 +1,22 @@
+<% if challenge.open? %>
+
+  <h2>DEADLINE</h2>
+  <p>
+    <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
+    <br/>
+    <% distance = Time.at(challenge.end_date - Time.zone.now) %>
+    <%= "Due in #{distance.day} days #{distance.hour} hours #{distance.min} minutes" %>
+    <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
+    <br/>
+  </p>
+
+<% else %>
+
+  <h2><%= challenge.status.upcase %></h2>
+  <p>
+    Ended <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
+    <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
+    <br/>
+  </p>
+
+<% end %>

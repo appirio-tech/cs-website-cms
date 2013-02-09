@@ -30,10 +30,10 @@ class Submission < Hashie::Mash
       @storage ||= begin
         fog = Fog::Storage.new(
           :provider                 => 'AWS',
-          :aws_secret_access_key    => ENV['AWS_SECRET'],
-          :aws_access_key_id        => ENV['AWS_KEY']
+          :aws_secret_access_key    => ENV['S3_SECRET'],
+          :aws_access_key_id        => ENV['S3_KEY']
         )
-        fog.directories.get(ENV['AWS_BUCKET'])
+        fog.directories.get(ENV['S3_BUCKET'])
       end
     end
   end
@@ -80,7 +80,6 @@ class Submission < Hashie::Mash
     deliverable
   end
 
-
   def upload_file(file)
     file = storage.files.create(
       :key    => storage_path(File.basename(file.original_filename)),
@@ -90,18 +89,21 @@ class Submission < Hashie::Mash
     create_deliverable type: "Unmanaged Package", url: file.key, source: "storage"
   end
 
-
   private
-  def redis_key
-    self.class.redis_key
-  end
-  def key
-    @key ||= "#{challenge_id}:#{username}"
-  end
-  def storage
-    self.class.storage
-  end
-  def storage_path(name)
-    "challenges/#{challenge_id}/#{username}/#{name}"
-  end
+
+    def redis_key
+      self.class.redis_key
+    end
+
+    def key
+      @key ||= "#{challenge_id}:#{username}"
+    end
+    
+    def storage
+      self.class.storage
+    end
+    
+    def storage_path(name)
+      "challenges/#{challenge_id}/#{username}/#{name}"
+    end
 end

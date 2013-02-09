@@ -35,6 +35,7 @@
 
       <div class="span4">
 
+        <br/><br/><br/>
         <h2>GET STARTED</h2>
         <%= render partial: "call_to_action", locals: {challenge: @challenge, 
           current_member_participant: @current_member_participant} %>
@@ -51,16 +52,7 @@
           <%= platform_and_technology_tag_links(@challenge) %>
         </p>
 
-        <h2>DEADLINE</h2>
-        <p>
-          <%= @challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
-          <br/>
-          <% distance = Time.at(@challenge.end_date - Time.zone.now) %>
-          <%= "Due in #{distance.day} days #{distance.hour} hours #{distance.min} minutes" %>
-          <br/>
-          <%= "Winner Announced on #{@challenge.winner_announced.to_s(:long)}" %>
-          <br/>
-        </p>
+        <%= render partial: "timeframe", locals: {challenge: @challenge} %>
 
         <h2>PRIZES</h2>
         <p>
