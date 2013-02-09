@@ -1,0 +1,42 @@
+= content_wrapper do
+  .span8
+    .title
+      %h1 SCHOOL & WORK INFO
+    %p Please consider filling out your school and work information. We will not reveal your information outside of CloudSpokes, but the additional demographic information is helpful when getting companies to post jobs to our job boards.
+
+    = form_tag account_path, method: "put", class: "form-horizontal jqTransform" do
+      .control-group
+        %label.control-label Company
+        .controls
+          = text_field_tag "account[company]", @member.company, class: "input-large"
+      .control-group
+        %label.control-label School / University
+        .controls
+          = text_field_tag "account[school]", @member.school, class: "input-large"
+      .control-group
+        %label.control-label Years of Experience
+        .controls
+          = text_field_tag "account[years_of_experience]", @member.years_of_experience, class: "input-mini"
+      .control-group
+        %label.control-label Work Status
+        .controls
+          = select_tag("account[work_status]", options_for_select(work_options, @member.work_status) )
+      .control-group
+        %label.control-label Shirt Size
+        .controls
+          = select_tag("account[shirt_size]", options_for_select(shirt_size_options, @member.shirt_size) )
+      .control-group
+        %label.control-label Age Range
+        .controls
+          = select_tag("account[age_range]", options_for_select(age_range_options, @member.age_range) )
+      .control-group
+        %label.control-label Gender
+        .controls
+          = select_tag("account[gender]", options_for_select(gender_options, @member.gender) )
+
+      .control-group
+        .controls
+          = submit_tag "SUBMIT", class: "btn"
+
+
+  = render 'shared/account_menu', :selected_item => 'school_and_work'

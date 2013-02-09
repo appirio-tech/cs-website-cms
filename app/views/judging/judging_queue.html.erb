@@ -12,21 +12,15 @@
                 <p>Once the challenge closes you'll receive a notifications email that the submissions are available and scorecards are ready for you to judge. Once you install, run, test and evaluate each submission (we have plenty of judging instructions for you), you'll complete a scorecard grading the submission. Once all judges have completed all scorecards the winners will be selected.</p>
                 <p>We will pay you $25 for each submission that you judge and a bonus of $50 for every 10 submissions that you judge within a month. You can judge as many submissions as you'd like. Any poor reviews and/or scorecards will not be credit. Only CloudSpokes members that have won at least three challenges are eligible.</p>
 
+                <% @challenges.each do |c| %>
                 <div class="judge well well-large">
-                    <h3><a href="#">CloudSpokes Combo-Search with JavaScript</a></h3>
-                    Categories : JavaScript<br/>
-                    Ends : 01/12/2013<br/>
-                    Due : 01/15/2013
+                    <h3><%= link_to c.name, challenge_path(c) %></h3>
+                    Technologies: <%= platform_and_technology_tag_links(c) %><br/>
+                    Ends: <%= c.end_date.strftime("%B %d, %Y at %H:%M %p") %><br/>
+                    Scorecards Due: <%= c.review_date.to_s(:long) %>
                     <a class="btn pull-right-bottom" href="#"><span>SIGN UP TO JUDGE</span></a>
                 </div>
-
-                <div class="judge well well-large">
-                    <h3><a href="#">CloudSpokes Combo-Search with JavaScript</a></h3>
-                    Categories : JavaScript<br/>
-                    Ends : 01/12/2013<br/>
-                    Due : 01/15/2013
-                    <a class="btn pull-right-bottom" href="#"><span>SIGN UP TO JUDGE</span></a>
-                </div>
+                <% end %>
 
             </div>
 

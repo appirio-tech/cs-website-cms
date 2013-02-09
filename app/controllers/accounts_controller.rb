@@ -2,7 +2,14 @@ class AccountsController < ApplicationController
 	before_filter :authenticate_user!
 
 	def update
-		Member.put(current_user.username, params[:account])
+    params[:account].delete("years_of_experience") if params[:account][:years_of_experience__c].blank?
+    
+    response = Member.put(current_user.username, params[:account])
+    if response.success == "false"
+      flash[:alert] = "Failed to update, reason : #{response.message}"
+    else
+      flash[:notice] = "Updated successfully"
+    end
 		redirect_to :back
 	end
 
@@ -21,7 +28,8 @@ class AccountsController < ApplicationController
 	end
 
 	def school_and_work
-
+    fields = 'id,name,company,school,years_of_experience,work_status,shirt_size,age_range,gender'
+    @member = Member.find(current_user.username, fields: fields)
 	end
 
 	def public_profile
@@ -41,7 +49,7 @@ class AccountsController < ApplicationController
     member = Member.find current_user.username
     member.challenges.each do |challenge|
     	if challenge.active?
-    		status = challenge.raw_data.participants.records.first.status
+    		status = challenge.participants.first.status
     		if status == "Watching"
     			@followed_challenges << challenge
     		else
@@ -54,7 +62,7 @@ class AccountsController < ApplicationController
 	end
 
 	def communities
-
+		@communities = Community.all
 	end
 
 	def referred_members

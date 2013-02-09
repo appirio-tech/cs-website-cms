@@ -3,7 +3,7 @@ class Challenge < ApiModel
 
   attr_accessor :id, :challenge_id, :challenge_type, :attributes,
     :prize_type, :total_prize_money, :top_prize,
-    :start_date, :end_date, :usage_details, :requirements, :post_reg_info,
+    :start_date, :end_date, :review_date, :usage_details, :requirements, :post_reg_info,
     :name, :description, :status, :release_to_open_source, :additional_info,
     :categories, :is_open, :discussion_board, :registered_members, :challenge_prizes,
     :submission_details, :winner_announced, :community, :days_till_close,
@@ -70,6 +70,10 @@ class Challenge < ApiModel
     naked_get('challenges', options).map {|challenge| Challenge.new challenge}
   end
 
+  def self.judging_queue
+     naked_get('judging').map {|challenge| Challenge.new challenge}
+  end
+
   # def submission_deliverables
   #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
   # end
@@ -87,6 +91,10 @@ class Challenge < ApiModel
   def winner_announced
     Date.parse(@winner_announced) if @winner_announced
   end  
+
+  def review_date
+    Date.parse(@review_date) if @review_date
+  end    
 
   def challenge_comments
     return [] if @challenge_comments.blank?
