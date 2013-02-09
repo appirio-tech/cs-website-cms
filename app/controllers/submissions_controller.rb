@@ -15,9 +15,9 @@ class SubmissionsController < ApplicationController
   end
 
   private
-  
+
     def challenge
-      @challenge ||= Challenge.find(access_token, params[:challenge_id])
+      @challenge ||= Challenge.find params[:challenge_id]
     end
 
     def submission

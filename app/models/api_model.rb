@@ -11,12 +11,10 @@ class ApiModel
   # a model collection will have a different endpoint
   # Case in point: Members and Challenges
   def self.has_many(entity, options={})
-    puts "======= calling has_many for #{entity}"
     # add in this relationship to the column_names table
     @column_names << entity.to_sym
     rel_column_names << entity.to_sym
     parent = options[:parent]
-    # puts "parent: #{parent}"
 
     # dynamically create a method on this instance that will reference the collection
     define_method("#{entity.to_sym}=") do |accessor_value|
@@ -25,8 +23,6 @@ class ApiModel
 
     define_method(entity.to_sym) do
       klass = entity.to_s.classify.constantize
-      # puts "klass #{klass}"
-      # puts "to_param: #{to_param} -- #{entity.to_s}"
       (parent || klass).raw_get_has_many([to_param, entity.to_s]).map do |e|
         next if e.respond_to?(:last) # we got an array instead of a Hashie::Mash
         klass.new e

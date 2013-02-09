@@ -149,6 +149,7 @@ class Challenge < ApiModel
   end
 
   def submission_of(user)
+    puts '======== calling submission_of'
     Submission.find(challenge_id, user.username)
   end 
 
