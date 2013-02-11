@@ -49,7 +49,8 @@ class AccountsController < ApplicationController
     member = Member.find current_user.username
     member.challenges.each do |challenge|
     	if challenge.active?
-    		status = challenge.participants.first.status
+    		# status = challenge.participants.first.status
+    		status = 'Watching'
     		if status == "Watching"
     			@followed_challenges << challenge
     		else
