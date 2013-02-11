@@ -1,23 +1,10 @@
-<h2>Sign up</h2>
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
 
-<% if @signup_form.errors.any? %>
-    <% @signup_form.errors.full_messages.each do |msg| %>  
-      <li><%= msg %></li>  
-    <% end %>
-<% end %>
+        <div class="title"><h1>SIGN UP</h1></div>
+        Click the Register above button to get started.
 
-<%= render "users/oauth_login" %>
-
-<%= simple_form_for(@signup_form, :as => resource_name, :url => user_registration_path(resource)) do |f| %>
-
-  <div class="inputs">
-    <%= f.input :username, :required => true %>
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
-  </div>
-
-  <div class="actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

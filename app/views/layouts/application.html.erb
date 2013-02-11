@@ -63,7 +63,7 @@
               </div>
 
               <div class="pull-right">
-                  <%= image_tag(current_user.profile_pic, :width => "35x35") %>
+                  <%= image_tag(profile_pic, :width => "35x35") %>
                   <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
                   <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
                   <% link_to 'Sign out', main_app.destroy_user_session_path, :method => :delete %>
@@ -75,6 +75,7 @@
   </div><!-- /.loginbar-wrapper -->
 
   <%= content_tag :div, flash[:notice], class: "alert alert-success", style: "margin: 20px 20px 20px 20px;" if flash[:notice] %>
+  <%= content_tag :div, flash[:error], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:error] %>
   <%= content_tag :div, flash[:alert], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:alert] %>
 
   <!-- NAVBAR

@@ -24,6 +24,10 @@ module ApplicationHelper
 		:judging_queue      			=> {:value => 'JUDGING QUEUE',       	:link => '/judging/judging-queue'} 
 	}		
 
+  def profile_pic
+    current_user.profile_pic ||= 'http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg'
+  end
+
   def build_menu(position, selected_item)
     content = '<ul class="links">'
     eval("MENU_OPTIONS_#{position.upcase}").each do |item,options|

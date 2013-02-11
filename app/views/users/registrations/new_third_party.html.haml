@@ -1,0 +1,32 @@
+= content_wrapper do
+	= content_tag :div, flash[:error], class: "alert alert-error" if flash[:error]	
+	.title
+		%h1 COMPLETE REGISTRATION
+	= form_tag new_third_party_user_registration_path, method: "post", class: "form-horizontal jqTransform form-account" do
+		= hidden_field_tag "user[provider]", @signup_form.provider
+		= hidden_field_tag "user[provider_username]", @signup_form.provider_username
+		.controls-row
+			.control-group
+				%label.control-label Name
+				.controls
+					= text_field_tag "user[name]", @signup_form.name, class: "input-large"	
+		.controls-row
+			.control-group
+				%label.control-label Username
+				.controls
+					= text_field_tag "user[username]", @signup_form.username, class: "input-medium"			
+		.controls-row
+			.control-group
+				%label.control-label Email
+				.controls
+					= text_field_tag "user[email]", @signup_form.email, class: "input-large"	
+		.controls-row
+			.control-group
+				.controls
+					= check_box_tag "user[terms_of_service]", :required => true %> I agree to the
+		.controls-row
+			.control-group
+				.controls
+					= submit_tag "SUBMIT", class: "btn pull-left"	
+
+

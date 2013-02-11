@@ -165,7 +165,7 @@ class Challenge < ApiModel
   end
 
   def active?
-    ['Created', 'Review', 'Review - Pending'].include?(status)
+    ['Created', 'Submission', 'Review', 'Review - Pending'].include?(status)
   end
 end
 

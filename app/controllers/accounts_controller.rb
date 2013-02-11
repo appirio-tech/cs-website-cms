@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
     
     response = Member.put(current_user.username, params[:account])
     if response.success == "false"
-      flash[:alert] = "Failed to update, reason : #{response.message}"
+      flash[:error] = "Failed to update, reason : #{response.message}"
     else
       flash[:notice] = "Updated successfully"
     end

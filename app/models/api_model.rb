@@ -121,7 +121,7 @@ class ApiModel
   def self.naked_get(endpoint, params = nil)
     endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING NAKED GET for #{endpoint}"
+    puts "=====$$$$$ CALLING NAKED GET for #{endpoint} with #{api_request_headers.to_yaml}"
     get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new    
@@ -148,7 +148,7 @@ class ApiModel
   def self.raw_get(entities = [], params = nil)
     endpoint = endpoint_from_entities(entities)
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
+    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint} with #{api_request_headers}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end

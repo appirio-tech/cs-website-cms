@@ -1,0 +1,52 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="row-fluid">
+            <div class="span8">
+                <div class="title"><h1>COMPLETE REGISTRATION</h1></div>
+
+                <%= form_tag new_third_party_user_registration_path, method: "post", class: "form-horizontal jqTransform" do |f| %>
+                <%= hidden_field_tag 'user[provider]', @signup_form.provider %>
+                <%= hidden_field_tag 'user[provider_username]', @signup_form.provider_username %>
+
+                <form class="form-horizontal jqTransform">
+                    <div class="control-group">
+                        <label class="control-label">Name</label>
+                        <div class="controls">
+                            <%= text_field_tag "user[name]", @signup_form.name, class: "input-medium" %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Username</label>
+                        <div class="controls">
+                            <%= text_field_tag "user[username]", @signup_form.username, class: "input-medium" %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            <%= text_field_tag "user[email]", @signup_form.email, class: "input-large" %>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                              <%= check_box_tag 'user[terms_of_service]', '1', @signup_form.terms_of_service %> I agree to the <%= link_to 'terms of service', tos_path, :target => '_blank' %>.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="btn"><input id="sign-up-btn" type="submit" value="SUBMIT"></div>
+                        </div>
+                    </div>
+                <% end %>
+
+            </div>
+
+        </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

@@ -45,11 +45,11 @@ class Users::PasswordsController < Devise::PasswordsController
         sign_in(resource_name, user)
         redirect_to after_sign_in_path_for(user)
       else
-        flash[:alert]  = resp.message
+        flash[:error]  = resp.message
         render action: "edit"
       end
     else
-      flash[:alert] = "Passwords do not match."
+      flash[:error] = "Passwords do not match."
       render action: "edit"      
     end
   end

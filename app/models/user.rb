@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :authentications
 
   devise :database_authenticatable, :registerable, :timeoutable,
-         :recoverable, :rememberable, :validatable,
+         :token_authenticatable, :confirmable, :lockable,
          :token_authenticatable, :lockable
          # :trackable,  
 
@@ -14,17 +14,6 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   validates :username, :presence => true
-
-  def create_account
-    # not sure if we need this?
-    # resp = account.create
-    # if resp.success == "true"
-    #   self.sfdc_username = resp.sfdc_username
-    # else
-    #   errors.add :account, resp.message
-    # end
-    # resp.success == "true"
-  end
 
   def account
     @acount ||= Account.new(self)
@@ -41,6 +30,38 @@ class User < ActiveRecord::Base
   def appirio?
     email.include?('@appirio.com')
   end
+
+  def update_with_sfdc_info
+    puts '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
+    ApiModel.access_token = User.guest_access_token    
+    puts "===== calling find to the sfdc info"
+    sfdc_account = Account.find(username)
+    self.access_token = refresh_user_access_token
+    self.sfdc_username = sfdc_account.user.sfdc_username
+    self.email = sfdc_account.user.email
+    self.profile_pic = sfdc_account.user.profile_pic
+    self.accountid = sfdc_account.user.accountid
+    self.last_access_token_refresh_at = DateTime.now
+    # user.skip_confirmation!
+    puts "===== saving user with updated sfdc info to db"
+    puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" unless self.save
+    puts "===== current_user after save: #{self.to_yaml}"
+    # return the new access token
+    access_token
+  end
+
+  def refresh_user_access_token
+    puts "==== %%%%% calling refresh_access_token_from_sfdc"
+    auth_hash = mav_hash.nil? ? ENV['THIRD_PARTY_PASSWORD'] : mav_hash
+    sfdc_authentication = Account.new(self).authenticate(auth_hash)
+    if sfdc_authentication.success.to_bool
+      sfdc_authentication.access_token
+    else
+      # check for any authentication errors and return guest token if error
+      User.guest_access_token
+      puts "[FATAL][ApplicationController]: Could not refresh #{username}'s access token: #{sfdc_authentication.message}"
+    end
+  end  
 
   def plugins=(plugin_names)
     if persisted? # don't add plugins when the user_id is nil.
@@ -107,4 +128,29 @@ class User < ActiveRecord::Base
   def password_required?
     authentications.empty? && super
   end  
+
+  def self.guest_access_token
+    puts "=========== using guest access token"
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client.authenticate!.access_token
+    end
+  end  
+
+  def self.admin_access_token
+    puts "=========== using admin access token"
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client.authenticate!.access_token
+    end
+  end   
+
 end

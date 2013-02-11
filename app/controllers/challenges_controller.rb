@@ -38,7 +38,7 @@ class ChallengesController < ApplicationController
       results = Participant.change_status(params[:id], current_user.username, 
         {:status => 'Registered'})
       flash[:notice] = "You have been registered for this challenge." if results.success.to_bool
-      flash[:alert]  = "There was an error registering you for this challenge." if !results.success.to_bool
+      flash[:error]  = "There was an error registering you for this challenge." if !results.success.to_bool
       redirect_to challenge_path(params[:id])
     # challenge has it's own terms. show and make them register
     else
@@ -51,7 +51,7 @@ class ChallengesController < ApplicationController
     results = Participant.change_status(params[:id], current_user.username, 
       {:status => 'Registered'})
     flash[:notice] = "You have been registered for this challenge." if results.success.to_bool
-    flash[:alert]  = "There was an error registering you for this challenge." if !results.success.to_bool
+    flash[:error]  = "There was an error registering you for this challenge." if !results.success.to_bool
     redirect_to challenge_path(params[:id])
   end
 
@@ -59,7 +59,7 @@ class ChallengesController < ApplicationController
     results = Participant.change_status(params[:id], current_user.username, 
       {:status => 'Watching'})
     flash[:notice] = "You are now watching this challenge." if results.success.to_bool
-    flash[:alert]  = "There was an error adding you to the watch list." if !results.success.to_bool
+    flash[:error]  = "There was an error adding you to the watch list." if !results.success.to_bool
     redirect_to challenge_path(params[:id])
   end  
 
