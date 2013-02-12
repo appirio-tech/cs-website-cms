@@ -1,117 +1,122 @@
-<!-- banner-unit
-        ================================================== -->
-<div class="banner">
-    <div class="container">
-        <div class="banner-unit crowdsouced-banner custumer-res res">
-            <img src="/assets/banner/<%= ['crowdsourced','connect-with-cloud'].sample %>.jpg" alt=""/>
-            <div class="buttons">
-                <a class="get-started" href="/contact"><span><span>GET STARTED</span></span></a>
-                <a class="learn-more" href="/how-it-works">Or Learn More</a>
-            </div>
-        </div>
-        <div class="banner-unit compete-code-win-banner hide member-res res">
-            <img src="/assets/banner/<%= ['build-it-a','build-it-b','compete-code-win'].sample %>.jpg" alt=""/>
-            <div class="buttons">
-                <a class="get-started" href="#register-modal" data-toggle="modal"><span><span>GET STARTED</span></span></a>
-                <a class="learn-more" href="/how-it-works-members">Or Learn More</a>
-            </div>
-        </div>
-    </div> <!-- /.container -->
-</div>
-
 <!-- CONTENT
         ================================================== -->
-<div class="content-wrapper">
+<div class="content-wrapper banner">
     <div class="container">
-
-        <div class="tab-large" id="res-swicher">
-            <a class="tab-left active" href="javascript:;" data-toggle=".custumer-res"><span>Customers</span></a>
-            <a class="tab-right" href="javascript:;" data-toggle=".member-res"><span>Members</span></a>
-        </div>
-
-        <div class="row-fluid res custumer-res">
-            <div class="span6">
-                <div class="title"><h1>WHAT WE DO</h1></div>
-                <ul>
-                    <li><a href="/what-we-do"><span><i class="icon-app"></i></span>Application<br/>Development</a></li>
-                    <li><a href="/what-we-do"><span><i class="icon-mobile"></i></span>Mobile<br/>Development</a></li>
-                    <li><a href="/what-we-do"><span><i class="icon-analytics"></i></span>Analytics</a></li>
-                </ul>
-            </div>
-
-            <div class="span6">
-                <div class="title"><h1>HOW IT WORKS</h1></div>
-                <ul>
-                    <li><a href="/how-it-works"><span><i class="icon-outsourced"></i></span>Outsourced<br/>Development</a></li>
-                    <li><a href="/how-it-works"><span><i class="icon-cloud"></i></span>Cloud<br/>Technologies</a></li>
-                    <li><a href="/how-it-works"><span><i class="icon-team"></i></span>Team<br/>Augmentation</a></li>
-                </ul>
+        <div class="tabs">
+            <div class="tab">
+                <a class="tab-left active" href="javascript:;" data-toggle=".custumer-res"><span>Customers</span></a>
+                <a class="tab-right" href="javascript:;" data-toggle=".member-res"><span>Members</span></a>
             </div>
         </div>
-        <div class="row-fluid res member-res hide">
-            <div class="span6">
-                <div class="title"><h1>WHAT WE DO</h1></div>
-                <ul>
-                    <li><a href="/what-we-do"><span><i class="icon-dev"></i></span>Development<br/>Competitions</a></li>
-                    <li><a href="/what-we-do"><span><i class="icon-resolve"></i></span>Solve<br/>Problems</a></li>
-                    <li><a href="/what-we-do"><span><i class="icon-design"></i></span>Design<br/>Competitions</a></li>
-                </ul>
-            </div>
 
-            <div class="span6">
-                <div class="title"><h1>HOW IT WORKS</h1></div>
-                <ul>
-                    <li><a href="/how-it-works-members"><span><i class="icon-challenge"></i></span>Challenges<br/>Posted</a></li>
-                    <li><a href="/how-it-works-members"><span><i class="icon-submission"></i></span>Submission<br/>Feedback</a></li>
-                    <li><a href="/how-it-works-members"><span><i class="icon-win"></i></span>Win Money &<br/>Recognition</a></li>
-                </ul>
+        <div class="switch">
+            <div class="items">
+                <div class="item">
+
+                    <!-- banner-unit
+                            ================================================== -->
+                    <div class="hidden-phone">
+                        <div class="banner-unit crowdsouced-banner">
+                            <img src="/assets/banner/crowdsourced.jpg" alt=""/>
+                            <div class="buttons">
+                                <a class="get-started" href="/contact"><span><span>GET STARTED</span></span></a>
+                                <a class="learn-more" href="/how-it-works">Or Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid res">
+                        <div class="span6">
+                            <div class="title"><h1>WHAT WE DO</h1></div>
+                            <ul>
+                                <li><a href="/what-we-do"><span><i class="icon-app"></i></span>Application<br/>Developemnt</a></li>
+                                <li><a href="/what-we-do"><span><i class="icon-mobile"></i></span>Mobile<br/>Developemnt</a></li>
+                                <li><a href="/what-we-do"><span><i class="icon-analytics"></i></span>Analytics</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="span6">
+                            <div class="title"><h1>HOW IT WORKS</h1></div>
+                            <ul>
+                                <li><a href="/how-it-works"><span><i class="icon-outsourced"></i></span>Outsourced<br/>Developemnt</a></li>
+                                <li><a href="/how-it-works"><span><i class="icon-cloud"></i></span>Cloud<br/>Technologies</a></li>
+                                <li><a href="/how-it-works"><span><i class="icon-team"></i></span>Team<br/>Augmentation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="title"><h1>RECENTLY SHARED</h1></div>
+                    <div class="quotes slider res">
+                        <div class="scrollable">
+                            <div class="items">
+                                <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                                <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                                <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                            </div>
+                        </div>
+                        <a href="#" class="prev"><span>Prev</span></a>
+                        <a href="#" class="next"><span>Next</span></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <!-- banner-unit
+                            ================================================== -->
+                    <div class="hidden-phone">
+                        <div class="banner-unit compete-code-win-banner">
+                            <img src="/assets/banner/compete-code-win.jpg" alt=""/>
+                            <div class="buttons">
+                                <a class="get-started" href="#register-modal" data-toggle="modal"><span><span>GET STARTED</span></span></a>
+                                <a class="learn-more" href="/how-it-works-members">Or Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid res">
+                        <div class="span6">
+                            <div class="title"><h1>WHAT WE DO</h1></div>
+                            <ul>
+                                <li><a href="/what-we-do"><span><i class="icon-dev"></i></span>Development<br/>Competitions</a></li>
+                                <li><a href="/what-we-do"><span><i class="icon-resolve"></i></span>Solve<br/>Problems</a></li>
+                                <li><a href="/what-we-do"><span><i class="icon-design"></i></span>Design<br/>Competitions</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="span6">
+                            <div class="title"><h1>HOW IT WORKS</h1></div>
+                            <ul>
+                                <li><a href="/how-it-works-members"><span><i class="icon-challenge"></i></span>Challenges<br/>Posted</a></li>
+                                <li><a href="/how-it-works-members"><span><i class="icon-submission"></i></span>Submission<br/>Feedback</a></li>
+                                <li><a href="/how-it-works-members"><span><i class="icon-win"></i></span>Win Money &<br/>Recognition</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="title"><h1>RECENTLY SHARED</h1></div>
+                    <div class="quotes slider res">
+                        <div class="scrollable">
+                            <div class="items">
+                                <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                                <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                                <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
+                            </div>
+                        </div>
+                        <a href="#" class="prev"><span>Prev</span></a>
+                        <a href="#" class="next"><span>Next</span></a>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="title"><h1>HAPPENING NOW</h1></div>
         <div class="row-fluid" id="status">
-            <div>
-                <span class="icon-active-members"></span><strong><%= number_with_delimiter(@stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS
-            </div>
-            <div>
-                <span class="icon-competing-today"></span><strong><%= @stats['competing_today'].to_i %></strong>COMPETING TODAY
-            </div>
-            <div>
-                <span class="icon-available-prize-money"></span><strong><%= number_to_currency(@stats['money_up_for_grabs'], :precision => 0) %></strong>AVAILABLE PRIZE MONEY
-            </div>
-            <div>
-                <span class="active-challenges"></span><strong><%= @stats['challenges_open'] %></strong>ACTIVE CHALLENGES
-            </div>
-            <div>
-                <span class="counteries-working"></span><strong><%= @stats['countries_working'] %></strong>COUNTRIES WORKING
-            </div>
+            <div><div><div><span class="icon-active-members"></span><strong><%= number_with_delimiter(@stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS</div></div></div>
+            <div><div><div><span class="icon-competing-today"></span><strong><%= @stats['competing_today'].to_i %></strong>COMPETING TODAY</div></div></div>
+            <div><div><div><span class="icon-available-prize-money"></span><strong><%= number_to_currency(@stats['money_up_for_grabs'], :precision => 0) %></strong>AVAILABLE PRIZE MONEY</div></div></div>
+            <div><div><div><span class="active-challenges"></span><strong><%= @stats['challenges_open'] %></strong>ACTIVE CHALLENGES</div></div></div>
+            <div><div><div><span class="counteries-working"></span><strong><%= @stats['countries_working'] %></strong>COUNTRIES WORKING</div></div></div>
         </div>
-        <br/>        
 
-
-        <div class="title"><h1>RECENTLY SHARED</h1></div>
-        <div class="quotes slider res custumer-res">
-            <div class="scrollable">
-                <div class="items">
-                    <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                    <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                    <div class="item"><div class="quote">I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                </div>
-            </div>
-            <a href="#" class="prev"><span>Prev</span></a>
-            <a href="#" class="next"><span>Next</span></a>
-        </div>
-        <div class="quotes slider res member-res hide">
-            <div class="scrollable">
-                <div class="items">
-                    <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                    <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                    <div class="item"><div class="quote">Member Quote I can’t tell you enough how blown away I am with this submission.  We launched this challenge with loose requirements Wednesday afternoon before Thanksgiving, and it was due first thing Monday morning (hence the premium purse) just in time for a pre-sale customer demo. This is a real testiament to the power of Cloudspokes!  Check out the video : <a href="#">http://vimeo.com/54417936</a>.</div></div>
-                </div>
-            </div>
-            <a href="#" class="prev"><span>Prev</span></a>
-            <a href="#" class="next"><span>Next</span></a>
-        </div>
         <br/>
 
         <div class="row-fluid">

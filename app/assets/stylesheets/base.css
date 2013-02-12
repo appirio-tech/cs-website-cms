@@ -205,6 +205,12 @@ textarea {
   clear: both;
 }
 
+.boxsizingBorder {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 .hide-text {
   font: 0/0 a;
   color: transparent;
@@ -1581,7 +1587,7 @@ legend + .control-group {
 }
 
 .icon-large .icon-challenge {
-  background-position: 0 -107px;
+  background-position: 0 -108px;
 }
 
 .icon-large .icon-register {
@@ -1629,23 +1635,47 @@ legend + .control-group {
 }
 
 .answer {
-  padding-left: 90px;
-  background: url("/assets/circle-gray.png") 15px center no-repeat;
+  margin-bottom: 20px;
+  *zoom: 1;
 }
 
-.answer i {
+.answer:before,
+.answer:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.answer:after {
+  clear: both;
+}
+
+.answer .icon {
+  display: block;
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
+  background: url("/assets/circle-gray.png") left center no-repeat;
+}
+
+.answer .icon i {
   display: block;
   float: left;
   width: 38px;
   height: 39px;
   margin-top: 10px;
-  margin-left: -65px;
+  margin-left: 10px;
   font-size: 24px;
   font-style: normal !important;
   line-height: 39px;
   color: #ffffff;
   text-align: center;
   background: url("/assets/circle_blue.png") no-repeat;
+}
+
+.answer .detail {
+  margin-left: 80px;
 }
 
 .dropup,
@@ -1927,10 +1957,6 @@ legend + .control-group {
   right: 20px;
 }
 
-.well.well-large .detail{
-  margin-left: 100px;
-}
-
 .well-small {
   padding: 9px;
 }
@@ -1967,7 +1993,6 @@ legend + .control-group {
   height: 39px;
   padding-right: 3px;
   margin-bottom: 0;
-  margin-left: 2px;
   font-size: 14px;
   line-height: 39px;
   color: #ffffff;
@@ -1979,9 +2004,6 @@ legend + .control-group {
   background-position: right top;
   background-repeat: no-repeat;
   *zoom: 1;
-  -webkit-box-shadow: none;
-     -moz-box-shadow: none;
-          box-shadow: none;
 }
 
 .btn:hover,
@@ -2574,7 +2596,7 @@ legend + .control-group {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1010;
+  z-index: 100;
   display: none;
   width: 391px;
   padding: 18px;
@@ -2863,6 +2885,11 @@ legend + .control-group {
   clear: both;
 }
 
+.loginbar-wrapper .container {
+  position: relative;
+  z-index: 4;
+}
+
 .loginbar-wrapper ul.inline {
   float: left;
   margin: -4px 0 -5px 10px;
@@ -3038,12 +3065,53 @@ a.circle-orange,
 .prev span {
   display: inline-block;
   *display: inline;
-  width: 39px;
+  width: 38px;
   height: 39px;
-  text-indent: -1000px;
+  color: transparent;
   background-image: url("/assets/icons.png");
   background-repeat: no-repeat;
   *zoom: 1;
+}
+
+a.circle-orange-large {
+  display: block;
+  width: 71px;
+  height: 71px;
+  overflow: hidden;
+  background: url("/assets/circle_orange.png") -40px 0 no-repeat;
+}
+
+a.circle-orange-large:hover {
+  background-position: -39px -71px;
+}
+
+a.circle-orange-large span {
+  display: block;
+  width: 71px;
+  height: 71px;
+  text-indent: -1000px;
+  background-image: url("/assets/icons.png");
+  background-repeat: no-repeat;
+}
+
+a.circle-orange-large .github {
+  background-position: -304px 0;
+}
+
+a.circle-orange-large .twitter {
+  background-position: -304px -71px;
+}
+
+a.circle-orange-large .facebook {
+  background-position: -304px -142px;
+}
+
+a.circle-orange-large .googleplus {
+  background-position: -304px -213px;
+}
+
+a.circle-orange-large .salesforce {
+  background-position: -304px -284px;
 }
 
 .next span {
@@ -3114,7 +3182,11 @@ h1.rss {
 }
 
 .content-wrapper {
-  padding-bottom: 50px;
+  padding-bottom: 80px;
+}
+
+.content-wrapper .container {
+  z-index: 1;
 }
 
 .content-wrapper .container > h2,
@@ -3128,9 +3200,20 @@ h1.rss {
 }
 
 .title {
-  margin: 10px 0;
+  margin: 60px 0 30px 0;
   text-align: center;
   background: url("/assets/title-bg.png") left center repeat-x;
+}
+
+.container > .title:first-child,
+.container > div:first-child > .title:first-child,
+.container > div.row-fluid > div.span8 > .title:first-child,
+.title + .content > .title:first-child {
+  margin-top: 0;
+}
+
+.container > a + .title {
+  margin-top: 20px;
 }
 
 .title h1 {
@@ -3181,7 +3264,7 @@ h1.rss {
 .placement .place {
   position: absolute;
   top: -7px;
-  right: 3px;
+  right: 0;
   display: block;
   width: 50px;
   height: 47px;
@@ -3228,7 +3311,7 @@ h1.rss {
 }
 
 .filter {
-  z-index: 100;
+  z-index: 2;
   padding-right: 0;
   font-size: 16px;
   color: #c1c0c0;
@@ -3659,6 +3742,7 @@ h2.message {
   height: 1100px;
   padding-top: 90px;
   margin-right: auto;
+  margin-bottom: 80px;
   margin-left: auto;
   text-align: center;
 }
@@ -3696,18 +3780,29 @@ h2.message {
   position: relative;
 }
 
-.scrollable {
+.scrollable,
+.switch {
   position: relative;
   overflow: hidden;
 }
 
-.scrollable .items {
+.scrollable .items,
+.switch .items {
   position: absolute;
   width: 20000em;
 }
 
-.scrollable .items div {
+.scrollable .items .item,
+.switch .items .item {
   float: left;
+}
+
+.switch {
+  height: 952px;
+}
+
+.switch .item {
+  width: 1024px;
 }
 
 #cleints .scrollable {
@@ -3753,11 +3848,6 @@ h2.message {
   background-position: 0 -700px;
 }
 
-#cleints .prev {
-  position: absolute;
-  top: 40px;
-}
-
 .slider {
   position: relative;
   margin: 0 40px;
@@ -3776,11 +3866,11 @@ h2.message {
 }
 
 .slider .prev {
-  left: -45px;
+  left: -40px;
 }
 
 .slider .next {
-  right: -45px;
+  right: -40px;
 }
 
 .slider .prev:hover,
@@ -3790,12 +3880,10 @@ h2.message {
 
 .quotes .scrollable {
   width: 942px;
-  height: 125px;
 }
 
 .quotes .item {
   width: 922px;
-  height: 125px;
   padding-left: 20px;
   background: url("/assets/quote-l.png") left top no-repeat;
 }
@@ -3809,89 +3897,118 @@ h2.message {
   background: url("/assets/quote-r.png") right bottom no-repeat;
 }
 
-#status div {
+#status > div {
   float: left;
-  width: 194px;
   height: 129px;
+  padding-left: 3px;
   margin-right: 0;
-  margin-left: 13px;
+  margin-left: 11px;
   font-weight: bold;
   color: #ffffff;
-  background: url("/assets/rect-blue.png") no-repeat;
+  background: url("/assets/rect.png") left -387px no-repeat;
 }
 
-#status div strong {
+#status > div > div {
+  padding-right: 3px;
+  background: url("/assets/rect.png") right -645px no-repeat;
+}
+
+#status > div > div > div {
+  width: 190px;
+  height: 129px;
+  background: url("/assets/rect.png") left -516px repeat-x;
+}
+
+#status > div strong {
   display: block;
-  margin-top: 25px;
+  padding-top: 30px;
   margin-bottom: 10px;
   font-size: 27px;
 }
 
-#status div span {
+#status > div span {
   display: block;
   float: left;
-  width: 55px;
+  width: 57px;
   height: 53px;
-  margin: 37px 15px;
+  margin: 37px 12px;
   background: url("/assets/icons.png") 10px center no-repeat;
 }
 
-#status div .icon-active-members {
+#status > div .icon-active-members {
   background-position: -117px 0;
 }
 
-#status div .icon-competing-today {
+#status > div .icon-competing-today {
   background-position: -117px -53px;
 }
 
-#status div .icon-available-prize-money {
+#status > div .icon-available-prize-money {
   background-position: -117px -106px;
 }
 
-#status div .active-challenges {
+#status > div .active-challenges {
   background-position: -117px -159px;
 }
 
-#status div .counteries-working {
+#status > div .counteries-working {
   background-position: -117px -212px;
 }
 
-#status div:first-child {
-  margin-left: 1px;
+#status > div:first-child {
+  margin-left: 0;
 }
 
-.banner {
-  background-color: #1371ba;
-}
-
-#badges div {
+#badges > a,
+#badges > div {
+  display: block;
   float: left;
+  height: 129px;
+  padding-left: 3px;
+  margin-left: 50px;
+  background: url("/assets/rect.png") left 0 no-repeat;
+}
+
+#badges > a:first-child,
+#badges > div:first-child {
+  margin-left: 0;
+}
+
+#badges > a:hover {
+  background-position: left -774px;
+}
+
+#badges > a:hover > div {
+  background-position: right -903px;
+}
+
+#badges > a:hover > div table {
+  background-position: left -1032px;
+}
+
+#badges a > div,
+#badges > div > div {
+  height: 129px;
+  padding-right: 3px;
+  color: #ffffff;
+  background: url("/assets/rect.png") right -129px no-repeat;
+}
+
+#badges a > div table,
+#badges > div > div table {
   width: 300px;
   height: 129px;
-  margin-left: 62px;
-  color: #ffffff;
-  background: url("/assets/rect-orange.png") no-repeat;
+  background: url("/assets/rect.png") 0 -258px repeat-x;
 }
 
-#badges div a {
-  color: #ffffff;
-}
-
-#badges div a:hover {
-  text-decoration: none;
-}
-
-#badges div table {
-  width: 300px;
-  height: 129px;
-}
-
-#badges div table td {
+#badges a > div table td,
+#badges > div > div table td {
   text-align: left;
   vertical-align: middle;
 }
 
-#badges div table td span {
+#badges a > div table td span,
+#badges > div > div table td span {
   display: block;
   width: 130px;
   height: 80px;
@@ -3899,24 +4016,35 @@ h2.message {
   background: url("/assets/icons.png") -174px 0 no-repeat;
 }
 
-#badges div table td span.badget-general {
+#badges a > div table td span.badget-general,
+#badges > div > div table td span.badget-general {
   background-position: -174px 0;
 }
 
-#badges div table td span.badget-tech {
+#badges a > div table td span.badget-tech,
+#badges > div > div table td span.badget-tech {
   background-position: -174px -80px;
 }
 
-#badges div table td span.badget-dev {
+#badges a > div table td span.badget-dev,
+#badges > div > div table td span.badget-dev {
   background-position: -174px -160px;
+}
+
+#badges > div {
+  background-position: left -387px;
+}
+
+#badges > div > div {
+  background-position: right -645px;
+}
+
+#badges > div > div table {
+  background-position: right -516px;
 }
 
 #badges a:first-child div {
   margin-left: 0;
-}
-
-#badges > div:first-child{
-    margin-left: 0;
 }
 
 .controls div {
@@ -3959,6 +4087,10 @@ ul.inline a {
 .well.highlight h2,
 .well.highlight li {
   margin-bottom: 15px;
+}
+
+.banner {
+  position: relative;
 }
 
 .tab {
@@ -4008,21 +4140,21 @@ ul.inline a {
 }
 
 .tab a.tab-right {
-  background-position: -259px -48px;
+  background-position: right -48px;
 }
 
 .tab a.tab-right:hover {
-  background-position: -259px -96px;
+  background-position: right -96px;
 }
 
 .tab a.tab-right.active,
 .tab a.tab-right.active:hover {
-  background-position: -259px 0;
+  background-position: right 0;
 }
 
 .tab-large {
   width: 714px;
-  margin: 30px auto;
+  margin: 55px auto 0 auto;
   *zoom: 1;
 }
 
@@ -4084,30 +4216,23 @@ ul.inline a {
 
 .tab-large a.tab-right {
   padding-right: 3px;
-  background-position: 0 -195px;
+  background-position: right -195px;
 }
 
 .tab-large a.tab-right:hover {
-  background-position: 0 -260px;
+  background-position: right -260px;
 }
 
 .tab-large a.tab-right.active,
 .tab-large a.tab-right.active:hover {
-  background-position: 0 -325px;
-}
-
-.hero-unit {
-  height: 295px;
-  margin-bottom: 0;
-  background: url("/assets/banner/banner.png") no-repeat;
-}
-
-.banner {
-  margin-bottom: 20px;
+  background-position: right -325px;
 }
 
 .res ul {
+  display: inline-block;
+  *display: inline;
   list-style: none;
+  *zoom: 1;
 }
 
 .res li {
@@ -4120,7 +4245,7 @@ ul.inline a {
 .res li a {
   display: block;
   width: 142px;
-  height: 186px;
+  height: 140px;
   text-align: center;
 }
 
@@ -4129,17 +4254,17 @@ ul.inline a {
 }
 
 .res li a:hover span {
-  background-position: -110px -64px;
+  background-position: -111px -64px;
 }
 
 .res li a span {
   display: block;
-  width: 64px;
+  width: 65px;
   height: 64px;
   margin-top: 21px;
   margin-bottom: 36px;
   margin-left: 39px;
-  background: url("/assets/circle_orange.png") -110px 0 no-repeat;
+  background: url("/assets/circle_orange.png") -111px 0 no-repeat;
 }
 
 .res li a span i {
@@ -4150,7 +4275,7 @@ ul.inline a {
 }
 
 .res li a span i.icon-dev {
-  background-position: -414px 0;
+  background-position: -415px 0;
 }
 
 .res li a span i.icon-resolve {
@@ -4197,55 +4322,15 @@ ul.inline a {
   background-position: -414px -706px;
 }
 
-#badges .box-blue {
-  width: 297px;
-}
-
-.row-fluid .box-blue:first-child {
-  margin-left: 0 !important;
-}
-
-.box-blue {
+.post {
   display: inline-block;
-  height: 129px;
-  padding-left: 3px;
-  margin-left: 60px !important;
-  background: url("/assets/box-blue.png") left top no-repeat !important;
-}
-
-.box-blue > div {
-  height: 129px;
-  padding-right: 3px;
-  margin-left: 0 !important;
-  background: url("/assets/box-blue.png") right -258px no-repeat !important;
-}
-
-.box-blue table {
-  height: 129px;
-  overflow: hidden;
-  background: url("/assets/box-blue.png") left -129px repeat-x;
-  border-collapse: collapse;
-}
-
-.box-blue table td {
-  display: table-cell;
-  color: #fff;
-  vertical-align: middle;
-}
-
-.box-blue table td span.icon {
-  display: inline-block;
-  width: 130px;
-  height: 80px;
-  vertical-align: middle;
-  background: url("/assets/icons.png") -174px 0 no-repeat;
-}
-
-.box-blue table td span.icon.badget-general {
-  background-position: -174px 0;
+  *display: inline;
+  margin-bottom: 40px;
+  *zoom: 1;
 }
 
 .post-pagination {
+  margin: 40px 0;
   line-height: 30px;
   background: #eeeeee;
 }
@@ -4376,8 +4461,17 @@ hr {
   margin-left: 0;
 }
 
+.techs {
+  margin-bottom: 20px;
+}
+
 .techs li {
-  padding: 0;
+  padding: 0 !important;
+  margin-left: 10px;
+}
+
+.techs li:first-child {
+  margin-left: 0;
 }
 
 .techs a {
@@ -4387,6 +4481,12 @@ hr {
   overflow: hidden;
   text-indent: -1000px;
   background: url("/assets/badge-categories.png") no-repeat;
+  border: 2px solid #de7a20;
+}
+
+.techs a:hover,
+.techs a.active {
+  border: 2px solid #787878;
 }
 
 .techs a.force {
@@ -4394,27 +4494,27 @@ hr {
 }
 
 .techs a.gae {
-  background-position: -150px 0;
+  background-position: -150px 5px;
 }
 
 .techs a.aws {
-  background-position: -305px 0;
+  background-position: -295px 5px;
 }
 
 .techs a.vmware {
-  background-position: -450px 0;
+  background-position: -445px 5px;
 }
 
 .techs a.html5 {
-  background-position: -590px 0;
+  background-position: -590px 5px;
 }
 
 .techs a.ios {
-  background-position: -730px 0;
+  background-position: -735px 5px;
 }
 
 .techs a.android {
-  background-position: -884px 0;
+  background-position: -884px 5px;
 }
 
 .tip {
@@ -4613,100 +4713,139 @@ table.overview td.sep {
   width: 30px;
 }
 
-/** // aprosxacs -- member / challenge typeahead **/
-form.challenges-filter .filter {
-  margin-bottom: 10px;
-}
-form.challenges-filter .state {
-  margin: 0 0 20px 20px;
-
-}
-form.challenges-filter .state label {
-  width: 150px;
+.form-contact {
+  width: 660px;
 }
 
-/** // aprosxacs -- comments **/
-.comment {
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-.comment.reply, .reply-form {
-  margin-left: 40px;
-}
-.comment .profile-picture {
-  float: left;
-  width: 60px;
-  padding: 10px;
-}
-.comment .profile-picture img {
-  width: 50px;
-  height: 50px;
-}
-.comment .main {
-  margin-left: 80px;
-  padding: 10px;
-}
-.comment .main .text {
-  color: #444;
-  margin-bottom: 10px;
-}
-.comment .main .info {
-  font-size: 12px;
-}
-.comment .main .info .time {
-  color: #999;
-}
-form input[type=submit] {
-  border: none;
-  padding: 0 10px;
-}
-form.new-comment textarea {
-  height: 6em;
-  width: 90%;
-}
-
-.typeahead.dropdown-menu {
-  margin-top: 7px;
-}
-.typeahead.dropdown-menu li > a {
-  padding: 5px 10px;
-}
-.dropdown-menu a span.source {
-  display: inline-block;
-  width: 80px;
-  font-size: 0.9em;
-  color: #999;
-  border-right: 1px solid #aaa;
+.form-contact .buttons {
   text-align: right;
-  margin-right: 5px;
-  padding-right: 5px;
-}
-.dropdown-menu a span.source .count {
-  font-weight: bold;
-  color: #666;
-}
-.dropdown-menu li.active a span.source, .dropdown-menu li.active a span.source .count {
-  color: white;
-}
-.dropdown-menu a span.source img {
-  width: 32px;
-}
-.dropdown-menu a span.name {
-  display: inline-block;
-  width: 200px;
-}
-.dropdown-menu a span.name i {
-  margin-right: 5px;
-}
-.dropdown-menu a span.prizes, .dropdown-menu a span.wins {
-  color: green;
-  font-size: 0.9em;
-}
-.dropdown-menu li.active a span.prizes, .dropdown-menu li.active a span.wins {
-  color: white;
 }
 
-form.invite-friends .item {
-  margin-bottom: 5px;
+.radio-filter .jqTransformRadioWrapper:first-child {
+  margin-left: 0;
+}
+
+.menu span {
+  padding: 0;
+}
+
+.menu span i {
+  display: block;
+  width: 36px;
+  height: 39px;
+  margin-left: 3px;
+  color: transparent;
+  background: url("/assets/icon-menu.png") center center no-repeat;
+}
+
+.btn-online {
+  position: relative;
+}
+
+.btn-online:hover {
+  cursor: default;
+}
+
+.btn-online span {
+  width: 263px;
+  padding: 0 !important;
+}
+
+.online {
+  position: absolute;
+  top: 46px;
+  left: -1px;
+  z-index: 200;
+  display: none;
+  width: 260px;
+  height: 360px;
+  background: #e9e9e7;
+  border: 1px solid #9c9b99;
+}
+
+.online .member {
+  padding: 10px;
+  padding-right: 30px;
+  background: url("/assets/icon-online.png") right -60px no-repeat;
+  border-top: 1px solid #9c9b99;
+}
+
+.online .member.active {
+  background-position: right 0;
+}
+
+.online .member:first-child {
+  border-top: none;
+}
+
+.online .member img {
+  border: 2px solid #e07a02;
+}
+
+.online .member a {
+  display: block;
+  float: left;
+  width: 165px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.online .viewport {
+  position: relative;
+  width: 254px;
+  height: 360px;
+  overflow: hidden;
+}
+
+.online .overview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.online .thumb .end,
+.online .thumb {
+  background-color: #e07a02;
+}
+
+.online .scrollbar {
+  position: relative;
+  float: right;
+  width: 5px;
+}
+
+.online .track {
+  position: relative;
+  width: 5px;
+  height: 100%;
+  background-color: #eee;
+}
+
+.online .thumb {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.online .thumb .end {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.online .disable {
+  display: none;
+}
+
+.noSelect {
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+       -o-user-select: none;
+          user-select: none;
 }

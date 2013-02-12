@@ -1691,8 +1691,8 @@
 			// Set the new width
 			var iSelectWidth = $select.outerWidth();
 			var oSpan = $('span:first',$wrapper);
-			var newWidth = iSelectWidth+oLinkOpen.outerWidth();
-			$wrapper.css('width',iSelectWidth+oLinkOpen.outerWidth());
+			var newWidth = (iSelectWidth > oSpan.innerWidth())?iSelectWidth+oLinkOpen.outerWidth():$wrapper.width();
+			$wrapper.css('width',newWidth);
 			$ul.css('width',newWidth-4);
 			oSpan.css({width:iSelectWidth});
 		
@@ -1751,20 +1751,675 @@
 	};/* End the Plugin */
 
 })(jQuery);
-(function(a){a.tiny=a.tiny||{};a.tiny.scrollbar={options:{axis:"y",wheel:40,scroll:true,lockscroll:true,size:"auto",sizethumb:"auto",invertscroll:false}};a.fn.tinyscrollbar=function(d){var c=a.extend({},a.tiny.scrollbar.options,d);this.each(function(){a(this).data("tsb",new b(a(this),c))});return this};a.fn.tinyscrollbar_update=function(c){return a(this).data("tsb").update(c)};function b(q,g){var k=this,t=q,j={obj:a(".viewport",q)},h={obj:a(".overview",q)},d={obj:a(".scrollbar",q)},m={obj:a(".track",d.obj)},p={obj:a(".thumb",d.obj)},l=g.axis==="x",n=l?"left":"top",v=l?"Width":"Height",r=0,y={start:0,now:0},o={},e="ontouchstart" in document.documentElement;function c(){k.update();s();return k}this.update=function(z){j[g.axis]=j.obj[0]["offset"+v];h[g.axis]=h.obj[0]["scroll"+v];h.ratio=j[g.axis]/h[g.axis];d.obj.toggleClass("disable",h.ratio>=1);m[g.axis]=g.size==="auto"?j[g.axis]:g.size;p[g.axis]=Math.min(m[g.axis],Math.max(0,(g.sizethumb==="auto"?(m[g.axis]*h.ratio):g.sizethumb)));d.ratio=g.sizethumb==="auto"?(h[g.axis]/m[g.axis]):(h[g.axis]-j[g.axis])/(m[g.axis]-p[g.axis]);r=(z==="relative"&&h.ratio<=1)?Math.min((h[g.axis]-j[g.axis]),Math.max(0,r)):0;r=(z==="bottom"&&h.ratio<=1)?(h[g.axis]-j[g.axis]):isNaN(parseInt(z,10))?r:parseInt(z,10);w()};function w(){var z=v.toLowerCase();p.obj.css(n,r/d.ratio);h.obj.css(n,-r);o.start=p.obj.offset()[n];d.obj.css(z,m[g.axis]);m.obj.css(z,m[g.axis]);p.obj.css(z,p[g.axis])}function s(){if(!e){p.obj.bind("mousedown",i);m.obj.bind("mouseup",u)}else{j.obj[0].ontouchstart=function(z){if(1===z.touches.length){i(z.touches[0]);z.stopPropagation()}}}if(g.scroll&&window.addEventListener){t[0].addEventListener("DOMMouseScroll",x,false);t[0].addEventListener("mousewheel",x,false)}else{if(g.scroll){t[0].onmousewheel=x}}}function i(A){a("body").addClass("noSelect");var z=parseInt(p.obj.css(n),10);o.start=l?A.pageX:A.pageY;y.start=z=="auto"?0:z;if(!e){a(document).bind("mousemove",u);a(document).bind("mouseup",f);p.obj.bind("mouseup",f)}else{document.ontouchmove=function(B){B.preventDefault();u(B.touches[0])};document.ontouchend=f}}function x(B){if(h.ratio<1){var A=B||window.event,z=A.wheelDelta?A.wheelDelta/120:-A.detail/3;r-=z*g.wheel;r=Math.min((h[g.axis]-j[g.axis]),Math.max(0,r));p.obj.css(n,r/d.ratio);h.obj.css(n,-r);if(g.lockscroll||(r!==(h[g.axis]-j[g.axis])&&r!==0)){A=a.event.fix(A);A.preventDefault()}}}function u(z){if(h.ratio<1){if(g.invertscroll&&e){y.now=Math.min((m[g.axis]-p[g.axis]),Math.max(0,(y.start+(o.start-(l?z.pageX:z.pageY)))))}else{y.now=Math.min((m[g.axis]-p[g.axis]),Math.max(0,(y.start+((l?z.pageX:z.pageY)-o.start))))}r=y.now*d.ratio;h.obj.css(n,-r);p.obj.css(n,y.now)}}function f(){a("body").removeClass("noSelect");a(document).unbind("mousemove",u);a(document).unbind("mouseup",f);p.obj.unbind("mouseup",f);document.ontouchmove=document.ontouchend=null}return c()}}(jQuery));
 /*!
  * jQuery Tools v1.2.7 - The missing UI library for the Web
- *
+ * 
  * scrollable/scrollable.js
  * scrollable/scrollable.autoscroll.js
+ * 
+ * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
+ * 
+ * http://flowplayer.org/tools/
+ * 
+ */
+/**
+ * @license
+ * jQuery Tools @VERSION Scrollable - New wave UI design
  *
  * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
  *
- * http://flowplayer.org/tools/
+ * http://flowplayer.org/tools/scrollable.html
  *
+ * Since: March 2008
+ * Date: @DATE
  */
-(function(a){a.tools=a.tools||{version:"v1.2.7"},a.tools.scrollable={conf:{activeClass:"active",circular:!1,clonedClass:"cloned",disabledClass:"disabled",easing:"swing",initialIndex:0,item:"> *",items:".items",keyboard:!0,mousewheel:!1,next:".next",prev:".prev",size:1,speed:400,vertical:!1,touch:!0,wheelSpeed:0}};function b(a,b){var c=parseInt(a.css(b),10);if(c)return c;var d=a[0].currentStyle;return d&&d.width&&parseInt(d.width,10)}function c(b,c){var d=a(c);return d.length<2?d:b.parent().find(c)}var d;function e(b,e){var f=this,g=b.add(f),h=b.children(),i=0,j=e.vertical;d||(d=f),h.length>1&&(h=a(e.items,b)),e.size>1&&(e.circular=!1),a.extend(f,{getConf:function(){return e},getIndex:function(){return i},getSize:function(){return f.getItems().size()},getNaviButtons:function(){return n.add(o)},getRoot:function(){return b},getItemWrap:function(){return h},getItems:function(){return h.find(e.item).not("."+e.clonedClass)},move:function(a,b){return f.seekTo(i+a,b)},next:function(a){return f.move(e.size,a)},prev:function(a){return f.move(-e.size,a)},begin:function(a){return f.seekTo(0,a)},end:function(a){return f.seekTo(f.getSize()-1,a)},focus:function(){d=f;return f},addItem:function(b){b=a(b),e.circular?(h.children().last().before(b),h.children().first().replaceWith(b.clone().addClass(e.clonedClass))):(h.append(b),o.removeClass("disabled")),g.trigger("onAddItem",[b]);return f},seekTo:function(b,c,k){b.jquery||(b*=1);if(e.circular&&b===0&&i==-1&&c!==0)return f;if(!e.circular&&b<0||b>f.getSize()||b<-1)return f;var l=b;b.jquery?b=f.getItems().index(b):l=f.getItems().eq(b);var m=a.Event("onBeforeSeek");if(!k){g.trigger(m,[b,c]);if(m.isDefaultPrevented()||!l.length)return f}var n=j?{top:-l.position().top}:{left:-l.position().left};i=b,d=f,c===undefined&&(c=e.speed),h.animate(n,c,e.easing,k||function(){g.trigger("onSeek",[b])});return f}}),a.each(["onBeforeSeek","onSeek","onAddItem"],function(b,c){a.isFunction(e[c])&&a(f).on(c,e[c]),f[c]=function(b){b&&a(f).on(c,b);return f}});if(e.circular){var k=f.getItems().slice(-1).clone().prependTo(h),l=f.getItems().slice(1,f.getRoot().width()/ f.getItems().slice(1).width()).clone().appendTo(h);k.add(l).addClass(e.clonedClass),f.onBeforeSeek(function(a,b,c){if(!a.isDefaultPrevented()){if(b==-1){f.seekTo(k,c,function(){f.end(0)});return a.preventDefault()}b==f.getSize()&&f.seekTo(l,c,function(){f.begin(0)})}});var m=b.parents().add(b).filter(function(){if(a(this).css("display")==="none")return!0});f.seekTo(0,0,function(){})}var n=c(b,e.prev).click(function(a){a.stopPropagation(),f.prev()}),o=c(b,e.next).click(function(a){a.stopPropagation(),f.next()});e.circular||(f.onBeforeSeek(function(a,b){setTimeout(function(){a.isDefaultPrevented()||(n.toggleClass(e.disabledClass,b<=0),o.toggleClass(e.disabledClass,b>=f.getSize()-1))},1)}),e.initialIndex||n.addClass(e.disabledClass)),f.getSize()<2&&n.add(o).addClass(e.disabledClass),e.mousewheel&&a.fn.mousewheel&&b.mousewheel(function(a,b){if(e.mousewheel){f.move(b<0?1:-1,e.wheelSpeed||50);return!1}});if(e.touch){var p={};h[0].ontouchstart=function(a){var b=a.touches[0];p.x=b.clientX,p.y=b.clientY},h[0].ontouchmove=function(a){if(a.touches.length==1&&!h.is(":animated")){var b=a.touches[0],c=p.x-b.clientX,d=p.y-b.clientY;f[j&&d>0||!j&&c>0?"next":"prev"](),a.preventDefault()}}}e.keyboard&&a(document).on("keydown.scrollable",function(b){if(!(!e.keyboard||b.altKey||b.ctrlKey||b.metaKey||a(b.target).is(":input"))){if(e.keyboard!="static"&&d!=f)return;var c=b.keyCode;if(j&&(c==38||c==40)){f.move(c==38?-1:1);return b.preventDefault()}if(!j&&(c==37||c==39)){f.move(c==37?-1:1);return b.preventDefault()}}}),e.initialIndex&&f.seekTo(e.initialIndex,0,function(){})}a.fn.scrollable=function(b){var c=this.data("scrollable");if(c)return c;b=a.extend({},a.tools.scrollable.conf,b),this.each(function(){c=new e(a(this),b),a(this).data("scrollable",c)});return b.api?c:this}})(jQuery);
-(function(a){var b=a.tools.scrollable;b.autoscroll={conf:{autoplay:!0,interval:3e3,autopause:!0}},a.fn.autoscroll=function(c){typeof c=="number"&&(c={interval:c});var d=a.extend({},b.autoscroll.conf,c),e;this.each(function(){var b=a(this).data("scrollable"),c=b.getRoot(),f,g=!1;function h(){f&&clearTimeout(f),f=setTimeout(function(){b.next()},d.interval)}b&&(e=b),b.play=function(){f||(g=!1,c.on("onSeek",h),h())},b.pause=function(){f=clearTimeout(f),c.off("onSeek",h)},b.resume=function(){g||b.play()},b.stop=function(){g=!0,b.pause()},d.autopause&&c.add(b.getNaviButtons()).hover(b.pause,b.resume),d.autoplay&&b.play()});return d.api?e:this}})(jQuery);
+(function($) {
 
+    // static constructs
+    $.tools = $.tools || {version: '@VERSION'};
+
+    $.tools.scrollable = {
+
+        conf: {
+            activeClass: 'active',
+            circular: false,
+            clonedClass: 'cloned',
+            disabledClass: 'disabled',
+            easing: 'swing',
+            initialIndex: 0,
+            item: '> *',
+            items: '.items',
+            keyboard: true,
+            mousewheel: false,
+            next: '.next',
+            prev: '.prev',
+            size: 1,
+            itemsPerFrame: 1,
+            speed: 400,
+            vertical: false,
+            touch: true,
+            wheelSpeed: 0
+        }
+    };
+
+    // get hidden element's width or height even though it's hidden
+    function dim(el, key) {
+        var v = parseInt(el.css(key), 10);
+        if (v) { return v; }
+        var s = el[0].currentStyle;
+        return s && s.width && parseInt(s.width, 10);
+    }
+
+    function find(root, query) {
+        var el = $(query);
+        return el.length < 2 ? el : root.parent().find(query);
+    }
+
+    var current;
+
+    // constructor
+    function Scrollable(root, conf) {
+
+        // current instance
+        var self = this,
+            fire = root.add(self),
+            itemWrap = root.children(),
+            index = 0,
+            vertical = conf.vertical;
+
+        if (!current) { current = self; }
+        if (itemWrap.length > 1) { itemWrap = $(conf.items, root); }
+
+
+        // in this version circular not supported when size > 1
+        if (conf.size > 1) { conf.circular = false; }
+
+        // methods
+        $.extend(self, {
+
+            getConf: function() {
+                return conf;
+            },
+
+            getIndex: function() {
+                return index;
+            },
+
+            getSize: function() {
+                return self.getItems().size();
+            },
+
+            getNaviButtons: function() {
+                return prev.add(next);
+            },
+
+            getRoot: function() {
+                return root;
+            },
+
+            getItemWrap: function() {
+                return itemWrap;
+            },
+
+            getItems: function() {
+                return itemWrap.find(conf.item).not("." + conf.clonedClass);
+            },
+
+            move: function(offset, time) {
+                return self.seekTo(index + offset, time);
+            },
+
+            next: function(time) {
+                return self.move(conf.size, time);
+            },
+
+            prev: function(time) {
+                return self.move(-conf.size, time);
+            },
+
+            begin: function(time) {
+                return self.seekTo(0, time);
+            },
+
+            end: function(time) {
+                return self.seekTo(self.getSize() -1, time);
+            },
+
+            focus: function() {
+                current = self;
+                return self;
+            },
+
+            addItem: function(item) {
+                item = $(item);
+
+                if (!conf.circular)  {
+                    itemWrap.append(item);
+                    next.removeClass("disabled");
+
+                } else {
+                    itemWrap.children().last().before(item);
+                    itemWrap.children().first().replaceWith(item.clone().addClass(conf.clonedClass));
+                }
+
+                fire.trigger("onAddItem", [item]);
+                return self;
+            },
+
+
+            /* all seeking functions depend on this */
+            seekTo: function(i, time, fn) {
+
+                // ensure numeric index
+                if (!i.jquery) { i *= 1; }
+
+                // avoid seeking from end clone to the beginning
+                if (conf.circular && i === 0 && index == -1 && time !== 0) { return self; }
+
+                // check that index is sane
+                if (!conf.circular && i < 0 || i > self.getSize() || i < -1) { return self; }
+
+                var item = i;
+
+                if (i.jquery) {
+                    i = self.getItems().index(i);
+
+                } else {
+                    item = self.getItems().eq(i);
+                }
+
+                // onBeforeSeek
+                var e = $.Event("onBeforeSeek");
+                if (!fn) {
+                    fire.trigger(e, [i, time]);
+                    if (e.isDefaultPrevented() || !item.length) { return self; }
+                }
+
+                var props = vertical ? {top: -item.position().top} : {left: -item.position().left};
+
+                index = i;
+                current = self;
+                if (time === undefined) { time = conf.speed; }
+
+                itemWrap.animate(props, time, conf.easing, fn || function() {
+                    fire.trigger("onSeek", [i]);
+                });
+
+                return self;
+            }
+
+        });
+
+        // callbacks
+        $.each(['onBeforeSeek', 'onSeek', 'onAddItem'], function(i, name) {
+
+            // configuration
+            if ($.isFunction(conf[name])) {
+                $(self).bind(name, conf[name]);
+            }
+
+            self[name] = function(fn) {
+                if (fn) { $(self).bind(name, fn); }
+                return self;
+            };
+        });
+
+        // circular loop
+        if (conf.circular) {
+
+            var cloned1 = self.getItems().clone().prependTo(itemWrap),
+                cloned2 = self.getItems().clone().appendTo(itemWrap);
+
+            // add more clones, for no gap
+            self.getItems().slice(2, conf.itemsPerFrame + 1).clone().appendTo(itemWrap).addClass(conf.clonedClass);
+
+            cloned1.add(cloned2).addClass(conf.clonedClass);
+
+            self.onBeforeSeek(function(e, i, time) {
+
+                if (e.isDefaultPrevented()) { return; }
+
+                /*
+                 1. animate to the clone without event triggering
+                 2. seek to correct position with 0 speed
+                 */
+                if (i == -1) {
+                    self.seekTo(cloned1, time, function()  {
+                        self.end(0);
+                    });
+                    return e.preventDefault();
+
+                } else if (i == self.getSize()) {
+                    self.seekTo(cloned2, time, function()  {
+                        self.begin(0);
+                    });
+                }
+
+            });
+
+            // seek over the cloned item
+
+            // if the scrollable is hidden the calculations for seekTo position
+            // will be incorrect (eg, if the scrollable is inside an overlay).
+            // ensure the elements are shown, calculate the correct position,
+            // then re-hide the elements. This must be done synchronously to
+            // prevent the hidden elements being shown to the user.
+
+            // See: https://github.com/jquerytools/jquerytools/issues#issue/87
+
+            var hidden_parents = root.parents().add(root).filter(function () {
+                if ($(this).css('display') === 'none') {
+                    return true;
+                }
+            });
+            if (hidden_parents.length) {
+                hidden_parents.show();
+                self.seekTo(0, 0, function() {});
+                hidden_parents.hide();
+            }
+            else {
+                self.seekTo(0, 0, function() {});
+            }
+
+        }
+
+        // next/prev buttons
+        var prev = find(root, conf.prev).click(function(e) { e.stopPropagation(); self.prev(); return false;}),
+            next = find(root, conf.next).click(function(e) { e.stopPropagation(); self.next(); return false;});
+
+        if (!conf.circular) {
+            self.onBeforeSeek(function(e, i) {
+                setTimeout(function() {
+                    if (!e.isDefaultPrevented()) {
+                        prev.toggleClass(conf.disabledClass, i <= 0);
+                        next.toggleClass(conf.disabledClass, i >= self.getSize() -1);
+                    }
+                }, 1);
+            });
+
+            if (!conf.initialIndex) {
+                prev.addClass(conf.disabledClass);
+            }
+        }
+
+        if (self.getSize() < 2) {
+            prev.add(next).addClass(conf.disabledClass);
+        }
+
+        // mousewheel support
+        if (conf.mousewheel && $.fn.mousewheel) {
+            root.mousewheel(function(e, delta)  {
+                if (conf.mousewheel) {
+                    self.move(delta < 0 ? 1 : -1, conf.wheelSpeed || 50);
+                    return false;
+                }
+            });
+        }
+
+        // touch event
+        if (conf.touch) {
+            var touch = {};
+
+            itemWrap[0].ontouchstart = function(e) {
+                var t = e.touches[0];
+                touch.x = t.clientX;
+                touch.y = t.clientY;
+            };
+
+            itemWrap[0].ontouchmove = function(e) {
+
+                // only deal with one finger
+                if (e.touches.length == 1 && !itemWrap.is(":animated")) {
+                    var t = e.touches[0],
+                        deltaX = touch.x - t.clientX,
+                        deltaY = touch.y - t.clientY;
+
+                    self[vertical && deltaY > 0 || !vertical && deltaX > 0 ? 'next' : 'prev']();
+                    e.preventDefault();
+                }
+            };
+        }
+
+        if (conf.keyboard)  {
+
+            $(document).bind("keydown.scrollable", function(evt) {
+
+                // skip certain conditions
+                if (!conf.keyboard || evt.altKey || evt.ctrlKey || evt.metaKey || $(evt.target).is(":input")) {
+                    return;
+                }
+
+                // does this instance have focus?
+                if (conf.keyboard != 'static' && current != self) { return; }
+
+                var key = evt.keyCode;
+
+                if (vertical && (key == 38 || key == 40)) {
+                    self.move(key == 38 ? -1 : 1);
+                    return evt.preventDefault();
+                }
+
+                if (!vertical && (key == 37 || key == 39)) {
+                    self.move(key == 37 ? -1 : 1);
+                    return evt.preventDefault();
+                }
+
+            });
+        }
+
+        // initial index
+        if (conf.initialIndex) {
+            self.seekTo(conf.initialIndex, 0, function() {});
+        }
+    }
+
+
+    // jQuery plugin implementation
+    $.fn.scrollable = function(conf) {
+
+        // already constructed --> return API
+        var el = this.data("scrollable");
+        if (el) { return el; }
+
+        conf = $.extend({}, $.tools.scrollable.conf, conf);
+
+        this.each(function() {
+            el = new Scrollable($(this), conf);
+            $(this).data("scrollable", el);
+        });
+
+        return conf.api ? el: this;
+
+    };
+
+
+})(jQuery);
+
+(function($) {
+
+    var t = $.tools.scrollable;
+
+    t.autoscroll = {
+
+        conf: {
+            autoplay: true,
+            interval: 3000,
+            autopause: true
+        }
+    };
+
+    // jQuery plugin implementation
+    $.fn.autoscroll = function(conf) {
+
+        if (typeof conf == 'number') {
+            conf = {interval: conf};
+        }
+
+        var opts = $.extend({}, t.autoscroll.conf, conf), ret;
+
+        this.each(function() {
+
+            var api = $(this).data("scrollable"),
+                root = api.getRoot(),
+            // interval stuff
+                timer, stopped = false;
+
+            /**
+             *
+             *   Function to run autoscroll through event binding rather than setInterval
+             *   Fixes this bug: http://flowplayer.org/tools/forum/25/72029
+             */
+            function scroll(){
+                // Fixes https://github.com/jquerytools/jquerytools/issues/591
+                if (timer) clearTimeout(timer); // reset timeout, especially for onSeek event
+                timer = setTimeout(function(){
+                    api.next();
+                }, opts.interval);
+            }
+
+            if (api) { ret = api; }
+
+            api.play = function() {
+
+                // do not start additional timer if already exists
+                if (timer) { return; }
+
+                stopped = false;
+                root.on('onSeek', scroll);
+                scroll();
+            };
+
+            api.pause = function() {
+                timer = clearTimeout(timer);  // clear any queued items immediately
+                root.off('onSeek', scroll);
+            };
+
+            // resume playing if not stopped
+            api.resume = function() {
+                stopped || api.play();
+            };
+
+            // when stopped - mouseover won't restart
+            api.stop = function() {
+                stopped = true;
+                api.pause();
+            };
+
+            /* when mouse enters, autoscroll stops */
+            if (opts.autopause) {
+                root.add(api.getNaviButtons()).hover(api.pause, api.resume);
+            }
+
+            if (opts.autoplay) {
+                api.play();
+            }
+
+        });
+
+        return opts.api ? ret : this;
+
+    };
+
+})(jQuery);
+(function($) {
+
+    var t = $.tools.scrollable;
+
+    t.navigator = {
+
+        conf: {
+            navi: '.navi',
+            naviItem: null,
+            activeClass: 'active',
+            indexed: false,
+            idPrefix: null,
+
+            // 1.2
+            history: false
+        }
+    };
+
+    function find(root, query) {
+        var el = $(query);
+        return el.length < 2 ? el : root.parent().find(query);
+    }
+
+    // jQuery plugin implementation
+    $.fn.navigator = function(conf) {
+
+        // configuration
+        if (typeof conf == 'string') { conf = {navi: conf}; }
+        conf = $.extend({}, t.navigator.conf, conf);
+
+        var ret;
+
+        this.each(function() {
+
+            var api = $(this).data("scrollable"),
+                navi = conf.navi.jquery ? conf.navi : find(api.getRoot(), conf.navi),
+                buttons = api.getNaviButtons(),
+                cls = conf.activeClass,
+                hashed = conf.history && !!history.pushState,
+                size = api.getConf().size;
+
+
+            // @deprecated stuff
+            if (api) { ret = api; }
+
+            api.getNaviButtons = function() {
+                return buttons.add(navi);
+            };
+
+
+            if (hashed) {
+                history.pushState({i: 0}, '');
+
+                $(window).on("popstate", function(evt) {
+                    var s = evt.originalEvent.state;
+                    if (s) { api.seekTo(s.i); }
+                });
+            }
+
+            function doClick(el, i, e) {
+                api.seekTo(i);
+                e.preventDefault();
+                if (hashed) { history.pushState({i: i}, ''); }
+            }
+
+            function els() {
+                return navi.find(conf.naviItem || '> *');
+            }
+
+            function addItem(i) {
+
+                var item = $("<" + (conf.naviItem || 'a') + "/>").click(function(e)  {
+                    doClick($(this), i, e);
+                });
+
+                // index number / id attribute
+                if (i === 0) {  item.addClass(cls); }
+                if (conf.indexed)  { item.text(i + 1); }
+                if (conf.idPrefix) { item.attr("id", conf.idPrefix + i); }
+
+                return item.appendTo(navi);
+            }
+
+
+            // generate navigator
+            if (els().length) {
+                els().each(function(i) {
+                    $(this).click(function(e)  {
+                        doClick($(this), i, e);
+                    });
+                });
+
+            } else {
+                $.each(api.getItems(), function(i) {
+                    if (i % size == 0) addItem(i);
+                });
+            }
+
+            // activate correct entry
+            api.onBeforeSeek(function(e, index) {
+                setTimeout(function() {
+                    if (!e.isDefaultPrevented()) {
+                        var i = index / size,
+                            el = els().eq(i);
+
+                        if (el.length) { els().removeClass(cls).eq(i).addClass(cls); }
+                    }
+                }, 1);
+            });
+
+            // new item being added
+            api.onAddItem(function(e, item) {
+                var i = api.getItems().index(item);
+                if (i % size == 0) addItem(i);
+            });
+
+        });
+
+        return conf.api ? ret : this;
+
+    };
+
+})(jQuery);
 /*! http://mths.be/placeholder v2.0.7 by @mathias */
 ;(function(f,h,$){var a='placeholder' in h.createElement('input'),d='placeholder' in h.createElement('textarea'),i=$.fn,c=$.valHooks,k,j;if(a&&d){j=i.placeholder=function(){return this};j.input=j.textarea=true}else{j=i.placeholder=function(){var l=this;l.filter((a?'textarea':':input')+'[placeholder]').not('.placeholder').bind({'focus.placeholder':b,'blur.placeholder':e}).data('placeholder-enabled',true).trigger('blur.placeholder');return l};j.input=a;j.textarea=d;k={get:function(m){var l=$(m);return l.data('placeholder-enabled')&&l.hasClass('placeholder')?'':m.value},set:function(m,n){var l=$(m);if(!l.data('placeholder-enabled')){return m.value=n}if(n==''){m.value=n;if(m!=h.activeElement){e.call(m)}}else{if(l.hasClass('placeholder')){b.call(m,true,n)||(m.value=n)}else{m.value=n}}return l}};a||(c.input=k);d||(c.textarea=k);$(function(){$(h).delegate('form','submit.placeholder',function(){var l=$('.placeholder',this).each(b);setTimeout(function(){l.each(e)},10)})});$(f).bind('beforeunload.placeholder',function(){$('.placeholder').each(function(){this.value=''})})}function g(m){var l={},n=/^jQuery\d+$/;$.each(m.attributes,function(p,o){if(o.specified&&!n.test(o.name)){l[o.name]=o.value}});return l}function b(m,n){var l=this,o=$(l);if(l.value==o.attr('placeholder')&&o.hasClass('placeholder')){if(o.data('placeholder-password')){o=o.hide().next().show().attr('id',o.removeAttr('id').data('placeholder-id'));if(m===true){return o[0].value=n}o.focus()}else{l.value='';o.removeClass('placeholder');l==h.activeElement&&l.select()}}}function e(){var q,l=this,p=$(l),m=p,o=this.id;if(l.value==''){if(l.type=='password'){if(!p.data('placeholder-textinput')){try{q=p.clone().attr({type:'text'})}catch(n){q=$('<input>').attr($.extend(g(this),{type:'text'}))}q.removeAttr('name').data({'placeholder-password':true,'placeholder-id':o}).bind('focus.placeholder',b);p.data({'placeholder-textinput':q,'placeholder-id':o}).before(q)}p=p.removeAttr('id').hide().prev().attr('id',o).show()}p.addClass('placeholder');p[0].value=p.attr('placeholder')}else{p.removeClass('placeholder')}}}(this,document,jQuery));
+/**
+ * Responsive
+ */
+$(document).ready(function() {
+
+    if($(window).width()<=979){
+
+        if($(window).width()<=767) {
+            $('.footer-wrapper h2').click(function() {
+                var v=$(this).next().is(":visible");
+                $('.footer-wrapper ul').hide();
+                if(!v) $(this).next().toggle();
+            })
+
+            var footSocialLinks=$('.footer-wrapper .row-fluid div:eq(3)');
+            footSocialLinks.detach().appendTo('.footer-wrapper .row-fluid').addClass('social-links');
+
+            $('.form-account > .controls-row:first-child div:eq(2)').detach().prependTo('.form-account > .controls-row:first-child');
+
+            $('.box-blue td br').remove();
+
+
+            $('.rating table tr:first-child').each(function() {
+                var w=$(this).find('.weight');
+                var d=$(this).find('.desc');
+                w.detach();
+                d.detach();
+                $(this).parent().prepend('<tr><td colspan="1" rowspan="1">'+w.text()+'</td><td colspan="3" rowspan="1">'+d.text()+'<br/><br/></td></tr>');
+            });
+
+        }
+
+        $('.nav-wrapper .container').append('<a href="#" class="btn btn-grey menu"><span><i></i></span></a>');
+        $('.nav-wrapper nav li a').click(function() {
+            $('.nav-wrapper nav').hide();
+        })
+
+        $('.menu').click(function() {
+            $('.nav').toggle();
+        });
+        if($('.nav > li.active a:contains("ACCOUNT")').length>0){
+            $('.sidebar').detach().appendTo('.nav > li.active');
+        }
+        $('.popover.left').removeClass('left').addClass('right');
+    }
+
+
+    $('.techs a').mouseover(function() {
+        $('.techs a.active').removeClass('active');
+        $(this).addClass('active');
+        var i=$(this).parent().index();
+        $('.tip .col5').addClass('hide');
+        $('.tip .col5:eq('+i+')').removeClass('hide');
+
+        if($('.techs').width()==134){
+            $('.tip .arrow').css({top:$(this).position().top-$(this).parents("ul").position().top+40})
+        }else{
+            $('.tip .arrow').css({left:$(this).position().left-$(this).parents("ul").position().left+50})
+        }
+    }).click(function() {
+            return false;
+        });
+
+    $('.switch .item').css({width:$('.switch').width()});
+
+    $('.quotes .scrollable').each(function() {
+        $(this).find('.item').width($('.scrollable').width()-20);
+        var h=0;
+        $(this).find('.item').each(function(){
+            h=Math.max($(this).height(),h);
+        });
+        $(this).height(h);
+    });
+    console.log($('.switch .items').height())
+    $('.switch').css({height:$('.switch .item').height()})
+});
+(function(a){a.tiny=a.tiny||{};a.tiny.scrollbar={options:{axis:"y",wheel:40,scroll:true,lockscroll:true,size:"auto",sizethumb:"auto",invertscroll:false}};a.fn.tinyscrollbar=function(d){var c=a.extend({},a.tiny.scrollbar.options,d);this.each(function(){a(this).data("tsb",new b(a(this),c))});return this};a.fn.tinyscrollbar_update=function(c){return a(this).data("tsb").update(c)};function b(q,g){var k=this,t=q,j={obj:a(".viewport",q)},h={obj:a(".overview",q)},d={obj:a(".scrollbar",q)},m={obj:a(".track",d.obj)},p={obj:a(".thumb",d.obj)},l=g.axis==="x",n=l?"left":"top",v=l?"Width":"Height",r=0,y={start:0,now:0},o={},e="ontouchstart" in document.documentElement;function c(){k.update();s();return k}this.update=function(z){j[g.axis]=j.obj[0]["offset"+v];h[g.axis]=h.obj[0]["scroll"+v];h.ratio=j[g.axis]/h[g.axis];d.obj.toggleClass("disable",h.ratio>=1);m[g.axis]=g.size==="auto"?j[g.axis]:g.size;p[g.axis]=Math.min(m[g.axis],Math.max(0,(g.sizethumb==="auto"?(m[g.axis]*h.ratio):g.sizethumb)));d.ratio=g.sizethumb==="auto"?(h[g.axis]/m[g.axis]):(h[g.axis]-j[g.axis])/(m[g.axis]-p[g.axis]);r=(z==="relative"&&h.ratio<=1)?Math.min((h[g.axis]-j[g.axis]),Math.max(0,r)):0;r=(z==="bottom"&&h.ratio<=1)?(h[g.axis]-j[g.axis]):isNaN(parseInt(z,10))?r:parseInt(z,10);w()};function w(){var z=v.toLowerCase();p.obj.css(n,r/d.ratio);h.obj.css(n,-r);o.start=p.obj.offset()[n];d.obj.css(z,m[g.axis]);m.obj.css(z,m[g.axis]);p.obj.css(z,p[g.axis])}function s(){if(!e){p.obj.bind("mousedown",i);m.obj.bind("mouseup",u)}else{j.obj[0].ontouchstart=function(z){if(1===z.touches.length){i(z.touches[0]);z.stopPropagation()}}}if(g.scroll&&window.addEventListener){t[0].addEventListener("DOMMouseScroll",x,false);t[0].addEventListener("mousewheel",x,false);t[0].addEventListener("MozMousePixelScroll",function(z){z.preventDefault()},false)}else{if(g.scroll){t[0].onmousewheel=x}}}function i(A){a("body").addClass("noSelect");var z=parseInt(p.obj.css(n),10);o.start=l?A.pageX:A.pageY;y.start=z=="auto"?0:z;if(!e){a(document).bind("mousemove",u);a(document).bind("mouseup",f);p.obj.bind("mouseup",f)}else{document.ontouchmove=function(B){B.preventDefault();u(B.touches[0])};document.ontouchend=f}}function x(B){if(h.ratio<1){var A=B||window.event,z=A.wheelDelta?A.wheelDelta/120:-A.detail/3;r-=z*g.wheel;r=Math.min((h[g.axis]-j[g.axis]),Math.max(0,r));p.obj.css(n,r/d.ratio);h.obj.css(n,-r);if(g.lockscroll||(r!==(h[g.axis]-j[g.axis])&&r!==0)){A=a.event.fix(A);A.preventDefault()}}}function u(z){if(h.ratio<1){if(g.invertscroll&&e){y.now=Math.min((m[g.axis]-p[g.axis]),Math.max(0,(y.start+(o.start-(l?z.pageX:z.pageY)))))}else{y.now=Math.min((m[g.axis]-p[g.axis]),Math.max(0,(y.start+((l?z.pageX:z.pageY)-o.start))))}r=y.now*d.ratio;h.obj.css(n,-r);p.obj.css(n,y.now)}}function f(){a("body").removeClass("noSelect");a(document).unbind("mousemove",u);a(document).unbind("mouseup",f);p.obj.unbind("mouseup",f);document.ontouchmove=document.ontouchend=null}return c()}}(jQuery));

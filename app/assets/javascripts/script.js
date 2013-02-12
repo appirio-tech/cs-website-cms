@@ -1,9 +1,9 @@
 $(document).ready(function() {
     if(location.href.lastIndexOf('#logined')!=-1){
         $('.nav.hide a,.sidebar li a').each(function() {
-            console.log($(this).attr('href'))
             $(this).attr('href',$(this).attr('href')+'#logined')
         })
+        $('.logined a[href="27_member_profile-current-user.html"]').attr('href','27_member_profile-current-user.html#logined');
         $('.loginbar-wrapper .container > div').toggleClass('hide');
         $('.nav').toggleClass('hide');
     }
@@ -21,43 +21,31 @@ $(document).ready(function() {
         }
     });
 
-    $('#res-swicher a').click(function() {
-        if($(this).hasClass('active')) return;
-        $('#res-swicher a.active').removeClass('active');
-        $(this).addClass('active');
-
-        $('.res').addClass('hide');
-        $($(this).attr('data-toggle')).removeClass('hide');
-        return false;
-    });
-
-    $('.techs a').mouseover(function() {
-        var i=$(this).parent().index();
-        $('.tip .col5').addClass('hide');
-        $('.tip .col5:eq('+i+')').removeClass('hide');
-        $('.tip .arrow').css({left:$(this).position().left-$(this).parents("ul").position().left+40})
-    })
-
     if(exist('form.jqTransform')) {
         $('form.jqTransform').jqTransform();
     }
 
     if(exist('.scrollable')) {
-        $('.scrollable').scrollable({circular:true}).autoscroll();
+        $('.scrollable').scrollable({circular:true,touch:false}).autoscroll();
+    }
+    if(exist('.switch')) {
+        $('.switch').scrollable({next:'',prev:'',touch:false}).navigator({navi:'.tab'});
     }
 
 
     if(exist('.works')) {
         $('.works .icon-large').each(function(i,e) {
             var lr=(i % 2==0)?"left":"right";
+            if($(window).width()<=767){
+                lr="down";
+            }
             $(e).popover({animation:false,html:true,placement:lr,trigger:'manual'}).popover('show');
         });
     }
-
     if(exist('.banner')) {
         $(".banner .container").hide().show(); // fix layout issue in IE7
     }
-        if(exist('.member-profile')) {
+	    if(exist('.member-profile')) {
         $(".member-profile .stat .place .count").each(function() {
             var count = $(this);
             count.css("width", 3.3*count.data("count"));
@@ -91,53 +79,38 @@ $(document).ready(function() {
             $(this).prev().toggleClass('hover');
         });
 
-    // aprosxacs -- member / challenge typeahead
-    $('input.typeahead').typeahead({
-        minLength: 2,
-        itemSelected: function (item){
-          var url = null;
-          if(item.challenge_id) {
-            url = gon.website_url + "/challenges/" + item.challenge_id;
-          }
-          else {
-            url = gon.website_url + "/members/" + item.name;
-          }
-          window.location = url;
-        },
-        sources: [{
-          name: "Challenges", 
-          type: "jsonp", 
-          url: gon.cs_api_url + "/challenges/search", 
-          queryName: "keyword",
-          val: {},
-          sourceTmpl: function(item) {
-            return $("<span class='challenge'>").append("<span class='count'>" + item.days_till_close  + "</span> days left");
-          },
-          nameTmpl: function(item, typeahead) {
-            return $("<span class='challenge'>")
-              .append("<i class='icon-leaf'>")
-              .append(typeahead.highlighter(item.name))
-              .append("(<span class='prizes'>$" + item.total_prize_money + "</span>)")
-          }
-        },
-        {
-          name: "Members", 
-          type: "jsonp", 
-          url: gon.cs_api_url + "/members/search", 
-          queryName: "keyword",
-          val: {},
-          sourceTmpl: function(item) {
-            return $("<img>").attr("src", item.profile_pic);
-          },
-          nameTmpl: function(item, typeahead) {
-            return $("<span class='member'>")
-              .append("<i class='icon-user'>")
-              .append(typeahead.highlighter(item.name))
-              .append("(<span class='wins'>" + item.total_wins + " wins</span>)")
-          }        
-        }]
-    });
 
+    /**
+     *  placeholder
+     */
+    if(exist(':input[placeholder]')){
+        $(":input[placeholder]").placeholder();
+    }
+	
+	String.prototype.trunc =
+     function(n,useWordBoundary){
+         var toLong = this.length>n,
+             s_ = toLong ? this.substr(0,n-1) : this;
+         s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
+         return  toLong ? s_ + '&hellip;' : s_;
+      };
+	 
+	 if (exist('.challenge')) {
+		$('.challenge h3 a').each(function() {
+			$(this).html($(this).html().trunc(53, true).toString());
+		});
+	 }
+
+    //online droplist
+//    $('.btn-online').click(function() {
+//        $('.online').css({width:$(this).width(),left:$(this).position().left});
+//        $('.online .viewport,.online .overview').css({width:$(this).width()-6});
+//        $('.online').toggle();
+//        $('.online').tinyscrollbar_update();
+//        return false;
+//    });
+//    $(document).on('click',function() {$('.online').hide();}).on('click','.btn-online,.online',function (e) { e.stopPropagation() });
+//    $('.online').tinyscrollbar();
 });
 
 function exist(el) {
