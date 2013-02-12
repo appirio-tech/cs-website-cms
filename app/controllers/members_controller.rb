@@ -57,25 +57,12 @@ class MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place' })
-    @active_challenges = []
-    @past_challenges = []
-    @member.challenges.each do |challenge|
-      if !challenge.challenge_participants.records.first.status.eql?('Watching') && challenge.active?
-        @active_challenges << challenge
-      elsif challenge.challenge_participants.records.first.has_submission
-        @past_challenges << challenge
-      end
-    end
+    @active_challenges = @member.active_challenges
+    @past_challenges = @member.past_challenges
   end
 
   def past_challenges
-    @member = Member.find(params[:id])
-    @past_challenges = []
-    @member.challenges.each do |challenge|
-      if challenge.challenge_participants.records.first.has_submission
-        @past_challenges << challenge
-      end
-    end    
+    @past_challenges = Member.find(params[:id]).past_challenges 
   end  
 
   def update

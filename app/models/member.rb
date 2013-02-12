@@ -22,6 +22,36 @@ class Member < ApiModel
     name
   end
 
+  def active_challenges
+    active_challenges = []
+    challenges.each do |c|
+      if !c.challenge_participants.records.first.status.eql?('Watching') && c.active?
+        active_challenges << c
+      end
+    end
+    active_challenges
+  end  
+
+  def watching_challenges
+    watching_challenges = []
+    challenges.each do |c|
+      if c.challenge_participants.records.first.status.eql?('Watching') && c.active?
+        watching_challenges << c
+      end
+    end
+    watching_challenges
+  end    
+
+  def past_challenges
+    past_challenges = []
+    challenges.each do |c|
+      if c.challenge_participants.records.first.has_submission
+        past_challenges << c
+      end
+    end
+    past_challenges
+  end
+
   def self.search(keyword)
     request(:get, "search", {:keyword => keyword})
       .map {|member| Member.new member}

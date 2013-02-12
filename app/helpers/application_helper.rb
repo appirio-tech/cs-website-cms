@@ -10,7 +10,7 @@ module ApplicationHelper
 
   MENU_OPTIONS_MY_STUFF = { 
   	:challenges  							=> {:value => 'CHALLENGES', 					:link => '/account/challenges'},
-  	:challenges_as_admin			=> {:value => 'ADMIN CHALLENGES',			:link => '/account/challenges-admin'},
+  #	:challenges_as_admin			=> {:value => 'ADMIN CHALLENGES',			:link => '/account/challenges-admin'},
 		:communities      				=> {:value => 'COMMUNITIES',  	  	  :link => '/account/communities'} 
 	}	
 
@@ -20,8 +20,8 @@ module ApplicationHelper
 	}	
 
   MENU_OPTIONS_SUBMISSIONS = { 
-  	:outstanding_reviews			=> {:value => 'OUTSTANDING REVIEWS', 	:link => '/judging/outstandng-reviews'},
-		:judging_queue      			=> {:value => 'JUDGING QUEUE',       	:link => '/judging/judging-queue'} 
+  	:outstanding_reviews			=> {:value => 'OUTSTANDING REVIEWS', 	:link => '/judging/outstandng-reviews'}
+		#:judging_queue      			=> {:value => 'JUDGING QUEUE',       	:link => '/judging/judging-queue'} 
 	}		
 
   def profile_pic
