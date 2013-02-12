@@ -10,7 +10,7 @@
                 <div class="pull-left info">
                     <div class="well">
                         <div class="top">
-                            <h2><a href="#"><%= @member.name %></a></h2>
+                            <h2><%= @member.name %></h2>
                             <span><%= @member.country %></span>
                         </div>
                         <div class="bottom">
@@ -172,19 +172,6 @@
                     <a href="#" class="prev"><span>Prev</span></a>
                     <a href="#" class="next"><span>Next</span></a>
                 </div>
-
-                <h2 class="discussion">6 RECOMMENDATIONS</h2>
-                <div class="right-button">
-                    <a href="javascript:;" class="btn recommend-this-member pull-right"><span>RECOMMEND THIS MEMBER</span></a>
-                </div>
-                <div class="recommendation hide">
-                    <form class="jqTransform">
-                        <h4>Post a Recommendation</h4>
-                        <textarea></textarea>
-                        <a href="javascript:;" class="btn pull-right"><span>POST</span></a>
-                    </form>
-                </div>
-                NOTE: client widget here
             </div>
 
             <div class="span4">
@@ -202,7 +189,7 @@
                     <a href="/members/<%= @member.name %>/past-challenges" class="title-link">View All Past Challenges</a>
                 </div>
 
-                <h2>53 PAST CHALLENGES</h2>
+                <h2>SOCIAL</h2>
                 <div class="content">
                     <p>
                         Twitter: <a href="#">www.twitter.com/logontokartik</a><br>

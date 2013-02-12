@@ -28,7 +28,6 @@ class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/edit?reset_password_token=abcdef from email link
   def edit
     user = User.find_by_reset_password_token(params[:reset_password_token])
-    puts "========user in edit #{user.to_yaml}"
     self.resource = resource_class.new
     resource.reset_password_token = params[:reset_password_token]
     resource.username = user.username
@@ -37,22 +36,34 @@ class Users::PasswordsController < Devise::PasswordsController
   def update
     user = User.find_by_username(params[:user][:username])
     attributes = params[:user]
-      puts "====== user #{user.to_yaml}"
-      puts "====== attributes #{attributes.to_yaml}"
     if user and attributes[:password].present? and attributes[:password] == attributes[:password_confirmation]
       resp = user.account.update_password(attributes[:reset_password_token], attributes[:password])
       if resp.success == "true"
         user.reset_password!(attributes[:password], attributes[:password_confirmation])
+        # user.mav_hash = Encryptinator.encrypt_string attributes[:password]
+        user.mav_hash = attributes[:password]
+        user.last_access_token_refresh_at = Date.yesterday
+        user.save
         flash[:notice] = "Password changed successfully!"
         sign_in(resource_name, user)
         redirect_to after_sign_in_path_for(user)
       else
+        # not DRY
         flash[:error]  = resp.message
+        user = User.find_by_reset_password_token(attributes[:reset_password_token])
+        self.resource = resource_class.new
+        resource.reset_password_token = attributes[:reset_password_token]
+        resource.username = user.username        
         render action: "edit"
       end
     else
+      # not DRY
       flash[:error] = "Passwords do not match."
-      render action: "edit"      
+      user = User.find_by_reset_password_token(attributes[:reset_password_token])
+      self.resource = resource_class.new
+      resource.reset_password_token = attributes[:reset_password_token]
+      resource.username = user.username
+      render action: "edit"
     end
   end
 

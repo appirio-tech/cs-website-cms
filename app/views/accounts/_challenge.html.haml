@@ -18,4 +18,4 @@
     - if status == "Watching"
       = link_to content_tag(:span, "REGISTER"), challenge_path(challenge), class: "btn pull-right-bottom"
     - else
-      = link_to content_tag(:span, "SUBMIT"), challenge_submission_path(challenge), class: "btn pull-right-bottom"
+      = link_to content_tag(:span, "SUBMIT"), challenge_path(challenge), class: "btn pull-right-bottom"

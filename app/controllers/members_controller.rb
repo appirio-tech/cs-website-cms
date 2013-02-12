@@ -8,8 +8,8 @@ class MembersController < ApplicationController
     @open_challenges = Challenge.open
     @featured_challenge =  Challenge.find @stats['featured_challenge_id']
     @leaderboard = CsPlatform.leaderboard(current_access_token, :category => nil, :limit => 1000)
-    @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('created_at desc').limit(3)
-    @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('created_at desc').limit(3)    
+    @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at').limit(3)
+    @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at').limit(3)    
   end   
 
   def leaderboard
@@ -52,7 +52,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted' })
     @active_challenges = @member.active_challenges
     @past_challenges = @member.past_challenges
   end
