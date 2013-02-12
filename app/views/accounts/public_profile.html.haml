@@ -1,0 +1,57 @@
+= content_wrapper do
+  .span8
+    .title
+      %h1 EDIT PUBLIC PROFILE
+    %p The community wants to get to know you. Who is that brainiac writing those compliant, minified lines of code? Show you’re really not a robot and write a little something about yourelf. Note that the information you provide below is public and anyone can see it, including your boss.
+
+
+    = form_tag account_path, method: "put", class: "form-horizontal jqTransform", multipart: true do
+      .control-group
+        %label.control-label Profile Photo
+        .controls
+          = image_tag @member.profile_pic, class: "photo pull-left", alt: "", width: 82
+          .btn-file
+            %a.btn.btn-grey{href: "#"}
+              %span CHOOSE FILE
+            = file_field_tag "profile_picture"
+            %span No file chosen
+          / = link_to "#", class: "btn btn-grey submit" do
+          /   %span UPLOAD
+
+      .control-group
+        %label.control-label Summary / Bio
+        .controls
+          = text_area_tag "account[summary_bio]", @member.summary_bio
+      .control-group
+        %label.control-label Quote
+        .controls
+          = text_area_tag "account[quote]", @member.quote
+      .control-group
+        %label.control-label Site / Blog
+        .controls
+          = text_field_tag "account[website]", @member.website, class: "input-xxlarge"
+      .control-group
+        %label.control-label Twitter Username
+        .controls
+          = text_field_tag "account[twitter]", @member.twitter, class: "input"
+      .control-group
+        %label.control-label Github Username
+        .controls
+          = text_field_tag "account[github]", @member.github, class: "input"
+      .control-group
+        %label.control-label Facebook Url
+        .controls
+          = text_field_tag "account[facebook]", @member.facebook, class: "input"
+      .control-group
+        %label.control-label Linkedin Url
+        .controls
+          = text_field_tag "account[linkedin]", @member.linkedin, class: "input"
+
+      .controls-row
+        .control-group
+          .controls
+            = submit_tag "SUBMIT", class: "btn pull-left"
+        
+
+
+  = render 'shared/account_menu', :selected_item => 'public_profile'

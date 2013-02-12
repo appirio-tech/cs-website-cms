@@ -91,6 +91,7 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
+    aws_cf_signer (0.1.1)
     babosa (0.3.8)
     bcrypt-ruby (3.0.1)
     better_errors (0.3.2)
@@ -110,6 +111,9 @@ GEM
     client_side_validations-simple_form (2.0.1)
       client_side_validations (~> 3.2.0)
       simple_form (~> 2.0.3)
+    cloudinary (1.0.44)
+      aws_cf_signer
+      rest-client
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -471,6 +475,7 @@ DEPENDENCIES
   ckeditor_rails!
   client_side_validations
   client_side_validations-simple_form
+  cloudinary
   coffee-rails (~> 3.2.1)
   compass!
   country-select

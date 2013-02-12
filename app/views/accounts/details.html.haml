@@ -68,9 +68,10 @@
           .controls
             = select_tag "account[time_zone]", time_zone_options_for_select(@member.time_zone, ActiveSupport::TimeZone.us_zones), class: "select-xxxlarge"
 
-      .control-group
-        = submit_tag "SUBMIT", class: "btn pull-right"
-        
+      .controls-row
+        .control-group
+          .controls
+            = submit_tag "SUBMIT", class: "btn pull-left"
 
 
   = render 'shared/account_menu', :selected_item => 'account_details'
