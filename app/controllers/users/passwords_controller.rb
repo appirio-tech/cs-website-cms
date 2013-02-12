@@ -28,7 +28,7 @@ class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/edit?reset_password_token=abcdef from email link
   def edit
     user = User.find_by_reset_password_token(params[:reset_password_token])
-    user.account.update_password_token(params[:reset_password_token])
+    puts "========user in edit #{user.to_yaml}"
     self.resource = resource_class.new
     resource.reset_password_token = params[:reset_password_token]
     resource.username = user.username
@@ -37,6 +37,8 @@ class Users::PasswordsController < Devise::PasswordsController
   def update
     user = User.find_by_username(params[:user][:username])
     attributes = params[:user]
+      puts "====== user #{user.to_yaml}"
+      puts "====== attributes #{attributes.to_yaml}"
     if user and attributes[:password].present? and attributes[:password] == attributes[:password_confirmation]
       resp = user.account.update_password(attributes[:reset_password_token], attributes[:password])
       if resp.success == "true"

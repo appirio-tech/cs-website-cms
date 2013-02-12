@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :timeoutable,
          :token_authenticatable, :confirmable, :lockable,
-         :token_authenticatable, :lockable
+         :token_authenticatable, :lockable, :recoverable
          # :trackable,  
 
   # Setup accessible (or protected) attributes for your model
@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 
   def refresh_user_access_token
     puts "==== %%%%% calling refresh_access_token_from_sfdc"
-    auth_hash = mav_hash.nil? ? ENV['THIRD_PARTY_PASSWORD'] : mav_hash
+    auth_hash = mav_hash.nil? ? ENV['THIRD_PARTY_PASSWORD'] : Encryptinator.decrypt_string(mav_hash)
     sfdc_authentication = Account.new(self).authenticate(auth_hash)
     if sfdc_authentication.success.to_bool
       sfdc_authentication.access_token

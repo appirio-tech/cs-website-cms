@@ -22,7 +22,6 @@ CsWebsiteCms::Application.routes.draw do
   get '/leaderboard', to: 'members#leaderboard' # this is temp
   resources :members, only: [:show, :update] do
     member do
-      post 'login_managed_by'
       get 'challenges'
       get 'payments'
       get 'recommendations'

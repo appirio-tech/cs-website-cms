@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user = User.new(email: params[:email], username: params[:username], password: params[:password], 
         password_confirmation: params[:password_confirm])   
       user.username = params[:username]      
-      user.mav_hash = params[:password]
+      user.mav_hash = Encryptinator.encrypt_string params[:password]
       user.last_access_token_refresh_at = Date.yesterday
       # try and create the user in sfdc
       results = Account.new(user).create params

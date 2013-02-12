@@ -1,10 +1,6 @@
 require 'will_paginate/array'
 
-class MembersController < ApplicationController
-
-  def login_managed_by
-    logiMember.login_type 'jeffdonthemic'
-  end    
+class MembersController < ApplicationController  
 
   def community
     @community_tick = true

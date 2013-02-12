@@ -44,10 +44,6 @@ class AccountsController < ApplicationController
     @member = Member.find(current_user.username, fields: fields)
 	end
 
-	def change_password
-
-	end
-
 	def challenges
 		member = Member.find current_user.username
     @followed_challenges = member.watching_challenges

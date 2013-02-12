@@ -33,10 +33,11 @@ class Account < ApiModel
     self.class.post("authenticate", data)
   end
 
-  def update_password_token(token)
-    data = { token: token }
-    self.class.put(["update_password_token", user.username], data)
-  end
+  # not sure why this is needed -- remove?
+  # def update_password_token(token)
+  #   data = { token: token }
+  #   self.class.put(["update_password_token", user.username], data)
+  # end
 
   def update_password(token, new_password)
     data = {

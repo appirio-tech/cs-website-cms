@@ -25,7 +25,7 @@ class Users::SessionsController < Devise::SessionsController
         user =  User.new
         user.username = params[:user][:username]
         user.password = params[:user][:password]
-        user.mav_hash = params[:user][:password]
+        user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
         user.last_access_token_refresh_at = Date.yesterday
         user.skip_confirmation!
         # save their record, sign them in and redirect
