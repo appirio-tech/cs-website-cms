@@ -1,5 +1,34 @@
 <!-- CONTENT
         ================================================== -->
+<script>
+    window.BadgevilleAsynchInit = function() {
+
+      Badgeville.extend( Badgeville.Settings, {
+        key: '<%= ENV['BADGEVILLE_PUBLIC_API_KEY'] %>',
+        domain: '<%= ENV['BADGEVILLE_DOMAIN'] %>'
+        // Add other Badgeville.Settings changes
+      });
+  
+      Badgeville.crouton = function(){};
+      Badgeville.Settings.showToast = 0;
+
+      BV.setPlayer( '<%= @member["badgeville_id"] %>' );
+
+      Badgeville.ready(function() {
+        Badgeville.Gears.rewardStatus( Badgeville.Settings.player.last_reward ).css({}).appendTo( document.getElementsByClassName("wider") );
+		Badgeville.Gears.levelStatus( Badgeville.Settings.player ).appendTo( document.getElementsByClassName("span6") ); 
+
+      });
+    };
+    (function() {
+      var s = document.createElement( 'script' );
+      s.async = true;
+      s.src =  'http://api.badgeville.com/v4/badgeville-current.js';
+      document.body.appendChild( s );
+    }());
+  </script>
+
+
 <div class="content-wrapper member-profile">
     <div class="container">
 
@@ -21,12 +50,7 @@
                 </div>
             </div>
             <div class="span6">
-                <h3>Level 3 Adventurer</h3>
-                <div class="level">
-                    <span class="progress"></span>
-                    <span class="from level3">Adventurer</span>
-                    <span class="to level4-gray">Ninja<i></i></span>
-                </div>
+                
             </div>
         </div>
         
@@ -104,74 +128,28 @@
                 <h2>RECENT ACTIVITY</h2>
                 <ul class="brief-info unstyled">
                     <li class="wider">
+                    <!--
                         <img src="/assets/discussion-champion.png" height="67" alt=""/>
                         <div class="info">
                             <span>logontokartik unlocked<br>the Discussion Champion badge.</span><br>
                             <span class="gray">September 11, 2012</span>
                         </div>
+                        -->
                     </li>
-                    <li class="wider">
-                        <img src="/assets/discussion-champion.png" height="67" alt=""/>
-                        <div class="info last">
-                            <span>logontokartik unlocked<br>the Lorem Ipsum badge.</span><br>
-                            <span class="gray">September 14, 2012</span>
-                        </div>
-                    </li>
+                    
                 </ul>
 
 
                 <h2>
                     MISSIONS
-                    <small>1 of 10 missions complete</small>
-                </h2>
+                    <!-- <small>1 of 10 missions complete</small> -->
+                </h2><!--
                 <div class="slider missions">
-                    <div class="scrollable">
-                        <div class="items">
-                            <div class="item">
-                                <span class="first">Skills - Box</span>
-                                <img src="/assets/box.png" alt=""/>
-                                <span>0/4</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Cloud Foundry</span>
-                                <img src="/assets/cloud-foundry.png" alt=""/>
-                                <span>0/5</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Force.com</span>
-                                <img src="/assets/force-dot-com-2.png" alt=""/>
-                                <span class="orange">Complete</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Android Tech Misson</span>
-                                <img src="/assets/box.png" alt=""/>
-                                <span>0/4</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Box</span>
-                                <img src="/assets/box.png" alt=""/>
-                                <span>0/4</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Cloud Foundry</span>
-                                <img src="/assets/cloud-foundry.png" alt=""/>
-                                <span>0/5</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Force.com</span>
-                                <img src="/assets/force-dot-com-2.png" alt=""/>
-                                <span class="orange">Complete</span>
-                            </div>
-                            <div class="item">
-                                <span class="first">Skills - Android Tech Misson</span>
-                                <img src="/assets/box.png" alt=""/>
-                                <span>0/4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="prev"><span>Prev</span></a>
-                    <a href="#" class="next"><span>Next</span></a>
+                    
                 </div>
+                -->
+                <div class="bv_missions" bv_options='{"orientation":"carousel"}' style="position: relative;"></div>
+			    </div> 
             </div>
 
             <div class="span4">
