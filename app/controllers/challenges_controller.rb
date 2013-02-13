@@ -16,6 +16,7 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = current_challenge
+    @comments = @challenge.comments
   end
 
   def preview

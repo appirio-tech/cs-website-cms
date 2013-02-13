@@ -1,4 +1,6 @@
-<% challenge.comments.each do |comment| %>
+<% if comments.empty? %>No discussion comments for this challenge.<% end %>
+
+<% comments.each do |comment| %>
   <%= render partial: "comment", locals: {comment: comment, challenge: challenge} %>
   <% comment.replies.each do |reply| %>
     <%= render partial: "comment", locals: {comment: reply} %>

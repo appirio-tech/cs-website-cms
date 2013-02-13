@@ -1,4 +1,4 @@
-<% if current_user.challenge_admin?(@challenge) %>
+<% if current_user && current_user.challenge_admin?(challenge) %>
 <%
 =begin
 <h2>ADMINISTRATION</h2>
