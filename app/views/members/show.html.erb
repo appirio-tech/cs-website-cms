@@ -1,8 +1,9 @@
 <!-- CONTENT
         ================================================== -->
 <script>
+    
     window.BadgevilleAsynchInit = function() {
-
+    
       Badgeville.extend( Badgeville.Settings, {
         key: '<%= ENV['BADGEVILLE_PUBLIC_API_KEY'] %>',
         domain: '<%= ENV['BADGEVILLE_DOMAIN'] %>'
@@ -13,10 +14,11 @@
       Badgeville.Settings.showToast = 0;
 
       BV.setPlayer( '<%= @member.badgeville_id %>' );
-
+      //BV.setPlayer('4f46cba71850867c44003afe') 
       Badgeville.ready(function() {
-        Badgeville.Gears.rewardStatus( Badgeville.Settings.player.last_reward ).css({}).appendTo( document.getElementsByClassName("wider") );
-		Badgeville.Gears.levelStatus( Badgeville.Settings.player ).appendTo( document.getElementsByClassName("span6") ); 
+        Badgeville.Gears.rewardStatus( Badgeville.Settings.player.last_reward  ).css({}).appendTo( document.getElementsByClassName("wider") );
+		Badgeville.Gears.currentLevel( Badgeville.Settings.player ).appendTo( document.getElementsByClassName("span6 status") );
+		Badgeville.Gears.levelStatus( Badgeville.Settings.player ).appendTo( document.getElementsByClassName("span6 status") ); 
 
       });
     };
@@ -49,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="span6">
+            <div class="span6 status">
                 
             </div>
         </div>
@@ -65,7 +67,7 @@
         <div class="row-fluid">
 
             <div class="span8">
-
+<!--
                 <h2>RECENT ACHIEVEMENTS</h2>
                 <ul class="brief-info unstyled">
                     <li>
@@ -90,8 +92,8 @@
                         </div>
                     </li>
                 </ul>
-
-                <h2>STATS &amp; ACHIEVEMENTS</h2>
+-->
+                <h2>STATISTICS</h2>
                 <div class="stats">
                     <div class="stat">
                         <div class="place">
@@ -143,13 +145,13 @@
                 <h2>
                     MISSIONS
                     <!-- <small>1 of 10 missions complete</small> -->
-                </h2><!--
+                </h2>
                 <div class="slider missions">
-                    
+                    <div class="bv_missions" bv_options='{"orientation":"carousel"}'/>
+			    </div>
                 </div>
-                -->
-                <div class="bv_missions" bv_options='{"orientation":"carousel"}' style="position: relative;"></div>
-			    </div> 
+                
+                 
             </div>
 
             <div class="span4">
