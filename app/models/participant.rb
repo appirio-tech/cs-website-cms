@@ -8,13 +8,15 @@ class Participant < ApiModel
 
   # Cleanup up the __r convention
   def initialize(params={})
-    params['member'] = params.delete('member__r') if params['member__R']
+    params['member'] = params.delete('member__r') if params['member__r']
     params['challenge'] = params.delete('challenge__r') if params['challenge__r']
     super(params)
   end
 
   def self.find_by_member(challenge_id, membername)
     Participant.new naked_get "participants/#{membername}/#{challenge_id}"
+  rescue Exception
+    # rest call returns nil if the member is not a participant     
   end
 
   def self.current_status(challenge_id, membername)
@@ -30,6 +32,11 @@ class Participant < ApiModel
       naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
     end
   end  
+
+  # temp till we move to new submissions
+  def current_submissions
+        get(ENV['SFDC_APEXREST_URL']+"/submissions?participantid=#{esc participantId}")
+  end
 
   def submission_deliverables
     #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
