@@ -4,9 +4,8 @@ class MembersController < ApplicationController
 
   def community
     @community_tick = true
-    @stats = CsPlatform.stats
     @open_challenges = Challenge.open
-    @featured_challenge =  Challenge.find @stats['featured_challenge_id']
+    @featured_challenge =  Challenge.find @platform_stats['featured_challenge_id']
     @leaderboard = CsPlatform.leaderboard(current_access_token, :category => nil, :limit => 1000)
     @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(3)    
@@ -22,10 +21,6 @@ class MembersController < ApplicationController
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
     @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
   end
-
-  def forums
-    @forums_tick = true
-  end  
   
   # note that we provide our own search service so that we have greater control
   # over the results; e.g. caching, endpoint configuration, result format, etc.
@@ -52,7 +47,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted' })
+    @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id' })
     @active_challenges = @member.active_challenges
     @past_challenges = @member.past_challenges
   end

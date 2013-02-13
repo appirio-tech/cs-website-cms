@@ -5,11 +5,11 @@
 
         <div class="title"><h1>HAPPENING NOW</h1></div>
         <div class="row-fluid" id="status">
-            <div><div><div><span class="icon-active-members"></span><strong><%= number_with_delimiter(@stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS</div></div></div>
-            <div><div><div><span class="icon-competing-today"></span><strong><%= @stats['competing_today'].to_i %></strong>COMPETING TODAY</div></div></div>
-            <div><div><div><span class="icon-available-prize-money"></span><strong><%= number_to_currency(@stats['money_up_for_grabs'], :precision => 0) %></strong>AVAILABLE PRIZE MONEY</div></div></div>
-            <div><div><div><span class="active-challenges"></span><strong><%= @stats['challenges_open'] %></strong>ACTIVE CHALLENGES</div></div></div>
-            <div><div><div><span class="counteries-working"></span><strong><%= @stats['countries_working'] %></strong>COUNTRIES WORKING</div></div></div>
+            <div><div><div><span class="icon-active-members"></span><strong><%= number_with_delimiter(@platform_stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS</div></div></div>
+            <div><div><div><span class="icon-competing-today"></span><strong><%= @platform_stats['competing_today'].to_i %></strong>COMPETING TODAY</div></div></div>
+            <div><div><div><span class="icon-available-prize-money"></span><strong><%= number_to_currency(@platform_stats['money_up_for_grabs'], :precision => 0) %></strong>AVAILABLE PRIZE MONEY</div></div></div>
+            <div><div><div><span class="active-challenges"></span><strong><%= @platform_stats['challenges_open'] %></strong>ACTIVE CHALLENGES</div></div></div>
+            <div><div><div><span class="counteries-working"></span><strong><%= @platform_stats['countries_working'] %></strong>COUNTRIES WORKING</div></div></div>
         </div>
         <br/>
 
@@ -48,11 +48,11 @@
             <div class="span6">
                 <div class="title"><h1>FEATURED MEMBER</h1></div>
                 <div class="placement well">
-                    <%= image_tag(@stats['featured_member_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                    <%= link_to @stats['featured_member_username'], member_path(@stats['featured_member_username']) %>
-                    Challenge Wins: <strong><%= @stats['featured_member_wins'].to_i %></strong><br/>
-                    Active Challenges: <strong><%= @stats['featured_member_active'].to_i %></strong>
-                    <table class="type featured"><tr><td><%= number_to_currency(@stats['featured_member_money'], :precision => 0) %></td></tr></table>
+                    <%= image_tag(@platform_stats['featured_member_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= link_to @platform_stats['featured_member_username'], member_path(@platform_stats['featured_member_username']) %>
+                    Challenge Wins: <strong><%= @platform_stats['featured_member_wins'].to_i %></strong><br/>
+                    Active Challenges: <strong><%= @platform_stats['featured_member_active'].to_i %></strong>
+                    <table class="type featured"><tr><td><%= number_to_currency(@platform_stats['featured_member_money'], :precision => 0) %></td></tr></table>
                 </div>
 
                 <p><a href="/members/parasquid">Parasquid</a> has been a member of CloudSpokes since early summer 2012, but didn't really start participating until November when he laid eyes on our "Rebuild our CloudSpokes site in Rails" challenge and won 1st place.</p>

@@ -12,7 +12,7 @@
       Badgeville.crouton = function(){};
       Badgeville.Settings.showToast = 0;
 
-      BV.setPlayer( '<%= @member["badgeville_id"] %>' );
+      BV.setPlayer( '<%= @member.badgeville_id %>' );
 
       Badgeville.ready(function() {
         Badgeville.Gears.rewardStatus( Badgeville.Settings.player.last_reward ).css({}).appendTo( document.getElementsByClassName("wider") );

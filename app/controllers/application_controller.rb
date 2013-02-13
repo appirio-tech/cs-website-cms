@@ -6,16 +6,22 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_access_token
   before_filter :set_gon_variables
+  before_filter :get_platform_stats
 
   def set_access_token
-    # ApiModel.access_token = current_user.try(:access_token) || guest_access_token
     ApiModel.access_token = current_access_token
   end    
 
   def set_gon_variables
     gon.cs_api_url = ENV['CS_API_URL']
     gon.website_url = ENV['WEBSITE_URL']
-  end      
+  end    
+
+  def get_platform_stats
+    @platform_stats = Rails.cache.fetch('platform_stats', :expires_in => 30.minute) do
+      CsPlatform.stats
+    end    
+  end        
 
   def show_welcome_page?
     false
