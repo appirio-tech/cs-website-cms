@@ -48,8 +48,16 @@ CsWebsiteCms::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.mandrillapp.com",
+    :port           => "587",
+    :authentication => :plain,
+    :user_name      => ENV['MANDRILL_USERNAME'],
+    :password       => ENV['MANDRILL_APIKEY'],
+    :domain         => 'cloudspokes.com'
+  }  
 
   # Enable threaded mode
   # config.threadsafe!
@@ -67,6 +75,5 @@ CsWebsiteCms::Application.configure do
 
   Refinery::Core.config.s3_backend = true  
 
-  # TODO: CHANGEME!!
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'cloudspokes.com' }
 end
