@@ -1,0 +1,74 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="title"><h1>YOUR SUBMISSION</h1></div>
+
+        <div class="row-fluid">
+
+            <div class="span8">
+                <h1><%= @challenge.name %></h1>
+
+                <div class="title" style="margin-top:10px"><h1>CURRENT MEDIA FOR YOUR SUBMISSION</h1></div>
+                <% @submissions.each do |s| %>
+                <div class="well well-large">
+                    Media : <a href="<%= s.url %>"><%= s.url %></a><br/>
+                    Type : <%= s.type %><br/>
+                    Comments : <%= s.comments %>
+                    <a href="#" class="btn pull-right-bottom"><span>DELETE</span></a>
+                </div>
+                <% end %>
+
+                <div class="title"><h1>UPLOAD FILES</h1></div>
+                <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
+                <form class="form-horizontal jqTransform">
+                    <div class="control-group">
+                        <label class="control-label">File</label>
+                        <div class="controls">
+                            <div class="btn-file">
+                                <a href="#" class="btn btn-grey"><span>CHOOSE FILE</span></a>
+                                <input type="file"/><spam>No file chosen</spam>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Comments</label>
+                        <div class="controls">
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <a class="btn pull-right"><span>UPLOAD</span></a>
+                    </div>
+                </form>
+
+                <div class="title"><h1>INCLUDE URLS</h1></div>
+                <p>Add any URLs to supporting into such as a You Tube or Jing videos, a GitHub repo or any other URL you would like to include in your submission.</p>
+
+                <form class="form-horizontal jqTransform">
+                    <div class="control-group">
+                        <label class="control-label">File</label>
+                        <div class="controls">
+                            <input/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Comments</label>
+                        <div class="controls">
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <a class="btn pull-right"><span>ADD</span></a>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="span4">
+                <%= render partial: "right_side", locals: {challenge: @challenge} %>
+            </div>
+        </div>
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

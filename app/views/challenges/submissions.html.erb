@@ -5,7 +5,7 @@
 
     <div class="title"><h1>ALL SUBMISSIONS</h1></div>
     <div class="content">
-    		<% @challenge.submission_deliverables.each do |deliverable| %>
+    	<% @challenge.submission_deliverables.each do |deliverable| %>
         <div class="well">
             Member: <%= link_to deliverable.username, member_path(deliverable.username) %><br/>
             Type: <%= deliverable.type %> - <%= link_to deliverable.url, member_path(deliverable.url) %><br/>

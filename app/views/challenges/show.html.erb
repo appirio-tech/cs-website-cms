@@ -34,73 +34,8 @@
       </div>
 
       <div class="span4">
-
         <br/><br/><br/>
-        <h2>GET STARTED</h2>
-        <%= render partial: "call_to_action", locals: {challenge: @challenge, 
-          current_member_participant: @current_member_participant} %>
-        </p>
-
-        <h2>ADMINISTRATION</h2>
-        <p>
-          <a href="#">View submissions</a><br/>
-          <a href="#">Edit this challenge</a>
-        </p>
-
-        <h2>TECHNOLOGIES</h2>
-        <p>
-          <%= platform_and_technology_tag_links(@challenge) %>
-        </p>
-
-        <%= render partial: "timeframe", locals: {challenge: @challenge} %>
-
-        <h2>PRIZES</h2>
-        <p>
-          Total: <strong><%= number_to_currency @challenge.total_prize_money, precision: 0 %></strong><br/>
-          <% @challenge.challenge_prizes.each do |prize| %>
-            <%= prize.place %> <strong><%= prize.prize %></strong>
-            <br/>
-          <% end %>
-        </p>
-
-        <h2>PARTICIPATION</h2>
-        <p>
-          <% if user_signed_in? %>
-            Your status: <%= @current_member_participant.status %><br/>
-          <% end %>
-
-          <%= link_to "#{pluralize(@challenge.participating_members, 'member')} participating with #{@challenge.registered_members} registered", participants_challenge_path(@challenge) %>
-
-        </p>
-
-        <% if @challenge.assets.present? %>
-        <h2>ASSETS</h2>
-        <p><ul class="unstyled">
-          <% @challenge.assets.each do |asset| %>
-            <li><%= link_to asset, "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{asset}", :target => '_blank' %></li>
-          <% end %>
-        </ul></p>
-        <% end %>
-
-        <h2>SHARE</h2>
-        <p>
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-        <a class="addthis_button_preferred_1"></a>
-        <a class="addthis_button_preferred_2"></a>
-        <a class="addthis_button_preferred_3"></a>
-        <a class="addthis_button_preferred_4"></a>
-        <a class="addthis_button_compact"></a>
-        <a class="addthis_counter addthis_bubble_style"></a>
-        </div>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5113b62254784963"></script>
-        <!-- AddThis Button END -->
-        </p>  
-
-        <h2>Chrome Extension</h2>
-        <p>Install the <a href="https://chrome.google.com/webstore/detail/gdlkedihjlddoaplefphpmiibpnnpeap">CloudSpokes Chrome Extension</a> for quick and easy access to the latest
-          CloudSpokes challenges, your payments, leaderboards and more!</p>
-      </div>
+        <%= render partial: "right_side", locals: {challenge: @challenge} %>
     </div>
   </div> <!-- /.container -->
 </div>

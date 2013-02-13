@@ -34,8 +34,8 @@ class Participant < ApiModel
   end  
 
   # temp till we move to new submissions
-  def current_submissions
-        get(ENV['SFDC_APEXREST_URL']+"/submissions?participantid=#{esc participantId}")
+  def current_submissions(challenge_id)
+    self.class.naked_get "participants/#{member.name}/#{challenge_id}/current_submssions"
   end
 
   def submission_deliverables

@@ -12,8 +12,6 @@ class AuthenticationsController < ApplicationController
     # successfully found a user in sfdc
     if sfdc_account.success.to_bool
       login_third_party(omniauth, sfdc_account)
-      puts omniauth.to_yaml
-      puts sfdc_account.to_yaml
     else
       # capture their variables and redirect them to the signup page
       session[:auth] = {:email => omniauth['info']['email'], 

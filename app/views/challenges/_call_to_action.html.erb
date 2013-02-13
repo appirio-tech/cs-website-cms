@@ -2,7 +2,7 @@
   <p>
   <% if current_member_participant.try('submitted?') %>
       <% if user_signed_in? %>
-        <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), "/challenges/#{params[:id]}/submission", class: "btn" %>
+        <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), submit_challenge_path(challenge), class: "btn" %>
       <% end %>
   <% elsif challenge.open? %>   
     <div>
@@ -19,7 +19,7 @@
         Being registered for a challenge will allow you to receive all comments posted to the discussion board plus we may periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry.
 
       <% elsif current_member_participant.try('registered?') %>
-        <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), "/challenges/#{params[:id]}/submission", class: "btn" %>
+        <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), submit_challenge_path(challenge), class: "btn" %>
       <% end %>                    
     <% else %>
         Please login to register and submit for this challenge.

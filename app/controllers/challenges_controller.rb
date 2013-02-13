@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submission_view_only, :new_comment, 
     :toggle_discussion_email, :participant_submissions]
-  before_filter :current_user_participant, :only => [:show, :preview]
+  before_filter :current_user_participant, :only => [:show, :preview, :submit]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
 
   def index
@@ -62,6 +62,19 @@ class ChallengesController < ApplicationController
     flash[:error]  = "There was an error adding you to the watch list." if !results.success.to_bool
     redirect_to challenge_path(params[:id])
   end  
+
+  def submit
+    @challenge = current_challenge
+    @submissions = @current_member_participant.current_submissions(params[:id])
+  end
+
+  def submit_url_upload
+    
+  end  
+
+  def submit_file_upload
+
+  end    
 
   def submissions
     @challenge = current_challenge

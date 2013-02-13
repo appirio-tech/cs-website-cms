@@ -44,6 +44,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'participants'
       get 'preview'
       get 'submissions'
+      get 'submit'
       get 'results'
     end
 
