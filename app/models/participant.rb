@@ -34,9 +34,19 @@ class Participant < ApiModel
   end  
 
   # temp till we move to new submissions
+  def save_submission_file_or_url(challenge_id, params)
+    self.class.naked_post "participants/#{member.name}/#{challenge_id}/submission_url_file", params
+  end
+
+  # temp till we move to new submissions
   def current_submissions(challenge_id)
     self.class.naked_get "participants/#{member.name}/#{challenge_id}/current_submssions"
   end
+
+  # temp till we move to new submissions
+  def delete_submission(challenge_id, submission_id)
+    self.class.naked_get "participants/#{member.name}/#{challenge_id}/delete_submission_url_file?submission_id=#{submission_id}"
+  end  
 
   def submission_deliverables
     #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}

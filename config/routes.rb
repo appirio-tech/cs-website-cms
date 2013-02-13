@@ -45,6 +45,9 @@ CsWebsiteCms::Application.routes.draw do
       get 'preview'
       get 'submissions'
       get 'submit'
+      post 'submit_file'
+      post 'submit_url'
+      get 'submit_url_or_file_delete'
       get 'results'
     end
 

@@ -4,7 +4,8 @@ class ChallengesController < ApplicationController
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submission_view_only, :new_comment, 
     :toggle_discussion_email, :participant_submissions]
-  before_filter :current_user_participant, :only => [:show, :preview, :submit]
+  before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
+    :submit_file, :submit_url_or_file_delete]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
 
   def index
@@ -68,13 +69,64 @@ class ChallengesController < ApplicationController
     @submissions = @current_member_participant.current_submissions(params[:id])
   end
 
-  def submit_url_upload
-    
+  def submit_url
+    @challenge = current_challenge
+    if uri?(params[:url_submission][:link])
+      submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:url_submission])
+      if submission_results.success.to_bool
+        flash[:notice] = "URL successfully submitted for this challenge."
+      else
+        flash[:error] = "There was an error submitting your URL. Please check it and submit it again."
+      end
+    else
+      flash[:error] = "Please enter a valid URL."
+    end
+    redirect_to :back
   end  
 
-  def submit_file_upload
+  def submit_file
+    if params[:file].nil?
+      flash[:error] = "Please upload a valid file."
+    else
+      begin
+        file = params[:file][:file_name]
+        storage ||= begin
+          fog = Fog::Storage.new(
+            :provider                 => 'AWS',
+            :aws_secret_access_key    => ENV['AWS_SECRET'],
+            :aws_access_key_id        => ENV['AWS_KEY']
+          )
+          fog.directories.get(ENV['AWS_BUCKET'])
+        end
+        uploaded_file = storage.files.create(
+          :key    => "challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}",
+          :body   => file.read,
+          :public => true
+        )  
+        complete_url = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}"
+        submission_params = {:link => complete_url, :comments => params[:file_submission][:comments]}    
+        submission_results = @current_member_participant.save_submission_file_or_url(params[:id], submission_params)
+        if submission_results.success.to_bool
+          flash[:notice] = "File successfully uploaded and submitted for this challenge."
+        else
+          flash[:error] = "There was an error submitting your file. Please check it and submit it again."
+        end
+      rescue => e    
+        flash[:error] = "There was an error submitting your File: #{e.message}. Please check it and submit it again."
+      end
+    end
+    redirect_to :back
+  end  
 
-  end    
+  def submit_url_or_file_delete
+    submission_results = @current_member_participant.delete_submission(params[:id], params[:submissionId])
+    if submission_results.success.to_bool
+      flash[:notice] = "Successfully deleted your URL or File from your submission."
+    else
+      flash[:error] = "There was an error deleting your URL or File. Please try again."
+    end
+    redirect_to :back
+  end  
 
   def submissions
     @challenge = current_challenge
@@ -125,5 +177,14 @@ class ChallengesController < ApplicationController
     def current_user_participant
       @current_member_participant = Participant.current_status(params[:id], current_user.username) if user_signed_in?
     end
+
+    def uri?(string)
+      uri = URI.parse(string)
+      %w( http https ).include?(uri.scheme)
+    rescue URI::BadURIError
+      false
+    rescue URI::InvalidURIError
+      false
+    end    
 
 end
