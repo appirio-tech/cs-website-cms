@@ -31,8 +31,11 @@ class Users::PasswordsController < Devise::PasswordsController
     self.resource = resource_class.new
     resource.reset_password_token = params[:reset_password_token]
     resource.username = user.username
+    # change their reset token in sfdc
+    Account.new(user).update_password_token(params[:reset_password_token])
   end  
 
+  # when the user submits the password change form
   def update
     user = User.find_by_username(params[:user][:username])
     attributes = params[:user]
@@ -40,8 +43,7 @@ class Users::PasswordsController < Devise::PasswordsController
       resp = user.account.update_password(attributes[:reset_password_token], attributes[:password])
       if resp.success == "true"
         user.reset_password!(attributes[:password], attributes[:password_confirmation])
-        # user.mav_hash = Encryptinator.encrypt_string attributes[:password]
-        user.mav_hash = attributes[:password]
+        user.mav_hash = Encryptinator.encrypt_string attributes[:password]
         user.last_access_token_refresh_at = Date.yesterday
         user.save
         flash[:notice] = "Password changed successfully!"

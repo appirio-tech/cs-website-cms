@@ -181,7 +181,7 @@
       <div class="content">
           <form class="modal-form jqTransform forgot-password-form">
               <p>Enter your CloudSpokes username and we'll send you instructions on how to reset your password.</p>
-              <input type="text" placeholder="USERNAME" id="reset-username"/><div class="btn"><button id="forgot-password-btn" class="btn" type="submit">SUBMIT</button></div>
+              <input type="text" placeholder="USERNAME" id="reset-username" <% if current_user %>value="<%= current_user.username %>"<% end %>/><div class="btn"><button id="forgot-password-btn" class="btn" type="submit">SUBMIT</button></div>
           </form>
       </div>
       <div class="reset-results" style="padding-left:15px;padding-right:15px;padding-top:15px"></div>
