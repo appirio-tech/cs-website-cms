@@ -1,0 +1,9 @@
+<h2>PARTICIPATION</h2>
+<p>
+  <% if user_signed_in? %>
+    Your status: <%= @current_member_participant.status %><br/>
+  <% end %>
+
+  <%= link_to "#{pluralize(challenge.participating_members, 'member')} participating with #{challenge.registered_members} registered", participants_challenge_path(challenge) %>
+
+</p> 

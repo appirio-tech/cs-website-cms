@@ -2,7 +2,7 @@
 
   <h2>DEADLINE</h2>
   <p>
-    <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
+    Ends <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
     <br/>
     <% distance = Time.at(challenge.end_date - Time.zone.now) %>
     <%= "Due in #{distance.day} days #{distance.hour} hours #{distance.min} minutes" %>

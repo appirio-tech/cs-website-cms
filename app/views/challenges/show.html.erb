@@ -8,23 +8,27 @@
       <div class="span8">
         <h1><%= @challenge.name %></h1>
 
-        <h2>OVERVIEW</h2>
-        <p> <%= @challenge.description.html_safe %> </p>
+        <% if @challenge.description %>
+          <h2>OVERVIEW</h2>
+          <p> <%= @challenge.description.html_safe %> </p>
+        <% end %>
 
-        <h2>REQUIREMENTS</h2>
-        <p> <%= @challenge.requirements.html_safe %> </p>
+        <% if @challenge.requirements %>
+          <h2>REQUIREMENTS</h2>
+          <p> <%= @challenge.requirements.html_safe %> </p>
+        <% end %>
         
         <% if @challenge.submission_details %>
           <h2>SUBMISSION DETAILS</h2>
-          <p> <%= @challenge.submission_details.try(:html_safe) %> </p>
+          <p> <%= @challenge.submission_details.html_safe %> </p>
         <% end %>
 
         <% if @challenge.additional_info %>
           <h2>ADDITIONAL INFO</h2>
-          <p> <%= @challenge.additional_info.try(:html_safe) %> </p>
+          <p> <%= @challenge.additional_info.html_safe %> </p>
         <% end %>
 
-        <%= render partial: "call_to_action", locals: {challenge: @challenge, 
+        <%= render partial: "right_call_to_action", locals: {challenge: @challenge, 
           current_member_participant: @current_member_participant} %>        
 
         <br/>
@@ -35,7 +39,10 @@
 
       <div class="span4">
         <br/><br/><br/>
+        <!-- include the entire right side -->
         <%= render partial: "right_side", locals: {challenge: @challenge} %>
+      </div>
+      
     </div>
   </div> <!-- /.container -->
 </div>

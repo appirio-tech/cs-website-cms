@@ -4,13 +4,13 @@
     <div class="container">
 
         <div>
-            <div class="title"><h1>LEADERBOARD</h1></div>
+            <div class="title" style="margin:0px 0px 0px 0px"><h1>LEADERBOARD</h1></div>
         </div>
 
         <div class="row-fluid">
 
             <div class="span4">
-                <div class="title"><h1>THIS MONTH</h1></div>
+                <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS MONTH</h1></div>
                 <% @this_month.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="span4">
-                <div class="title"><h1>THIS YEAR</h1></div>
+                <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS YEAR</h1></div>
                 <% @this_year.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="span4">
-                <div class="title"><h1>ALL TIME</h1></div>
+                <div class="title" style="margin:0px 0px 0px 0px"><h1>ALL TIME</h1></div>
                 <% @all_time.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>

@@ -1,0 +1,8 @@
+<h2>PRIZES</h2>
+<p>
+  Total: <strong><%= number_to_currency challenge.total_prize_money, precision: 0 %></strong><br/>
+  <% challenge.challenge_prizes.each do |prize| %>
+    <%= prize.place %> <strong><%= prize.prize %></strong>
+    <br/>
+  <% end %>
+</p>
