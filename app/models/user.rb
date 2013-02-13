@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
   def update_with_sfdc_info
     puts '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
     ApiModel.access_token = User.guest_access_token    
-    puts "===== calling find to the sfdc info"
     sfdc_account = Account.find(username)
     self.access_token = refresh_user_access_token
     self.sfdc_username = sfdc_account.user.sfdc_username
@@ -43,9 +42,7 @@ class User < ActiveRecord::Base
     self.accountid = sfdc_account.user.accountid
     self.last_access_token_refresh_at = DateTime.now
     # user.skip_confirmation!
-    puts "===== saving user with updated sfdc info to db"
     puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" unless self.save
-    puts "===== current_user after save: #{self.to_yaml}"
     # return the new access token
     access_token
   end

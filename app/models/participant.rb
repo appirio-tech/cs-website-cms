@@ -8,8 +8,8 @@ class Participant < ApiModel
 
   # Cleanup up the __r convention
   def initialize(params={})
-    params['member'] = params.delete('member__r')
-    params['challenge'] = params.delete('challenge__r')
+    params['member'] = params.delete('member__r') if params['member__R']
+    params['challenge'] = params.delete('challenge__r') if params['challenge__r']
     super(params)
   end
 
