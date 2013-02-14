@@ -33,23 +33,30 @@ class Users::SessionsController < Devise::SessionsController
         end
       # user exists in sfdc but not in db so create a new record
       else
-        puts "===[CS-USER][LOGIN] did NOT find the user in the db"
-        user =  User.new
-        user.username = params[:user][:username]
-        user.password = params[:user][:password]
-        user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
-        user.last_access_token_refresh_at = Date.yesterday
-        puts "===[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
-        user.skip_confirmation!
-        # save their record, sign them in and redirect
-        if user.save
-          puts "===[CS-USER][LOGIN] user saved successfully. signing in."
-          user.update_attribute(:confirmed_at, DateTime.now)
-          sign_in_and_redirect(:user, user)
-        else
-          puts "===[CS-USER][LOGIN] error saving new user: #{user.errors.full_messages}"
-          flash[:error]  = "Sorry... there was an error creating your user account. #{user.errors.full_messages}"
-          render action: "new" # sign_in page
+        begin
+          puts "===[CS-USER][LOGIN] did NOT find the user in the db"
+          user =  User.new
+          user.username = params[:user][:username]
+          user.password = params[:user][:password]
+          user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
+          user.last_access_token_refresh_at = Date.yesterday
+          puts "===[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
+          user.skip_confirmation!
+          puts "===[CS-USER][LOGIN] adding skip_confirmation"
+          # save their record, sign them in and redirect
+          if user.save
+            puts "===[CS-USER][LOGIN] user saved successfully. signing in."
+            user.update_attribute(:confirmed_at, DateTime.now)
+            sign_in_and_redirect(:user, user)
+          else
+            puts "===[CS-USER][LOGIN] error saving new user: #{user.errors.full_messages}"
+            flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue. #{user.errors.full_messages}"
+            render action: "new" # sign_in page
+          end
+        rescue Exception => e
+          puts "===[CS-USER][LOGIN] exception: #{e.message}"
+          flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue."
+          render action: "new" # sign_in page          
         end
       end 
 
