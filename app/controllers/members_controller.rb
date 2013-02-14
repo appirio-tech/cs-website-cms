@@ -29,21 +29,10 @@ class MembersController < ApplicationController
     render json: @members, :callback => params[:callback]
   end
 
-  def challenges
-  end
-
-  def payments
-  end
-
   def recommendations
   end
 
   def create_recommendations
-  end
-
-  def index
-    @members = Member.all
-    render :json => @members
   end
 
   def show
@@ -56,6 +45,4 @@ class MembersController < ApplicationController
     @past_challenges = Member.find(params[:id]).past_challenges 
   end  
 
-  def update
-  end
 end
