@@ -35,7 +35,7 @@
                 <% for c in row_challenges %>                
                     <div class="span6">
                         <div class="challenge well well-large">
-                            <h3><%= link_to c.name, challenge_path(c)  %></h3>
+                            <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c)  %></h3>
                             Due in <%= pluralize(c.days_till_close, 'day') %><br>
                             <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                             <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>

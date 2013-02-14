@@ -20,6 +20,14 @@ module ChallengesHelper
     end
   end
 
+  def format_long_challenge_name(name)
+    if name.length > 48
+      "#{name[0...45]}..."
+    else
+      name
+    end
+  end
+
   def platform_and_technology_tag_links(challenge)
     tags = []
     challenge.platforms.each do |platform| 
