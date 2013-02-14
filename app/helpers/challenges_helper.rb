@@ -28,6 +28,13 @@ module ChallengesHelper
     end
   end
 
+  def challenge_due_in_days(end_date, version=:short)
+    distance = Time.at(end_date - Time.zone.now)
+    formatted = "Due in #{pluralize(distance.day, 'day')} #{pluralize(distance.hour, 'hour')}"
+    formatted << " #{pluralize(distance.min, 'minute')}" if version == :long
+    formatted
+  end
+
   def platform_and_technology_tag_links(challenge)
     tags = []
     challenge.platforms.each do |platform| 

@@ -3,9 +3,7 @@
   <h2>DEADLINE</h2>
   <p>
     Ends <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
-    <br/>
-    <% distance = Time.at(challenge.end_date - Time.zone.now) %>
-    <%= "Due in #{distance.day} days #{distance.hour} hours #{distance.min} minutes" %>
+    <br/><%= challenge_due_in_days(challenge.end_date, :long) %>
     <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
     <br/>
   </p>
