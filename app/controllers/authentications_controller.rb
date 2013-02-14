@@ -39,7 +39,7 @@ class AuthenticationsController < ApplicationController
 
       begin
 
-        db_authentication = Authentication1.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+        db_authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
         # if the user is already in db
         if db_authentication
           sign_in_and_redirect(:user, User.find(db_authentication.user_id)) 
