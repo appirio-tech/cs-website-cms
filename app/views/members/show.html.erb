@@ -172,8 +172,21 @@
                 <h2>SOCIAL</h2>
                 <div class="content">
                     <p>
-                        Twitter: <a href="#">www.twitter.com/logontokartik</a><br>
-                        Website: <a href="#">http://peregrinusforce.com</a>
+                        <% if @member.website %>
+                            Website: <a href="<%= @member.website %>"><%= @member.website %></a><br/>
+                        <% end %>
+                        <% if @member.github %>
+                            Github: <a href="http://www.github.com/<%= @member.github %>"><%= @member.github %></a><br/>
+                        <% end %>
+                        <% if @member.twitter %>
+                            Twitter: <a href="http://www.twitter.com/<%= @member.twitter %>"><%= @member.twitter %></a><br/>
+                        <% end %>
+                        <% if @member.facebook %>
+                            Facebook: <a href="<%= @member.facebook %>"><%= @member.facebook %></a><br/>
+                        <% end %>
+                        <% if @member.linkedin %>
+                            LinkedIn: <a href="<%= @member.linkedin %>"><%= @member.linkedin %></a><br/>
+                        <% end %>
                     </p>
                 </div>
             </div>

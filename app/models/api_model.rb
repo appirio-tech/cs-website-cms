@@ -65,12 +65,6 @@ class ApiModel
     all.first
   end
 
-  # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
-  def self.find(entity, params={})
-    # puts "========== running find for #{entity} for #{self.name} with params #{params}"
-    Kernel.const_get(self.name).new(raw_get entity, params)
-  end
-
   # Wrap initialize with a sanitation clause
   def initialize(params={})
     @raw_data = params.dup
@@ -89,7 +83,6 @@ class ApiModel
   end
 
   def save
-    puts "new record? #{new_record?}"
     new_record? ? create : update
   end
 
@@ -118,10 +111,16 @@ class ApiModel
     }
   end
 
+  # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
+  def self.find(entity, params={})
+    puts "========== running find for #{entity} for #{self.name} with params #{params}"
+    Kernel.const_get(self.name).new(raw_get entity, params)
+  end  
+
   def self.naked_get(endpoint, params = nil)
     endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING NAKED GET for #{endpoint} with #{api_request_headers.to_yaml}"
+    puts "=====$$$$$ CALLING NAKED GET for #{endpoint}"
     get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new    
@@ -148,7 +147,7 @@ class ApiModel
   def self.raw_get(entities = [], params = nil)
     endpoint = endpoint_from_entities(entities)
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint} with #{api_request_headers}"
+    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
     #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
       get_response(RestClient.get(endpoint, api_request_headers))
     #end
@@ -169,6 +168,7 @@ class ApiModel
 
   # Sanitized response to only the attributes we've defined
   def self.get(entity = '')
+    puts "========== calling self.get with #{entity}"
     raw_get(entity).delete_if {|k, v| !column_names.include? k.to_sym}
   end
 

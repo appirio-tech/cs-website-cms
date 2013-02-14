@@ -16,7 +16,9 @@
   <p>
     Ended <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
     <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
-    <br/>
+    <% if challenge.status.downcase.eql?('winner selected') %>
+      <br/><%= link_to 'View the winners', results_challenge_path %>
+    <% end %>
   </p>
 
 <% end %>
