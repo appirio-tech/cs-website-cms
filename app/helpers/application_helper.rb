@@ -20,7 +20,7 @@ module ApplicationHelper
 	}	
 
   MENU_OPTIONS_SUBMISSIONS = { 
-  	:outstanding_reviews			=> {:value => 'OUTSTANDING REVIEWS', 	:link => '/judging/outstandng-reviews'}
+  	:outstanding_reviews			=> {:value => 'OUTSTANDING REVIEWS', 	:link => '/judging/outstanding-reviews'}
 		#:judging_queue      			=> {:value => 'JUDGING QUEUE',       	:link => '/judging/judging-queue'} 
 	}		
 
