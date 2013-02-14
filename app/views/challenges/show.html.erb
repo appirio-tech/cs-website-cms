@@ -23,13 +23,19 @@
           <p> <%= @challenge.submission_details.html_safe %> </p>
         <% end %>
 
+        <% if ['Code','Task','Design','Hackathon'].include?(@challenge.challenge_type) %>
+          <p>Your submission will be judged by a panel of peers based upon <%= link_to 'this criteria', scorecard_challenge_path(@challenge) %>.  If you 
+            would like to request an extension, please read <a href="http://community.cloudspokes.com/cloudspokes/topics/can_challenge_deadlines_be_extended_for_more_time">Can challenge deadlines be extended for more time?</a> on our FAQ. We do not want to grant extensions 
+            unless there is a valid reason.</p> 
+        <% end %>        
+
         <% if @challenge.additional_info %>
           <h2>ADDITIONAL INFO</h2>
           <p> <%= @challenge.additional_info.html_safe %> </p>
         <% end %>
 
-        <%= render partial: "right_call_to_action", locals: {challenge: @challenge, 
-          current_member_participant: @current_member_participant} %>        
+        <%= render partial: "right_participation", locals: {challenge: @challenge, 
+          current_member_participant: @current_member_participant, placement: :body} %>        
 
         <br/>
 

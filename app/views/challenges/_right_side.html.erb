@@ -1,9 +1,9 @@
-<%= render partial: "right_call_to_action", locals: {challenge: challenge, 
-  current_member_participant: @current_member_participant} %>
+<%= render partial: "right_participation", locals: {challenge: challenge, 
+  current_member_participant: @current_member_participant, placement: :side} %>
 <%= render partial: "right_admin", locals: {challenge: challenge} %>
 <%= render partial: "right_technologies", locals: {challenge: challenge} %>
 <%= render partial: "right_timeframe", locals: {challenge: challenge} %>
 <%= render partial: "right_prizes", locals: {challenge: challenge} %>
-<%= render partial: "right_participation", locals: {challenge: challenge} %>
+<%= render partial: "right_category_detail", locals: {challenge: challenge} %>
 <%= render partial: "right_assets", locals: {challenge: challenge} %>
 <%= render partial: "right_share" %>
