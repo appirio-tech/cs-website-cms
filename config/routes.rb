@@ -78,10 +78,9 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/referred-members', to: 'accounts#referred_members'
   match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
 
-  match '/judging/outstanding-reviews' => redirect("http://old.cloudspokes.com/account/outstanding_reviews")
+  match '/judging/outstanding-reviews', to: 'judging#outstanding_reviews'
   get '/judging/judging-queue', to: 'judging#judging_queue'
-  get '/judging/scorecards', to: 'judging#scorecards'
-  get '/judging/scorecard', to: 'judging#scorecard'
+  get '/judging/scorecard/:scorecard_id', to: 'judging#scorecard', as: 'participant_scorecard'
   get '/judging/add_judge/:challenge_id', to: 'judging#add_judge'
 
   match "leaderboards" => "leaderboards#index"

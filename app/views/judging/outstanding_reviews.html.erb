@@ -8,55 +8,18 @@
             <div class="span8">
                 <div class="title"><h1>OUTSTANDING REVIEWS</h1></div>
 
+                <% @scorecards.each do |s| %>
                 <div class="review well well-large">
-                    <h3><a href="#">Updatable Opportunity KPI Page</a></h3>
+                    <h3><%= link_to s.challenge_participant__r.challenge__r.name, challenge_path(s.challenge_participant__r.challenge__r.challenge_id), :target => '_blank' %></h3>
                     <div class="row-fluid">
-                        <img src="/assets/photo.png" class="pull-left" alt=""/>
-                        Member : <a href="#">Enreeco</a><br/>
-                        Submitted : Dec 19th at 05:11 PM
+                        <%= image_tag(s.challenge_participant__r.member__r.profile_pic, :width => '75x75', :class => 'pull-left photo') %>
+                        Member : <%= link_to s.challenge_participant__r.member__r.name, member_path(s.challenge_participant__r.member__r.name), :target => '_blank' %><br/>
+                        Submitted : <%= Time.parse(s.challenge_participant__r.submitted_date).strftime("%b %d, %Y at %H:%M %p") %><br/>
+                        Current Score : <%= s.challenge_participant__r.score %>
                     </div>
-                    <a class="btn pull-right-bottom" href="41_account_outstanding_reviews_review.html"><span>REVIEW</span></a>
+                    <a class="btn pull-right-bottom" href="<%= participant_scorecard_path(s.id) %>"><span>REVIEW</span></a>
                 </div>
-
-                <div class="review well well-large">
-                    <h3><a href="#">Updatable Opportunity KPI Page</a></h3>
-                    <div class="row-fluid">
-                        <img src="/assets/photo.png" class="pull-left" alt=""/>
-                        Member : <a href="#">Enreeco</a><br/>
-                        Submitted : Dec 19th at 05:11 PM
-                    </div>
-                    <a class="btn pull-right-bottom" href="41_account_outstanding_reviews_review.html"><span>REVIEW</span></a>
-                </div>
-
-                <div class="review well well-large">
-                    <h3><a href="#">Updatable Opportunity KPI Page</a></h3>
-                    <div class="row-fluid">
-                        <img src="/assets/photo.png" class="pull-left" alt=""/>
-                        Member : <a href="#">Enreeco</a><br/>
-                        Submitted : Dec 19th at 05:11 PM
-                    </div>
-                    <a class="btn pull-right-bottom" href="41_account_outstanding_reviews_review.html"><span>REVIEW</span></a>
-                </div>
-
-                <div class="review well well-large">
-                    <h3><a href="#">Updatable Opportunity KPI Page</a></h3>
-                    <div class="row-fluid">
-                        <img src="/assets/photo.png" class="pull-left" alt=""/>
-                        Member : <a href="#">Enreeco</a><br/>
-                        Submitted : Dec 19th at 05:11 PM
-                    </div>
-                    <a class="btn pull-right-bottom" href="41_account_outstanding_reviews_review.html"><span>REVIEW</span></a>
-                </div>
-
-                <div class="review well well-large">
-                    <h3><a href="#">Updatable Opportunity KPI Page</a></h3>
-                    <div class="row-fluid">
-                        <img src="/assets/photo.png" class="pull-left" alt=""/>
-                        Member : <a href="#">Enreeco</a><br/>
-                        Submitted : Dec 19th at 05:11 PM
-                    </div>
-                    <a class="btn pull-right-bottom" href="41_account_outstanding_reviews_review.html"><span>REVIEW</span></a>
-                </div>
+                <% end %>
 
             </div>
 

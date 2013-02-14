@@ -47,6 +47,18 @@ module ChallengesHelper
     tags.join(" | ").html_safe
   end  
 
+  def platform_and_technology_tag_display(challenge)
+    tags = []
+    challenge.platforms.each do |platform| 
+      tags.push platform
+    end
+    challenge.technologies.each do |technology| 
+      tags.push technology
+    end
+
+    tags.join(" | ").html_safe
+  end    
+
   def technology_tag_links(challenge)
     tags = []
     challenge.technologies.each do |platform| 

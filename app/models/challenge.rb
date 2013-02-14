@@ -68,15 +68,7 @@ class Challenge < ApiModel
   def self.all(options = {})
     options.each {|k,v| options.delete(k) if v.blank? } if options
     naked_get('challenges', options).map {|challenge| Challenge.new challenge}
-  end
-
-  def self.judging_queue
-     naked_get('judging').map {|challenge| Challenge.new challenge}
-  end
-
-  def self.add_judge(challenge_id, membername)
-    naked_post("judging/add", {:challenge_id => challenge_id, :membername => membername}).message
-  end      
+  end  
 
   # def submission_deliverables
   #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
@@ -118,12 +110,20 @@ class Challenge < ApiModel
 
   def platforms
     return [] if @platforms.blank?
-    @platforms.records.map(&:name)    
+    if @platforms.is_a? Array
+      @platforms.map(&:name)   
+    else 
+      @platforms.records.map(&:name)  
+    end 
   end
 
   def technologies
     return [] if @technologies.blank?
-    @technologies.records.map(&:name)    
+    if @technologies.is_a? Array
+      @technologies.map(&:name)   
+    else 
+      @technologies.records.map(&:name)  
+    end  
   end
 
   def assets
