@@ -36,7 +36,7 @@ class Users::SessionsController < Devise::SessionsController
         begin
           puts "===[CS-USER][LOGIN] did NOT find the user in the db"
           sfdc_account = Account.find(params[:user][:username])
-          puts "===[CS-USER][LOGIN] fetching their sfdc account info: #{sfdc_account}"
+          puts "===[CS-USER][LOGIN] fetching their sfdc account info"
           user =  User.new
           user.username = params[:user][:username]
           user.password = params[:user][:password]
@@ -45,7 +45,6 @@ class Users::SessionsController < Devise::SessionsController
           user.last_access_token_refresh_at = Date.yesterday
           puts "===[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
           user.skip_confirmation!
-          puts "===[CS-USER][LOGIN] adding skip_confirmation"
           # save their record, sign them in and redirect
           if user.save
             puts "===[CS-USER][LOGIN] user saved successfully. signing in."
@@ -53,12 +52,12 @@ class Users::SessionsController < Devise::SessionsController
             sign_in_and_redirect(:user, user)
           else
             puts "===[CS-USER][FATAL] error saving new user: #{user.errors.full_messages}"
-            flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue. #{user.errors.full_messages}"
+            flash[:error]  = "Sorry... there was an error logging you in."
             render action: "new" # sign_in page
           end
         rescue Exception => e
           puts "===[CS-USER][FATAL] exception: #{e.message}"
-          flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue."
+          flash[:error]  = "Sorry... there was an error logging you in."
           render action: "new" # sign_in page          
         end
       end 
