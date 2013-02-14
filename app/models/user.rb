@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
 
   def self.guest_access_token
     puts "=========== using guest access token"
-    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 30.minute) do
       client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
         :password       => ENV['SFDC_PUBLIC_PASSWORD'],
         :client_id      => ENV['SFDC_CLIENT_ID'],
@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 
   def self.admin_access_token
     puts "=========== using admin access token"
-    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 2.minute) do
+    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 30.minute) do
       client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
         :password       => ENV['SFDC_PUBLIC_PASSWORD'],
         :client_id      => ENV['SFDC_CLIENT_ID'],
