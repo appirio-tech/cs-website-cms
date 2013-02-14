@@ -35,9 +35,12 @@ class Users::SessionsController < Devise::SessionsController
       else
         begin
           puts "===[CS-USER][LOGIN] did NOT find the user in the db"
+          sfdc_account = Account.find(params[:user][:username])
+          puts "===[CS-USER][LOGIN] fetching their sfdc account info: #{sfdc_account}"
           user =  User.new
           user.username = params[:user][:username]
           user.password = params[:user][:password]
+          user.email = sfdc_account.user.email
           user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
           user.last_access_token_refresh_at = Date.yesterday
           puts "===[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
@@ -49,12 +52,12 @@ class Users::SessionsController < Devise::SessionsController
             user.update_attribute(:confirmed_at, DateTime.now)
             sign_in_and_redirect(:user, user)
           else
-            puts "===[CS-USER][LOGIN] error saving new user: #{user.errors.full_messages}"
+            puts "===[CS-USER][FATAL] error saving new user: #{user.errors.full_messages}"
             flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue. #{user.errors.full_messages}"
             render action: "new" # sign_in page
           end
         rescue Exception => e
-          puts "===[CS-USER][LOGIN] exception: #{e.message}"
+          puts "===[CS-USER][FATAL] exception: #{e.message}"
           flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue."
           render action: "new" # sign_in page          
         end
