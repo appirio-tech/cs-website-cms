@@ -13,9 +13,9 @@ class MembersController < ApplicationController
 
   def leaderboard
     @leaderboard_tick = true
-    @this_month = CsPlatform.leaderboard(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
-    @this_year = CsPlatform.leaderboard(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
-    @all_time = CsPlatform.leaderboard(current_access_token, :category => params[:category] || nil, :limit => 1000)
+    @this_month = CsPlatform.leaderboard_month(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
+    @this_year = CsPlatform.leaderboard_year(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
+    @all_time = CsPlatform.leaderboard_alltime(current_access_token, :category => params[:category] || nil, :limit => 1000)
 
     @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
