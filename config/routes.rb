@@ -17,7 +17,6 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   get 'members/search'
-  get 'forums', to: 'members#forums'
   get '/community', to: 'members#community'
   get '/leaderboard', to: 'members#leaderboard' # this is temp
   resources :members, only: [:show, :update] do
@@ -85,6 +84,9 @@ CsWebsiteCms::Application.routes.draw do
 
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
+
+  get '/forums', to: 'content#forums'
+  get '/forums-authenticate', to: 'content#forums_authenticate'  
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
