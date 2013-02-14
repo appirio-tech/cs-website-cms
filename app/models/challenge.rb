@@ -74,6 +74,10 @@ class Challenge < ApiModel
      naked_get('judging').map {|challenge| Challenge.new challenge}
   end
 
+  def self.add_judge(challenge_id, membername)
+    naked_post("judging/add", {:challenge_id => challenge_id, :membername => membername}).message
+  end      
+
   # def submission_deliverables
   #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
   # end

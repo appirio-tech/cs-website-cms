@@ -1,3 +1,17 @@
+<script type="text/javascript">
+function signup(challenge_id) {
+    var id = "signup-"+challenge_id;
+    document.getElementById(id).innerHTML = 'Processing request...';
+    $.ajax({
+      type: 'GET',
+      url: '/judging/add_judge/'+challenge_id,
+      success: function(results) { 
+        document.getElementById(id).innerHTML = results; 
+      }
+    });
+}
+</script>
+
 <!-- CONTENT
         ================================================== -->
 <div class="content-wrapper">
@@ -15,11 +29,16 @@
                 <% @challenges.each do |c| %>
                 <div class="judge well well-large">
                     <h3><%= link_to c.name, challenge_path(c) %></h3>
-                    Technologies: <%= platform_and_technology_tag_links(c) %><br/>
+                    Technologies: <br/>
                     Ends: <%= c.end_date.strftime("%B %d, %Y at %H:%M %p") %><br/>
                     Scorecards Due: <%= c.review_date.to_s(:long) %>
-                    <a class="btn pull-right-bottom" href="#"><span>SIGN UP TO JUDGE</span></a>
+                    <a class="btn pull-right-top" onclick="addJudge('<%= c.challenge_id %>')"><span>SIGN UP TO JUDGE</span></a>
+                    <div id="signup-<%= c.challenge_id %>" style="font-weight:bold"></div>
                 </div>
+                <% end %>
+
+                <% if @challenges.empty? %>
+                    There are currently no challenges that are in need of judges. Please check back later.
                 <% end %>
 
             </div>

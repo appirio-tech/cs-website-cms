@@ -49,6 +49,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'submit_url_or_file_delete'
       get 'results' => redirect {|params| "http://old.cloudspokes.com/challenges/#{params[:id]}/results" }
       get 'scorecard' => redirect {|params| "http://old.cloudspokes.com/challenges/#{params[:id]}/scorecard" }
+      get 'survey' => redirect {|params| "http://old.cloudspokes.com/challenges/#{params[:id]}/survey" }
     end
 
     resource :submission, only: [:show, :update] do
@@ -81,6 +82,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/judging/judging-queue', to: 'judging#judging_queue'
   get '/judging/scorecards', to: 'judging#scorecards'
   get '/judging/scorecard', to: 'judging#scorecard'
+  get '/judging/add_judge/:challenge_id', to: 'judging#add_judge'
 
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"

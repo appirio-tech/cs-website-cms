@@ -19,6 +19,7 @@
     <%= javascript_include_tag "script" %>
     <!-- not sure why this is not being picked up in applcition.js?? -->
     <%= javascript_include_tag "cloudspokes" %>
+    <%= javascript_include_tag params[:controller] %>
 
 </head>
 <body>
@@ -76,6 +77,7 @@
   <%= content_tag :div, flash[:notice], class: "alert alert-success", style: "margin: 20px 20px 20px 20px;" if flash[:notice] %>
   <%= content_tag :div, flash[:error], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:error] %>
   <%= content_tag :div, flash[:alert], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:alert] %>
+  <%= content_tag :div, flash[:info], class: "alert alert-info", style: "margin: 20px 20px 20px 20px;" if flash[:info] %>
 
   <!-- NAVBAR
       ================================================== -->
