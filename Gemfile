@@ -80,7 +80,7 @@ group :development, :test do
   gem "guard-spork"
   gem 'growl'
   gem 'ruby-debug19'
-  gem 'sqlite3'
+  gem 'pg', '0.14.1'
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'
