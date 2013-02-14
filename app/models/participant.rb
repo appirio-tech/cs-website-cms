@@ -16,14 +16,9 @@ class Participant < ApiModel
   def self.find_by_member(challenge_id, membername)
     Participant.new naked_get "participants/#{membername}/#{challenge_id}"
   rescue Exception
-    # rest call returns nil if the member is not a participant     
+    # rest call returns nil if the member is not a participant
+    Participant.new :status => 'Not Registered'     
   end
-
-  def self.current_status(challenge_id, membername)
-    participant = find_by_member(challenge_id, membername)
-    return Participant.new :status => 'Not Registered' unless participant
-    participant
-  end   
 
   def self.change_status(challenge_id, membername, params)
     if find_by_member(challenge_id, membername).registered?
