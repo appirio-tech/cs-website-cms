@@ -42,8 +42,7 @@ gem 'flash_messages_helper'
 gem 'remote_syslog_logger'
 gem 'dalli'
 gem 'encryptor'
-# gem 'airbrake'
-gem 'party_foul'
+gem 'airbrake'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data
