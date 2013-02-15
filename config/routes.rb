@@ -29,6 +29,7 @@ CsWebsiteCms::Application.routes.draw do
     end
   end
 
+  get 'challenges/feed' => redirect("/challenges.rss")
   get 'challenges/closed'
   get 'challenges/recent'
   get 'challenges/search'
