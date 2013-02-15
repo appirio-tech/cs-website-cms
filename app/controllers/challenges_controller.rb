@@ -15,6 +15,7 @@ class ChallengesController < ApplicationController
   end
 
   def show
+    logger.info "Displaying challenge #{params[:id]}"
     @challenge = current_challenge
     @comments = @challenge.comments
   end
