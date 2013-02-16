@@ -5,34 +5,33 @@
 
     <div class="title"><h1>RESULTS</h1></div>
 
-					<div class="row-fluid">
-						<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
-            <div class="span6">
-            		<% for s in scorecard_row %> 
-                <div class="placement well">
-                    <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
-                    <div class="detail">
-	                    <%= link_to s.member.name, member_path(s.member) %>
-	                    <%= s.member.country %><br/><%= number_to_currency(s.money_awarded, :precision => 0) %><br/>
-	                    Score: <%= s.score %>
-	                  </div>
-	                  <div style="padding-top:10px;padding-left:10px">
+		<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
+      <div class="row-fluid">
+      	<% for s in scorecard_row %>
+          <div class="placement well well-large span6">
+              <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+              <%= link_to s.member.name, member_path(s.member), :style => 'margin-top:10px' %>
+              <% if s.member.country %><%= s.member.country %><br/><% end %>
+              Score: <%= s.score %>
+              <a href="<%= member_path(s.member) %>" class="btn pull-right-top"><span>view profile</span></a>
+              <span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span>
+									<div style="clear: both;"></div>
+                  <div style="padding-top:10px;padding-left:10px">
 	                  <table>
 	                  <% s.judges_scores.each do |judge| %>
 	                  <tr>
-	                  <td><%= judge.reviewer__r.name %></td><td>&nbsp;&nbsp;</td>
-	                  <td><%= number_with_precision(judge.final_score, :precision => 2) %></td><td>&nbsp;&nbsp;</td>
-	                  <td>Scorecard</td>
+	                  <td><%= link_to judge.reviewer__r.name, member_path(judge.reviewer__r.name), :style => 'font-size:12pt;margin:0' %></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	                  <td><%= number_with_precision(judge.final_score, :precision => 2) %></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	                  <td><a href="<%= scorecard_results_challenge_path(params[:id]) %>?participant=<%= s.member.name%>&judge=<%= judge.reviewer__r.name %>" style="font-size:12pt;margin:0">Scorecard</a></td>
 	                  </tr>
 	                  <% end %>
 		                </table>
-	                	</div>
-                    <span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span>
-                </div>
-                <% end %>
-            </div>
-            <% end %>
-        </div>    
+                	</div>
+          </div>
+          <% end %>
+      </div>
+    <% end %>
+
 
     </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->

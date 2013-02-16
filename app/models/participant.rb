@@ -22,7 +22,7 @@ class Participant < ApiModel
     Participant.new naked_get "participants/#{membername}/#{challenge_id}"
   rescue Exception
     # rest call returns nil if the member is not a participant
-    Participant.new :status => 'Not Registered'     
+    Participant.new(:status => 'Not Registered', :has_submission => false)
   end
 
   def self.change_status(challenge_id, membername, params)

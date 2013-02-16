@@ -3,9 +3,9 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :new_comment, 
-    :toggle_discussion_email, :participant_submissions]
+    :toggle_discussion_email, :participant_submissions, :results_scorecard]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
-    :submit_file, :submit_url_or_file_delete]
+    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
 
   def index
@@ -136,6 +136,14 @@ class ChallengesController < ApplicationController
   def results
     @challenge = current_challenge
   end  
+
+  def results_scorecard
+    @participant = Participant.find_by_member(params[:id], params[:participant])
+    @submissions = @participant.current_submissions(params[:id])
+    scorecard_questions = Judging.participant_scorecard(@participant.id, params[:judge])
+    @scorecard = JSON.parse(scorecard_questions.keys.first) 
+    gon.scorecard = scorecard_questions.values.first
+  end
 
   def comment
     comments = params[:comment][:comments]
