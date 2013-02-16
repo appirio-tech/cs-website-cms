@@ -2,18 +2,24 @@
 
 <% comments.each do |comment| %>
   <%= render partial: "comment", locals: {comment: comment, challenge: challenge} %>
-  <% comment.replies.each do |reply| %>
-    <%= render partial: "comment", locals: {comment: reply} %>
-  <% end %>
-  <% if comment.id == params[:reply_to] %>
-    <div class="reply-form">
-      <%= render partial: "new_comment", locals: {challenge: challenge} %>
-    </div>
+  <% if challenge.show_discussion_board_entry? %>
+    <% comment.replies.each do |reply| %>
+      <%= render partial: "comment", locals: {comment: reply} %>
+    <% end %>
+    <% if comment.id == params[:reply_to] %>
+      <div class="reply-form">
+        <%= render partial: "new_comment", locals: {challenge: challenge} %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 
 <hr/>
 
-<% if params[:reply_to].blank? %>
-  <%= render partial: "new_comment", locals: {challenge: challenge} %>
+<% if challenge.show_discussion_board_entry? %>
+  <% if params[:reply_to].blank? %>
+    <%= render partial: "new_comment", locals: {challenge: challenge} %>
+  <% end %>
+<% else %>
+  The discussion board is closed for this challenge. 
 <% end %>

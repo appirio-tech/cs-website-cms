@@ -147,6 +147,10 @@ class Challenge < ApiModel
     @is_open == "true"
   end
 
+  def show_discussion_board_entry?
+    open? && @discussion_board == 'Show'
+  end
+
   def closed_for_registration?
     @registration_end_date.nil? ? false : Time.parse(@registration_end_date).past?
   end  
