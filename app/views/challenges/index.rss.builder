@@ -7,7 +7,7 @@ xml.rss :version => "2.0" do
 
     @challenges.each do |challenge|
       xml.item do
-        xml.name challenge.name
+        xml.title challenge.name
         xml.description challenge.description.html_safe
         xml.pubDate challenge.start_date.to_s(:rfc822)
         xml.link challenge_url(challenge)
