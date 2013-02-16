@@ -4,11 +4,13 @@ class Users::PasswordsController < Devise::PasswordsController
   # post the reqeust to reset the password -- via ajax
   def create
     # find out how the user is logging in
-    login_type = Member.login_type params[:username]
+    login_type = Member.login_type params[:username].downcase
+    puts "======== login type #{login_type}"
     # if we found a valid user
     if login_type
       if login_type.downcase.eql?('cloudspokes')
-        user = User.find_by_username(params[:username])
+        user = User.find_by_username(params[:username].downcase)
+        puts "======= user: #{user}"
         if user
           user.send_reset_password_instructions
           render :text => 'Check your inbox for password reset instructions.'
