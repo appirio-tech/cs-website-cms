@@ -13,6 +13,11 @@ class Participant < ApiModel
     super(params)
   end
 
+  # override because of structure of api_endpoint
+  def self.find(id)
+    Participant.new naked_get "participants/#{id}"
+  end
+
   def self.find_by_member(challenge_id, membername)
     Participant.new naked_get "participants/#{membername}/#{challenge_id}"
   rescue Exception

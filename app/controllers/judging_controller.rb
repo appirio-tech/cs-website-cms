@@ -6,7 +6,26 @@ class JudgingController < ApplicationController
 	end
 
 	def scorecard
-		flash.now[:alert] = 'This page should be complete by 2/15. Sorry for the inconvenience.'
+		@participant = Participant.find(params[:participant_id])
+		@submissions = @participant.current_submissions(@participant.challenge.challenge_id)
+		scorecard_questions = Judging.participant_scorecard(params[:participant_id], current_user.username)
+		@scorecard = JSON.parse(scorecard_questions.keys.first)	
+		gon.scorecard = scorecard_questions.values.first
+	end
+
+	def scorecard_save
+		results  = Judging.save_scorecard(params[:participant_id], params[:answers], {
+			:scored => params[:set_as_scored].to_bool, 
+			:delete_scorecard => params[:delete_participant_submission].try(:to_bool),
+			:judge_membername => current_user.username
+		}) 
+		puts results.to_yaml
+		if results.success
+			flash[:notice] = results.message
+		else
+			flash[:error] = results.message
+		end
+		redirect_to outstanding_reviews_path
 	end
 
 	def judging_queue
@@ -20,6 +39,6 @@ class JudgingController < ApplicationController
 
   def add_judge
     render :text => Judging.add_judge(params[:challenge_id], current_user.username)
-  end    
+  end   
 
 end

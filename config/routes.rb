@@ -79,9 +79,10 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/referred-members', to: 'accounts#referred_members'
   match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
 
-  match '/judging/outstanding-reviews', to: 'judging#outstanding_reviews'
+  match '/judging/outstanding-reviews', to: 'judging#outstanding_reviews', as: 'outstanding_reviews'
+  get '/judging/scorecard/:participant_id', to: 'judging#scorecard', as: 'participant_scorecard'
+  post '/judging/scorecard/:participant_id', to: 'judging#scorecard_save', as: 'save_participant_scorecard'
   get '/judging/judging-queue', to: 'judging#judging_queue'
-  get '/judging/scorecard/:scorecard_id', to: 'judging#scorecard', as: 'participant_scorecard'
   get '/judging/add_judge/:challenge_id', to: 'judging#add_judge'
 
   match "leaderboards" => "leaderboards#index"

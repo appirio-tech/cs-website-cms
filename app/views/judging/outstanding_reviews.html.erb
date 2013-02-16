@@ -17,7 +17,7 @@
                         Submitted : <%= Time.parse(s.challenge_participant__r.submitted_date).strftime("%b %d, %Y at %H:%M %p") %><br/>
                         Current Score : <%= s.challenge_participant__r.score %>
                     </div>
-                    <a class="btn pull-right-bottom" href="<%= participant_scorecard_path(s.id) %>"><span>REVIEW</span></a>
+                    <a class="btn pull-right-bottom" href="<%= participant_scorecard_path(s.challenge_participant) %>"><span>REVIEW</span></a>
                 </div>
                 <% end %>
 

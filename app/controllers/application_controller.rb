@@ -27,8 +27,12 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def not_found
-    redirect_to '/not_found'
+  def not_found(exception)
+    if Rails.env.development?
+      render :text => 'Damn 404!!'
+    else
+      redirect_to '/not_found'
+    end
   end  
 
   def access_denied

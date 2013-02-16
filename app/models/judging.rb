@@ -15,4 +15,13 @@ class Judging < ApiModel
   	naked_get("judging/outstanding/#{membername}")
   end   
 
+  def self.participant_scorecard(participant_id, judge_membername)
+    naked_get("judging/scorecard/#{participant_id}?judge_membername=#{judge_membername}")
+  end
+
+  def self.save_scorecard(participant_id, answers, data) 
+    naked_put("judging/scorecard/#{participant_id}", 
+      {:answers => answers, :options => data})
+  end     
+
 end
