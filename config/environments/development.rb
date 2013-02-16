@@ -25,7 +25,7 @@ CsWebsiteCms::Application.configure do
     :enable_starttls_auto => true,
     :domain         => 'gmail.com',
     :user_name      => 'jeffdonthemic.test@gmail.com',
-    :password       => '6?J3<CB62s'
+    :password       => 'q9]1Bm6z3O'
   }    
 
   # Print deprecation notices to the Rails logger
