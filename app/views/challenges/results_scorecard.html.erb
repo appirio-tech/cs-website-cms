@@ -1,0 +1,41 @@
+<%= javascript_include_tag "scorecard" %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    scorecard_render(process_json(gon.scorecard), "scorecard");
+  });
+</script>
+<style type="text/css">
+  .hint { text-align: right; font-size: 88%; }
+  .rating td.weight { width: 100px; font-size: 120%; padding: auto 20px; }
+  .rating td.desc { width: 54%; text-align: left; }
+  .rating td.options { text-align: center; width: 20%; }
+</style>    
+
+<!-- CONTENT
+    ================================================== -->
+<div class="content-wrapper">
+<div class="container">
+
+    <div class="title"><h1><%= @participant.member.name.upcase %></h1></div>
+    <div class="content">
+
+    		<% if @current_member_participant.has_submission %>
+	        <div class="title"><h1>SUBMITTED ASSETS</h1></div>
+
+	        <% @submissions.each do |s| %>
+	        <div class="well">
+	            Media : <a href="<%= s.url %>" target="_blank"><%= s.url %></a><br/>
+	            Type : <%= s.type %><br/>
+	            Comments : <%= s.comments %>
+	        </div>
+	        <% end %>
+        <% end %>
+        
+        <form class="form-horizontal jqTransform">
+            <!-- #scorecard -->
+            <div id="scorecard"></div>
+        </form>
+    </div>
+</div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->
