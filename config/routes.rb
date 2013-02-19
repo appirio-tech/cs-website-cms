@@ -44,6 +44,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'participants'
       get 'preview'
       get 'submissions'
+      get 'all_submissions' => redirect {|params| "http://www.cloudspokes.com/challenges/#{params[:id]}/submissions" }
       get 'submit'
       post 'submit_file'
       post 'submit_url'
