@@ -66,9 +66,9 @@ class ApplicationController < ActionController::Base
         if current_user.access_token
           # temp
           current_user.last_access_token_refresh_at = Date.yesterday if current_user.last_access_token_refresh_at.nil?
-          puts "====== Has Access Token expired?: #{Time.now.utc} > 5minutes past #{current_user.last_access_token_refresh_at} - expired #{Time.now.utc > 5.minutes.since(current_user.last_access_token_refresh_at)}"
+          puts "====== Has Access Token expired?: #{Time.now.utc} > 60minutes past #{current_user.last_access_token_refresh_at} - expired #{Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)}"
           # check and see if it's an hour old
-          if Time.now.utc > 5.minutes.since(current_user.last_access_token_refresh_at)
+          if Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)
             current_user.update_with_sfdc_info     
           else
             current_user.access_token
