@@ -1,21 +1,21 @@
-- status = challenge.participants.first.status
+- status = challenge.challenge_participants.records.first.status
 
 .challenge.well.well-large
   %h3= link_to challenge.name, challenge_path(challenge)
   .status= status
   %strong
-    %span= "#{number_to_currency(challenge.total_prize_money, :precision => 0)} for"
-    - challenge.categories.each do |category|
-      %span{:class =>category}= category
-
-  .submit-status= format_close_date_time(challenge.end_date)
+    %span= "#{number_to_currency(challenge.total_prize_money, :precision => 0)} for #{platform_display(challenge)}"
+  .submit-status= format_challenge_due_in(challenge.end_date_utc)
+  - if challenge.active?
+    = "#{pluralize(challenge.participating_members, 'member')} participating, #{challenge.registered_members} registered"
 
   .tags
     %span Tags:
     = technology_tag_links(challenge)
 
-  - if challenge.active?
-    - if status == "Watching"
-      = link_to content_tag(:span, "REGISTER"), challenge_path(challenge), class: "btn pull-right-bottom"
-    - else
-      = link_to content_tag(:span, "SUBMIT"), challenge_path(challenge), class: "btn pull-right-bottom"
+  - if status == 'Registered'
+    = link_to content_tag(:span, "SUBMIT"), submit_challenge_path(challenge), class: "btn pull-right-bottom"
+  - elsif status == 'Watching'
+    = link_to content_tag(:span, "REGISTER"), register_challenge_path(challenge), class: "btn pull-right-bottom"
+  - else
+    = link_to content_tag(:span, "VIEW YOUR SUBMISSION"), submit_challenge_path(challenge), class: "btn pull-right-bottom"

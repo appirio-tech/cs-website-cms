@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
          # :trackable,  
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
-  # attr_accessible :title, :body
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :time_zone
 
   validates :username, :presence => true
 
@@ -40,6 +39,7 @@ class User < ActiveRecord::Base
     self.email = sfdc_account.user.email
     self.profile_pic = sfdc_account.user.profile_pic
     self.accountid = sfdc_account.user.accountid
+    self.time_zone = sfdc_account.user.time_zone
     self.last_access_token_refresh_at = DateTime.now
     # user.skip_confirmation!
     puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" unless self.save

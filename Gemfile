@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '2.1.1.0'
 gem 'simple_form', '2.0.4'
 gem 'will_paginate'
 gem 'gon'
+gem 'time_diff'
 
 #gem 'refinerycms', '2.0.8'
 gem 'refinerycms-dashboard'

@@ -4,9 +4,12 @@ class ChallengesController < ApplicationController
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :new_comment, 
     :toggle_discussion_email, :participant_submissions, :results_scorecard]
+  before_filter :load_current_challenge, :only => [:show, :preview, :participants, :submit, :submit_url, :submissions, :results]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
     :submit_file, :submit_url_or_file_delete, :results, :results_scorecard]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
+  before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
+  before_filter :must_be_registered, :only => [:submit]
 
   def index
     # if the user passed over the technology as a link from another page
@@ -15,13 +18,12 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = current_challenge
     @comments = @challenge.comments
   end
 
   def preview
-    @challenge = current_challenge
-    if @challenge.preview? and current_user.challenge_admin?(current_challenge)
+    if @challenge.preview? and current_user.challenge_admin?(@challenge)
+      @comments = []
       render 'show'
     else
       redirect_to challenge_path, :alert => 'You are not able to preview this challenge as it is either 
@@ -30,7 +32,6 @@ class ChallengesController < ApplicationController
   end  
 
   def participants
-    @challenge = Challenge.find params[:id]
   end
 
   def register
@@ -66,12 +67,10 @@ class ChallengesController < ApplicationController
   end  
 
   def submit
-    @challenge = current_challenge
     @submissions = @current_member_participant.current_submissions(params[:id])
   end
 
   def submit_url
-    @challenge = current_challenge
     if uri?(params[:url_submission][:link])
       submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:url_submission])
       if submission_results.success.to_bool
@@ -130,11 +129,10 @@ class ChallengesController < ApplicationController
   end  
 
   def submissions
-    @challenge = current_challenge
   end  
 
   def results
-    @challenge = current_challenge
+    redirect_to challenge_path, :alert => 'Results are not available at this time.' unless ['winner selected','no winner selected'].include?(@challenge.status)
   end  
 
   def results_scorecard
@@ -167,12 +165,16 @@ class ChallengesController < ApplicationController
       flash[:unsaved_comments] = comments
       return redirect_to :back, :alert => "[#{resp.message}] There was an error posting your comments. Please try again."
     end
-  end
+  end  
 
   private
   
     def current_challenge
       @current_challenge ||= Challenge.find params[:id]
+    end
+
+    def load_current_challenge
+      @challenge = current_challenge    
     end
 
     def restrict_to_challenge_admins
@@ -186,6 +188,14 @@ class ChallengesController < ApplicationController
     def current_user_participant
       @current_member_participant = Participant.find_by_member(params[:id], current_user.username) if user_signed_in?
     end
+
+    def challenge_must_be_open
+      redirect_to challenge_path, :alert => 'This challenge is no longer open.' if !current_challenge.open?
+    end  
+
+    def must_be_registered
+      redirect_to challenge_path, :alert => 'You must be registered for this challenge before can submit.' if ['not registered','watching'].include?(@current_member_participant.status.downcase)
+    end     
 
     def uri?(string)
       uri = URI.parse(string)

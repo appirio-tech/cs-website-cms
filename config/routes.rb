@@ -69,7 +69,7 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   put '/account', to: 'accounts#update'
-  get '/account', to: 'accounts#public_profile'
+  get '/account', to: 'accounts#challenges'
   get '/account/details', to: 'accounts#details'
   get '/account/payment-info', to: 'accounts#payment_info'
   get '/account/school-and-work', to: 'accounts#school_and_work'

@@ -1,5 +1,5 @@
 class Account < ApiModel
-  attr_accessor :username, :sfdc_username, :profile_pic, :email, :accountid
+  attr_accessor :username, :sfdc_username, :profile_pic, :email, :accountid, :time_zone
 
   attr_reader :user
 
@@ -51,7 +51,5 @@ class Account < ApiModel
   def reset_password
     self.class.request(:get, ["reset_password", user.username], {})
   end
-
-
 
 end

@@ -2,18 +2,22 @@
 
   <h2>DEADLINE</h2>
   <p>
-    Ends <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
-    <br/><%= challenge_due_in_days(challenge.end_date, :long) %>
-    <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
-    <br/>
+    Ends <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
+    <%= format_challenge_due_in(challenge.end_date_utc) %><br/>
+    <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %><br/>
+    <% if current_user %>
+       Times based upon <%= current_user.time_zone %>. <%= link_to 'Change your time zone.', account_details_path %><br/>
+    <% else %>
+      Times based upon <%= Rails::application.config.time_zone %>. Login to set your time zone.<br/>
+    <% end %>
   </p>
 
 <% else %>
 
   <h2><%= challenge.status.upcase %></h2>
   <p>
-    Ended <%= challenge.end_date.strftime("%b %d, %Y at %H:%M %p") %>
-    <br/><%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
+    Ended <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
+    <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
     <% if challenge.status.downcase.eql?('winner selected') %>
       <br/><%= link_to 'View the winners', results_challenge_path %>
     <% end %>

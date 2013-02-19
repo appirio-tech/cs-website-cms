@@ -84,6 +84,10 @@ class Challenge < ApiModel
     Time.parse(@end_date) if @end_date
   end
 
+  def end_date_utc
+    DateTime.parse(@end_date).getutc if @end_date
+  end  
+
   def winner_announced
     Date.parse(@winner_announced) if @winner_announced
   end  
@@ -152,7 +156,7 @@ class Challenge < ApiModel
   end
 
   def closed_for_registration?
-    @registration_end_date.nil? ? false : Time.parse(@registration_end_date).past?
+    @registration_end_date.nil? ? false : Time.parse(@registration_end_date.getutc).past?
   end  
 
   def release_to_open_source?

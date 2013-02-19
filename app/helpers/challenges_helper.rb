@@ -28,11 +28,19 @@ module ChallengesHelper
     end
   end
 
-  def challenge_due_in_days(end_date, version=:short)
-    distance = Time.at(end_date - Time.zone.now)
-    formatted = "Due in #{pluralize(distance.day, 'day')} #{pluralize(distance.hour, 'hour')}"
-    formatted << " #{pluralize(distance.min, 'minute')}" if version == :long
-    formatted
+  def format_challenge_end_date(end_date_utc)
+    timezone = Rails::application.config.time_zone
+    timezone = current_user.time_zone if current_user
+    return "#{end_date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %l:%M %p")}"
+  end
+
+  def format_challenge_due_in(end_date_utc)
+    if end_date_utc.past?
+      'Completed'
+    else
+      time_diff_components = Time.diff(Time.now.utc, end_date_utc, '%d %H %N')
+      "Due in #{time_diff_components[:diff]}"
+    end
   end
 
   def platform_and_technology_tag_links(challenge)
@@ -80,18 +88,6 @@ module ChallengesHelper
   def challenge_type_label(value)
     return 'SWEEP<br>STAKES' if value.eql?('SWEEPSTAKES')
     value
-  end
-
-  def format_close_date_time(end_time)
-    if end_time.past?
-        display = "Completed"
-    else
-      secs = end_time - Time.now
-      display = "due in "
-      display += pluralize((secs/86400).floor, 'day')
-      secs = secs%86400
-      display += " " + pluralize((secs/3600).floor, 'hour') + " " + pluralize(((secs%3600)/60).round, 'minute')
-    end
   end
 
 end

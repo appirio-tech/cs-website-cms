@@ -10,7 +10,7 @@
         - challenge.category_names.each do |cat|
           %span.label= cat
     %p
-      %span.due-day= "due in #{distance_of_time_in_words Time.zone.now, challenge.end_date} for"
+      %span.due-day= "#{format_challenge_due_in(challenge.end_date_utc)} for #{platform_display(challenge)}"
       %br
       %span.members= "#{challenge.participants.count} members participating with #{challenge.registered_members} registered"
       %br

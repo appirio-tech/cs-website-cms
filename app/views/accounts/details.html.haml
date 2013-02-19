@@ -64,14 +64,19 @@
 
       .controls-row
         .control-group
-          %label.control-label Time Zone
+          %label.control-label Time Zone*
           .controls
             = select_tag "account[time_zone]", time_zone_options_for_select(@member.time_zone, ActiveSupport::TimeZone.us_zones), class: "select-xxxlarge"
 
       .controls-row
         .control-group
+          %label.control-label 
+          .controls
+            *You must log out and back in after changing your time zone for it to take effect.
+
+      .controls-row
+        .control-group
           .controls
             = submit_tag "SUBMIT", class: "btn pull-left"
-
 
   = render 'shared/account_menu', :selected_item => 'account_details'

@@ -24,8 +24,7 @@
                     <%= prize.place %> Place <strong><%= prize.prize %></strong><br/>
                     <% end %>
                 </p>
-                <% distance = Time.at(@featured_challenge.end_date - Time.zone.now) %>
-                <p><%= "Due in #{distance.day}d #{distance.hour}h #{distance.min}m" %> | Ends <%= @featured_challenge.end_date.strftime("%B %d, %Y at %H:%M %p") %><br/>
+                <p><%= format_challenge_due_in(@featured_challenge.end_date_utc) %> | Ends <%= format_challenge_end_date(@featured_challenge.end_date_utc) %><br/>
                     <%= pluralize(@featured_challenge.participating_members, 'member') %> participating, <%= @featured_challenge.registered_members %> registered
                 </p>
                 <p>Platforms: <%= platform_display(@featured_challenge) %><br/>
@@ -35,8 +34,7 @@
                 <div class="title"><h1>ACTIVE CHALLENGES</h1></div>
                 <% @open_challenges[1..3].each do |challenge| %>
                 <%= link_to "#{number_to_currency(challenge.total_prize_money, :precision => 0)} - #{challenge.name}", challenge_path(challenge) %>
-                <% distance = Time.at(challenge.end_date - Time.zone.now) %>
-                <p><%= "due in #{distance.day}d #{distance.hour}h #{distance.min}m" %> | <%= pluralize(challenge.participating_members, 'member') %> participating, <%= challenge.registered_members %> registered<br/>
+                <p><%= format_challenge_due_in(challenge.end_date_utc) %> | <%= pluralize(challenge.participating_members, 'member') %> participating, <%= challenge.registered_members %> registered<br/>
                 <%= platform_and_technology_tag_links(challenge) %></p>
                 <% end %>
                 <%= link_to "View All Active Challenges", challenges_path %>

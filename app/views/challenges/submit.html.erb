@@ -21,53 +21,58 @@
                 </div>
                 <% end %>
 
-                <div class="title"><h1>UPLOAD FILES</h1></div>
-                <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
+                <% if @challenge.open? %>
 
-                <%= form_for :file_submission, :url => submit_file_challenge_path, html: { :id => 'file_submit_form', :class => 'form-horizontal jqTransform', :multipart => true } do |f| %>
-                    <div class="control-group">
-                        <label class="control-label">File</label>
-                        <div class="controls">
-                            <div class="btn-file">
-                                <a href="#" class="btn btn-grey"><span>CHOOSE FILE</span></a>
-                                <%= file_field( 'file', 'file_name' ) %>
-                                <spam>No file chosen</spam>
+                    <div class="title"><h1>UPLOAD FILES</h1></div>
+                    <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
+
+                    <%= form_for :file_submission, :url => submit_file_challenge_path, html: { :id => 'file_submit_form', :class => 'form-horizontal jqTransform', :multipart => true } do |f| %>
+                        <div class="control-group">
+                            <label class="control-label">File</label>
+                            <div class="controls">
+                                <div class="btn-file">
+                                    <a href="#" class="btn btn-grey"><span>CHOOSE FILE</span></a>
+                                    <%= file_field( 'file', 'file_name' ) %>
+                                    <spam>No file chosen</spam>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Comments</label>
-                        <div class="controls">
-                            <%= f.text_area :comments %>
+                        <div class="control-group">
+                            <label class="control-label">Comments</label>
+                            <div class="controls">
+                                <%= f.text_area :comments %>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <a class="btn pull-right" onclick="document.getElementById('file_submit_form').submit();"><span>UPLOAD</span></a>
-                    </div>
-                <% end %>                
+                        <div class="control-group">
+                            <a class="btn pull-right" onclick="document.getElementById('file_submit_form').submit();"><span>UPLOAD</span></a>
+                        </div>
+                    <% end %>                
 
 
-                <div class="title"><h1>INCLUDE URLS</h1></div>
-                <p>Add any URLs to supporting into such as a You Tube or Jing videos, a GitHub repo or any other URL you would like to include in your submission.</p>
+                    <div class="title"><h1>INCLUDE URLS</h1></div>
+                    <p>Add any URLs to supporting into such as a You Tube or Jing videos, a GitHub repo or any other URL you would like to include in your submission.</p>
 
-                <%= form_for :url_submission, :url => submit_url_challenge_path, html: { :id => 'url_submit_form', :class => 'form-horizontal jqTransform' } do |f| %>
-                    <%= f.hidden_field :type, :value => 'URL' %>
-                    <div class="control-group">
-                        <label class="control-label">URL</label>
-                        <div class="controls">
-                            <%= f.text_field :link, :placeholder => 'http://' %>
+                    <%= form_for :url_submission, :url => submit_url_challenge_path, html: { :id => 'url_submit_form', :class => 'form-horizontal jqTransform' } do |f| %>
+                        <%= f.hidden_field :type, :value => 'URL' %>
+                        <div class="control-group">
+                            <label class="control-label">URL</label>
+                            <div class="controls">
+                                <%= f.text_field :link, :placeholder => 'http://' %>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Comments</label>
-                        <div class="controls">
-                            <%= f.text_area :comments %>
+                        <div class="control-group">
+                            <label class="control-label">Comments</label>
+                            <div class="controls">
+                                <%= f.text_area :comments %>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <a class="btn pull-right" onclick="document.getElementById('url_submit_form').submit();"><span>ADD</span></a>
-                    </div>
+                        <div class="control-group">
+                            <a class="btn pull-right" onclick="document.getElementById('url_submit_form').submit();"><span>ADD</span></a>
+                        </div>
+                    <% end %>
+
                 <% end %>
+
             </div>
 
 
