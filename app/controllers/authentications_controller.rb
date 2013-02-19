@@ -42,8 +42,11 @@ class AuthenticationsController < ApplicationController
         db_authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
         # if the user is already in db
         if db_authentication
-          logger.info "===[OAUTH] already in the authentications table. signing in"
-          sign_in_and_redirect(:user, User.find(db_authentication.user_id)) 
+          logger.info "===[OAUTH] already in the authentications table. updating last token refersh and signing in"
+          user = User.find(db_authentication.user_id)
+          user.last_access_token_refresh_at = Date.yesterday
+          user.save
+          sign_in_and_redirect(:user, user) 
         # if current user -- not sure what this is doing?
         elsif current_user
           current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
