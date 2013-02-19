@@ -133,7 +133,7 @@ class ChallengesController < ApplicationController
   end  
 
   def results
-    redirect_to challenge_path, :alert => 'Results are not available at this time.' unless ['winner selected','no winner selected'].include?(@challenge.status)
+    redirect_to challenge_path, :alert => 'Results are not available at this time.' unless ['winner selected','no winner selected'].include?(@challenge.status.downcase)
   end  
 
   def results_scorecard
