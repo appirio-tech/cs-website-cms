@@ -14,6 +14,7 @@ class ChallengesController < ApplicationController
   def index
     # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
+    params[:filters] = massage_old_params if params[:category]
     @challenges = Challenge.all params[:filters]
   end
 
@@ -195,7 +196,19 @@ class ChallengesController < ApplicationController
 
     def must_be_registered
       redirect_to challenge_path, :alert => 'You must be registered for this challenge before can submit.' if ['not registered','watching'].include?(@current_member_participant.status.downcase)
-    end     
+    end    
+
+    # temp -- to support old URLs like /challenges/index?category=JavaScript
+    def massage_old_params
+      puts "massaging old params"
+      old_platforms = ['aws','box','cloud foundry','database.com','docusign','facebook','google',
+        'heroku','mobile','other','salesforce.com']
+      old_technologies = ['java','javascript','other','ruby','objective-c','php','node','node.js',
+        'ios','android','apex','visualforce','redis','python']
+
+      return {:platform => params[:category] } if old_platforms.include?(params[:category].downcase)
+      return {:technology => params[:category] } if old_technologies.include?(params[:category].downcase)
+    end 
 
     def uri?(string)
       uri = URI.parse(string)
