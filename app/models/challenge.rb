@@ -39,6 +39,9 @@ class Challenge < ApiModel
       { place: entry['place'].to_i.ordinalize, prize: prize, points: entry['points'] || '', value: entry['value'] || '' }
     end if params['challenge_prizes']
 
+    # if no prizes were set up yet....
+    params['challenge_prizes'] = [] unless params['challenge_prizes']
+
     # params['assets'] = params['assets'].map do |entry|
     #   entry['filename']
     # end if params['assets']
