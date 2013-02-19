@@ -151,7 +151,11 @@ class Challenge < ApiModel
   end
 
   def open?
-    @is_open == "true"
+    if Time.now.utc < end_date_utc
+      true
+    else
+      false
+    end
   end
 
   def show_discussion_board_entry?
