@@ -8,7 +8,7 @@
     	<% @challenge.submission_deliverables.each do |deliverable| %>
         <div class="well">
             Member: <%= link_to deliverable.username, member_path(deliverable.username) %><br/>
-            Type: <%= deliverable.type %> - <%= link_to deliverable.url, member_path(deliverable.url) %><br/>
+            Type: <%= deliverable.type %> - <%= link_to deliverable.url, deliverable.url, :target => '_blank' %><br/>
             Comments: <%= deliverable.comments %><br/>
         </div>
         <% end %>
