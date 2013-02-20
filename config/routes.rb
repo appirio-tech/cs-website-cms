@@ -108,6 +108,8 @@ CsWebsiteCms::Application.routes.draw do
   match "/siginup/:username" => redirect("/users/sign_up"), as: "ref_siginup"
   root to: 'refinery/pages#home'
 
+  mount Resque::Server, :at => "/resque"
+
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
 
   # This line mounts Refinery's routes at the root of your application.

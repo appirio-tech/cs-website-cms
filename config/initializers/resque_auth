@@ -1,0 +1,4 @@
+Resque::Server.use(Rack::Auth::Basic) do |user, password|
+  username = 'test'
+  password = 'test'
+end
