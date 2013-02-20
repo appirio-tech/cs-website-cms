@@ -113,7 +113,6 @@ class ApiModel
 
   # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
   def self.find(entity, params={})
-    puts "========== running find for #{entity} for #{self.name} with params #{params}"
     Kernel.const_get(self.name).new(raw_get entity, params)
   end  
 

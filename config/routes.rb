@@ -97,6 +97,8 @@ CsWebsiteCms::Application.routes.draw do
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'  
 
+  match '/signup/:id' => redirect('/')
+
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
