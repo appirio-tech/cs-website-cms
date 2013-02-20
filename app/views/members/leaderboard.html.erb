@@ -14,7 +14,7 @@
                 <% @this_month.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                    <%= link_to member['username'], member_path(member['username']) %>
+                    <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
                     <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
@@ -28,7 +28,7 @@
                 <% @this_year.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                    <%= link_to member['username'], member_path(member['username']) %>
+                    <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
                     <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
@@ -42,7 +42,7 @@
                 <% @all_time.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-                    <%= link_to member['username'], member_path(member['username']) %>
+                    <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
                     <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>

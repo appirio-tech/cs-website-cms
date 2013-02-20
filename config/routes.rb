@@ -4,6 +4,7 @@ CsWebsiteCms::Application.routes.draw do
 
   get 'protected', to: 'protected#index'
 
+  match "/appirio" => redirect("/communities/appirio")
   match '/auth/:provider/callback', to: 'authentications#callback'
 
   devise_for :users, controllers: {
@@ -64,6 +65,8 @@ CsWebsiteCms::Application.routes.draw do
       end
     end
   end
+
+  resources :communities, only: [:show]
 
   namespace :admin do
     resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up

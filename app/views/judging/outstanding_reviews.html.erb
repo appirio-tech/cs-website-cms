@@ -8,6 +8,8 @@
             <div class="span8">
                 <div class="title"><h1>OUTSTANDING REVIEWS</h1></div>
 
+                <% if @scorecards.empty? %><div align="center">No more scorecards! Yippe!!</div><% end %>
+
                 <% @scorecards.each do |s| %>
                 <div class="review well well-large">
                     <h3><%= link_to s.challenge_participant__r.challenge__r.name, challenge_path(s.challenge_participant__r.challenge__r.challenge_id), :target => '_blank' %></h3>

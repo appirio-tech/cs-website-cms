@@ -130,6 +130,7 @@ class ChallengesController < ApplicationController
   end  
 
   def submissions
+    @deliverables = @challenge.submission_deliverables
   end  
 
   def results

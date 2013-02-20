@@ -1,0 +1,50 @@
+<%= content_wrapper do %>
+
+  <div class="title"><h1><%= @community.community.name.upcase %> COMMUNITY</h1></div>
+
+  <div class="row-fluid">
+
+    <div class="span7">
+
+      <%= raw(@community.community.about) %>
+      <br/><br/>
+
+      <% if @community.challenges.empty? %>There are no community challenges available at this time. Try some of <%= link_to 'these challenges', challenges_path %> in the meantime.<% end %>
+
+      <% @community.challenges.each do |challenge| %>
+      <% c = Challenge.new(challenge) %>
+      <div class="challenge well well-large">
+          <h3><%= link_to c.name, challenge_path(c) %></h3>
+          <%= format_challenge_due_in(c.end_date_utc) %><br>
+          <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
+          <strong><%= c.top_prize %> for <%= platform_display c %></strong><br>
+          Tags: <%= technology_tag_links(c) %>
+          <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
+      </div>
+      <% end %>
+      
+    </div>
+
+    <div class="span5">
+    	<h1>Leaderbaord</h1>
+
+    	<% if @community.leaderboard.empty? %><div style="padding-left:10px">No results at this time.</div><% end %>
+
+    	<% @community.leaderboard.each do |member| %>
+      <div class="placement well">
+          <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+          <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
+          <% if member['country'] %><%= member['country'] %><br/><% end %>
+          <%= member['points'] %> points<br/>
+          <span class="place <%= leaderboard_place_decorator(member['position'].to_i) %>"><%= member['position'].to_i.ordinalize %></span>
+      </div>
+      <% end %>
+
+    </div>
+    
+  </div>
+
+
+
+
+<% end %>

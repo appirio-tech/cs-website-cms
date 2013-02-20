@@ -1,8 +1,8 @@
 class Community < ApiModel
-  attr_accessor :name, :community_id, :about, :members
+  attr_accessor :name, :community_id, :about, :members, :community, :leaderboard, :challenges
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/communities"
-  end
+  end 
 
 end

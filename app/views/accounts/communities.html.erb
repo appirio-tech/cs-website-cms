@@ -10,7 +10,7 @@
 
                 <% @communities.each do |c| %>
                 <div class="challenge well well-large">
-                    <h3><%= c.name %></h3>
+                    <h3><%= link_to c.name, "/communities/#{c.community_id}" %></h3>
                     <p><%= raw(c.about) %></p>
                     Members: <%= c.members.to_i %>
                 </div>

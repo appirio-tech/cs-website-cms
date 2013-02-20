@@ -148,9 +148,7 @@ class ApiModel
     endpoint = endpoint_from_entities(entities)
     endpoint << "?#{params.to_param}" if params.present?
     puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
-    #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
-      get_response(RestClient.get(endpoint, api_request_headers))
-    #end
+    get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new
   end
@@ -159,9 +157,7 @@ class ApiModel
     endpoint = endpoint_from_entities(entities)
     endpoint << "/#{params.to_param}" unless params.empty?
     puts "=====$$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
-    #Rails.cache.fetch("#{endpoint}", expires_in: ENDPOINT_EXPIRY.minutes) do
-      get_response(RestClient.get(endpoint, api_request_headers))
-    #end
+    get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new    
   end  
