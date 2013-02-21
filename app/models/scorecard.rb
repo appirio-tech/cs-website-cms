@@ -1,5 +1,5 @@
 class Scorecard < ApiModel
-  attr_accessor :name, :submitted_date, :money_awarded, :score, :prize_awarded, :place
+  attr_accessor :name, :money_awarded, :submitted_date, :score, :prize_awarded, :place
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/challenges"
@@ -12,5 +12,9 @@ class Scorecard < ApiModel
   def judges_scores
   	raw_data.scorecard__r.records
   end
+
+  def submission_date_utc
+    Time.parse(@submitted_date).getutc if @submitted_date
+  end  
 
 end
