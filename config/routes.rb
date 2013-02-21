@@ -55,8 +55,8 @@ CsWebsiteCms::Application.routes.draw do
       get 'submit_url_or_file_delete'
       get 'results'
       get 'results/scorecard' => 'challenges#results_scorecard', :as => 'scorecard_results'
-      get 'scorecard' => redirect {|params| "http://old.cloudspokes.com/challenges/#{params[:id]}/scorecard" }
-      get 'survey' => redirect {|params| "http://old.cloudspokes.com/challenges/#{params[:id]}/survey" }
+      get 'scorecard'
+      get 'survey'
     end
 
     resource :submission, only: [:show, :update] do

@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CloudSpokes</title>
+    <meta name="google-site-verification" content="0b5UAqY-jFcSFdwuJOMT6arbK7RxdSzR-utYf1Pe6_k" />
+    <meta name="description" content="CloudSpokes matches companies who need cloud development expertise with a worldwide, crowdsourced community of <%= number_with_delimiter(@platform_stats['members'], :delimiter => ',') %> cloud experts.">    
+    <% if content_for?(:head) %>
+      <%= content_for(:head) %>
+    <% else %>
+      <title>CloudSpokes - Crowdsourcing Development Community</title>
+    <% end %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png" />
 
     <%= include_gon %>
