@@ -1,0 +1,39 @@
+<% content_for :head do %><title>Challenge Scorecard - CloudSpokes</title><% end %>
+
+<div class="content-wrapper">
+  <div class="container">
+
+    <div class="title"><h1>CHALLENGE SCORECARD</h1></div>
+
+    <div class="row-fluid">
+
+      <div class="span8">
+        <h1><%= @challenge.name %></h1>
+
+        <p>Here is the weighted criteria that judges will use to score submissions for this challenge.</p>
+
+				<% @scorecard_group.each do |sc| %>
+					<h4><%= sc["Name"] %> (<%= sc["Group_Weight__c"].to_i %>%)</h4>
+					<% counter = 1 %>
+					<% sc["QwikScore_Questions__r"].each do |question| %>
+						<% if question["Question_Type__c"].eql?('Numeric') %>
+							<%= counter %>. <%= question["Question_Text__c"] %> (<%= question["Minimum_Value__c"] %> - <%= question["Maximum_Value__c"] %>)<br/>
+							<% counter += 1 %>
+						<% end %>
+					<% end %>
+					</ol>					
+				<% end %>        
+
+      </div>
+
+      <div class="span4">
+        <br/><br/><br/>
+        <!-- include the entire right side -->
+        <%= render partial: "right_side", locals: {challenge: @challenge} %>
+      </div>
+      
+    </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->
+

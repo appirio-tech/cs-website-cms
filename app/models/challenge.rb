@@ -54,13 +54,12 @@ class Challenge < ApiModel
   end
 
   def self.increment_page_views(id) 
-    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-      :client_id      => ENV['SFDC_CLIENT_ID'],
-      :client_secret  => ENV['SFDC_CLIENT_SECRET'],
-      :host           => ENV['SFDC_HOST']
-    client.get "#{ENV['SFDC_APEXREST_URL']}/challenges/#{id}/pageview"
+    restforce_client.get "#{ENV['SFDC_APEXREST_URL']}/challenges/#{id}/pageview"
   end 
+
+  def self.scorecard_questions(id)
+    restforce_client.get("#{ENV['SFDC_APEXREST_URL']}/scorecard/#{id}/questions").body
+  end  
 
   # Used for resourceful routes (instead of id)
   def to_param
@@ -195,5 +194,17 @@ class Challenge < ApiModel
   def active?
     ['Created', 'Submission', 'Review', 'Review - Pending'].include?(status)
   end
+
+  private
+
+    def self.restforce_client
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client
+    end 
+
 end
 
