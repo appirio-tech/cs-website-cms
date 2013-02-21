@@ -155,19 +155,6 @@
             </div>
 
             <div class="span4">
-                <h2><%= pluralize(@active_challenges.count, "ACTIVE CHALLENGE").upcase %></h2>
-                <div class="content">
-                     <%= render partial: "challenges_sidebar", locals: {challenges: @active_challenges} %>
-                </div>
-
-                <h2><%= pluralize(@past_challenges.count, "PAST CHALLENGE").upcase %></h2>
-                <div class="content">
-                     <%= render partial: "challenges_sidebar", locals: {challenges: @past_challenges[0..2]} %>
-                </div>
-
-                <div class="content total-link">
-                    <a href="/members/<%= @member.name %>/past-challenges" class="title-link">View All Past Challenges</a>
-                </div>
 
                 <h2>SOCIAL</h2>
                 <div class="content">
@@ -189,6 +176,23 @@
                         <% end %>
                     </p>
                 </div>
+
+                <h2><%= pluralize(@active_challenges.count, "ACTIVE CHALLENGE").upcase %></h2>
+                <div class="content">
+                     <%= render partial: "challenges_sidebar", locals: {challenges: @active_challenges} %>
+                </div>
+
+                <h2><%= pluralize(@past_challenges.count, "PAST CHALLENGE").upcase %></h2>
+                <div class="content">
+                     <%= render partial: "challenges_sidebar", locals: {challenges: @past_challenges[0..2]} %>
+                </div>
+
+                <div class="content total-link">
+                    <a href="/members/<%= @member.name %>/past-challenges" class="title-link">View All Past Challenges</a>
+                </div>
+
+                <%= render partial: "shared/share_this" %>
+
             </div>
         </div>
     </div> <!-- /.container -->
