@@ -14,6 +14,8 @@ CsWebsiteCms::Application.routes.draw do
     confirmations: 'users/confirmations',
   } do 
     match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
+    match '/signup/:id', to: 'users/registrations#referral', :as => 'referral'
+    match '/signup', to: 'users/registrations#signup', :as => 'signup' 
     get "users/unlock/new",   :to => "users/passwords#unlock"
   end
 
@@ -97,8 +99,6 @@ CsWebsiteCms::Application.routes.draw do
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'  
 
-  match '/signup/:id' => redirect('/')
-
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
@@ -107,10 +107,7 @@ CsWebsiteCms::Application.routes.draw do
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
 
-  match "/siginup/:username" => redirect("/users/sign_up"), as: "ref_siginup"
   root to: 'refinery/pages#home'
-
-  mount Resque::Server, :at => "/resque"
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
 
@@ -120,5 +117,7 @@ CsWebsiteCms::Application.routes.draw do
   #
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   mount Refinery::Core::Engine, :at => '/'
+
+  mount Resque::Server, :at => "/resque"
 
 end

@@ -1,0 +1,22 @@
+<%= content_wrapper do %>
+
+	<div class="title"><h1>INVITATION TO JOIN CLOUDSPOKES</h1></div>
+
+	<div class="row-fluid">
+		<div class="span1"></div>
+	    <div class="span5">
+			    <div class="placement well">
+			        <%= image_tag(@member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+			        <%= link_to @member.name, member_path(@member.name), :style => 'margin-top:10px' %>
+			        Challenge Wins: <strong><%= @member.total_wins.to_i %></strong><br/>
+			        Active Challenges: <strong><%= @member.raw_data.active_challenges.to_i %></strong><br/>
+			        <table class="type featured"><tr><td><%= number_to_currency(@member.total_public_money, :precision => 0) %></td></tr></table>
+			    </div>
+	    </div>
+	    <div class="span5">
+	        <p><%= @member.name.camelcase %> invites you to join them on CloudSpokes, a unique developer community, focused on using APIs, mobile technologies and public cloud platforms to build and deliver enterprise class solutions!</p>
+	        <p><a href="#register-modal" data-toggle="modal">Register now</a> to get started.</p>
+	    </div>
+	</div>
+
+<% end %>

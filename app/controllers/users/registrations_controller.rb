@@ -9,6 +9,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
   end
 
+  def signup
+    # check for google marketing info to store for the member
+    if params[:utm_source] && params[:utm_medium] && params[:utm_campaign]
+      cookies[:marketing_campaign_source] = params[:utm_source]
+      cookies[:marketing_campaign_medium] = params[:utm_medium]
+      cookies[:marketing_campaign_name] = params[:utm_campaign]
+    end
+    render 'new'
+  end
+
+  # /singup/:membername_or_id
+  def referral
+    @member = Member.find(params[:id])
+    cookies[:referral_referred_by] = params[:id]
+  end
+
   # displays the form after the callback for creating a new user, 
   # allows them to enter their username, email and name
   def new_third_party
@@ -37,7 +53,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if results.success.to_bool
         if user.save
           message = "#{results.message} Please confirm your email address before logging in. Check your inbox."
-          #redirect_to root_path
         else
           message = user.errors.full_messages
         end        

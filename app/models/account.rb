@@ -33,6 +33,16 @@ class Account < ApiModel
     self.class.post("authenticate", data)
   end
 
+  def process_referral(referred_by)
+    data = { referral_id_or_membername: referred_by }
+    self.class.naked_put("accounts/#{user.username}/referred_by", data)
+  end
+
+  def process_marketing(source, medium, name)
+    data = { campaign_source: source, campaign_medium: medium, campaign_name: name }
+    self.class.naked_put("accounts/#{user.username}/marketing", data)
+  end  
+
   # updates the member's user in sfdc with the devise change password token
   def update_password_token(token)
     data = { token: token }
