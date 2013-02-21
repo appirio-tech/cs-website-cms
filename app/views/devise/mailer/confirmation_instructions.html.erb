@@ -1,0 +1,7 @@
+<%= render "template_top", :title => "Welcome to CloudSpokes #{@resource.username}!" %>
+
+<p>Please confirm your account using the link below:</p>
+
+<p><%= link_to 'Confirm my CloudSpokes account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<%= render "template_bottom" %>
