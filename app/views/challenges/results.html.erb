@@ -5,16 +5,20 @@
 
     <div class="title"><h1>RESULTS</h1></div>
 
+    <p>Once every judge fills out a scorecard for each participant the scoring engine runs which calculates a winner. Participants must meet a scoring threshold of 75% to be eligible for prize money. In the case of a tie score, the participant that submitted their entry first wins. You can click on the "Scorecard" link to view the scores and comments from the individual judge.</p>
+
+    <p>If you submitted for this challenge then you are also able to view everyone else's submission after the results are final. Click the "Scorecard" link below and feel free to download their code, watch their videos and read their documentation to learn from their submission.</p>
+
 		<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
       <div class="row-fluid">
       	<% for s in scorecard_row %>
           <div class="placement well well-large span6">
               <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
               <%= link_to s.member.name, member_path(s.member), :style => 'margin-top:10px' %>
-              <% if s.member.country %><%= s.member.country %><br/><% end %>
-              Score: <%= s.score %>
+              Score: <%= s.score %><br/>
+              Submitted: <%= participant_submission_date(s.submission_date_utc) %>
               <a href="<%= member_path(s.member) %>" class="btn pull-right-top"><span>view profile</span></a>
-              <span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span>
+              <% if s.place.to_i > 0 %><span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span><% end %>
 									<div style="clear: both;"></div>
                   <div style="padding-top:10px;padding-left:10px">
 	                  <table>
