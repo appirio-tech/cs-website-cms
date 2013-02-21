@@ -47,12 +47,6 @@ class ApplicationController < ActionController::Base
     User.admin_access_token
   end    
 
-  def member_access_token
-    puts "=========== using member access token"
-    current_user.access_token
-  end  
-
-
   private
 
     def after_sign_in_path_for(resource)
