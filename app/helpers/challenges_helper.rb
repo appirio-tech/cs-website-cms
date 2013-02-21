@@ -28,6 +28,12 @@ module ChallengesHelper
     end
   end
 
+  def participant_submission_date(submission_date_utc)
+    timezone = Rails::application.config.time_zone
+    timezone = current_user.time_zone if current_user
+    return "#{submission_date_utc.in_time_zone(timezone).strftime("%-m/%-d/%y %l:%M %p")}"
+  end  
+
   def format_challenge_end_date(end_date_utc)
     timezone = Rails::application.config.time_zone
     timezone = current_user.time_zone if current_user
