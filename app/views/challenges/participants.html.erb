@@ -13,9 +13,9 @@
                     <%= image_tag(p.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
                     <div class="detail">
                         <h2><%= link_to p.member.name, member_path(p.member) %></h2>
-                        <%= p.member.country %><br/>
+                        <% if p.member.country %><%= p.member.country %><br/><% end %>
                         <%= number_to_currency p.member.total_public_money, precision: 0 %><br/>
-                        <%= pluralize(p.total_wins, 'win') %><br>
+                        <%= pluralize(p.member.total_wins, 'win') %><br>
                         <%= p.status %>
                     </div>
                 </div>
