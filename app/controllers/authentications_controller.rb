@@ -59,7 +59,7 @@ class AuthenticationsController < ApplicationController
           user.username = sfdc_account.username
           user.email = sfdc_account.email
           user.last_access_token_refresh_at = Date.yesterday
-          user.skip_confirmation! unless omniauth['provider'] == "twitter" # Since user is authenticated using omniauth then no need to send confirmation email
+          user.skip_confirmation!
           if user.save
             if sfdc_account.email.include?('@appirio.com') 
               user.roles << Role.find_by_title('Refinery')
