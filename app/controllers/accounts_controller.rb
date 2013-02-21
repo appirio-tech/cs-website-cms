@@ -66,10 +66,7 @@ class AccountsController < ApplicationController
 
 	def invite_friends
 		if request.post?
-			params[:emails].each do |email|
-				puts "send invitation email to #{email}"
-				# Resque.enqueue(InviteEmailSender, current_user.username, email.second)
-			end
+			params[:emails].each {|email| Resque.enqueue(InviteEmailSender, current_user.username, current_user.profile_pic, email)}
 			flash.now[:notice] = 'Your invites have been sent!'
 		end		
 	end

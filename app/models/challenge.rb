@@ -53,6 +53,15 @@ class Challenge < ApiModel
     "#{ENV['CS_API_URL']}/challenges"
   end
 
+  def self.increment_page_views(id) 
+    client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+      :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+      :client_id      => ENV['SFDC_CLIENT_ID'],
+      :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+      :host           => ENV['SFDC_HOST']
+    client.get "#{ENV['SFDC_APEXREST_URL']}/challenges/#{id}/pageview"
+  end 
+
   # Used for resourceful routes (instead of id)
   def to_param
     challenge_id

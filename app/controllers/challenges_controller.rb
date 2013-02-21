@@ -20,6 +20,7 @@ class ChallengesController < ApplicationController
 
   def show
     @comments = @challenge.comments
+    Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user.challenge_admin?(@challenge)
   end
 
   def preview

@@ -15,8 +15,8 @@ module ApplicationHelper
 	}	
 
   MENU_OPTIONS_REFERRAL = { 
-  	:referred_members  				=> {:value => 'REFERRED MEMBERS', 		:link => '/account/referred-members'}
-		#:invite_friends      			=> {:value => 'INVITE FRIENDS',       :link => '/account/invite-friends'} 
+  	:referred_members  				=> {:value => 'REFERRED MEMBERS', 		:link => '/account/referred-members'},
+		:invite_friends      			=> {:value => 'INVITE FRIENDS',       :link => '/account/invite-friends'} 
 	}	
 
   MENU_OPTIONS_SUBMISSIONS = { 
