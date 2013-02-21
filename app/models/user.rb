@@ -23,7 +23,11 @@ class User < ActiveRecord::Base
   end  
 
   def challenge_sponsor?(challenge)
-    accountid == challenge.account
+    if challenge.account
+      accountid == challenge.account
+    else
+      false
+    end    
   end  
 
   def appirio?
@@ -139,10 +143,10 @@ class User < ActiveRecord::Base
   end  
 
   def self.admin_access_token
-    puts "=========== using admin access token"
+    puts "=========== using admin access token for #{ENV['SFDC_ADMIN_USERNAME']}"
     guest_token = Rails.cache.fetch('guest_access_token', :expires_in => 30.minute) do
-      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+      client = Restforce.new :username => ENV['SFDC_ADMIN_USERNAME'],
+        :password       => ENV['SFDC_ADMIN_PASSWORD'],
         :client_id      => ENV['SFDC_CLIENT_ID'],
         :client_secret  => ENV['SFDC_CLIENT_SECRET'],
         :host           => ENV['SFDC_HOST']
