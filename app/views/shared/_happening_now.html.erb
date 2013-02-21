@@ -1,0 +1,8 @@
+<div class="title"><h1>HAPPENING NOW</h1></div>
+<div class="row-fluid" id="status">
+    <div><div><div><span class="icon-active-members"></span><strong><%= number_with_delimiter(@platform_stats['members'], :delimiter => ',') %></strong>ACTIVE MEMBERS</div></div></div>
+    <div><div><div><span class="icon-competing-today"></span><strong><%= @platform_stats['competing_today'].to_i %></strong>COMPETING TODAY</div></div></div>
+    <div><div><div><span class="icon-available-prize-money"></span><strong><%= number_to_currency(@platform_stats['money_up_for_grabs'], :precision => 0) %></strong>AVAILABLE PRIZE MONEY</div></div></div>
+    <div><div><div><span class="active-challenges"></span><strong><%= @platform_stats['challenges_open'] %></strong>ACTIVE CHALLENGES</div></div></div>
+    <div><div><div><span class="counteries-working"></span><strong><%= @platform_stats['countries_working'] %></strong>COUNTRIES WORKING</div></div></div>
+</div>  
