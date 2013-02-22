@@ -10,7 +10,11 @@ class Scorecard < ApiModel
   end  
 
   def judges_scores
-  	raw_data.scorecard__r.records
+    if raw_data.scorecard__r
+    	raw_data.scorecard__r.records 
+    else
+      []
+    end
   end
 
   def submission_date_utc
