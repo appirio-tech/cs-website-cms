@@ -1,7 +1,7 @@
 class CsPlatform
 
 	def self.stats
-		stats = Rails.cache.fetch('platform_stats', :expires_in => 60.minute) do
+		stats = Rails.cache.fetch('platform_stats', :expires_in => 30.minute) do
 			JSON.parse(RestClient.get("#{ENV['CS_API_URL']}/stats"))['response']
 		end
 	end

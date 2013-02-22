@@ -18,9 +18,7 @@ class ApplicationController < ActionController::Base
   end    
 
   def get_platform_stats
-    @platform_stats = Rails.cache.fetch('platform_stats', :expires_in => 30.minute) do
-      CsPlatform.stats
-    end    
+    @platform_stats = CsPlatform.stats  
   end        
 
   def show_welcome_page?

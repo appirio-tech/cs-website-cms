@@ -41,6 +41,8 @@ gem 'omniauth-salesforce'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'flash_messages_helper'
 gem 'remote_syslog_logger'
+gem 'newrelic_rpm'
+gem 'memcachier'
 gem 'dalli'
 gem 'encryptor'
 gem 'airbrake'
