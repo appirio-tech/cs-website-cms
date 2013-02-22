@@ -13,7 +13,14 @@ class Users::PasswordsController < Devise::PasswordsController
           user.send_reset_password_instructions
           render :text => 'Check your inbox for password reset instructions.'
         else
-          render :text => "User '#{params[:username]}' not found."
+          # fetch the user from sfdc and add to pg
+          new_user = add_user_from_salesforce(params[:username])
+          if new_user
+            new_user.send_reset_password_instructions
+            render :text => 'Check your inbox for password reset instructions.'
+          else
+            render :text => "User '#{params[:username]}' not found. Please contact support@cloudspokes.com."
+          end
         end                
       else
         render :text => "You are logging in with OAuth using #{login_type} so there is no need to reset your password. 
@@ -68,5 +75,25 @@ class Users::PasswordsController < Devise::PasswordsController
       render action: "edit"
     end
   end
+
+  private 
+
+    def add_user_from_salesforce(username)
+      sfdc_account = Account.find(username)
+      password = (0...8).map{(65+rand(26)).chr}.join # they will change this anyway
+      user =  User.new
+      user.username = username.downcase
+      user.password = password
+      user.email = sfdc_account.user.email
+      user.mav_hash = Encryptinator.encrypt_string password
+      user.last_access_token_refresh_at = Date.yesterday
+      user.skip_confirmation!      
+      # save their record, sign them in and redirect
+      if user.save
+        user
+      else
+        logger.info "===[FATAL] Error saving new user for not_found password reset: #{user.errors.full_messages}" 
+      end
+    end
 
 end
