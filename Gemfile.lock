@@ -81,9 +81,6 @@ GEM
       multi_json (~> 1.0)
     acts_as_indexed (0.7.8)
     addressable (2.3.2)
-    airbrake (3.1.6)
-      builder
-      girl_friday
     annotate (2.4.0)
     ansi (1.4.3)
     archive-tar-minitar (0.5.2)
@@ -123,7 +120,6 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     columnize (0.3.6)
-    connection_pool (1.0.0)
     cookiejar (0.3.0)
     country-select (1.1.1)
     crack (0.3.1)
@@ -186,9 +182,6 @@ GEM
       ruby-hmac
     formatador (0.2.4)
     friendly_id (4.0.9)
-    girl_friday (0.11.2)
-      connection_pool (~> 1.0)
-      rubinius-actor
     globalize3 (0.2.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -331,6 +324,8 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
+    ratchetio (0.6.1)
+      multi_json (~> 1.5.0)
     rb-fsevent (0.9.1)
     rdoc (3.12)
       json (~> 1.4)
@@ -388,9 +383,6 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
-    rubinius-actor (0.0.2)
-      rubinius-core-api
-    rubinius-core-api (0.0.1)
     ruby-debug-base19 (0.11.25)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -469,7 +461,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   annotate (= 2.4.0)
   awesome_print
   better_errors
@@ -517,6 +508,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.11)
   rake
+  ratchetio (~> 0.6.0)
   rb-fsevent (~> 0.9.1)
   recaptcha
   redis

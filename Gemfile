@@ -45,7 +45,7 @@ gem 'newrelic_rpm'
 gem 'memcachier'
 gem 'dalli'
 gem 'encryptor'
-gem 'airbrake'
+gem 'ratchetio', '~> 0.6.0'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data
