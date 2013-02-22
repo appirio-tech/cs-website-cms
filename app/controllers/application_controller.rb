@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def not_found(exception)
+  def not_found(exception=nil)
     if Rails.env.development?
       render :text => 'Damn 404!!'
     else

@@ -40,7 +40,6 @@ CsWebsiteCms::Application.routes.draw do
   resources :challenges, only: [:index, :create, :show, :update] do
     member do
       get 'comments'
-      get 'registrants'
       post "comment"
       get 'register'
       match 'agree-tos' => 'challenges#agree_tos'
@@ -48,7 +47,9 @@ CsWebsiteCms::Application.routes.draw do
       get 'participants'
       get 'preview'
       get 'submissions'
-      get 'all_submissions' => redirect {|params| "http://www.cloudspokes.com/challenges/#{params[:id]}/submissions" }
+      get 'submission' => redirect('/not_found') # no access to an old route
+      get 'all_submissions' => redirect {|params| "/challenges/#{params[:id]}/submissions" }      
+      get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }
       get 'submit'
       post 'submit_file'
       post 'submit_url'
@@ -106,6 +107,8 @@ CsWebsiteCms::Application.routes.draw do
   match "/signup" => redirect("/users/sign_up")
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
+
+  match '/not_found' => 'application#not_found', as: 'not_found'
 
   root to: 'refinery/pages#home'
 

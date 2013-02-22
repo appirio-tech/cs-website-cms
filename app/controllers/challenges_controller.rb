@@ -6,7 +6,7 @@ class ChallengesController < ApplicationController
     :toggle_discussion_email, :participant_submissions, :results, :results_scorecard]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, :submit, :submit_url, :submissions, :results, :scorecard]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
-    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard]
+    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard, :scorecard]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
@@ -150,6 +150,8 @@ class ChallengesController < ApplicationController
     scorecard_questions = Judging.participant_scorecard(@participant.id, params[:judge])
     @scorecard = JSON.parse(scorecard_questions.keys.first) 
     gon.scorecard = scorecard_questions.values.first
+  rescue Exception => e
+    redirect_to :not_found
   end
 
   def comment
