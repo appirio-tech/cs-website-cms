@@ -25,6 +25,10 @@ class Account < ApiModel
     self.class.post("create", params)
   end
 
+  def activate
+    self.class.naked_get("accounts/activate/#{user.username}")
+  end  
+
   def authenticate(password)
     data = {
       membername: user.username,

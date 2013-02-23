@@ -7,9 +7,12 @@ class Users::SessionsController < Devise::SessionsController
   def authenticate_account
 
     ApiModel.access_token = guest_access_token
+
+    account = Account.new(User.new(:username => params[:user][:username]))
+    # activate their account in case inactive
+    account.activate
     # authenticate their credentails against sfdc
-    sfdc_authentication = Account.new(User.new(:username => params[:user][:username]))
-      .authenticate(params[:user][:password])
+    sfdc_authentication = account.authenticate(params[:user][:password])
 
     logger.info "===[CS-USER][LOGIN] starting login process. sfdc_authentication #{sfdc_authentication.to_yaml}"
 

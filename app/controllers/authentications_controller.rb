@@ -35,7 +35,6 @@ class AuthenticationsController < ApplicationController
 
     # user exists in sfdc -- make sure they exist in db and sign in
     def login_third_party(omniauth, sfdc_account)
-      activate_account_in_sfdc
 
       begin
 
@@ -82,10 +81,6 @@ class AuthenticationsController < ApplicationController
         redirect_to :root
       end
 
-    end
-
-    def activate_account_in_sfdc
-      # TODO - call sfdc to activate account
     end
 
     def thirdparty_username(omniauth)
