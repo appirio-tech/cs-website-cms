@@ -7,7 +7,7 @@
       - @active_challenges.each do |challenge|
         = render "challenge", :challenge => challenge
     - else
-      %p No active challenge found
+      %p No active challenge found.
 
     .title
       %h1 MY FOLLOWED CHALLENGES
@@ -15,7 +15,7 @@
       - @followed_challenges.each do |challenge|
         = render "challenge", :challenge => challenge
     - else
-      %p No followed challenge found
+      %p No followed challenge found.
 
     .title
       %h1 MY PAST CHALLENGES
@@ -23,7 +23,7 @@
       - @past_challenges.each do |challenge|
         = render "challenge", :challenge => challenge
     - else
-      %p No past challenge found
+      %p No past challenge found.
 
 
 

@@ -8,6 +8,10 @@
             <div class="span8">
                 <div class="title"><h1>MY COMMUNITIES</h1></div>
 
+                <% if @communities.empty? %>
+                    <div align="center"><strong>You are not a member of any communities at this time.</strong></div>
+                <% end %>                     
+
                 <% @communities.each do |c| %>
                 <div class="challenge well well-large">
                     <h3><%= link_to c.name, "/communities/#{c.community_id}" %></h3>

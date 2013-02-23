@@ -33,11 +33,6 @@ class ChallengesController < ApplicationController
     end
   end  
 
-  def scorecard
-    @scorecard_group = Challenge.scorecard_questions(params[:id])
-    #render :json => @scorecard_group
-  end
-
   def register
     redirect_to challenge_path, :error => 'Registration is closed for this challenge.' if current_challenge.closed_for_registration?
     # if default tos, let them register
@@ -51,7 +46,10 @@ class ChallengesController < ApplicationController
     else
       @terms = CsPlatform.tos(current_challenge.tos)
     end
+  end
 
+  def participants
+    @participants = @challenge.participants
   end
 
   def agree_tos
@@ -154,6 +152,10 @@ class ChallengesController < ApplicationController
   rescue Exception => e
     redirect_to :not_found
   end
+
+  def scorecard
+    @scorecard_group = Challenge.scorecard_questions(params[:id])
+  end  
 
   def comment
     comments = params[:comment][:comments]
