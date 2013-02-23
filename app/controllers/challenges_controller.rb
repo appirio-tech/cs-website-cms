@@ -35,6 +35,7 @@ class ChallengesController < ApplicationController
 
   def scorecard
     @scorecard_group = Challenge.scorecard_questions(params[:id])
+    #render :json => @scorecard_group
   end
 
   def register

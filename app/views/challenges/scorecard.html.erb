@@ -13,15 +13,14 @@
         <p>Here is the weighted criteria that judges will use to score submissions for this challenge.</p>
 
 				<% @scorecard_group.each do |sc| %>
-					<h4><%= sc["Name"] %> (<%= sc["Group_Weight__c"].to_i %>%)</h4>
+					<h4><%= sc.name %> (<%= sc.group_weight.to_i %>%)</h4>
 					<% counter = 1 %>
-					<% sc["QwikScore_Questions__r"].each do |question| %>
-						<% if question["Question_Type__c"].eql?('Numeric') %>
-							<%= counter %>. <%= question["Question_Text__c"] %> (<%= question["Minimum_Value__c"] %> - <%= question["Maximum_Value__c"] %>)<br/>
+					<% sc.qwikscore_questions__r.records.each do |question| %>
+						<% if question.question_type.eql?('Numeric') %>
+							<%= counter %>. <%= question.question_text %> (<%= question.minimum_value %> - <%= question.maximum_value %>)<br/>
 							<% counter += 1 %>
 						<% end %>
-					<% end %>
-					</ol>					
+					<% end %>	
 				<% end %>        
 
       </div>

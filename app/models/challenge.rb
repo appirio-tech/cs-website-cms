@@ -58,7 +58,7 @@ class Challenge < ApiModel
   end 
 
   def self.scorecard_questions(id)
-    restforce_client.get("#{ENV['SFDC_APEXREST_URL']}/scorecard/#{id}/questions").body
+    naked_get("challenges/#{id}/scorecard")
   end  
 
   # Used for resourceful routes (instead of id)
