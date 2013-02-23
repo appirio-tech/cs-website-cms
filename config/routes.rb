@@ -42,7 +42,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'comments'
       post "comment"
       get 'register'
-      match 'agree-tos' => 'challenges#agree_tos'
+      match 'agree-tos' => 'challenges#agree_tos', :as => 'agree_tos'
       get 'watch'
       get 'participants'
       get 'preview'

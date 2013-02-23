@@ -5,7 +5,9 @@
     <%= hidden_field_tag "comment[reply_to]", params[:reply_to] if params[:reply_to] %>
 
     <%= text_area_tag "comment[comments]", flash[:unsaved_comments], placeholder: "Max 2000 characters with support for line breaks." %>
-    <%= recaptcha_tags %>
+    <% if current_user.use_captcha?(challenge, @current_member_participant) %>
+	    <%= recaptcha_tags %>
+    <% end %>
     <%= submit_tag "Post Comment", class: "btn" %>
   <% end %>
 <% else %>

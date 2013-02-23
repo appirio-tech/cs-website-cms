@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     email.include?('@appirio.com')
   end
 
+  def use_captcha?(challenge, participant)
+    if challenge_admin?(challenge) || (participant.member && participant.member.valid_submissions > 0)
+      false
+    else
+      true
+    end
+  end
+
   def update_with_sfdc_info
     puts '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
     ApiModel.access_token = User.guest_access_token    

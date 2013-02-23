@@ -55,7 +55,7 @@ class Participant < ApiModel
   end
 
   def member
-    Member.new @member
+    Member.new @member if @member
   end
 
   def challenge

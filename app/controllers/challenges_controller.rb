@@ -2,11 +2,12 @@ class ChallengesController < ApplicationController
 
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
-    :watch, :agree_tos, :submission, :submissions, :submission_view_only, :new_comment, 
+    :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
     :toggle_discussion_email, :submit, :participant_submissions, :results, :results_scorecard]
-  before_filter :load_current_challenge, :only => [:show, :preview, :participants, :submit, :submit_url, :submissions, :results, :scorecard]
+  before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
+    :submit, :submit_url, :submissions, :results, :scorecard, :comment]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
-    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard, :scorecard]
+    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard, :scorecard, :comment]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
@@ -160,21 +161,22 @@ class ChallengesController < ApplicationController
   def comment
     comments = params[:comment][:comments]
 
-    unless verify_recaptcha
-      flash[:unsaved_comments] = comments
-      return redirect_to :back, :alert => 'There was an error with the recaptcha code below. Please resubmit your comment.'
-    end      
+    if current_user.use_captcha?(@challenge, @current_member_participant)
+      unless verify_recaptcha
+        flash[:unsaved_comments] = comments
+        return redirect_to :back, :alert => 'There was an error with the recaptcha code below. Please resubmit your comment.'
+      end 
+    end     
 
     if comments.length > 2000
       flash[:unsaved_comments] = comments
       return redirect_to :back, :alert => 'Comments cannot be longer than 2000 characters. Please try again.'
     end
 
-    challenge = Challenge.find params[:id]
     params[:comment][:comments] = params[:comment][:comments].gsub(/\n/, "<br/>")
-    resp = challenge.create_comment(params[:comment])
-    if resp.success == "true"
-      redirect_to challenge_path(challenge), :notice => 'Comment successfully posted to discussions.'
+    resp = @challenge.create_comment(params[:comment])
+    if resp.success.to_bool
+      redirect_to challenge_path(@challenge), :notice => 'Comment successfully posted to discussions.'
     else
       flash[:unsaved_comments] = comments
       return redirect_to :back, :alert => "[#{resp.message}] There was an error posting your comments. Please try again."
