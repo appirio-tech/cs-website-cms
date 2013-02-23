@@ -3,7 +3,7 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :new_comment, 
-    :toggle_discussion_email, :participant_submissions, :results, :results_scorecard]
+    :toggle_discussion_email, :submit, :participant_submissions, :results, :results_scorecard]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, :submit, :submit_url, :submissions, :results, :scorecard]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
     :submit_file, :submit_url_or_file_delete, :results, :results_scorecard, :scorecard]
