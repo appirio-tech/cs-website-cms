@@ -32,7 +32,7 @@
                 <p><%= format_challenge_due_in(challenge.end_date_utc) %> | <%= pluralize(challenge.participating_members, 'member') %> participating, <%= challenge.registered_members %> registered<br/>
                 <%= platform_and_technology_tag_links(challenge) %></p>
                 <% end %>
-                <%= link_to "View All Active Challenges", challenges_path %>
+                <%= link_to "View All Active Challenges", challenges_path %> | <%= link_to "View All Recently Completed Challenges", challenges_recent_path %>
             </div>
         </div>
         <br/>

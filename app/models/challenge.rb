@@ -9,6 +9,7 @@ class Challenge < ApiModel
     :submission_details, :winner_announced, :community, :days_till_close,
     :platforms, :technologies, :submissions, :participating_members, :default_tos,
     :challenge_prizes, :challenge_participants, :registration_end_date, :account,
+    :blogged, :auto_blog_url,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
@@ -67,6 +68,12 @@ class Challenge < ApiModel
 
   def self.open    
     request(:get, '', {}).map {|challenge| Challenge.new challenge}
+  end
+
+  def self.recent
+    Rails.cache.fetch('recent-challenges', :expires_in => 60.minute) do
+      request(:get, 'recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
+    end
   end
 
   def self.per_page

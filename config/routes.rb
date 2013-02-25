@@ -2,9 +2,6 @@ CsWebsiteCms::Application.routes.draw do
 
   resources :authentications
 
-  get '/admin', to: 'admin#index'
-  get '/admin/redis_challenge', to: 'admin#redis_challenge'
-
   match "/appirio" => redirect("/communities/appirio")
   match '/auth/:provider/callback', to: 'authentications#callback'
 
@@ -34,8 +31,9 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   get 'challenges/feed' => redirect("/challenges.rss")
+  get 'challenges/feed/recent' => redirect("/challenges/recent.rss")  
   get 'challenges/closed' => redirect("/challenges")
-  get 'challenges/recent' => redirect("/challenges")
+  get 'challenges/recent'
   get 'challenges/search'
   get 'challenges/index' # support for old urls: /challenges/index?category=JavaScript
   resources :challenges, only: [:index, :create, :show, :update] do
@@ -106,6 +104,10 @@ CsWebsiteCms::Application.routes.draw do
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'  
 
+  get '/admin', to: 'admin#index'
+  get '/admin/redis_challenge', to: 'admin#redis_challenge'
+  get '/admin/redis_sync_all'
+
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
@@ -118,10 +120,10 @@ CsWebsiteCms::Application.routes.draw do
 
   root to: 'refinery/pages#home'
 
+  mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
+
   mount Resque::Server, :at => "/resque"
 
   mount Refinery::Core::Engine, :at => '/'
-
-  mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
 
 end

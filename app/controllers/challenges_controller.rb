@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class ChallengesController < ApplicationController
 
   before_filter :set_nav_tick
@@ -22,6 +24,11 @@ class ChallengesController < ApplicationController
     @technologies = all_technologies
     @categories = all_categories
   end
+
+  def recent
+    @challenges = Challenge.recent
+    @challenges = @challenges.paginate(:page => params[:page], :per_page => 20)
+  end  
 
   def show
     @comments = @challenge.comments
