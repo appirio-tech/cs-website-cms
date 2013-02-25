@@ -15,7 +15,7 @@ $ ->
 			  error: (jqXHR, textStatus, errorThrown) ->
 			  	console.log(textStatus);
 				  $('#forgot-password-btn').html('SUBMIT')	
-				  $('#forgot-password-modal .reset-results').html('<p>Sorry! We could not process your request successfully. '+textStatus+'</p>')  
+				  $('#forgot-password-modal .reset-results').html('<p>We could not process your request successfully. Please make sure you are using your username and not email address.</p>')  
 		false
 
 	$('#register-modal input[type="submit"]').click ->
