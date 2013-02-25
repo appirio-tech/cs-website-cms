@@ -34,8 +34,8 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   get 'challenges/feed' => redirect("/challenges.rss")
-  get 'challenges/closed'
-  get 'challenges/recent'
+  get 'challenges/closed' => redirect("/challenges")
+  get 'challenges/recent' => redirect("/challenges")
   get 'challenges/search'
   get 'challenges/index' # support for old urls: /challenges/index?category=JavaScript
   resources :challenges, only: [:index, :create, :show, :update] do
