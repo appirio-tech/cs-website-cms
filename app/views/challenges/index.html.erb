@@ -11,9 +11,9 @@
                     <div class="filter well well-large">
                         <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
                         <label>SHOW</label>
-                        <%= select_tag "filters[platform]", options_for_select(Platform.names, filters[:platform]), prompt: "All Platforms" %>
-                        <%= select_tag "filters[technology]", options_for_select(Technology.names, filters[:technology]), prompt: "All Technologies" %>
-                        <%= select_tag "filters[category]", options_for_select(Category.names, filters[:category]), prompt: "All Categories" %>
+                        <%= select_tag "filters[platform]", options_for_select(@platforms, filters[:platform]), prompt: "All Platforms" %>
+                        <%= select_tag "filters[technology]", options_for_select(@technologies, filters[:technology]), prompt: "All Technologies" %>
+                        <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
 
                         <label>SORT BY</label>
                         <% options = [["Challenge Title", "name"],["Prize Money", "total_prize_money desc"],["End Date", "end_date"]] %>

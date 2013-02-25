@@ -2,7 +2,8 @@ CsWebsiteCms::Application.routes.draw do
 
   resources :authentications
 
-  get 'protected', to: 'protected#index'
+  get '/admin', to: 'admin#index'
+  get '/admin/redis_challenge', to: 'admin#redis_challenge'
 
   match "/appirio" => redirect("/communities/appirio")
   match '/auth/:provider/callback', to: 'authentications#callback'
@@ -69,6 +70,11 @@ CsWebsiteCms::Application.routes.draw do
     end
   end
 
+  get "messages/inbox" => 'messages#index'
+  get "messages/show"
+  get "messages/create"
+  get "messages/reply"  
+
   resources :communities, only: [:show]
 
   namespace :admin do
@@ -114,13 +120,8 @@ CsWebsiteCms::Application.routes.draw do
 
   mount Resque::Server, :at => "/resque"
 
-  mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
-
-  # This line mounts Refinery's routes at the root of your application.
-  # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
-  # If you would like to change where this extension is mounted, simply change the :at option to something different.
-  #
-  # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   mount Refinery::Core::Engine, :at => '/'
+
+  mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
 
 end

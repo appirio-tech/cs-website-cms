@@ -17,6 +17,10 @@ class ChallengesController < ApplicationController
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
     @challenges = Challenge.all params[:filters]
+
+    @platforms = all_platforms
+    @technologies = all_technologies
+    @categories = all_categories
   end
 
   def show
@@ -51,6 +55,10 @@ class ChallengesController < ApplicationController
 
   def participants
     @participants = @challenge.participants
+  end
+
+  def search
+    @challenges = Challenge.search params[:search]
   end
 
   def agree_tos
@@ -188,6 +196,24 @@ class ChallengesController < ApplicationController
     def current_challenge
       @current_challenge ||= Challenge.find params[:id]
     end
+
+    def all_platforms
+      Rails.cache.fetch('all-platforms', :expires_in => 60.minute) do
+        Platform.names
+      end
+    end    
+
+    def all_technologies
+      Rails.cache.fetch('all-technologies', :expires_in => 60.minute) do
+        Technology.names
+      end
+    end   
+
+    def all_categories
+      Rails.cache.fetch('all-categories', :expires_in => 60.minute) do
+        Category.names
+      end
+    end     
 
     def load_current_challenge
       @challenge = current_challenge    

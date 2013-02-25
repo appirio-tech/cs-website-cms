@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   def community
     @community_tick = true
     @open_challenges = Challenge.open
-    @featured_challenge =  Challenge.find @platform_stats['featured_challenge_id']
+    @featured_challenge =  featured_challenge @platform_stats['featured_challenge_id']
     @leaderboard = CsPlatform.leaderboard_alltime(current_access_token, :category => nil, :limit => 1000)
     @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(3)    
@@ -44,5 +44,13 @@ class MembersController < ApplicationController
   def past_challenges
     @past_challenges = Member.find(params[:id]).past_challenges 
   end  
+
+  private
+
+    def featured_challenge(challenge_id)
+      Rails.cache.fetch('featured-challenge', :expires_in => 30.minute) do
+        Challenge.find challenge_id
+      end
+    end   
 
 end

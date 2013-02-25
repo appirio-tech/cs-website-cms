@@ -191,12 +191,10 @@ class ApiModel
   end
 
   def self.post(entities, data)
-    puts "======= calling post #{entities} with: #{data}"
     request :post, entities, data
   end
 
   def self.put(entities, data)
-    puts "======= calling puts #{entities} #{to_param} with: #{data}"
     request :put, entities, data
   end
 

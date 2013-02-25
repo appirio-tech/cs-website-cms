@@ -1,11 +1,15 @@
-.box-wrapper
-  .search-form.challenges
-    = render partial: "search_form"
+= content_wrapper do
+	.span12
+		.title
+			%h1 ADVANCED SEARCH
+		.box-wrapper
+			.search-form.challenges
+				= render partial: "search_form"
 
-  %hr
+			%hr
 
-  .challenges
-    - if @challenges.present?
-      = render @challenges
-    - else
-      .empty No Challenges
+			.challenges
+				- if @challenges.present?
+					= render @challenges
+				- else
+					.empty No Challenges

@@ -62,4 +62,9 @@ class Member < ApiModel
     request(:get, "#{membername}/login_type", nil)
   end
 
+  # this is temp
+  def inbox
+    self.class.naked_get("messages/inbox/#{@name}").map {|message| Message.new message}
+  end  
+
 end

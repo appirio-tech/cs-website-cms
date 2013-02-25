@@ -38,10 +38,13 @@ module Redis::ChallengeSearchable
     end
 
     def nest
-      @nest ||= Nest.new("cs", REDIS)["challenge"]
+      @nest ||= Nest.new("search", REDIS)["challenge"]
     end
 
     def redis_sync_all
+
+      ApiModel.access_token = User.admin_access_token
+
       challenges = all
       delete_ids = nest[:raw_data].hkeys - challenges.map(&:challenge_id)
 
@@ -168,8 +171,6 @@ module Redis::ChallengeSearchable
     end
 
   end
-
-
 
   def redis_sync
     if nest[:raw_data].hexists(challenge_id)

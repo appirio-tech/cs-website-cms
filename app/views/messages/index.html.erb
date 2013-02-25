@@ -1,0 +1,84 @@
+<link href="/assets/jeff-bootstrap.min.css" rel="stylesheet">
+
+<%= content_wrapper do %>
+
+  <div class="title"><h1>PRIVATE MESSAGES</h1></div>
+
+    <div style="margin:10px">
+
+      <button class="btn btn-primary" type="button">New Message</button><br/><br/>
+
+      <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#inbox" data-toggle="tab">Inbox</a></li>
+          <li><a href="#sent" data-toggle="tab">Sent</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="inbox">
+     
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="warning">
+                <td><a href="">forurq</a> <span class="badge">2</span></i></td>
+                <td><a href="">Configure Jenkins for Custom Build Tools</a></td>
+                <td>1/24/2013 at 07:43PM</td>
+              </tr>
+              <tr>
+                <td><a href="">enreeco</a> <span class="badge">1</span></td>
+                <td><a href="">Vanilla Forums Credentials</a></td>
+                <td>12/13/2013 at 09:43PM</td>
+              </tr>
+              <tr class="warning">
+                <td><a href="">mess</a> <span class="badge">5</span></td>
+                <td><a href="">Challenge 1001</a></td>
+                <td>1/15/2013 at 11:43PM</td>
+              </tr>           
+            </tbody>
+          </table>
+
+          </div>
+          <div class="tab-pane" id="sent">
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td><a href="">forurq</a></td>
+                <td><a href="">Configure Jenkins for Custom Build Tools</a></td>
+                <td>1/24/2013 at 07:43PM</td>
+              </tr>
+              <tr>
+                <td><a href="">enreeco</a></td>
+                <td><a href="">Vanilla Forums Credentials</a></td>
+                <td>12/13/2013 at 09:43PM</td>
+              </tr>         
+            </tbody>
+          </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+	</div>
+</div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/assets/jeff-bootstrap.min.css"></script>
+
+<% end %>

@@ -34,17 +34,16 @@ class Challenge < ApiModel
     params['platforms'] = params.delete('challenge_platforms__r') if params['challenge_platforms__r']
     params['technologies'] = params.delete('challenge_technologies__r') if params['challenge_technologies__r']
 
-    params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
-      prize = "$#{Integer(entry['prize'])}" rescue entry['prize'].to_s
-      { place: entry['place'].to_i.ordinalize, prize: prize, points: entry['points'] || '', value: entry['value'] || '' }
-    end if params['challenge_prizes']
+    begin
+      params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|
+        prize = "$#{Integer(entry['prize'])}" rescue entry['prize'].to_s
+        { place: entry['place'].to_i.ordinalize, prize: prize, points: entry['points'] || '', value: entry['value'] || '' }
+      end if params['challenge_prizes']
+    rescue
+    end
 
-    # if no prizes were set up yet....
+    # if no prizes were set up yet or we couldn't parse the prizes (redis!) ....
     params['challenge_prizes'] = [] unless params['challenge_prizes']
-
-    # params['assets'] = params['assets'].map do |entry|
-    #   entry['filename']
-    # end if params['assets']
 
     super(params)
   end
@@ -207,4 +206,3 @@ class Challenge < ApiModel
     end 
 
 end
-
