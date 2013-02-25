@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  rescue_from ApiExceptions::EntityNotFoundError, :with => :not_found
-  rescue_from ApiExceptions::AccessDenied, :with => :access_denied
+  rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
+  rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
 
   before_filter :set_access_token
   before_filter :set_gon_variables
@@ -25,15 +25,11 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def not_found(exception=nil)
-    if Rails.env.development?
-      render :text => 'Damn 404!!'
-    else
-      redirect_to '/not_found'
-    end
-  end  
+  def entity_not_found(exception)
+    redirect_to '/not_found'
+  end
 
-  def access_denied
+  def entity_access_denied
     redirect_to '/access_denied'
   end    
 

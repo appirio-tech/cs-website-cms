@@ -117,8 +117,6 @@ CsWebsiteCms::Application.routes.draw do
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
 
-  match '/not_found' => 'application#not_found', as: 'not_found'
-
   root to: 'refinery/pages#home'
 
   mount_sextant if Rails.env.development? # https://github.com/schneems/sextant
