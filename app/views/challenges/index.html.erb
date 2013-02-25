@@ -16,7 +16,7 @@
                         <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
 
                         <label>SORT BY</label>
-                        <% options = [["Challenge Title", "name"],["Prize Money", "total_prize_money desc"],["End Date", "end_date"]] %>
+                        <% options = [["End Date", "end_date"],["Challenge Title", "name"],["Prize Money", "total_prize_money desc"]] %>
                         <%= select_tag "filters[order_by]", options_for_select(options, filters[:order_by]) %>
                     </div>
                 <% end %>
