@@ -105,8 +105,9 @@ CsWebsiteCms::Application.routes.draw do
   get '/forums-authenticate', to: 'content#forums_authenticate'  
 
   get '/admin', to: 'admin#index'
-  get '/admin/redis_challenge', to: 'admin#redis_challenge'
+  get '/admin/redis_challenge'
   get '/admin/redis_sync_all'
+  get '/admin/blog_fodder'
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")

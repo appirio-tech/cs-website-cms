@@ -1,0 +1,37 @@
+<%= content_wrapper do %>
+
+  <div class="title"><h1>Blog Fodder</h1></div>
+
+  <p><%= @challenge.name %></p>
+  <p>Total Prize Money: <%= number_to_currency(@challenge.total_prize_money, :precision => 0) %></p>
+
+	<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
+    <div class="row-fluid">
+    	<% for s in scorecard_row %>
+        <div class="placement well well-large span6">
+            <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+            <%= link_to s.member.name, member_path(s.member), :style => 'margin-top:10px' %>
+            Score: <%= s.score %><br/>
+            Submitted: <%= participant_submission_date(s.submission_date_utc) %>
+            <a href="<%= member_path(s.member) %>" class="btn pull-right-top"><span>view profile</span></a>
+            <% if s.place.to_i > 0 %><span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span><% end %>
+        </div>
+        <% end %>
+    </div>
+  <% end %>
+
+	<div class="title"><h1>REQUIREMENTS</h1></div>
+	<p><%= raw @challenge.requirements %></p>
+
+  <div class="title"><h1>ALL SUBMISSION FILES</h1></div>
+  <div class="content">
+  	<% @challenge.submission_deliverables.each do |deliverable| %>
+      <div class="well">
+          Member: <%= link_to deliverable.username, member_path(deliverable.username) %><br/>
+          Type: <%= deliverable.type %> - <%= link_to deliverable.url, deliverable.url, :target => '_blank' %><br/>
+          Comments: <%= deliverable.comments %><br/>
+      </div>
+      <% end %>
+  </div>  
+
+<% end %>

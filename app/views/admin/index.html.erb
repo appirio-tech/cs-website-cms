@@ -2,9 +2,24 @@
 
   <div class="title"><h1>CloudSpokes Site Administration</h1></div>
 
-  <h3>View a Challenge from Redis</h3>
-  <form action='/admin/redis_challenge'>
-  Challenge ID: <input type="text" name="challenge_id"> <input type="submit">
-	</form>
+	<div class="row-fluid">
+
+		<div class="span6">
+		  <h1>Generate Blog Fodder</h1>
+		  <form action='/admin/blog_fodder'>
+		  Challenge ID: <input type="text" name="challenge_id"> <div class="btn"><input type="submit" class="btn" value="Submit"></div>
+			</form>
+		</div>
+
+		<div class="span6">
+		  <h1>Redis Management</h1>
+		  <form action='/admin/redis_challenge'>
+		  View Challenge by ID: <input type="text" name="challenge_id"> <div class="btn"><input type="submit" class="btn" value="Submit"></div>
+			</form>
+
+			<a href="/admin/redis_sync_all">Sync all challenges with redis</a>.
+		</div>		
+
+	</div>
 
 <% end %>
