@@ -6,16 +6,16 @@ class MembersController < ApplicationController
     @community_tick = true
     @open_challenges = Challenge.open
     @featured_challenge =  featured_challenge @platform_stats['featured_challenge_id']
-    @leaderboard = CsPlatform.leaderboard_alltime(current_access_token, :category => nil, :limit => 1000)
+    @leaderboard = CsPlatform.leaderboard_alltime(guest_access_token, :category => nil, :limit => 1000)
     @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(3)    
   end   
 
   def leaderboard
     @leaderboard_tick = true
-    @this_month = CsPlatform.leaderboard_month(current_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
-    @this_year = CsPlatform.leaderboard_year(current_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
-    @all_time = CsPlatform.leaderboard_alltime(current_access_token, :category => params[:category] || nil, :limit => 1000)
+    @this_month = CsPlatform.leaderboard_month(guest_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
+    @this_year = CsPlatform.leaderboard_year(guest_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
+    @all_time = CsPlatform.leaderboard_alltime(guest_access_token, :category => params[:category] || nil, :limit => 1000)
 
     @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
