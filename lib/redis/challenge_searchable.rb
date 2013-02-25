@@ -42,12 +42,12 @@ module Redis::ChallengeSearchable
     end
 
     def redis_sync_all
-
+      Rails.logger.info "===[REDIS] Starting sync_all for challenges"
       ApiModel.access_token = User.admin_access_token
-
       challenges = all
       delete_ids = nest[:raw_data].hkeys - challenges.map(&:challenge_id)
 
+      Rails.logger.info "===[REDIS] Deleting all current challenges"
       delete_ids.uniq.each {|cid| redis_remove(cid)}
       challenges.each {|c| c.redis_sync }
     end
@@ -64,15 +64,6 @@ module Redis::ChallengeSearchable
 
       new Hashie::Mash.new(JSON.parse(data))
     end
-
-    def redis_all_category_names
-      nest[:category_names].smembers || []
-    end
-
-    def redis_all_community_names
-      nest[:community_names].smembers || []
-    end
-
 
     private
     def redis_key_for_prize_money(value)
@@ -181,11 +172,13 @@ module Redis::ChallengeSearchable
   end
 
   def redis_update
+    Rails.logger.info "===[REDIS] Updating challenge #{challenge_id} -- deleting first"
     self.class.redis_remove(challenge_id)
     redis_insert
   end
 
   def redis_insert
+    Rails.logger.info "===[REDIS] Inserting challenge #{challenge_id}"
     nest[:raw_data].hset challenge_id, raw_data.to_json
 
     redis_metaphones.each do |meta|

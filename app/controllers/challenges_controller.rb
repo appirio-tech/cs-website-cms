@@ -59,6 +59,10 @@ class ChallengesController < ApplicationController
 
   def search
     @challenges = Challenge.search params[:search]
+    @platforms = all_platforms
+    @technologies = all_technologies
+    @categories = all_categories
+    @communities = Community.names
   end
 
   def agree_tos

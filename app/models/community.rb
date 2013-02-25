@@ -5,4 +5,8 @@ class Community < ApiModel
     "#{ENV['CS_API_URL']}/communities"
   end 
 
+  def self.names
+    @names ||= Community.all.map {|c| c.name}
+  end  
+
 end
