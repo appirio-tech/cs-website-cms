@@ -1,5 +1,11 @@
 totalRadioQuestions = 0
 
+this.hide_submitbutton = ->
+  if $('#deleteSubmissionCheckbox').is(':checked')
+    $('#btnSave').show()
+  else
+    $('#btnSave').hide()
+
 this.process_json = (input) ->
   totalRadioQuestions = 0
   # input = $.parseJSON(input_str);

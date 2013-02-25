@@ -50,7 +50,7 @@
             <div class="control-group">
                 <div class="controls">
                     <label class="checkbox">
-                        <input type="checkbox" id="deleteSubmissionCheckbox" name="delete_participant_submission" value="true">Check this box and 'Submit Scorecard' to delete if not a valid scorecard.
+                        <input type="checkbox" id="deleteSubmissionCheckbox" name="delete_participant_submission" value="true" onclick="hide_submitbutton();">Check this box and 'Submit Scorecard' to delete if not a valid scorecard.
                     </label>
                 </div>
             </div>
@@ -60,8 +60,8 @@
                     <% if @scorecard['scored'].to_bool %>
                         This scorecard has already been submitted and scored.
                     <% else %>
-                        <a class="btn" onClick="doSubmit(true)"><span>SUBMIT SCORECARD</span></a>
-                        <a class="btn" onClick="doSubmit(false)"><span>SAVE FOR LATER</span></a>
+                        <a class="btn" onClick="doSubmit(true)" id="btnSubmit"><span>SUBMIT SCORECARD</span></a>
+                        <a class="btn" onClick="doSubmit(false)" id="btnSave"><span>SAVE FOR LATER</span></a>
                     <% end %>
                 </div>
             </div>
