@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 
     if params[:profile_picture]
       resp = Cloudinary::Uploader.upload(params[:profile_picture])
-      account_attrs["profile_pic"] = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 125, height: 125, crop: "fill"
+      account_attrs["profile_pic"] = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 125, height: 125, crop: "scale"
     end
 
     response = Member.put(current_user.username, account_attrs)
