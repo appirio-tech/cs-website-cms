@@ -71,7 +71,7 @@ class Challenge < ApiModel
   end
 
   def self.recent
-    Rails.cache.fetch('recent-challenges', :expires_in => 60.minute) do
+    Rails.cache.fetch('recent-challenges', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       request(:get, 'recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
     end
   end

@@ -1,8 +1,6 @@
 class ApiModel
   include ActiveModel::Model
 
-  ENDPOINT_EXPIRY = ENV['CS_API_EXPIRY'].to_i
-
   cattr_accessor :access_token  
 
   # Implements the has_many relationship

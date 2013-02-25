@@ -209,19 +209,19 @@ class ChallengesController < ApplicationController
     end
 
     def all_platforms
-      Rails.cache.fetch('all-platforms', :expires_in => 60.minute) do
+      Rails.cache.fetch('all-platforms', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Platform.names
       end
     end    
 
     def all_technologies
-      Rails.cache.fetch('all-technologies', :expires_in => 60.minute) do
+      Rails.cache.fetch('all-technologies', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Technology.names
       end
     end   
 
     def all_categories
-      Rails.cache.fetch('all-categories', :expires_in => 60.minute) do
+      Rails.cache.fetch('all-categories', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Category.names
       end
     end     

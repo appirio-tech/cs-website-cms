@@ -11,19 +11,19 @@ class CsPlatform
 	end	
 
 	def self.leaderboard_month(access_token, options = {:period => nil, :category => nil, :limit => nil})
-		leaderboard_month = Rails.cache.fetch('leaderboard_month', :expires_in => 60.minute) do
+		leaderboard_month = Rails.cache.fetch('leaderboard_month', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
 			JSON.parse(RestClient.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}"))['response']
 		end
 	end
 
 	def self.leaderboard_year(access_token, options = {:period => nil, :category => nil, :limit => nil})
-		leaderboard_year = Rails.cache.fetch('leaderboard_year', :expires_in => 60.minute) do
+		leaderboard_year = Rails.cache.fetch('leaderboard_year', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
 			JSON.parse(RestClient.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}"))['response']
 		end
 	end
 
 	def self.leaderboard_alltime(access_token, options = {:period => nil, :category => nil, :limit => nil})
-		leaderboard_alltime = Rails.cache.fetch('leaderboard_alltime', :expires_in => 60.minute) do
+		leaderboard_alltime = Rails.cache.fetch('leaderboard_alltime', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
 			JSON.parse(RestClient.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}"))['response']
 		end
 	end	

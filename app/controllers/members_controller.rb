@@ -48,7 +48,7 @@ class MembersController < ApplicationController
   private
 
     def featured_challenge(challenge_id)
-      Rails.cache.fetch('featured-challenge', :expires_in => 30.minute) do
+      Rails.cache.fetch('featured-challenge', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Challenge.find challenge_id
       end
     end   
