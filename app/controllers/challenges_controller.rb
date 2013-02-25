@@ -243,7 +243,7 @@ class ChallengesController < ApplicationController
     end
 
     def challenge_must_be_open
-      redirect_to challenge_path, :alert => 'This challenge is no longer open.' if !current_challenge.open?
+      redirect_to challenge_path, :alert => 'This challenge is no longer open.' unless current_challenge.open? || current_user_participant.override_submission_upload
     end  
 
     def must_be_registered

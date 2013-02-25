@@ -164,6 +164,10 @@ class Challenge < ApiModel
     community.try(:name)
   end
 
+  def community_id
+    community.try(:community_id)
+  end  
+
   def open?
     if Time.now.utc < end_date_utc
       true

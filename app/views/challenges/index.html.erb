@@ -41,7 +41,7 @@
                             <%= format_challenge_due_in(c.end_date_utc) %><br>
                             <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                             <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
-                            Tags: <%= technology_tag_links(c) %>
+                            Tags: <%= technology_tag_links(c) %><% if c.community %> | <%= link_to "#{c.community_name} Community", "/communities/#{c.community_id}" %><% end %>
                             <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
                         </div>
                     </div>

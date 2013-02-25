@@ -4,7 +4,7 @@ class Participant < ApiModel
   end
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
-    :country, :total_wins, :total_public_money
+    :country, :total_wins, :total_public_money, :override_submission_upload
 
   # Cleanup up the __r convention
   def initialize(params={})

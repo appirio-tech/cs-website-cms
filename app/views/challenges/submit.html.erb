@@ -23,7 +23,7 @@
                 </div>
                 <% end %>
 
-                <% if @challenge.open? %>
+                <% if @challenge.open? || @current_member_participant.override_submission_upload %>
 
                     <div class="title"><h1>UPLOAD FILES</h1></div>
                     <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
