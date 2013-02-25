@@ -10,10 +10,10 @@
       <div class="span8">
         <h1><%= @challenge.name %></h1>
 
-        <% if @challenge.description %>
-          <h2>OVERVIEW</h2>
-          <p> <%= @challenge.description.html_safe %> </p>
-        <% end %>
+        <div class="challenge well well-large" style="background-color:#d1d1d1">
+          <h2 style="color:#ffffff">OVERVIEW</h2><table class="type <%= @challenge.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(@challenge.challenge_type.upcase)) %></td></tr></table>
+        </div>
+        <p><%= @challenge.description.html_safe %> </p>
 
         <% if @challenge.requirements %>
           <h2>REQUIREMENTS</h2>
