@@ -15,6 +15,7 @@ gem 'simple_form', '2.0.4'
 gem 'will_paginate'
 gem 'gon'
 gem 'time_diff'
+gem 'heroku-forward'
 
 #gem 'refinerycms', '2.0.8'
 gem 'refinerycms-dashboard'
