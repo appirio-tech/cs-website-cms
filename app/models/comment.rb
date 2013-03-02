@@ -1,5 +1,5 @@
 class Comment < ApiModel
-  attr_accessor :id, :comment, :createddate, :member, :replies, :reply_to
+  attr_accessor :id, :comment, :createddate, :member, :replies, :reply_to, :from_challenge_admin
 
   def self.api_endpoint
     "#{ENV['CS_API_URL']}/challenges"
