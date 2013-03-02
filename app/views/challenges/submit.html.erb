@@ -13,7 +13,7 @@
                 <h1><%= @challenge.name %></h1>
 
                 <div class="title" style="margin-top:10px"><h1>CURRENT MEDIA FOR YOUR SUBMISSION</h1></div>
-                <% if @submissions.empty? %>No media found for your submissions for the challenge.<% end %>
+                <% if @submissions.empty? %><div align="center">No media found for your submissions for the challenge.</div><% end %>
                 <% @submissions.each do |s| %>
                 <div class="well well-large">
                     Media : <a href="<%= s.url %>"><%= s.url %></a><br/>
