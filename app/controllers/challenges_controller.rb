@@ -32,7 +32,9 @@ class ChallengesController < ApplicationController
   end  
 
   def show
-    @comments = @challenge.comments
+    @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+      current_challenge.comments
+    end
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   end
 
@@ -196,6 +198,7 @@ class ChallengesController < ApplicationController
     params[:comment][:comments] = params[:comment][:comments].gsub(/\n/, "<br/>")
     resp = @challenge.create_comment(params[:comment])
     if resp.success.to_bool
+      delete_comments_cache
       redirect_to challenge_path(@challenge), :notice => 'Comment successfully posted to discussions.'
     else
       flash[:unsaved_comments] = comments
@@ -248,6 +251,10 @@ class ChallengesController < ApplicationController
     def delete_particiapnt_cache
       Rails.cache.delete("participant-#{current_user.username}-#{params[:id]}")
     end
+
+    def delete_comments_cache
+      Rails.cache.delete("comments-#{params[:id]}")
+    end    
 
     def challenge_must_be_open
       redirect_to challenge_path, :alert => 'This challenge is no longer open.' unless current_challenge.open? || current_user_participant.override_submission_upload
