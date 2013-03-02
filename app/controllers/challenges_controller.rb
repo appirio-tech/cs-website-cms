@@ -13,6 +13,7 @@ class ChallengesController < ApplicationController
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
+  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file]
 
   def index
     # if the user passed over the technology as a link from another page
@@ -45,6 +46,18 @@ class ChallengesController < ApplicationController
     end
   end  
 
+  def participants
+    @participants = @challenge.participants
+  end
+
+  def search
+    @challenges = Challenge.search params[:search]
+    @platforms = all_platforms
+    @technologies = all_technologies
+    @categories = all_categories
+    @communities = Community.names
+  end
+
   def register
     redirect_to challenge_path, :error => 'Registration is closed for this challenge.' if current_challenge.closed_for_registration?
     # if default tos, let them register
@@ -58,19 +71,7 @@ class ChallengesController < ApplicationController
     else
       @terms = CsPlatform.tos(current_challenge.tos)
     end
-  end
-
-  def participants
-    @participants = @challenge.participants
-  end
-
-  def search
-    @challenges = Challenge.search params[:search]
-    @platforms = all_platforms
-    @technologies = all_technologies
-    @categories = all_categories
-    @communities = Community.names
-  end
+  end  
 
   def agree_tos
     results = Participant.change_status(params[:id], current_user.username, 
@@ -239,7 +240,13 @@ class ChallengesController < ApplicationController
     end
 
     def current_user_participant
-      @current_member_participant = Participant.find_by_member(params[:id], current_user.username) if user_signed_in?
+      @current_member_participant = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => 5.minute) do
+        Participant.find_by_member(params[:id], current_user.username)
+      end if user_signed_in?
+    end
+
+    def delete_particiapnt_cache
+      Rails.cache.delete("participant-#{current_user.username}-#{params[:id]}")
     end
 
     def challenge_must_be_open
