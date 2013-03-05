@@ -19,9 +19,10 @@ class Admin::Challenge
 
   attr_accessor :winner_announced, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
-                :reviewers, :categories, :prizes, :commentNotifiers, :reviewers_to_delete,
-                :categories_to_delete, :prizes_to_delete, :commentNotifiers_to_delete, :assets,
-                :challenge_type, :terms_of_service, :comments, :challenge_id,
+                :reviewers, :categories, :platforms, :technologies, :prizes, :commentNotifiers, 
+                :reviewers_to_delete, :categories_to_delete, :prizes_to_delete, 
+                :commentNotifiers_to_delete, :assets, :challenge_type, :terms_of_service, 
+                :comments, :challenge_id,
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -73,6 +74,7 @@ class Admin::Challenge
     (Time.parse(@winner_announced) if @winner_announced) || Date.today + 14.days
   end
 
+  # no longer need categories
   def categories
     (@categories.delete_if {|n| n.blank?} if @categories) || []
   end
@@ -96,6 +98,14 @@ class Admin::Challenge
   def prizes
     @prizes || []
   end
+
+  def platforms
+    @platforms || []
+  end
+
+  def technologies
+    @technologies || []
+  end  
 
   # formats the object to conform to the api format
   # maybe we should use RABL for this one instead?

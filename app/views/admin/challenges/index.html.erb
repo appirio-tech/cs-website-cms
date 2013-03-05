@@ -1,10 +1,33 @@
-<h2>Listing Challenges</h2>
-<ul>
-  <% @challenges.each do |challenge| %>
-    <li>
-      <%= link_to edit_admin_challenge_path(challenge.challenge_id) do %>
-        <%= challenge.challenge_id %> - <%= challenge.name %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<%= content_wrapper do %>
+
+  <div class="title"><h1>CHALENGE ADMIN</h1></div>
+
+  <div class="span10">
+
+	  <a class="btn btn-primary" type="button"><span>New Challenge</span></a>
+	  <br/><br/>
+	 
+	  <table class="table table-hover table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Status</th>
+	        <th>Category</th>
+	        <th>Ends</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	<% @challenges.each do |challenge| %>
+	      <tr>
+	        <td><%= challenge.name %></td>
+	        <td><%= challenge.status %></td>
+	        <td><%= challenge.challenge_type %></td>
+	        <td><%= format_challenge_end_date(challenge.end_date_utc) %></td>
+	      </tr>
+	      <% end %>        
+	    </tbody>
+	  </table>
+
+	</div>
+
+<% end %>
