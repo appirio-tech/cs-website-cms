@@ -113,6 +113,13 @@ class Challenge < ApiModel
     Date.parse(@review_date) if @review_date
   end    
 
+  def results_overview
+    restforce_client.query("select results_overview__c from challenge__c 
+      where challenge_id__c = '#{@challenge_id}'").first.Results_Overview__c
+  rescue Exception => e
+    # simply return nil
+  end
+
   def challenge_comments
     return [] if @challenge_comments.blank?
     @challenge_comments.records.map {|comment| Comment.new(comment)}
@@ -215,5 +222,14 @@ class Challenge < ApiModel
         :host           => ENV['SFDC_HOST']
       client
     end 
+
+    def restforce_client
+      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
+        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
+        :client_id      => ENV['SFDC_CLIENT_ID'],
+        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
+        :host           => ENV['SFDC_HOST']
+      client
+    end     
 
 end

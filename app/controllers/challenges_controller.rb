@@ -165,6 +165,7 @@ class ChallengesController < ApplicationController
       (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'review - pending')
       redirect_to challenge_path, :alert => 'Results are not available at this time.' 
     end
+    @results_overview = current_challenge.results_overview
   end  
 
   def results_scorecard
