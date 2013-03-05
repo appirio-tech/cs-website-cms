@@ -21,13 +21,24 @@
     <div class="content">
         <div class="title"><h1>SUBMITTED ASSETS</h1></div>
 
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Asset</th>
+          <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
         <% @submissions.each do |s| %>
-        <div class="well">
-            Media : <a href="<%= s.url %>" target="_blank"><%= s.url %></a><br/>
-            Type : <%= s.type %><br/>
-            Comments : <%= s.comments %>
-        </div>
-        <% end %>
+        <tr>
+          <td><%= s.type %></td>
+          <td width="45%"><%= link_to s.url, s.url, :target => '_blank' %></td>
+          <td width="50%"><%= s.comments %></td>
+        </tr>
+        <% end %>        
+        </tbody>
+        </table>        
 
         <div class="title"><h1>NEW JUDGING GUIDELINES</h1></div>
         <p>Most criteria are scored on a scale of 1 (25%) to 4 (100%). By default, each criteria should start off with a score of 3(75%), which means that the solution was satisfactory (i.e., production quality) for this criteria. If the solution is outstanding in regards to this criteria, consider giving it a 4 (100%). If the solution is less than production quality for this criteria, consider giving them a 2. If the solution is unacceptable for this criteria, consider giving them a 1.</p>
