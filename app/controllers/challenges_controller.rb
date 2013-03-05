@@ -155,6 +155,7 @@ class ChallengesController < ApplicationController
 
   def submissions
     @deliverables = @challenge.submission_deliverables
+    @members = @deliverables.map{|d| d.username}
   end  
 
   # if the status is NOT 'winner selected' or 'no winner selected' AND the user is not a 
