@@ -1,6 +1,7 @@
 <% if current_user && current_user.challenge_admin?(challenge) %>
 <h2>ADMINISTRATION</h2>
 <p>
+	<%= link_to 'Challenge Details', challenge_path %><br/>
 	<%= link_to 'View all submissions files', submissions_challenge_path %><br/>
 	<%= link_to 'View the scorecards', results_challenge_path %><br/>
 	<%= link_to 'Score submissions', outstanding_reviews_path %><br/>
