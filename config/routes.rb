@@ -17,6 +17,7 @@ CsWebsiteCms::Application.routes.draw do
     get "users/unlock/new",   :to => "users/passwords#unlock"
   end
 
+  get '/members' => redirect("/community")
   get 'members/search'
   get '/community', to: 'members#community'
   get '/leaderboard', to: 'members#leaderboard' # this is temp
@@ -48,6 +49,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'submissions'
       get 'submission' => redirect('/not_found') # no access to an old route
       get 'all_submissions' => redirect {|params| "/challenges/#{params[:id]}/submissions" }      
+      get 'cal' => 'challenges#submissions'
       get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }
       get 'submit'
       post 'submit_file'
