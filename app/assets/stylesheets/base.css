@@ -19,8 +19,20 @@ form.challenges-filter .state {
 form.challenges-filter .state label {
   width: 150px;
 }
-
 /** // aprosxacs -- comments **/
+
+/** // soe -- global search box **/
+.dropdown-menu a span.source {
+  vertical-align: top;
+}
+.dropdown-menu a span.name {
+  white-space: normal;
+}
+.dropdown-menu a span.name i {
+  display: none;
+}
+/** // soe -- global search box **/
+
 .comment {
   margin-bottom: 10px;
   border-radius: 5px;
