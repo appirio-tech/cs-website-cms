@@ -52,29 +52,35 @@
             </div>
             <div class="span6">
                 <div class="title"><h1>LEADERBOARD</h1></div>
+                <% if @leaderboard.first %>
                 <div class="placement well">
                     <%= image_tag(@leaderboard.first['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
                     <%= link_to @leaderboard.first['username'], member_path(@leaderboard.first['username']) %>
                     <%= @leaderboard.first['country'] %><br/><%= number_to_currency(@leaderboard.first['total_money'], :precision => 0) %>
                     <span class="place p1">1st</span>
                 </div>
+                <% end %>
 
                 <div class="row-fluid">
                     <div class="span6">
+                        <% if @leaderboard.second %>
                         <div class="placement well">
                             <%= image_tag(@leaderboard.second['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
                             <%= link_to @leaderboard.second['username'], member_path(@leaderboard.second['username']) %>
                             <%= @leaderboard.second['country'] %><br/><%= number_to_currency(@leaderboard.second['total_money'], :precision => 0) %>
                             <span class="place p2">2nd</span>
                         </div>
+                        <% end %>
                     </div>
                     <div class="span6">
+                        <% if @leaderboard.third %>
                         <div class="placement well">
                             <%= image_tag(@leaderboard.third['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
                             <%= link_to @leaderboard.third['username'], member_path(@leaderboard.second['username']) %>
                             <%= @leaderboard.third['country'] %><br/><%= number_to_currency(@leaderboard.third['total_money'], :precision => 0) %>
                             <span class="place p3">3rd</span>
                         </div>
+                        <% end %>
                     </div>
                 </div>
             </div>
