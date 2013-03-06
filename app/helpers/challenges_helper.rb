@@ -40,6 +40,12 @@ module ChallengesHelper
     return "#{end_date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %l:%M %p")}"
   end
 
+  def format_date_time(date_utc)
+    timezone = Rails::application.config.time_zone
+    timezone = current_user.time_zone if current_user
+    return "#{date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %H:%M %p")}"
+  end  
+
   def format_challenge_due_in(end_date_utc)
     if end_date_utc.past?
       'Completed'
