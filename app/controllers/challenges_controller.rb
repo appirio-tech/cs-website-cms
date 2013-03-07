@@ -5,11 +5,11 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
-    :toggle_discussion_email, :submit, :participant_submissions, :results, :results_scorecard]
+    :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submissions, :results, :scorecard, :comment]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
-    :submit_file, :submit_url_or_file_delete, :results, :results_scorecard, :scorecard, :comment]
+    :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
@@ -158,12 +158,19 @@ class ChallengesController < ApplicationController
     @members = @deliverables.map{|d| d.username}
   end  
 
-  # if the status is NOT 'winner selected' or 'no winner selected' AND the user is not a 
-  # challegne admin with a status of 'review - pending', redirect them
+  # when signed in, if the status is NOT 'winner selected' or 'no winner selected' 
+  # AND the user is not a challegne admin with a status of 'review - pending', redirect them.
+  # if not signed in, the status must be 'winner selected' or 'no winner selected'
   def results
-    unless ['winner selected','no winner selected'].include?(@challenge.status.downcase) || 
-      (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'review - pending')
-      redirect_to challenge_path, :alert => 'Results are not available at this time.' 
+    if user_signed_in?
+      unless ['winner selected','no winner selected'].include?(@challenge.status.downcase) || 
+        (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'review - pending')
+        redirect_to challenge_path, :alert => 'Results are not available at this time.' 
+      end
+    else
+      unless ['winner selected','no winner selected'].include?(@challenge.status.downcase)
+        redirect_to challenge_path, :alert => 'Results are not available at this time.' 
+      end
     end
     @results_overview = current_challenge.results_overview
   end  

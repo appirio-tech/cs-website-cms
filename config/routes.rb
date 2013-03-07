@@ -70,10 +70,11 @@ CsWebsiteCms::Application.routes.draw do
     end
   end
 
-  get "messages/inbox" => 'messages#index'
-  get "messages/show"
-  get "messages/create"
-  get "messages/reply"  
+  get "/messages"                  => redirect("/messages/inbox"), :via => :get
+  get "/messages/inbox"            => 'messages#index'
+  get "/messages/:id"              => 'messages#show', :as => :messages_show
+  match "/messages"                => "messages#create", :as => :messages, :via => :post
+  match "/messages/:id/reply"      => "messages#reply", :as => :message_reply, :via => :post
 
   resources :communities, only: [:show]
 

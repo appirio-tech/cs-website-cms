@@ -1,2 +1,54 @@
-<h1>Messages#show</h1>
-<p>Find me in app/views/messages/show.html.erb</p>
+<link rel="stylesheet" href="/assets/fontawesome/css/font-awesome.min.css">
+<%= csrf_meta_tag %>
+
+<%= content_wrapper do %>
+
+  <div class="title"><h1><%= @message.subject.upcase %></h1></div>
+
+  <div style="margin:25px">
+
+
+    <div class="span4" style="padding-left:10px">
+      <a class="btn btn-primary" type="button" href="<%= messages_inbox_path %>"><span>Back to Inbox</span></a>
+      <a class="btn btn-primary" type="button" href="#message-reply-modal" data-toggle="modal"><span>Reply</span></a>
+    </div>    
+
+    <br/><br/><br/>
+
+    <% @message.messages.each do |m| %>
+    <div class="row-fluid">
+      <div class="span4">
+          <div class="placement well">
+              <%= image_tag(m.from__r.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+              <%= link_to m.from__r.name, member_path(m.from__r.name), :style => 'margin-top:10px' %>
+              <%= format_date_time(DateTime.parse(m.createddate).getutc) %>
+          </div>
+      </div>
+
+      <div class="span8" style="padding-bottom:25px">
+        <i class="icon-quote-left icon-4x pull-left icon-muted"></i><%= raw m.body %>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+
+<% end %>
+
+<!-- Modal -->
+<div id="message-reply-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header"></div>
+    <div class="modal-body">
+        <div class="title"><h1>Reply</h1></div>
+        <div class="content">
+            <input type="hidden" id="to" value="mess">
+            <p><textarea id="body" name="body" style="width:800px;height:200px"></textarea></p>
+        </div>
+        <div class="control-group pull-right">
+            <a class="btn btn-primary" id="reply" onclick="processReply('<%= params[:id] %>')"><span>Reply</span></a>
+            <a class="btn btn-grey" data-dismiss="modal" aria-hidden="true"><span>Discard</span></a>
+        </div>
+    </div>
+    <div class="modal-footer"></div>
+    <button type="button" class="close" data-dismiss="modal"></button>
+</div>  

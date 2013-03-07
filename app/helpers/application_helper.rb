@@ -9,7 +9,7 @@ module ApplicationHelper
 	}
 
   MENU_OPTIONS_MY_STUFF = { 
-    #:messages                 => {:value => 'MESSAGES',           :link => '/messages/inbox'},
+    :messages                 => {:value => 'MESSAGES',             :link => '/messages/inbox'},
   	:challenges  							=> {:value => 'CHALLENGES', 					:link => '/account/challenges'},
   #	:challenges_as_admin			=> {:value => 'ADMIN CHALLENGES',			:link => '/account/challenges-admin'},
 		:communities      				=> {:value => 'COMMUNITIES',  	  	  :link => '/account/communities'} 
@@ -26,7 +26,7 @@ module ApplicationHelper
 	}		
 
   def profile_pic
-    current_user.profile_pic ||= 'http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg'
+    current_user.profile_pic ||= 'http://cs-public.s3.amazonaws.com/default_cs_member_image.png'
   end
 
   def build_menu(position, selected_item)
