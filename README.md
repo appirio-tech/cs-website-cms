@@ -7,7 +7,7 @@ new site, fork this repo and get started!
 
 ## Database.com
 
-While our front end is a rails application, most of the datastore and logic resides within our [Database.com org](http://database.com/). You can POST your CloudSpokes membername and password to the https://cs-api-sandbox.herokuapp.com/v1/accounts/authenticate endpoint and it will return an access token that you can use for subsequent calls to our API (passed in the header) or directly to database.com using the [Restforce gem](https://github.com/ejholmes/restforce). There are also a couple of rake tasks that will return an access token for you for testing.
+While our front end is a rails app, most of the datastore and logic resides within our [Database.com org](http://database.com/). You can POST your CloudSpokes membername and password to the https://cs-api-sandbox.herokuapp.com/v1/accounts/authenticate endpoint and it will return an access token that you can use for subsequent calls to our API (passed in the header) or directly to database.com using the [Restforce gem](https://github.com/ejholmes/restforce). There are also a couple of rake tasks that will return an access token for you for testing.
 
 ## CloudSpokes API
 
