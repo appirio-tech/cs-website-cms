@@ -1,0 +1,72 @@
+<div class="content-wrapper">
+  <div class="container">
+
+	<div class="title"><h1>POST CHALLENGE SURVEY</h1></div>
+
+    <div class="row-fluid">
+
+      <div class="span8">	
+      	<h1><%= @challenge.name %></h1>
+
+					<p>Thank you for participating in this challenge! 
+						We are trying to gather feedback about the challenge process to continue to make it better 
+						for everyone. <% if signed_in? %>If you wish to remain anonymous, simply logout before filling out this survey.
+						However, we'd <b><u>really</u></b> like to know who you are when submitting the survey. If you have any good ideas, we'd
+						like to follow up with you on them. And if you have any complaints, we'd certainly like the chance to address them
+						with you. However, we won't be able to do either of these if you log out and submit anonymously.<% end %></p>
+
+					<%= form_for survey_challenge_path, :name => "survey", :method => "post" do |f| %>
+						
+							<p>1. Were the challenge requirements clearly stated and achievable?</p>
+							<label class="radio" style="margin-left:10px">
+							<input type="radio" name="survey[requirements]" value="Yes" /> <%= label_tag("Yes") %>
+							<input type="radio" name="survey[requirements]" value="No" /> <%= label_tag("No") %>
+							<input type="radio" name="survey[requirements]" value="Could have been better." /> <%= label_tag("Could have been better.") %>
+							<input type="radio" name="survey[requirements]" value="Do you guys know what you are doing?" /><%= label_tag("Do you guys know what you are doing?") %>
+							</label><br/>				
+							
+							<p>2. Did you have enough time to complete the challenge?</p>
+							<label class="radio" style="margin-left:10px">
+							<input type="radio" name="survey[timeframe]" value="Yes" /> <%= label_tag("Yes") %>
+							<input type="radio" name="survey[timeframe]" value="No" /> <%= label_tag("No") %>
+							<input type="radio" name="survey[timeframe]" value="Too much time. I am super-fast." /> <%= label_tag("Too much time. I am super-fast.") %>
+							</label><br/>
+							
+							<p>3. Was the prize money adequate for the effort involved?</p>
+							<label class="radio" style="margin-left:10px">
+							<input type="radio" name="survey[prize_money]" value="Prize money was perfect!" /><%= label_tag("Prize money was perfect!") %>
+							<input type="radio" name="survey[prize_money]" value="Not enough money for my effort." /> <%= label_tag("Not enough money for my effort.") %>
+							<input type="radio" name="survey[prize_money]" value="You guys are giving away too much money! I'd like less." /> <%= label_tag("You guys are giving away too much money! I'd like less.") %>
+							</label><br/>
+
+
+							<p>4. If you were registered or watching a challenge and DID NOT SUBMIT an entry, can you tell us why?</p>
+							<textarea name="survey[why_no_submission]" rows="8" cols="40"></textarea><br/>
+
+							<p>5. How likely are you to compete in another challenge?</p>
+							<label class="radio" style="margin-left:10px">
+							<input type="radio" name="survey[compete_again]" value="Yes, Definitely" /> <%= label_tag("Yes, Definitely") %>
+							<input type="radio" name="survey[compete_again]" value="Most Likely" /> <%= label_tag("Most Likely") %>
+							<input type="radio" name="survey[compete_again]" value="Perhaps" /> <%= label_tag("Perhaps") %>
+							<input type="radio" name="survey[compete_again]" value="Probably Not" /> <%= label_tag("Probably Not") %>
+							</label><br/>
+							
+							<p>6. How could we have made this challenge or CloudSpokes better?</p>
+							<textarea name="survey[improvements]" rows="8" cols="40"></textarea><br/>
+						
+							<div class="btn"><input id="sign-up-btn" type="submit" value="Submit Survey"></div>
+
+					<% end %>
+
+			</div>
+
+      <div class="span4">
+        <br/><br/><br/>
+        <!-- include the entire right side -->      	
+        <%= render partial: "right_side", locals: {challenge: @challenge} %>
+      </div>
+      
+    </div>						
+
+  </div> <!-- /.container -->
+</div>
