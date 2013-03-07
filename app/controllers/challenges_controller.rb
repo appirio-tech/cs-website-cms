@@ -7,9 +7,9 @@ class ChallengesController < ApplicationController
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
     :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
-    :submit, :submit_url, :submissions, :results, :scorecard, :comment]
+    :submit, :submit_url, :submissions, :results, :scorecard, :comment, :survey]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
-    :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment]
+    :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
@@ -188,6 +188,15 @@ class ChallengesController < ApplicationController
   def scorecard
     @scorecard_group = Challenge.scorecard_questions(params[:id])
   end  
+
+  def survey
+    if params[:survey]
+      post_results = current_challenge.submit_post_survey(params[:survey])
+      puts post_results.to_yaml
+      flash[:notice] = "Thanks for completing the survey!" 
+      redirect_to challenge_path     
+    end
+  end
 
   def comment
     comments = params[:comment][:comments]

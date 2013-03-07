@@ -58,7 +58,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'results'
       get 'results/scorecard' => 'challenges#results_scorecard', :as => 'scorecard_results'
       get 'scorecard'
-      get 'survey'
+      match 'survey' => "challenges#survey", :as => 'survey_challenge'
     end
 
     resource :submission, only: [:show, :update] do

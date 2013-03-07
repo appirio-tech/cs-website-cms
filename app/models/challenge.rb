@@ -200,6 +200,21 @@ class Challenge < ApiModel
     self.class.post [challenge_id, "comment"], {data: attrs}
   end
 
+  def submit_post_survey(params)
+    body = {
+      :data => {
+          :challenge => self.id,
+          :compete_again => params[:compete_again],
+          :prize_money => params[:prize_money],
+          :requirements => params[:requirements],
+          :timeframe => params[:timeframe],
+          :why_no_submission => params[:why_no_submission],
+          :improvements => params[:improvements]
+      }
+    }
+    self.class.naked_post("challenges/#{self.challenge_id}/survey", body)    
+  end  
+
   def submission_of(user)
     Submission.find(challenge_id, user.username)
   end 
