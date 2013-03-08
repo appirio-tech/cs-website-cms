@@ -24,16 +24,16 @@ class MessageBox
 				new_message['subject'] = m.subject
 				new_message['replies'] = m.replies.to_i
 
-				if @membername.eql?(m.to__r.name)
+				if @membername.casecmp(m.to__r.name)
 					new_message['display_user'] = m.from__r.name
 					new_message['profile_pic'] = m.from__r.profile_pic
-				elsif @membername.eql?(m.from__r.name)
+				elsif @membername.casecmp(m.from__r.name)
 					new_message['display_user'] = m.to__r.name
 					new_message['profile_pic'] = m.to__r.profile_pic
 				end	
 
 				if type.eql?(:inbox)
-					if @membername.eql?(m.to__r.name)
+					if @membername.casecmp(m.to__r.name)
 						new_message['status'] = m.status_to.downcase
 					else
 						new_message['status'] = m.status_from.downcase
