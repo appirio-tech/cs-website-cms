@@ -182,7 +182,7 @@ class ChallengesController < ApplicationController
     @scorecard = JSON.parse(scorecard_questions.keys.first) 
     gon.scorecard = scorecard_questions.values.first
   rescue Exception => e
-    redirect_to :not_found
+    redirect_to '/not_found'
   end
 
   def scorecard
