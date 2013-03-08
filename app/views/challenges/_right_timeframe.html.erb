@@ -20,6 +20,7 @@
     <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
     <% if challenge.status.downcase.eql?('winner selected') %>
       <br/><%= link_to 'View the winners', results_challenge_path %>
+      <br/><%= link_to 'Give us your feedback', survey_challenge_path %> about this challenge.
     <% end %>
   </p>
 
