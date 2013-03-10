@@ -3,6 +3,8 @@ class ApiModel
 
   cattr_accessor :access_token  
 
+  # RestClient::Request.execute(:method => :get, :url => url, :timeout => 10, :open_timeout => 10)
+
   # Implements the has_many relationship
   # Passing :parent as an option allows modification of the calling class
   # This is used mostly for has and belongs to many relationships, where
