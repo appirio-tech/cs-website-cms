@@ -17,7 +17,7 @@ If your code is making any "destructive calls" (create, update, delete) with the
 
 ## Local Development
 
-We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. See .env-example for application specific variables that you need for your .env file. Please add any new variables to this example file. To get up and running, run:
+We've recently switched to use [Foreman to develop locally](https://devcenter.heroku.com/articles/procfile) per Heroku's recommendation. We are also running [Postgres](http://postgresapp.com/) for development and test. See .env-example for application specific variables that you need for your .env file. Please add any new variables to this example file. To get up and running, run:
 
 	# fork this repo and clone
 	bundle install
