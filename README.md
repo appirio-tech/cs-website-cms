@@ -13,7 +13,7 @@ While our front end is a rails app, most of the datastore and logic resides with
 
 We will be using our [new API](https://github.com/cloudspokes/cs-api) with this project so please check out the repo for info. There's not a ton of documentation at this time so you may need to check out the source code comments for samples or the specs (using VCR).
 
-If your code is making any "destructive calls" (create, update, delete) with the new API, you will need to pass an API Key in the header of each request. Please email support@cloudspokes.com with the subject "Sandbox API Key Request" and we'll generate a key for you that will be good for all future challenges of this type.
+If your code is making any "destructive calls" (create, update, delete) with the new API, you will need to pass an API Key in the header of each request. Please email support@cloudspokes.com with the subject "Sandbox API Key Request for cs-website-cms" and we'll generate a key for you that will be good for all future challenges of this type.
 
 ## Local Development
 
@@ -21,15 +21,15 @@ We've recently switched to use [Foreman to develop locally](https://devcenter.he
 
 	# fork this repo and clone
 	bundle install
-	# create the postgres db
-	psql -h localhost
-	CREATE DATABASE cs_website_cms_development	
+	rake db:create
 	rake db:migrate
 	rake db:seed
 	touch .env
 	# copy the contents from .env-example to .env
 	# add the enviroment variables (see below)
 	foreman start -p 3000
+
+Once you get the application running, you can register for a new CloudSpokes member if necessary.
 
 ## Environment Variables
 
