@@ -26,7 +26,7 @@ class Participant < ApiModel
   end
 
   def self.change_status(challenge_id, membername, params)
-    if find_by_member(challenge_id, membername).registered?
+    if find_by_member(challenge_id, membername).participating?
       naked_put "participants/#{membername}/#{challenge_id}", {'fields' => params}
     else
       naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
@@ -50,7 +50,6 @@ class Participant < ApiModel
 
   def submission_deliverables
     #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
-    puts challenge
     self.class.naked_get("participants/#{member.name}/#{challenge.challenge_id}/deliverables").map {|submission| SubmissionDeliverable.new(submission)}
   end
 
@@ -67,8 +66,12 @@ class Participant < ApiModel
     !!@has_submission
   end
 
-  def registered?
+  def participating?
     @status.eql?('Not Registered') ? false : true
+  end    
+
+  def registered?
+    ['not registered', 'watching'].include?(@status.downcase) ? false : true
   end  
 
   def submitted?
