@@ -20,7 +20,7 @@
   <% elsif challenge.open? %>   
     <div>
     <% if user_signed_in? %>
-      <% if !current_member_participant.registered? && !challenge.closed_for_registration? %>
+      <% if !current_member_participant.participating? && !challenge.closed_for_registration? %>
         <%= link_to content_tag(:span, "REGISTER"), register_challenge_path(challenge), class: "btn" %>
         <%= link_to content_tag(:span, "ADD TO WATCH LIST"), watch_challenge_path(challenge), class: "btn" %>
         <br/><br/>
