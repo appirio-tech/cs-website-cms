@@ -23,8 +23,6 @@ class ContentController < ApplicationController
     # build the final sso string
     @vanilla_sso = "#{signature_string} #{signature} #{Time.now.to_i} hmacsha1"  	
 
-  rescue Exception => e    
-    @vanilla_sso = 'undefined'
   end
 
   def forums_authenticate
