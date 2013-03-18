@@ -44,7 +44,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
   # when the user submits the password change form
   def update
-    user = User.find_by_username(params[:user][:username])
+    user = User.find_by_username(params[:user][:username].downcase)
     attributes = params[:user]
     if user and attributes[:password].present? and attributes[:password] == attributes[:password_confirmation]
       resp = user.account.update_password(attributes[:reset_password_token], attributes[:password])

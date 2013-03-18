@@ -20,7 +20,7 @@ class Users::SessionsController < Devise::SessionsController
     if sfdc_authentication.success.to_bool
       logger.info "===[CS-USER][LOGIN] authentication success"
       # see if the user exists in the database
-      user = User.find_by_username(params[:user][:username])
+      user = User.find_by_username(params[:user][:username].downcase)
       logger.info "===[CS-USER][LOGIN] find user in db: #{user.to_yaml}"
       if user
         logger.info "===[CS-USER][LOGIN] found the user in the db"
