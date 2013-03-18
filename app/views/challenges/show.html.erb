@@ -15,6 +15,10 @@
         </div>
         <p><%= @challenge.description.html_safe %> </p>
 
+        <% if @challenge.post_reg_info && @current_member_participant.try('registered?')%>
+          <p> <%= @challenge.post_reg_info.html_safe %> </p>
+        <% end %>          
+
         <% if @challenge.requirements %>
           <h2>REQUIREMENTS</h2>
           <p> <%= @challenge.requirements.html_safe %> </p>
@@ -34,7 +38,7 @@
         <% if @challenge.additional_info %>
           <h2>ADDITIONAL INFO</h2>
           <p> <%= @challenge.additional_info.html_safe %> </p>
-        <% end %>
+        <% end %>      
 
         <%= render partial: "right_participation", locals: {challenge: @challenge, 
           current_member_participant: @current_member_participant, placement: :body} %>        
