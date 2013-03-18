@@ -31,19 +31,19 @@ module ChallengesHelper
   def participant_submission_date(submission_date_utc)
     timezone = Rails::application.config.time_zone
     timezone = current_user.time_zone if current_user
-    return "#{submission_date_utc.in_time_zone(timezone).strftime("%-m/%-d/%y %l:%M %p")}"
+    "#{submission_date_utc.in_time_zone(timezone).strftime("%-m/%-d/%y %l:%M %p")}" if submission_date_utc
   end  
 
   def format_challenge_end_date(end_date_utc)
     timezone = Rails::application.config.time_zone
     timezone = current_user.time_zone if current_user
-    return "#{end_date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %l:%M %p")}"
+    "#{end_date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %l:%M %p")}" if end_date_utc
   end
 
   def format_date_time(date_utc)
     timezone = Rails::application.config.time_zone
     timezone = current_user.time_zone if current_user
-    return "#{date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %H:%M %p")}"
+    "#{date_utc.in_time_zone(timezone).strftime("%b %d, %Y at %H:%M %p")}" if date_utc
   end  
 
   def format_challenge_due_in(end_date_utc)
