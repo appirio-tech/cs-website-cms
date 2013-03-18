@@ -7,7 +7,7 @@ class ChallengesController < ApplicationController
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
     :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
-    :submit, :submit_url, :submissions, :results, :scorecard, :comment, :survey]
+    :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
@@ -100,6 +100,7 @@ class ChallengesController < ApplicationController
       submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:url_submission])
       if submission_results.success.to_bool
         flash[:notice] = "URL successfully submitted for this challenge."
+        send_task_submission_notification if @challenge.challenge_type.downcase == 'task'
       else
         flash[:error] = "There was an error submitting your URL. Please check it and submit it again."
       end
@@ -133,6 +134,7 @@ class ChallengesController < ApplicationController
         submission_results = @current_member_participant.save_submission_file_or_url(params[:id], submission_params)
         if submission_results.success.to_bool
           flash[:notice] = "File successfully uploaded and submitted for this challenge."
+          send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
         else
           flash[:error] = "There was an error submitting your file. Please check it and submit it again."
         end
@@ -280,7 +282,16 @@ class ChallengesController < ApplicationController
 
     def must_be_registered
       redirect_to challenge_path, :alert => 'You must be registered for this challenge before can submit.' if ['not registered','watching'].include?(@current_member_participant.status.downcase)
-    end    
+    end 
+
+    def send_task_submission_notification
+      # if they don't have a submission yet then they are uplaoding their first one
+      if !@current_member_participant.has_submission
+        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this task.'}
+        results = @challenge.create_comment(notification)
+        delete_comments_cache
+      end
+    end   
 
     # temp -- to support old URLs like /challenges/index?category=JavaScript
     def massage_old_params
