@@ -1,0 +1,23 @@
+<% content_for :head do %><title>Something Terrribly Bad Happened</title><% end %>
+
+<%= content_wrapper do %>
+
+<div class="title"><h1>SOMETHING BAD HAPPENED!</h1></div>
+
+<div class="row-fluid">
+
+	<div class="span2"></div>
+
+	<div class="span4">
+		<%= image_tag('something-went-wrong.jpg') %>
+	</div>
+
+	<div class="span4">
+		<p><br/>Unfortunately, we were unable to complete your last action. This was probably due to a malformed request.</p>
+		<p>You can try hitting the back button and attempting the action again or perhaps you'd like to visit our <%= link_to 'home page', :root %> or <%= link_to 'list of open challenges', challenges_path %>?</p>
+	</div>	
+
+
+</div>
+
+<% end %>
