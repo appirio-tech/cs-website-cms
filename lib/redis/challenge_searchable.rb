@@ -42,12 +42,10 @@ module Redis::ChallengeSearchable
     end
 
     def redis_sync_all
-      Rails.logger.info "===[REDIS] Starting sync_all for challenges"
       ApiModel.access_token = User.admin_access_token
       challenges = all
       delete_ids = nest[:raw_data].hkeys - challenges.map(&:challenge_id)
 
-      Rails.logger.info "===[REDIS] Deleting all current challenges"
       delete_ids.uniq.each {|cid| redis_remove(cid)}
       challenges.each {|c| c.redis_sync }
     end
@@ -66,6 +64,7 @@ module Redis::ChallengeSearchable
     end
 
     private
+
     def redis_key_for_prize_money(value)
       if value.is_a?(Hash)
         min = value[:min].blank? ? 0 : value[:min].to_i
@@ -122,6 +121,30 @@ module Redis::ChallengeSearchable
         keys.first
       end
     end
+
+    def redis_key_for_platforms(platforms)
+      keys = platforms.map {|p| nest[:platforms][p]}.compact
+
+      if keys.length > 1
+        nest[:temp][{platforms: platforms}.hash].tap do |k|
+          k.sunionstore *keys
+        end
+      else
+        keys.first
+      end
+    end
+
+    def redis_key_for_technologies(technologies)
+      keys = technologies.map {|t| nest[:technologies][t]}.compact
+
+      if keys.length > 1
+        nest[:temp][{technologies: technologies}.hash].tap do |k|
+          k.sunionstore *keys
+        end
+      else
+        keys.first
+      end
+    end    
 
     def redis_key_for_state(value)
       value == "open" ? nest[:open] : nest[:closed]
@@ -185,11 +208,25 @@ module Redis::ChallengeSearchable
       nest[:metaphones][meta].sadd challenge_id
     end
 
-    category_names.uniq.each do |cat|
-      cat = cat.downcase
-      nest[:categories][cat].sadd challenge_id
-      nest[:category_names].sadd cat
+    platforms.uniq.each do |p|
+      p = p.downcase
+      nest[:platforms][p].sadd challenge_id
+      nest[:platform_names].sadd p
     end
+
+    technologies.uniq.each do |t|
+      t = t.downcase
+      nest[:technologies][t].sadd challenge_id
+      nest[:technology_names].sadd t
+    end    
+
+    #temp set the categories
+    # category_names = %w(apex visualforce)
+    # category_names.uniq.each do |cat|
+    #   cat = cat.downcase
+    #   nest[:categories][cat].sadd challenge_id
+    #   nest[:category_names].sadd cat
+    # end
 
     open? ? nest[:open].sadd(challenge_id) : nest[:closed].sadd(challenge_id)
 
@@ -222,9 +259,18 @@ module Redis::ChallengeSearchable
     redis_metaphones.each do |meta|
       nest[:metaphones][meta].srem challenge_id
     end
-    category_names.uniq.each do |cat|
-      nest[:categories][cat].srem challenge_id
+
+    # category_names.uniq.each do |cat|
+    #   nest[:categories][cat].srem challenge_id
+    # end
+
+    platforms.uniq.each do |p|
+      nest[:platforms][p].srem challenge_id
     end
+
+    technologies.uniq.each do |t|
+      nest[:technologies][t].srem challenge_id
+    end    
 
     open? ? nest[:open].srem(challenge_id) : nest[:closed].srem(challenge_id)
 
@@ -250,7 +296,7 @@ module Redis::ChallengeSearchable
 
   IGNORES = ["the", "a", "an", "is", "are", "on", "at", "then", "for", "from", "at", "this", "that", "more"]
   def redis_keywords
-    words = name.downcase.split.uniq + category_names - IGNORES
+    words = name.downcase.split.uniq + platforms + technologies - IGNORES
     words << community_name if community_name.present?
     words
   end
