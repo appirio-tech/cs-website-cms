@@ -38,6 +38,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       @signup_form = SignupFormThirdParty.new session[:auth] 
     end
+  rescue Exception => e
+    redirect_to '/bad'
   end
   
   private

@@ -107,7 +107,8 @@ CsWebsiteCms::Application.routes.draw do
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
 
   get '/forums', to: 'content#forums'
-  get '/forums-authenticate', to: 'content#forums_authenticate'  
+  get '/forums-authenticate', to: 'content#forums_authenticate'
+  get '/bad', to: 'content#bad'  
 
   get '/admin', to: 'admin#index'
   get '/admin/redis_challenge'

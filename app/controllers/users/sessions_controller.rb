@@ -14,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
     # authenticate their credentails against sfdc
     sfdc_authentication = account.authenticate(params[:user][:password])
 
-    logger.info "===[CS-USER][LOGIN] starting login process. sfdc_authentication #{sfdc_authentication.to_yaml}"
+    logger.info "===[CS-USER][LOGIN] starting login process for #{params[:user][:username]}. sfdc_authentication #{sfdc_authentication.to_yaml}"
 
     # if they authenticated successfully
     if sfdc_authentication.success.to_bool
