@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-#gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem "compass", "~> 0.12.2"
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails', '~> 2.0.0'
