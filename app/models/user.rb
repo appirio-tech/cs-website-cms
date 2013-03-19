@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def update_with_sfdc_info
-    puts '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
+    Rails.logger.info '########### //// UPDATE CURRENT USER WITH SFDC INFO //// ###########'
     ApiModel.access_token = User.guest_access_token    
     sfdc_account = Account.find(username)
     self.access_token = refresh_user_access_token
@@ -54,13 +54,13 @@ class User < ActiveRecord::Base
     self.time_zone = sfdc_account.user.time_zone
     self.last_access_token_refresh_at = DateTime.now
     # user.skip_confirmation!
-    puts "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" unless self.save
+    Rails.logger.info "====== COULD NOT SAVE USER WITH SFDC INFO: #{user.errors.full_messages}" unless self.save
     # return the new access token
     access_token
   end
 
   def refresh_user_access_token
-    puts "==== %%%%% calling refresh_access_token_from_sfdc"
+    Rails.logger.info "==== %%%%% calling refresh_access_token_from_sfdc"
     auth_hash = mav_hash.nil? ? ENV['THIRD_PARTY_PASSWORD'] : Encryptinator.decrypt_string(mav_hash)
     sfdc_authentication = Account.new(self).authenticate(auth_hash)
     if sfdc_authentication.success.to_bool
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
     else
       # check for any authentication errors and return guest token if error
       User.guest_access_token
-      puts "[FATAL][User]: Could not refresh #{username}'s access token: #{sfdc_authentication.message}"
+      Rails.logger.info "[FATAL][User]: Could not refresh #{username}'s access token: #{sfdc_authentication.message}"
     end
   end  
 
@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end  
 
   def self.guest_access_token
-    puts "=========== using guest access token"
+    Rails.logger.info "=========== using guest access token"
     guest_token = Rails.cache.fetch('guest_access_token', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
         :password       => ENV['SFDC_PUBLIC_PASSWORD'],
@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
   end  
 
   def self.admin_access_token
-    puts "=========== using admin access token for #{ENV['SFDC_ADMIN_USERNAME']}"
+    Rails.logger.info "=========== using admin access token for #{ENV['SFDC_ADMIN_USERNAME']}"
     guest_token = Rails.cache.fetch('guest_access_token', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       client = Restforce.new :username => ENV['SFDC_ADMIN_USERNAME'],
         :password       => ENV['SFDC_ADMIN_PASSWORD'],

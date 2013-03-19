@@ -18,7 +18,7 @@ class CloudspokesFeed < ActiveRecord::Base
       	unless exists? :guid => entry.id
       		create!(
       			:name => entry.title,
-      			:summary => 'WHY IS THERE NO FEED SUMMARY TEXT? DO WE WANT TO REMOVE THIS?',
+      			:summary => '',
       			:url => entry.url,
       			:entry_type => type,
       			:published_at => entry.published,

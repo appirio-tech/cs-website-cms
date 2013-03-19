@@ -119,7 +119,7 @@ class ApiModel
   def self.naked_get(endpoint, params = nil)
     endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING NAKED GET for #{endpoint}"
+    Rails.logger.info "===[APIMODEL] $$$$$ CALLING NAKED GET for #{endpoint}"
     get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new    
@@ -146,7 +146,7 @@ class ApiModel
   def self.raw_get(entities = [], params = nil)
     endpoint = endpoint_from_entities(entities)
     endpoint << "?#{params.to_param}" if params.present?
-    puts "=====$$$$$ CALLING RAW GET #{entities} for #{endpoint}"
+    Rails.logger.info "===[APIMODEL] $$$$$ CALLING RAW GET #{entities} for #{endpoint}"
     get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new
@@ -155,7 +155,7 @@ class ApiModel
   def self.raw_get_has_many(entities = [], params)
     endpoint = endpoint_from_entities(entities)
     endpoint << "/#{params.to_param}" unless params.empty?
-    puts "=====$$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
+    Rails.logger.info "===[APIMODEL] $$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
     get_response(RestClient.get(endpoint, api_request_headers))
   rescue RestClient::ResourceNotFound => e
     raise ApiExceptions::EntityNotFoundError.new    
@@ -163,7 +163,7 @@ class ApiModel
 
   # Sanitized response to only the attributes we've defined
   def self.get(entity = '')
-    puts "========== calling self.get with #{entity}"
+    Rails.logger.info "===[APIMODEL] calling self.get with #{entity}"
     raw_get(entity).delete_if {|k, v| !column_names.include? k.to_sym}
   end
 
@@ -180,10 +180,10 @@ class ApiModel
     endpoint = endpoint_from_entities(entities)  
     if method.to_sym == :get
       endpoint += "?#{data.to_param}"
-      puts "===== request method endpoint (get): #{endpoint}"  
+      Rails.logger.info "===[APIMODEL] request method endpoint (get): #{endpoint}"  
       resp = RestClient.send method, endpoint, api_request_headers
     else
-      puts "===== request method endpoint (not get): #{endpoint}"  
+      Rails.logger.info "===[APIMODEL] request method endpoint (not get): #{endpoint}"  
       data = data.to_json unless data.is_a?(String)
       resp = RestClient.send method, endpoint, data, api_request_headers
     end
