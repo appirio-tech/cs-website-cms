@@ -10,6 +10,17 @@ class AdminController < ApplicationController
 		redirect_to :back, :notice => 'All challenges being synced to redis.'
 	end
 
+	def redis_sync_challenge
+		c = Challenge.find(params[:id])
+		c.redis_sync
+		render :json => c
+	end
+
+	def redis_search
+		results = Challenge.search participants: 2
+		render :json => results
+	end
+
 	def blog_fodder
 		@challenge = Challenge.find params[:challenge_id]
 	end	

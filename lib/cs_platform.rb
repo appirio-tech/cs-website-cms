@@ -23,8 +23,7 @@ class CsPlatform
 	end	
 
 	def self.leaderboard_referral(access_token)
-		puts "#{ENV['CS_API_URL']}/leaderboard/referral"
-		JSON.parse(RestClient.get("http://localhost:3002/v1/leaderboard/referral"))['response']
+		JSON.parse(RestClient.get("#{ENV['CS_API_URL']}/leaderboard/referral"))['response']
 	end		
 
 end
