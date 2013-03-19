@@ -3,6 +3,7 @@ CsWebsiteCms::Application.routes.draw do
   resources :authentications
 
   match "/appirio" => redirect("/communities/appirio")
+  match "/appirio/leaderboard" => redirect("/communities/appirio/leaderboard")
   match '/auth/:provider/callback', to: 'authentications#callback'
 
   devise_for :users, controllers: {
@@ -76,6 +77,7 @@ CsWebsiteCms::Application.routes.draw do
   match "/messages"                => "messages#create", :as => :messages, :via => :post
   match "/messages/:id/reply"      => "messages#reply", :as => :message_reply, :via => :post
 
+  get "/communities/:id/leaderboard"              => 'communities#leaderboard', :as => :community_leaderboard
   resources :communities, only: [:show]
 
   namespace :admin do
@@ -109,6 +111,8 @@ CsWebsiteCms::Application.routes.draw do
 
   get '/admin', to: 'admin#index'
   get '/admin/redis_challenge'
+  get '/admin/redis_sync_challenge/:id' => "admin#redis_sync_challenge"
+  get '/admin/redis_search'
   get '/admin/redis_sync_all'
   get '/admin/blog_fodder'
 
