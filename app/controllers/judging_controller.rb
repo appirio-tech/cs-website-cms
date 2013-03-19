@@ -32,12 +32,10 @@ class JudgingController < ApplicationController
 		@no_challenges_message = 'There are currently no challenges that are in need of judges. Please check back later.'
 		
 		@member = Member.find(current_user.username, { fields: 'id,total_wins,can_judge' })
+		@member.can_judge = '' if !@member.can_judge
 		@challenges = Judging.judging_queue
 
-		override_minimun_wins = false
-		override_minimun_wins = @member.can_judge.include?('Override Minimum Wins') if @member.can_judge
-
-		if @member.total_wins < 10 && !override_minimun_wins
+		if @member.total_wins < 10 && !@member.can_judge.include?('Override Minimum Wins')
 			@challenges = []
 			@no_challenges_message = 'Sorry... you must have won at least ten CloudSpokes challenges before you are eligible to judge.' 
 		elsif @member.can_judge.include?('Banned')
