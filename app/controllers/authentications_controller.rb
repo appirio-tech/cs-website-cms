@@ -8,13 +8,13 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env['omniauth.auth']
     # see if the user exists in sfdc
     sfdc_account = Account.find_by_service(thirdparty_username(omniauth), omniauth['provider'])
-    logger.info "===[OAUTH] callback started from oauth dance for #{thirdparty_username(omniauth)}"
+    logger.info "[OAUTH] callback started from oauth dance for #{thirdparty_username(omniauth)}"
     # successfully found a user in sfdc
     if sfdc_account.success.to_bool
-      logger.info "===[OAUTH] found the user in sfdc"
+      logger.info "[OAUTH] found the user in sfdc"
       login_third_party(omniauth, sfdc_account)
     else
-      logger.info "===[OAUTH] new user -- did not find the user in sfdc"
+      logger.info "[OAUTH] new user -- did not find the user in sfdc"
       # capture their variables and redirect them to the signup page
       session[:auth] = {:email => omniauth['info']['email'], 
         :name => omniauth['info']['name'], :username => omniauth['info']['nickname'], 
@@ -41,7 +41,7 @@ class AuthenticationsController < ApplicationController
         db_authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
         # if the user is already in db
         if db_authentication
-          logger.info "===[OAUTH] already in the authentications table. updating last token refersh and signing in"
+          logger.info "[OAUTH] already in the authentications table. updating last token refersh and signing in"
           user = User.find(db_authentication.user_id)
           user.last_access_token_refresh_at = Date.yesterday
           user.save
@@ -52,7 +52,7 @@ class AuthenticationsController < ApplicationController
           redirect_to authentications_url        
         # create a new user in db
         else
-          logger.info "===[OAUTH] Not in the db. Creating a new user."
+          logger.info "[OAUTH] Not in the db. Creating a new user."
           user =  User.new
           user.apply_omniauth(omniauth)
           user.username = sfdc_account.username
@@ -76,7 +76,7 @@ class AuthenticationsController < ApplicationController
         end
 
       rescue Exception => e
-        logger.info "===[OAUTH][FATAL] exception: #{e.message}"
+        logger.info "[OAUTH][FATAL] exception: #{e.message}"
         flash[:error]  = "Sorry... there was an error logging you in. We are actively working on this issue."
         redirect_to :root
       end

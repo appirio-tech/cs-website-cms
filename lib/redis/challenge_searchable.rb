@@ -195,13 +195,13 @@ module Redis::ChallengeSearchable
   end
 
   def redis_update
-    Rails.logger.info "===[REDIS] Updating challenge #{challenge_id} -- deleting first"
+    Rails.logger.info "[REDIS] Updating challenge #{challenge_id} -- deleting first"
     self.class.redis_remove(challenge_id)
     redis_insert
   end
 
   def redis_insert
-    Rails.logger.info "===[REDIS] Inserting challenge #{challenge_id}"
+    Rails.logger.info "[REDIS] Inserting challenge #{challenge_id}"
     nest[:raw_data].hset challenge_id, raw_data.to_json
 
     redis_metaphones.each do |meta|

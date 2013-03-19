@@ -92,7 +92,7 @@ class Users::PasswordsController < Devise::PasswordsController
       if user.save
         user
       else
-        logger.info "===[FATAL] Error saving new user for not_found password reset: #{user.errors.full_messages}" 
+        logger.info "[FATAL] Error saving new user for not_found password reset: #{user.errors.full_messages}" 
       end
     end
 

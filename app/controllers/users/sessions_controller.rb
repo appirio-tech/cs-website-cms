@@ -14,30 +14,31 @@ class Users::SessionsController < Devise::SessionsController
     # authenticate their credentails against sfdc
     sfdc_authentication = account.authenticate(params[:user][:password])
 
-    logger.info "===[CS-USER][LOGIN] starting login process for #{params[:user][:username]}. sfdc_authentication #{sfdc_authentication.to_yaml}"
+    logger.info "[CS-USER][LOGIN] starting login process for #{params[:user][:username]}. sfdc_authentication #{sfdc_authentication.to_yaml}"
 
     # if they authenticated successfully
     if sfdc_authentication.success.to_bool
-      logger.info "===[CS-USER][LOGIN] authentication success"
+      logger.info "[CS-USER][LOGIN] authentication success"
       # see if the user exists in the database
       user = User.find_by_username(params[:user][:username].downcase)
-      logger.info "===[CS-USER][LOGIN] find user in db: #{user.to_yaml}"
+      logger.info "[CS-USER][LOGIN] find user in db: #{user.to_yaml}"
       if user
-        logger.info "===[CS-USER][LOGIN] found the user in the db"
+        logger.info "[CS-USER][LOGIN] found the user in the db"
         # set the last refersh to yesterday so it will refresh
         user.last_access_token_refresh_at = Date.yesterday
+        user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
         if user.save
-          logger.info "===[CS-USER][LOGIN] updated user last_access_token_refresh_at successfully. signing in."
+          logger.info "[CS-USER][LOGIN] updated user last_access_token_refresh_at successfully. signing in."
           sign_in_and_redirect(:user, user)
         else
-          logger.info "===[CS-USER][LOGIN] error updating with last_access_token_refresh_at: #{user.errors.full_messages}"
+          logger.info "[CS-USER][LOGIN] error updating with last_access_token_refresh_at: #{user.errors.full_messages}"
           flash[:error]  = "Sorry... there was an error logging you in: #{user.errors.full_messages}"
           render action: "new" # sign_in page
         end
       # user exists in sfdc but not in db so create a new record
       else
         begin
-          logger.info "===[CS-USER][LOGIN] did NOT find the user in the db"
+          logger.info "[CS-USER][LOGIN] did NOT find the user in the db"
           sfdc_account = Account.find(params[:user][:username])
           user =  User.new
           user.username = params[:user][:username]
@@ -45,20 +46,20 @@ class Users::SessionsController < Devise::SessionsController
           user.email = sfdc_account.user.email
           user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
           user.last_access_token_refresh_at = Date.yesterday
-          logger.info "===[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
+          logger.info "[CS-USER][LOGIN] getting ready to save this user: #{user.to_yaml}"
           user.skip_confirmation!
           # save their record, sign them in and redirect
           if user.save
-            logger.info "===[CS-USER][LOGIN] user saved successfully. signing in."
+            logger.info "[CS-USER][LOGIN] user saved successfully. signing in."
             user.update_attribute(:confirmed_at, DateTime.now)
             sign_in_and_redirect(:user, user)
           else
-            logger.info "===[CS-USER][FATAL] error saving new user: #{user.errors.full_messages}"
+            logger.info "[CS-USER][FATAL] error saving new user: #{user.errors.full_messages}"
             flash[:error]  = "Sorry... there was an error logging you in."
             render action: "new" # sign_in page
           end
         rescue Exception => e
-          logger.info "===[CS-USER][FATAL] exception logging in: #{e.message}"
+          logger.info "[CS-USER][FATAL] exception logging in: #{e.message}"
           flash[:error]  = "Sorry... there was an error logging you in."
           render action: "new" # sign_in page          
         end
