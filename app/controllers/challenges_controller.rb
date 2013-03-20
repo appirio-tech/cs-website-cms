@@ -136,7 +136,7 @@ class ChallengesController < ApplicationController
           flash[:notice] = "File successfully uploaded and submitted for this challenge."
           send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
           # kick off the squirrelforce process
-          Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], current_user.username, submission_results.message)
+          Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'
         else
           flash[:error] = "There was an error submitting your file. Please check it and submit it again."
         end
