@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/challenges
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Oauth-Token:
+      - ''
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '98'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"48da56c98e7df6afd376ba4e188af667"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 8305920a554c8055514c707390ead5fa
+      X-Runtime:
+      - '1.390510'
+      Date:
+      - Wed, 20 Mar 2013 12:08:57 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"message":"Session expired or invalid","errorcode":"INVALID_SESSION_ID"}],"count":1}'
+    http_version: !!null 
+  recorded_at: Wed, 20 Mar 2013 12:08:57 GMT
+recorded_with: VCR 2.3.0
