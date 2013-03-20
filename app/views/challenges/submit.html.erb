@@ -28,7 +28,7 @@
                     <div class="title"><h1>UPLOAD FILES</h1></div>
                     <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
 
-                    <p><strong>You must upload your code in order to be accepted for the challenge unless specified otherwise in the challenge requirements.</strong></p>
+                    <p><strong>You must upload your code (choose Type = 'Code' below) in order to be accepted for the challenge unless specified otherwise in the challenge requirements.</strong></p>
 
                     <%= form_for :file_submission, :url => submit_file_challenge_path, html: { :id => 'file_submit_form', :class => 'form-horizontal jqTransform', :multipart => true } do |f| %>
                         <div class="control-group">
@@ -39,6 +39,12 @@
                                     <%= file_field( 'file', 'file_name' ) %>
                                     <spam>No file chosen</spam>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Type</label>
+                            <div class="controls">
+                                <%= f.select :type, ['Code','Video','File'] %>
                             </div>
                         </div>
                         <div class="control-group">

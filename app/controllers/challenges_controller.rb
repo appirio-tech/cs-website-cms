@@ -130,11 +130,13 @@ class ChallengesController < ApplicationController
           :public => true
         )  
         complete_url = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}"
-        submission_params = {:link => complete_url, :comments => params[:file_submission][:comments]}    
+        submission_params = {:link => complete_url, :comments => params[:file_submission][:comments], :type => params[:file_submission][:type]}    
         submission_results = @current_member_participant.save_submission_file_or_url(params[:id], submission_params)
         if submission_results.success.to_bool
           flash[:notice] = "File successfully uploaded and submitted for this challenge."
           send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
+          # kick off the squirrelforce process
+          Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], current_user.username, submission_results.message)
         else
           flash[:error] = "There was an error submitting your file. Please check it and submit it again."
         end

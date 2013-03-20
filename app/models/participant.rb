@@ -31,7 +31,16 @@ class Participant < ApiModel
     else
       naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
     end
-  end  
+  end 
+
+  def create_deliverable(challenge_id, membername, params)
+    self.class.naked_post "participants/#{member.name}/#{challenge_id}/deliverable", params
+  end
+
+  # kicks off the squirrelforce process
+  def deploy_deliverable(submission_deliverable_id)
+    self.class.naked_get "squirrelforce/unleash_squirrel/#{submission_deliverable_id}"
+  end   
 
   # temp till we move to new submissions
   def save_submission_file_or_url(challenge_id, params)
@@ -52,6 +61,11 @@ class Participant < ApiModel
     #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
     self.class.naked_get("participants/#{member.name}/#{challenge.challenge_id}/deliverables").map {|submission| SubmissionDeliverable.new(submission)}
   end
+
+  # temp till we move to new submissions
+  def find_submission(challenge_id, membername, submission_id)
+    self.class.naked_get "participants/#{membername}/#{challenge_id}/submission/#{submission_id}"
+  end    
 
   def member
     Member.new @member if @member
