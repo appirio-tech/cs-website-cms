@@ -79,6 +79,7 @@ CsWebsiteCms::Application.routes.draw do
 
   get "/communities/:id/leaderboard"              => 'communities#leaderboard', :as => :community_leaderboard
   resources :communities, only: [:show]
+  resources :events, only: [:show]
 
   namespace :admin do
     resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up

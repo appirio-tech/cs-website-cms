@@ -1,0 +1,21 @@
+<% content_for :head do %><title><%= @event.name%></title><% end %>
+
+<%= content_wrapper do %>
+
+	<div class="title"><h1><%= @event.name%></h1></div>
+
+	<div class="row-fluid">
+
+		<div class="span4">
+			<center><%= image_tag(@event.logo) %></center>
+		</div>
+
+		<div class="span8">
+			<p><%= raw @event.paragraph_1 %></p>
+			<p><a href="#register-modal" data-toggle="modal" class="btn btn"><span>Register to get started</span></a>
+			<p><%= raw @event.paragraph_2 %></p>
+		</div>	
+
+	</div>
+
+<% end %>
