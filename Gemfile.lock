@@ -9,6 +9,12 @@ GIT
       sass-rails (~> 3.1)
 
 GIT
+  remote: git://github.com/jeffdonthemic/forcifier.git
+  revision: 31a1339d09ba8464d943453baf9f09567aec78df
+  specs:
+    forcifier (0.0.3)
+
+GIT
   remote: git://github.com/mbleigh/ruby-openid.git
   revision: 4b6fdd152edbc9d1f617056879eb03bd82b78eb4
   specs:
@@ -486,6 +492,7 @@ DEPENDENCIES
   feedzirra
   flash_messages_helper
   fog
+  forcifier!
   gon
   growl
   guard

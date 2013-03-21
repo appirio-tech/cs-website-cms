@@ -27,6 +27,7 @@ gem 'rest-client', '1.6.7', require: 'rest_client'
 gem 'hashie', '1.2.0'
 gem 'faye', '0.8.3'
 gem 'restforce'
+gem 'forcifier', git: 'git://github.com/jeffdonthemic/forcifier.git'
 gem 'haml'
 
 # are these 8 needed any longer?
