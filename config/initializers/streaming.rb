@@ -9,14 +9,13 @@ client = Restforce.new :username => ENV['SFDC_ADMIN_USERNAME'],
   :host           => ENV['SFDC_HOST']  
 
 begin
-  puts "[DEBUG][STREAMING] Starting up restforce"
   client.authenticate!
-  puts "[DEBUG][STREAMING] Started!"
   Rails.logger.debug "[DEBUG][STREAMING] Successfully authenticated"
 
   EM.next_tick do
     client.subscribe 'ChallengeFireHose' do |message|
-      Rails.logger.info "[INFO][STREAMING]Received message #{message['sobject']['Id']}"
+      Rails.logger.info "[INFO][STREAMING]Received message #{message['sobject']['Challenge_Id__c']}"
+      Resque.enqueue(SyncChallengeToRedis, message['sobject']['Challenge_Id__c'])
     end
   end
 
