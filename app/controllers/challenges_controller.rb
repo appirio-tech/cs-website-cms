@@ -33,10 +33,10 @@ class ChallengesController < ApplicationController
     @sort_by_options = [["End Date", "end_date"],["Challenge Title", "name"],["Prize Money", "total_prize_money desc"]]
     
     @communities = Community.names
-    @communities.insert(0, 'All Communities') if !@communities.include?('All Communities')
+    @communities.insert(0, 'Public') if !@communities.include?('Public')
 
     #set gon defaults
-    gon.adv_search_display = true # set to true for testing
+    gon.adv_search_display = false
     gon.adv_search_status = 'open'
     gon.adv_search_order_by = 'asc'
     @selected_sort_by = ''
@@ -48,7 +48,6 @@ class ChallengesController < ApplicationController
     @selected_technologies_all = true
     @selected_categories_all = true
 
-    # set the javascript vars
     if params[:advanced]
       gon.adv_search_display = true
       gon.adv_search_status = params[:advanced][:status]
@@ -61,26 +60,34 @@ class ChallengesController < ApplicationController
       @max_participants = params[:advanced][:max_participants]  
       @selected_community = params[:advanced][:community] 
 
-      @selected_platforms_all = false
-      @selected_technologies_all = false
-      @selected_categories_all = false
       @selected_platforms = params[:advanced][:platforms] 
       @selected_technologies = params[:advanced][:technologies] 
-      @selected_categories = params[:advanced][:categories]  
+      @selected_categories = params[:advanced][:categories] 
 
-    # Examples
-    #   Challenge.search query: "ruby", state: "closed"
-    #   Challenge.search categories: ["ruby", "java"]
-    #   Challenge.search community: "Appirio"
-    #   Challenge.search prize_money: {min: 1000, max: 3000}
-    #   Challenge.search participants: {min: 2}
-    #   Challenge.search participants: 3
-    #   Challenge.search query: "ruby", sort_by: "prize_money", order: "DESC"
-    #   Challenge.search query: "ruby", sort_by: "challenge_type"
-    #  
+      @selected_platforms_all = false
+      @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
+      @selected_technologies_all = false
+      @selected_technologies_all = true if @selected_technologies.include?('All Technologies')
+      @selected_categories_all = false
+      @selected_categories_all = true if @selected_categories.include?('All Categories')  
 
-      @challenges = Challenge.search query: @keyword, state: params[:advanced][:status], 
-        sort_by: @selected_sort_by, order: params[:advanced][:order_by]
+      #downcase all of the platforms, technologies and categories
+      search_platforms = @selected_platforms.map{|i| i.downcase}
+      search_technologies = @selected_technologies.map{|i| i.downcase}
+      search_categories = @selected_categories.map{|i| i.downcase}    
+
+      options = {state: params[:advanced][:status], 
+        query: @keyword,
+        platforms: search_platforms, 
+        technologies: search_technologies, 
+        categories: search_categories,
+        prize_money: {min: @min_money, max: @max_money},
+        participants: {min: @min_participants, max: @max_participants},
+        community: @selected_community.downcase,
+        sort_by: @selected_sort_by,
+        order: params[:advanced][:order_by]}       
+
+      @challenges = Challenge.search options
 
     else    
 

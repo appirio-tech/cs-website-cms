@@ -4,6 +4,13 @@ module Redis::ChallengeSearchable
   included do |base|
   end
 
+  # Redis query examples
+  #   smembers "search:challenge:platforms:heroku" -- find challenge ids for heroku platform
+  #   smembers "search:challenge:technologies:apex" -- find challenge ids for apex technologies
+  #   smembers "search:challenge:categories:code" -- find challenge ids for code challenges
+  #   smembers "search:challenge:open" -- find all of the ids for open challenges 
+  #   smembers "search:challenge:community_names" -- finds the names of all communities in redis
+
   module ClassMethods
     # Examples
     #   Challenge.search query: "ruby", state: "closed"
@@ -42,7 +49,7 @@ module Redis::ChallengeSearchable
     end
 
     def redis_sync_all
-      ApiModel.access_token = User.admin_access_token
+      ApiModel.access_token = RestforceUtils.access_token(:admin)
       challenges = all
       delete_ids = nest[:raw_data].hkeys - challenges.map(&:challenge_id)
 
@@ -93,7 +100,7 @@ module Redis::ChallengeSearchable
 
     def redis_key_for_community(name)
       nest[:community][name]
-    end
+    end 
 
     def redis_key_for_query(query)
       words = query.downcase.split.uniq
@@ -208,6 +215,10 @@ module Redis::ChallengeSearchable
       nest[:metaphones][meta].sadd challenge_id
     end
 
+    # add the category (challenge_type) for the challenge
+    nest[:categories][challenge_type.downcase].sadd challenge_id
+    nest[:category_names].sadd challenge_type.downcase
+
     platforms.uniq.each do |p|
       p = p.downcase
       nest[:platforms][p].sadd challenge_id
@@ -219,14 +230,6 @@ module Redis::ChallengeSearchable
       nest[:technologies][t].sadd challenge_id
       nest[:technology_names].sadd t
     end    
-
-    #temp set the categories
-    # category_names = %w(apex visualforce)
-    # category_names.uniq.each do |cat|
-    #   cat = cat.downcase
-    #   nest[:categories][cat].sadd challenge_id
-    #   nest[:category_names].sadd cat
-    # end
 
     open? ? nest[:open].sadd(challenge_id) : nest[:closed].sadd(challenge_id)
 
@@ -240,6 +243,9 @@ module Redis::ChallengeSearchable
       cname = community_name.downcase
       nest[:community][cname].sadd challenge_id
       nest[:community_names].sadd cname 
+    else
+      nest[:community]['public'].sadd challenge_id
+      nest[:community_names].sadd 'public'       
     end
 
     # for sort
@@ -260,9 +266,7 @@ module Redis::ChallengeSearchable
       nest[:metaphones][meta].srem challenge_id
     end
 
-    # category_names.uniq.each do |cat|
-    #   nest[:categories][cat].srem challenge_id
-    # end
+    nest[:categories][challenge_type].srem challenge_id
 
     platforms.uniq.each do |p|
       nest[:platforms][p].srem challenge_id
