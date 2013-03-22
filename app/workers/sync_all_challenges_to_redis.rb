@@ -2,7 +2,7 @@ class SyncAllChallengesToRedis
   
   @queue = :sync_all_challenges_to_redis
   def self.perform
-		ApiModel.access_token = User.admin_access_token
+		ApiModel.access_token = RestforceUtils.access_token(:admin)
 		all_challenges = RestforceUtils.query_salesforce('select challenge_id__c from challenge__c')
 
 		all_challenges.each do |c|
