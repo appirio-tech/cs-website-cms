@@ -136,19 +136,19 @@ $(document).ready(function() {
         $(":input[placeholder]").placeholder();
     }
 	
-	String.prototype.trunc =
-     function(n,useWordBoundary){
-         var toLong = this.length>n,
-             s_ = toLong ? this.substr(0,n-1) : this;
-         s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
-         return  toLong ? s_ + '&hellip;' : s_;
-      };
-	 
-	 if (exist('.challenge')) {
-		$('.challenge h3 a').each(function() {
-			$(this).html($(this).html().trunc(53, true).toString());
-		});
-	 }
+//	String.prototype.trunc =
+//     function(n,useWordBoundary){
+//         var toLong = this.length>n,
+//             s_ = toLong ? this.substr(0,n-1) : this;
+//         s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
+//         return  toLong ? s_ + '&hellip;' : s_;
+//      };
+//
+//	 if (exist('.challenge')) {
+//		$('.challenge h3 a').each(function() {
+//			$(this).html($(this).html().trunc(53, true).toString());
+//		});
+//	 }
 
     //online droplist
 //    $('.btn-online').click(function() {
@@ -160,6 +160,36 @@ $(document).ready(function() {
 //    });
 //    $(document).on('click',function() {$('.online').hide();}).on('click','.btn-online,.online',function (e) { e.stopPropagation() });
 //    $('.online').tinyscrollbar();
+
+    $('.btn-adv-search').click(function() {
+        $(this).toggleClass('active');
+        $('.filter form').toggleClass('hide');
+        return false;
+    })
+    $('.form-adv-search').addClass('hide');
+    $('.select-pane input[type=checkbox]').change(function(e) {
+
+        var chkbox=$(this).parents(".checkbox");
+
+        if(chkbox.text().indexOf('All')!=-1){
+            if($(this).attr("checked")==undefined){
+                chkbox.siblings().find('.jqTransformCheckbox.jqTransformChecked').removeClass("jqTransformChecked");
+                chkbox.siblings().find('input').removeAttr("checked");
+            }else{
+                chkbox.siblings().find('.jqTransformCheckbox:not(.jqTransformChecked)').addClass('jqTransformChecked');
+                chkbox.siblings().find('input').attr("checked","checked");
+            }
+        }else{
+            if($(this).attr("checked")==undefined){
+                var all=chkbox.parents(".select-pane").find(".checkbox:eq(0) .jqTransformCheckbox");
+                if(all.hasClass("jqTransformChecked")){
+                    all.removeClass("jqTransformChecked");
+                    all.siblings('input').removeAttr("checked");
+                }
+            }
+        }
+        e.stopPropagation()
+    })
 });
 
 function exist(el) {

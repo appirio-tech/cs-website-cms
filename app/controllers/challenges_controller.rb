@@ -26,6 +26,73 @@ class ChallengesController < ApplicationController
     @categories = all_categories
   end
 
+  def search_test
+    @platforms = all_platforms
+    @technologies = all_technologies
+    @categories = all_categories
+    @sort_by_options = [["End Date", "end_date"],["Challenge Title", "name"],["Prize Money", "total_prize_money desc"]]
+    
+    @communities = Community.names
+    @communities.insert(0, 'All Communities') if !@communities.include?('All Communities')
+
+    #set gon defaults
+    gon.adv_search_display = true # set to true for testing
+    gon.adv_search_status = 'open'
+    gon.adv_search_order_by = 'asc'
+    @selected_sort_by = ''
+    @selected_community = ''
+    @selected_platforms = []
+    @selected_technologies = []
+    @selected_categories = []
+    @selected_platforms_all = true
+    @selected_technologies_all = true
+    @selected_categories_all = true
+
+    # set the javascript vars
+    if params[:advanced]
+      gon.adv_search_display = true
+      gon.adv_search_status = params[:advanced][:status]
+      gon.adv_search_order_by = params[:advanced][:order_by]
+      @selected_sort_by = params[:advanced][:sort_by]
+      @keyword = params[:advanced][:keyword]
+      @min_money = params[:advanced][:min_money]
+      @max_money = params[:advanced][:max_money]
+      @min_participants = params[:advanced][:min_participants]
+      @max_participants = params[:advanced][:max_participants]  
+      @selected_community = params[:advanced][:community] 
+
+      @selected_platforms_all = false
+      @selected_technologies_all = false
+      @selected_categories_all = false
+      @selected_platforms = params[:advanced][:platforms] 
+      @selected_technologies = params[:advanced][:technologies] 
+      @selected_categories = params[:advanced][:categories]  
+
+    # Examples
+    #   Challenge.search query: "ruby", state: "closed"
+    #   Challenge.search categories: ["ruby", "java"]
+    #   Challenge.search community: "Appirio"
+    #   Challenge.search prize_money: {min: 1000, max: 3000}
+    #   Challenge.search participants: {min: 2}
+    #   Challenge.search participants: 3
+    #   Challenge.search query: "ruby", sort_by: "prize_money", order: "DESC"
+    #   Challenge.search query: "ruby", sort_by: "challenge_type"
+    #  
+
+      @challenges = Challenge.search query: @keyword, state: params[:advanced][:status], 
+        sort_by: @selected_sort_by, order: params[:advanced][:order_by]
+
+    else    
+
+      # if the user passed over the technology as a link from another page
+      params[:filters] = {:technology => params[:technology] } if params[:technology] 
+      params[:filters] = massage_old_params if params[:category]
+      @challenges = Challenge.all params[:filters]      
+
+    end
+
+  end  
+
   def recent
     @challenges = Challenge.recent
     @challenges = @challenges.paginate(:page => params[:page], :per_page => 20)

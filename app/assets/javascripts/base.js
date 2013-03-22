@@ -2351,6 +2351,10 @@
  */
 $(document).ready(function() {
 
+    if($(window).width()>767){
+        $('.select-pane').tinyscrollbar();
+    }
+
     if($(window).width()<=979){
 
         if($(window).width()<=767) {

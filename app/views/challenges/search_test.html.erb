@@ -1,0 +1,231 @@
+<% content_for :head do %><title>Open Challenges - CloudSpokes</title><% end %>
+
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+  <div class="container">
+
+    <div>
+      <div class="title"><h1>OPEN CHALLENGES (TEST)</h1></div>
+      <div class="filter well well-large">
+        <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
+          <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
+          <label>SHOW</label>
+          <%= select_tag "filters[platform]", options_for_select(@platforms, filters[:platform]), prompt: "All Platforms" %>
+          <%= select_tag "filters[technology]", options_for_select(@technologies, filters[:technology]), prompt: "All Technologies" %>
+          <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
+
+          <label>SORT BY</label>
+          <%= select_tag "filters[order_by]", options_for_select(@sort_by_options, filters[:order_by]) %>
+        <% end %>
+
+        <%= form_tag challenges_search_test_path, class: "form-horizontal jqTransform form-adv-search", method: :post do %>
+          <div class="control-group option-show">
+              <label class="control-label">SHOW</label>
+              <div class="controls">
+                  <input type="radio" class="radio" id="status_open" name="advanced[status]" value="open"/><label>Open Challenges</label>
+                  <input type="radio" class="radio" id="status_closed" name="advanced[status]" value="closed"/><label>Closed Challenges</label>
+              </div>
+          </div>
+
+          <div class="control-group option-sort">
+              <label class="control-label" for="sort-by">SORT BY</label>
+              <div class="controls">
+                  <%= select_tag "advanced[sort_by]", options_for_select(@sort_by_options, @selected_sort_by) %>                             
+              </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">ORDER</label>
+            <div class="controls">
+              <input type="radio" class="radio" id="orderby_asc" name="advanced[order_by]" value="ASC"/><label class="pull-left">Ascending</label>
+              <input type="radio" class="radio" id="orderby_desc" name="advanced[order_by]" value="DESC"/><label class="pull-left">Descending</label>
+            </div>
+          </div>
+
+          <div>
+
+            <div class="controls option-include">
+
+              <div class="control-group">
+                <label>Platforms</label>
+                <div class="select-pane">
+                  <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                  <div class="viewport">
+                    <div class="overview">
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[platforms][]" value="All Platforms" <% if @selected_platforms_all %>checked<% end %>>All Platforms
+                      </label>
+                      <% @platforms.each do |platform| %>
+                      <% 
+                        selected = ''
+                        selected = 'checked' if @selected_platforms.include?(platform)
+                        selected = 'checked' if @selected_platforms_all
+                      %>
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[platforms][]" value="<%= platform %>" <%= selected %>><%= platform %>
+                      </label>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+
+              <div class="control-group">
+                <label>Technologies</label>
+                <div class="select-pane">
+                  <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                  <div class="viewport">
+                    <div class="overview">
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[technologies][]" value="All Technologies" <% if @selected_technologies_all %>checked<% end %>>All Technologies
+                      </label>
+                      <% @technologies.each do |tech| %>
+                      <% 
+                        selected = ''
+                        selected = 'checked' if @selected_technologies.include?(tech)
+                        selected = 'checked' if @selected_technologies_all
+                      %>                      
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[technologies][]" value="<%= tech %>"  <%= selected %>><%= tech %>
+                      </label>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label>Categories</label>
+                <div class="select-pane">
+                  <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                  <div class="viewport">
+                    <div class="overview">
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[categories][]" value="All Categories" <% if @selected_categories_all %>checked<% end %>>All Categories
+                      </label>                              
+                      <% @categories.each do |cat| %>
+                      <% 
+                        selected = ''
+                        selected = 'checked' if @selected_categories.include?(cat)
+                        selected = 'checked' if @selected_categories_all
+                      %>    
+                      <label class="checkbox">
+                        <input type="checkbox" name="advanced[categories][]" value="<%= cat %>"  <%= selected %>><%= cat %>
+                      </label>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+
+              <div class="control-group option-communities">
+                <label>Communities</label>
+                <div class="clearfix">
+                  <%= select_tag "advanced[community]", options_for_select(@communities, @selected_community) %>
+                </div>
+              </div>
+
+              <div class="control-group option-money">
+                <label for="input-email">Prize Money Range</label>
+                <div class="range-pane">
+                  <div class="controls-row">
+                    <input type="text" name="advanced[min_money]" id="input-min-money" value="<%= @min_money %>">
+                    <label class="control-label" for="input-min-money">Minimum</label>
+                  </div>
+                  <div class="controls-row">
+                    <input type="text" name="advanced[max_money]" id="input-max-money" value="<%= @max_money %>">
+                    <label class="control-label" for="input-max-money">Maximum</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group option-participants">
+                <label for="input-email">Participants Range</label>
+                <div class="range-pane">
+                  <div class="controls-row">
+                    <input type="text" name="advanced[min_participants]" id="input-min-participants" value="<%= @min_participants %>">
+                    <label class="control-label" for="input-min-participants">Minimum</label>
+                  </div>
+                  <div class="controls-row">
+                    <input type="text" name="advanced[max_participants]" id="input-max-participants" value="<%= @max_participants %>">
+                    <label class="control-label" for="input-max-participants">Maximum</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="input-term">Containing This Search Term</label>
+                <div class="clearfix">
+                  <input type="text" name="advanced[keyword]" id="input-term" class="input-xlarge" value="<%= @keyword %>">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pull-right-bottom">
+            <div class="btn"><input type="submit" value="SEARCH" id="advanced-search-btn"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $("form.challenges-filter select, form.challenges-filter input").change(function() {
+          $(this).parents("form").submit();
+        });
+
+        // show the advanced search UI if performing advanced serach
+        if (gon.adv_search_display) {
+          $('.btn-adv-search').toggleClass('active');
+          $('.filter form').toggleClass('hide'); 
+        }
+      });
+
+      // check the status
+      if (gon.adv_search_status == 'closed') {
+        $('#status_closed').attr('checked',true); 
+      } else {
+        $('#status_open').attr('checked',true);
+      }
+
+      // check the order by
+      if (gon.adv_search_order_by == 'desc') {
+        $('#orderby_desc').attr('checked',true); 
+      } else {
+        $('#orderby_asc').attr('checked',true);
+      }
+      </script>
+    </div>
+
+    <a href="#" class="btn-adv-search">Advanced Search Options</a>
+
+    <div class="clearfix"></div>            
+
+    <% if @challenges.empty? %>
+        <p style="text-align:center;font-weight:bold">No open challenges found matching your criteria.</p>
+    <% else %>
+        <% @challenges.in_groups_of(2, false) do |row_challenges| %>
+        <div class="row-fluid">
+        <% for c in row_challenges %>                
+            <div class="span6">
+                <div class="challenge well well-large">
+                    <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
+                    <%= format_challenge_due_in(c.end_date_utc) %><br>
+                    <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
+                    <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
+                    Tags: <%= technology_tag_links(c) %><% if c.community %> | <%= link_to "#{c.community_name} Community", "/communities/#{c.community_id}" %><% end %>
+                    <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
+                </div>
+            </div>
+        <% end %> 
+        </div>
+        <% end %>
+        <% unless params[:advanced] %>
+          <%= link_to "Subscribe to the feed for this set of challenges", challenges_path(filters: params[:filters], format: "rss"), class: "rss" %>
+        <% end %>
+    <% end %>
+
+
+  </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

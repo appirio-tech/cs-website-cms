@@ -2376,7 +2376,10 @@ table th[class*="span"],
   display: inline-block;
   *display: inline;
   height: 39px;
+  padding-top: 0;
   padding-right: 3px;
+  padding-bottom: 0;
+  padding-left: 0;
   margin-bottom: 0;
   font-size: 14px;
   line-height: 39px;
@@ -2388,6 +2391,7 @@ table th[class*="span"],
   background-image: url("/assets/btn.png");
   background-position: right top;
   background-repeat: no-repeat;
+  border: none;
   *zoom: 1;
 }
 
@@ -3852,8 +3856,9 @@ span.badge {
   margin-left: 8px;
 }
 
-.loginbar-wrapper .login-form input.btn {
-  width: 80px;
+.loginbar-wrapper .login-form div.btn input {
+  width: auto !important;
+  margin-right: 0 !important;
 }
 
 .loginbar-wrapper .login {
@@ -5752,9 +5757,165 @@ table.overview td.sep {
   margin-top: -20px;
   margin-bottom: 30px;
   font-size: 12px;
-  background: url("../i/arrow-orange-down.png") right center no-repeat;
+  background: url("/assets/arrow-orange-down.png") right center no-repeat;
 }
 
 .btn-adv-search.active {
-  background-image: url("../i/arrow-orange-up.png");
+  background-image: url("/assets/arrow-orange-up.png");
+}
+
+/*
+  .form-adv-search
+*/
+
+.form-adv-search {
+  padding-right: 20px;
+}
+
+.form-adv-search .option-show,
+.form-adv-search .option-sort {
+  margin-right: 30px;
+}
+
+.form-adv-search .control-group {
+  float: left;
+}
+
+.form-adv-search .control-label {
+  float: left;
+}
+
+.form-adv-search .controls {
+  float: left;
+  padding: 0;
+  margin-left: 0;
+}
+
+.form-adv-search .option-include {
+  width: 900px;
+}
+
+.form-adv-search .option-communities {
+  margin-left: 10px;
+}
+
+.form-adv-search .option-communities .jqTransformSelectWrapper {
+  margin-right: 0;
+}
+
+.form-adv-search label {
+  width: auto !important;
+  font-size: 14px;
+  line-height: 39px;
+  color: #787878;
+}
+
+.form-adv-search .control-label {
+  font-size: 16px;
+  color: #C1C0C0;
+}
+
+.form-adv-search .jqTransformRadio {
+  margin-top: 9px;
+}
+
+.form-adv-search select {
+  width: 130px;
+}
+
+.form-adv-search input {
+  width: 130px;
+}
+
+.form-adv-search .option-money,
+.form-adv-search .option-participants {
+  margin-bottom: 0;
+}
+
+.form-adv-search .range-pane {
+  width: 240px;
+  clear: both;
+}
+
+.form-adv-search .range-pane .controls-row {
+  margin-top: 10px;
+}
+
+.form-adv-search .range-pane .controls-row:first-child {
+  margin-top: 0;
+}
+
+.form-adv-search .range-pane .controls-row .control-label {
+  font-size: 14px;
+}
+
+.form-adv-search .select-pane {
+  width: 215px;
+  height: 100px;
+  padding: 5px;
+  margin-right: 15px;
+  clear: both;
+  background: #ffffff url("/assets/select-pane-bg.png") no-repeat;
+}
+
+.form-adv-search .select-pane label {
+  float: none;
+  margin-bottom: 10px;
+  line-height: 20px !important;
+}
+
+.form-adv-search .select-pane .viewport {
+  position: relative;
+  width: 210px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.form-adv-search .select-pane .overview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.form-adv-search .select-pane .thumb .end,
+.form-adv-search .select-pane .thumb {
+  background-color: #e07a02;
+}
+
+.form-adv-search .select-pane .scrollbar {
+  position: relative;
+  float: right;
+  width: 5px;
+}
+
+.form-adv-search .select-pane .track {
+  position: relative;
+  width: 5px;
+  height: 100%;
+  background-color: #eee;
+}
+
+.form-adv-search .select-pane .thumb {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.form-adv-search .select-pane .thumb .end {
+  width: 5px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.form-adv-search .select-pane .disable {
+  display: none;
+}
+
+.form-adv-search .clearfix {
+  clear: both;
 }
