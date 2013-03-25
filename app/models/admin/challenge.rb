@@ -17,11 +17,15 @@ class Admin::Challenge
     @column_names
   end
 
-  attr_accessor :winner_announced, :terms_of_service, :scorecard_type, :submission_details,
+  attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description,
-                :reviewers, :categories, :platforms, :technologies, :prizes, :commentNotifiers, 
-                :reviewers_to_delete, :categories_to_delete, :prizes_to_delete, 
-                :commentNotifiers_to_delete, :assets, :challenge_type, :terms_of_service, 
+                :reviewers, 
+                :categories, :platforms, :technologies, 
+                :prizes, :commentNotifiers, 
+                :reviewers_to_delete, 
+                :categories_to_delete, :platforms_to_delete, :technologies_to_delete, 
+                :prizes_to_delete, :commentNotifiers_to_delete, 
+                :assets, :challenge_type, :terms_of_service, 
                 :comments, :challenge_id,
 
                 # these are fields from the challenge api that need to be there so we can
@@ -45,9 +49,10 @@ class Admin::Challenge
   validates_inclusion_of :status, in: STATUSES
 
   validate  do
-    if start_date && end_date && winner_announced
+    if start_date && end_date && winner_announced && review_date
       errors.add(:end_date, 'must be after start date') unless end_date > start_date
       errors.add(:winner_announced, 'must be after end date') unless winner_announced >= end_date.to_date
+      errors.add(:review_date, 'must be after end date') unless review_date >= end_date.to_date
     end
   end
 
@@ -71,13 +76,25 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def winner_announced
-    (Time.parse(@winner_announced) if @winner_announced) || Date.today + 14.days
+    (Time.parse(@winner_announced) if @winner_announced) || Date.today + 12.days
+  end
+
+  def review_date
+    (Time.parse(@review_date) if @review_date) || Date.today + 9.days
   end
 
   # no longer need categories
   def categories
     (@categories.delete_if {|n| n.blank?} if @categories) || []
   end
+  
+  def platforms
+    @platforms || []
+  end
+
+  def technologies
+    @technologies || []
+  end 
 
   def assets
     @assets || []
@@ -98,14 +115,6 @@ class Admin::Challenge
   def prizes
     @prizes || []
   end
-
-  def platforms
-    @platforms || []
-  end
-
-  def technologies
-    @technologies || []
-  end  
 
   # formats the object to conform to the api format
   # maybe we should use RABL for this one instead?
@@ -134,7 +143,11 @@ class Admin::Challenge
         },
         challenge_id: challenge_id,
         reviewers: reviewers.map {|name| {name: name}},
+
         categories: categories.map {|name| {name: name}},
+        platforms: platforms.map {|name| {name: name}},
+        technologies: technologies.map {|name| {name: name}},
+
         prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
         assets: assets.map {|filename| {filename: filename}},
@@ -142,9 +155,16 @@ class Admin::Challenge
     }
     if self.challenge_id && !self.challenge_id.blank?
       original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
+      
       original_challenge_categories = original_challenge.categories.records.map(&:display_name)
+      original_challenge_platforms = original_challenge.platforms.records.map(&:display_name)
+      original_challenge_technologies = original_challenge.technologies.records.map(&:display_name)
+
       stuff_to_delete = {
         categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
+        platforms_to_delete: (original_challenge_platforms - platforms).map {|name| {name: name}},
+        technologies_to_delete: (original_challenge_technologies - technologies).map {|name| {name: name}},
+
         reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
         commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
         prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,

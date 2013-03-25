@@ -1,0 +1,259 @@
+/* line 2, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-wrapper {
+  width: 980px;
+  box-shadow: 0px 0px 2px #456179;
+}
+
+/* line 7, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header {
+  margin-top: 20px;
+  padding: 10px 20px;
+  position: relative;
+  color: white;
+  background-color: #456179;
+  box-shadow: #888 0px 2px 5px;
+  height: 130px;
+}
+/* line 15, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header h2 {
+  color: white;
+  float: left;
+  font-size: 32px;
+  padding: 10px 0 10px 0;
+  margin-left: 20px;
+}
+/* line 22, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header .select-community {
+  float: right;
+  margin: 30px 30px 0 0;
+}
+/* line 25, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header .select-community select {
+  margin: 0;
+}
+/* line 29, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header a {
+  text-decoration: none;
+  color: white;
+}
+/* line 33, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav {
+  margin-top: 10px;
+}
+/* line 35, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li {
+  font-size: 20px;
+  float: left;
+  margin: 0 5px;
+}
+/* line 39, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a {
+  background-color: #243643;
+  padding: 5px 10px;
+  font-size: 18px;
+}
+/* line 43, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.heroku {
+  color: yellow;
+}
+/* line 46, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.salesforce {
+  color: #DF9F2D;
+}
+/* line 49, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.google {
+  color: #649ADA;
+}
+/* line 52, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.box {
+  color: #649ADA;
+}
+/* line 55, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.mobile {
+  color: #54B1B6;
+}
+/* line 58, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.node {
+  color: #FADF43;
+}
+/* line 61, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.ruby {
+  color: #BB3D2B;
+}
+/* line 64, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.javascript {
+  color: #79C844;
+}
+/* line 67, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.java {
+  color: #DF9F2D;
+}
+/* line 70, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.other {
+  color: white;
+}
+/* line 73, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.all {
+  color: black;
+}
+/* line 76, ../../app/assets/stylesheets/leaderboard.css.scss */
+.lb-header ul.nav li a.active {
+  color: white;
+  font-weight: bold;
+}
+
+/* line 86, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul {
+  list-style: none;
+  margin-left: 10px;
+}
+/* line 89, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li {
+  width: 280px;
+}
+/* line 92, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li.gold .member-rank {
+  background-image: url(num-gold.gif);
+  color: #7B5B30;
+}
+/* line 97, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li.gold .member-box img {
+  width: 48px;
+  height: 48px;
+}
+/* line 101, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li.gold .member-box .info {
+  width: 170px;
+}
+/* line 106, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li.silver .member-rank {
+  background-image: url(num-silver.gif);
+  color: #666;
+}
+/* line 110, ../../app/assets/stylesheets/leaderboard.css.scss */
+.leader-box ul li.bronze .member-rank {
+  background-image: url(num-bronze.gif);
+  color: #7A5A30;
+}
+
+/* line 120, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-rank {
+  float: left;
+  background: url("num-default.gif") no-repeat center center;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  height: 31px;
+  letter-spacing: -2px;
+  line-height: 28px;
+  margin: 2px 4px 0 -2px;
+  position: relative;
+  text-align: center;
+  text-indent: -2px;
+  width: 28px;
+  color: #7E7E7E;
+}
+
+/* line 137, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box {
+  position: relative;
+  background-color: #DDEDED;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  padding: 10px;
+}
+/* line 144, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box img {
+  float: left;
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+/* line 150, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box .info {
+  width: 200px;
+  float: left;
+}
+/* line 152, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box .info p {
+  margin: 0;
+  padding: 0;
+}
+/* line 156, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box .info .money {
+  float: right;
+  font-size: 16px;
+  color: #999;
+}
+/* line 162, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box .info h4.name {
+  font-size: 16px;
+  width: 160px;
+  margin: 0;
+}
+/* line 167, ../../app/assets/stylesheets/leaderboard.css.scss */
+.member-box .info .wins {
+  color: #999;
+}
+
+/* line 172, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination {
+  text-align: center;
+  cursor: default;
+  margin-bottom: 20px;
+}
+/* line 176, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination a {
+  float: none;
+  text-decoration: none;
+  color: black;
+  padding: 0.2em 0.3em;
+}
+/* line 181, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination a:hover, .apple_pagination a:focus {
+  text-decoration: underline;
+}
+/* line 185, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination span {
+  padding: 0.2em 0.3em;
+}
+/* line 188, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination .disabled {
+  color: #aaaaaa;
+}
+/* line 191, ../../app/assets/stylesheets/leaderboard.css.scss */
+.apple_pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background-color: #bebebe;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1.5;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
+  text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px;
+}
+
+/* line 206, ../../app/assets/stylesheets/leaderboard.css.scss */
+.time-nav {
+  text-align: center;
+  margin: 10px 0;
+}
+/* line 209, ../../app/assets/stylesheets/leaderboard.css.scss */
+.time-nav .prev, .time-nav .next {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+}
+/* line 215, ../../app/assets/stylesheets/leaderboard.css.scss */
+.time-nav h3 {
+  color: #6699C9;
+  display: inline-block;
+  margin: 0;
+  font-size: 24px;
+  line-height: 24px;
+}

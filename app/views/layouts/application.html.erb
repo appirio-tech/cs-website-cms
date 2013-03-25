@@ -18,6 +18,11 @@
     <link href="/assets/responsive.css" rel="stylesheet">
     <link href="/assets/screen.css" rel="stylesheet">
 
+    <link href="/assets/select2.css" rel="stylesheet">
+    <link href="/assets/datepicker/base.css" rel="stylesheet">
+    <link href="/assets/datepicker/clean.css" rel="stylesheet">
+    <link href="/assets/jquery.plupload.queue.css" rel="stylesheet">
+
     <!-- script -->
     <%= javascript_include_tag "base" %>
     <script src="/assets/bootstrap-typeahead.js"></script>
@@ -25,6 +30,14 @@
     <!-- not sure why this is not being picked up in applcition.js?? -->
     <%= javascript_include_tag "cloudspokes" %>
     <%= javascript_include_tag params[:controller] %>
+
+    <%= javascript_include_tag "select2" %>
+    <%= javascript_include_tag "datepicker" %>
+    <%= javascript_include_tag "plupload" %>
+    <%= javascript_include_tag "plupload.html4" %>
+    <%= javascript_include_tag "plupload.html5" %>
+    <%= javascript_include_tag "jquery.plupload.queue" %>
+    <%= javascript_include_tag "ckeditor-jquery" %>
 
     <!-- start Google analytics -->
     <script type="text/javascript">

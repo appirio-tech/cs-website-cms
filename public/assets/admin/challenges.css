@@ -1,0 +1,15 @@
+/* Style the calendar custom widget */
+/* line 6, ../../../app/assets/stylesheets/admin/challenges.css.scss */
+#date-range {
+  position: relative;
+}
+
+/* line 10, ../../../app/assets/stylesheets/admin/challenges.css.scss */
+div.datepicker td.datepickerFuture a {
+  color: black;
+}
+
+/* line 18, ../../../app/assets/stylesheets/admin/challenges.css.scss */
+.plupload_container {
+  padding: 0px;
+}

@@ -12,14 +12,47 @@ class Admin::ChallengesController < ApplicationController
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
 
+    @challenge_platforms = []
+    @challenge_technologies = []
+
+    @challenge_reviewers = []
+    @challenge_commentNotifiers = []
+
+    @prizes = []
+  end
+
+  def edit
+    challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
+    @challenge = Admin::Challenge.new(challenge.raw_data)
+    #render :json => @challenge
+
+    @challenge_platforms = @challenge.platforms.records.map(&:name)
+    @challenge_technologies = @challenge.technologies.records.map(&:name)
+
+    @challenge_reviewers = []
+
+    @challenge.reviewers.each do | reviewer |
+      @challenge_reviewers.push(reviewer.member__r.name) 
+    end
+
+    @challenge_commentNotifiers = []
+
+    @challenge.commentNotifiers .each do | commentNotifier |
+      @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
+    end
+
     @prizes = @challenge.prizes || []
+
   end
 
   def create
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
+    
     params[:admin_challenge][:categories] = params[:admin_challenge][:categories].split(',') if params[:admin_challenge][:categories]
+    params[:admin_challenge][:platforms] = params[:admin_challenge][:platforms].split(',') if params[:admin_challenge][:platforms]
+    params[:admin_challenge][:technologies] = params[:admin_challenge][:technologies].split(',') if params[:admin_challenge][:technologies]
 
     # add the time element
     hour = params[:admin_challenge]['start_date(4i)']
@@ -30,6 +63,17 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:start_date] = Time.mktime(s.year, s.month, s.day, t.hour, t.min).ctime
     params[:admin_challenge][:end_date] = Time.mktime(e.year, e.month, e.day, t.hour, t.min).ctime
 
+    # review_date and winner_announced
+    r = Time.parse(params[:admin_challenge][:review_date])
+    w = Time.parse(params[:admin_challenge][:winner_announced])
+
+    params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
+    params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime    
+
+    # community judging ?
+
+    # private community ?
+
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
 
@@ -38,23 +82,9 @@ class Admin::ChallengesController < ApplicationController
       ap @challenge.payload.as_json
       render json: @challenge.payload
     else
-      raise @challenge.errors.inspect
+      puts @challenge.errors.inspect
       redirect_to new_admin_challenge_path, notice: 'Validation failed'
     end
-  end
-
-  def edit
-    challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
-    @challenge = Admin::Challenge.new(challenge.raw_data)
-    render :json => @challenge
-    #@challenge_categories = @challenge.categories.records.map(&:display_name).join(',')
-
-    # For the Prizes section, the "Prize" field should accept a string so that a
-    # prize can be "$100" or "50GB Box Upgrade". If the Prize field is a dollar
-    # amount, onblur fill the Points and Value fields with that amount. So if the
-    # user enters $500 in the prize field, onblur populate the points and value
-    # fields with 500.
-    # @prizes = @challenge.prizes || []
   end
 
   def assets

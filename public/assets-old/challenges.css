@@ -1,0 +1,209 @@
+/* line 1, ../../app/assets/stylesheets/challenges.css.scss */
+.box-wrapper {
+  padding: 20px;
+  margin: 20px 0;
+  background: white;
+  border: 1px solid #CCC;
+  box-shadow: 6px 6px 12px #888;
+}
+
+/* line 10, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form a.toggle-options {
+  color: #999;
+  font-size: 12px;
+  vertical-align: bottom;
+}
+/* line 15, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form input.query {
+  margin-bottom: 0;
+  padding: 4px;
+  height: 28px;
+}
+/* line 20, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form .btn[type=submit] {
+  line-height: 28px;
+}
+/* line 23, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form h5 {
+  color: #999;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+/* line 29, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form .inline {
+  display: inline-block;
+  margin-bottom: 0;
+}
+/* line 33, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form label.inline {
+  vertical-align: middle;
+  margin-right: 5px;
+  background-color: #F8F8F8;
+  padding: 3px;
+  border-radius: 5px;
+}
+/* line 40, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form label.inline:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+/* line 44, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form label.inline input[type=radio], .search-form label.inline input[type=checkbox] {
+  margin-top: -3px;
+}
+/* line 48, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form input.prize-money {
+  width: 50px;
+}
+/* line 51, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form input.participants {
+  width: 30px;
+}
+/* line 55, ../../app/assets/stylesheets/challenges.css.scss */
+.search-form .prize-money span.middle, .search-form .participants span.middle {
+  font-size: 30px;
+}
+
+/* line 61, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary {
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 900px;
+}
+/* line 66, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .summary {
+  float: left;
+  background-color: white;
+  padding: 10px;
+  width: 530px;
+  border-radius: 5px;
+}
+/* line 72, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .summary .name {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: normal;
+  margin: 0 0 5px 0;
+}
+/* line 77, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .summary .name a {
+  color: #09F;
+}
+/* line 81, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .summary .desc {
+  color: #666;
+}
+/* line 85, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .status {
+  float: left;
+  padding: 10px;
+  width: 330px;
+  color: #000C4C;
+  background-color: #eee;
+  min-height: 5em;
+}
+/* line 92, ../../app/assets/stylesheets/challenges.css.scss */
+.challenge-summary .status p {
+  margin: 0;
+}
+
+/* line 99, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper {
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px #DDD;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+/* line 105, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper h4 {
+  margin-bottom: 20px;
+}
+/* line 108, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper textarea {
+  width: 90%;
+  height: 5em;
+}
+/* line 114, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable {
+  padding: 5px;
+  line-height: 35px;
+  border-bottom: 1px dashed #ccc;
+  position: relative;
+}
+/* line 119, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 5%;
+  background-color: #000;
+  width: 95%;
+  height: 100%;
+  opacity: 0.7;
+  color: red;
+  line-height: 2.7em;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+/* line 134, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable .info .type {
+  float: left;
+  width: 200px;
+  color: #777;
+  font-weight: bold;
+}
+/* line 140, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable .info .url {
+  float: left;
+  width: 600px;
+  color: #666;
+}
+/* line 145, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable .info .actions {
+  float: right;
+  display: none;
+}
+/* line 151, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable:hover {
+  background-color: #eee;
+}
+/* line 153, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable:hover .actions {
+  display: block;
+}
+/* line 157, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .deliverables .deliverable .form-wrapper form {
+  margin: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+/* line 165, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .drag-drop-area {
+  color: #999;
+  border: 1px solid #ccc;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 2em;
+  padding: 10px 20px;
+}
+/* line 172, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .drag-drop-area.droppable {
+  background-color: gray;
+}
+/* line 177, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper .new-deliverable form {
+  margin-top: 20px;
+  display: none;
+}
+/* line 184, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper form.deliverable div.error {
+  color: red;
+}
+/* line 187, ../../app/assets/stylesheets/challenges.css.scss */
+.submission-wrapper form.deliverable input.url {
+  width: 90%;
+}
