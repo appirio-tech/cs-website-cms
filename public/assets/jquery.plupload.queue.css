@@ -1,0 +1,248 @@
+/* 
+   Plupload
+------------------------------------------------------------------- */
+/* line 6, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_button {
+  display: -moz-inline-box;
+  /* FF < 3*/
+  display: inline-block;
+  font: normal 12px sans-serif;
+  text-decoration: none;
+  color: #42454a;
+  border: 1px solid #bababa;
+  padding: 2px 8px 3px 20px;
+  margin-right: 4px;
+  background: #f3f3f3 url("jquery.plupload.queue/buttons.png") no-repeat 0 center;
+  outline: 0;
+  /* Optional rounded corners for browsers that support it */
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 25, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_button:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+/* line 30, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_disabled, a.plupload_disabled:hover {
+  color: #737373;
+  border-color: #c5c5c5;
+  background: #ededed url("jquery.plupload.queue/buttons-disabled.png") no-repeat 0 center;
+  cursor: default;
+}
+
+/* line 37, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_add {
+  background-position: -181px center;
+}
+
+/* line 41, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_wrapper {
+  font: normal 11px Verdana,sans-serif;
+  width: 100%;
+}
+
+/* line 46, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_container {
+  padding: 8px;
+  background: url("jquery.plupload.queue/transp50.png");
+  /*-moz-border-radius: 5px;*/
+}
+
+/* line 52, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_container input {
+  border: 1px solid #DDD;
+  font: normal 11px Verdana,sans-serif;
+  width: 98%;
+}
+
+/* line 58, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_header {
+  background: #2a2c2e url("jquery.plupload.queue/backgrounds.gif") repeat-x;
+}
+
+/* line 59, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_header_content {
+  background: url("jquery.plupload.queue/backgrounds.gif") no-repeat 0 -317px;
+  min-height: 56px;
+  padding-left: 60px;
+  color: #FFF;
+}
+
+/* line 65, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_header_title {
+  font: normal 18px sans-serif;
+  padding: 6px 0 3px;
+}
+
+/* line 69, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_header_text {
+  font: normal 12px sans-serif;
+}
+
+/* line 73, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* line 79, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_scroll .plupload_filelist {
+  height: 185px;
+  background: #F5F5F5;
+  overflow-y: scroll;
+}
+
+/* line 85, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist li {
+  padding: 10px 8px;
+  background: whitesmoke url("jquery.plupload.queue/backgrounds.gif") repeat-x 0 -156px;
+  border-bottom: 1px solid #DDD;
+}
+
+/* line 91, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist_header, .plupload_filelist_footer {
+  background: #DFDFDF;
+  padding: 8px 8px;
+  color: #42454A;
+}
+
+/* line 96, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist_header {
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #CDCDCD;
+}
+
+/* line 101, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist_footer {
+  border-top: 1px solid #FFF;
+  height: 22px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+/* line 102, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_name {
+  float: left;
+  overflow: hidden;
+}
+
+/* line 103, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_status {
+  color: #777;
+}
+
+/* line 104, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_status span {
+  color: #42454A;
+}
+
+/* line 105, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_size, .plupload_file_status, .plupload_progress {
+  float: right;
+  width: 80px;
+}
+
+/* line 109, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_size, .plupload_file_status, .plupload_file_action {
+  text-align: right;
+}
+
+/* line 111, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_filelist .plupload_file_name {
+  width: 205px;
+}
+
+/* line 113, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_action {
+  float: right;
+  width: 16px;
+  height: 16px;
+  margin-left: 15px;
+}
+
+/* line 120, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_file_action * {
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+/* line 126, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_uploading {
+  background: #ecf3dc url("jquery.plupload.queue/backgrounds.gif") repeat-x 0 -238px;
+}
+
+/* line 127, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_done {
+  color: #AAA;
+}
+
+/* line 129, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_delete a {
+  background: url("jquery.plupload.queue/delete.gif");
+}
+
+/* line 133, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_failed a {
+  background: url("jquery.plupload.queue/error.gif");
+  cursor: default;
+}
+
+/* line 138, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_done a {
+  background: url("jquery.plupload.queue/done.gif");
+  cursor: default;
+}
+
+/* line 143, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_progress, .plupload_upload_status {
+  display: none;
+}
+
+/* line 147, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_progress_container {
+  margin-top: 3px;
+  border: 1px solid #CCC;
+  background: #FFF;
+  padding: 1px;
+}
+
+/* line 153, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_progress_bar {
+  width: 0px;
+  height: 7px;
+  background: #CDEB8B;
+}
+
+/* line 159, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_scroll .plupload_filelist_header .plupload_file_action, .plupload_scroll .plupload_filelist_footer .plupload_file_action {
+  margin-right: 17px;
+}
+
+/* Floats */
+/* line 165, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_clear, .plupload_clearer {
+  clear: both;
+}
+
+/* line 166, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+.plupload_clearer, .plupload_progress_bar {
+  display: block;
+  font-size: 0;
+  line-height: 0;
+}
+
+/* line 172, ../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/bundler/gems/plupload-rails-e14d463491c5/vendor/assets/stylesheets/jquery.plupload.queue.scss */
+li.plupload_droptext {
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  line-height: 165px;
+}

@@ -1,0 +1,584 @@
+/*add own css*/
+
+
+.jqTransformRadioWrapper {
+	margin-top: 0;
+}
+.jqTransformRadio {
+  display: block;
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+  background: transparent url(/assets/radio.png) no-repeat center top;
+}
+.jqTransformRadioWrapper  a.jqTransformChecked {
+  background-position: 0 -21px;
+}
+textarea {
+	border: 1px solid #d1d1d1;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.content-wrapper .container > .row-fluid > [class^="span"] > h2 small {
+	float: right;
+	line-height: 35px;
+	font-size: 13px;
+	padding-right: 10px;
+	font-weight: bold;
+	color: #787878;
+}
+
+
+
+/** header **/
+.loginbar-wrapper {
+	height: 60px;
+	/*overflow: hidden;*/
+}
+.loginbar-wrapper .login > div {
+	padding-top: 9px;
+	padding-right: 18px;
+	padding-bottom: 9px;
+}
+.loginbar-wrapper .login-form input {
+	margin-bottom: 0;
+	margin-right: 9px;
+	font-size: 12px;
+	line-height: 41px\9;
+}
+.loginbar-wrapper .login-form a.btn {
+	margin: 2px 0 0 5px;
+}
+	.loginbar-wrapper .login-form a.btn span {
+		line-height: 38px;
+		font-size: 13px;
+		padding-right: 17px;
+		padding-left: 20px;
+	}
+.loginbar-wrapper .login div.login-using {
+	padding-right: 13px;
+}
+	.loginbar-wrapper .login div.login-using span {
+		font-size: 12px;
+		line-height: 41px;
+	}
+	.loginbar-wrapper .login-using ul.inline {
+		margin-top: -1px;
+	}
+.loginbar-wrapper .login div.forgot-pwd {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+	.loginbar-wrapper .login div.forgot-pwd a {
+		font-size: 12px;
+		line-height: 41px;
+	}
+.loginbar-wrapper .last a.btn {
+	margin-top: 2px
+}
+	.loginbar-wrapper .last a.btn span {
+		line-height: 38px;
+		font-size: 13px;
+		padding-right: 17px;
+		padding-left: 20px;
+	}
+
+.logined .pull-right {
+	width: 330px;
+}
+/** end of header **/
+
+/* nav */
+.form-search {
+	margin-top: 0;
+	margin-bottom: 0;
+	*clear: both;
+}
+	.form-search .jqTransformInputWrapper {
+		margin-right: 0;
+	}
+	.form-search .btn-search {
+		right: 6px;
+	}
+/* end of nav */
+
+/* content */
+
+/* banner */
+.banner {
+	margin: 30px 0 0 0;
+	background: url(/assets/banner-bg.png) 0 0 repeat-x;
+}
+.banner .tabs{
+    position: absolute;
+    top:230px;
+    width: 1024px;
+    z-index: 200;
+}
+	.banner-unit {
+        text-align: center;
+		top: 0;
+		/*width: 1024px;*/
+		height: 210px;
+		position: relative;
+        margin-bottom: 100px;
+	}
+		.banner-unit img {
+			/*position: absolute;*/
+			top: 0;
+			left: 0;
+		}
+		.banner-unit .buttons {
+			position: absolute;
+			text-align: right;
+		}
+		.crowdsouced-banner .buttons {
+			top: 120px;
+			left: 590px;
+		}
+		.compete-code-win-banner .buttons {
+			top: 120px;
+			left: 110px;
+		}
+		.build-it-a-banner .buttons {
+			top: 110px;
+			left: 125px;
+		}
+		.build-it-b-banner .buttons {
+			top: 110px;
+			left: 125px;
+		}
+		.connect-with-cloud-banner .buttons {
+			top: 120px;
+			left: 640px;
+		}
+			.banner-unit a.get-started {
+				display: block;
+				height: 50px;
+				color: #fff;
+				text-align: center;
+				background: url("/assets/tab-large.png") 0 0 no-repeat;
+				padding-left: 3px;
+			}
+				.banner-unit a.get-started span {
+					display: block;
+					padding-right: 3px;
+					background: url(/assets/tab-large.png) 100% -195px no-repeat;
+				}
+					.banner-unit a.get-started span span {
+						display: block;
+						width: 217px;
+						height: 50px;
+						font-size: 24px;
+						padding: 0 9px;
+						font-weight: bold;
+						line-height: 50px;
+						background: url("/assets/tab-large.png") 0 -390px repeat-x;
+					}
+			.banner-unit a.get-started:hover {
+				background-position: 0 -65px;
+				text-decoration: none;
+			}
+				.banner-unit a.get-started:hover span {
+					background-position: 100% -260px;
+				}
+					.banner-unit a.get-started:hover span span {
+						background-position: 0 -455px;
+					}
+
+			.banner-unit a.learn-more {
+				display: block;
+				color: #fff;
+				font-size: 14px;
+				line-height: 30px;
+				margin-right: 5px;
+			}
+/* banner */
+
+.res li a span {
+	*margin-left: 0;	
+}
+.placement .place {
+	width: 40px;
+	padding: 0 14px 0 4px;
+	text-align: center;
+}
+.radio-filter { /* filter in challenge page */
+	height: 21px;
+	width: 1024px;
+	margin: -10px 0 18px 0;
+}
+	.radio-filter label {
+		height: 21px;
+		line-height: 21px;
+	}
+	.radio-filter .jqTransformRadioWrapper {
+		margin-left: 20px;
+	}
+
+ul.share {
+	clear: both;
+	height: 39px;
+	margin-bottom: 20px;
+}
+ul.share li {
+	width: 39px;
+	*float: left;
+	*display: inline;
+}
+
+.right-button { /* button in challenges_detail page & member_profile page */ 
+	clear: both;
+	height: 40px;
+	padding: 10px 0;
+}
+
+/* member profile page */
+.member-profile .photo {
+	width: 132px;
+	height: 132px;
+}
+.member-profile .well {
+	background: transparent;
+	padding: 5px 0 0 0;
+	position: relative;
+	height: 135px;
+	margin-bottom: 0;
+}
+	.member-profile .well h2{
+		font-size: 21px;
+        font-weight: bold;
+	}
+	.member-profile .well .top span {
+		font-size: 19px;
+	}
+	.member-profile .well .bottom {
+		position: absolute;
+		bottom: 0;
+		font-size: 19px;
+	}
+	.member-profile .span6 {
+		margin-left: 10px;
+	}
+	.member-profile .border-right {
+		width: 487px;
+		border-right: 1px solid #d1d1d1;
+	}
+	.member-profile h3 {
+		font-size: 19px;
+		font-weight: bold;
+		padding: 0 0 0 30px;
+	}
+	/* level */
+	.level {
+		position: relative;
+		margin: 10px;
+	}
+		.level .progress {
+			height: 43px;
+			width: 302px;
+			top: 10px;
+			left: 70px;
+			position: absolute;
+			background: url(/assets/level-progress.png) 0 0 no-repeat;
+		}
+		.level .from, .level .to {
+			display: block;
+			position: absolute;
+			width: 130px;
+			padding: 60px 0 0 0;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			font-size: 18px;
+			left: -10px;
+		}
+		.level .to {
+			left: 320px;
+		}
+		.level .to i {
+			display: block;
+			position: absolute;
+			width: 25px;
+			height: 31px;
+			top: 0;
+			right: 25px;
+			background: url(/assets/lock.png) 0 0 no-repeat;
+		}
+		.level .level3 {
+			background: url(/assets/level.png) 50% 0 no-repeat;
+		}
+		.level .level4-gray {
+			background: url(/assets/level.png) 50% -100px no-repeat;
+		}
+	/* end of level */
+
+.member-profile #quotes .item {
+	/*height: 25px;*/
+	text-align: center;
+	width: 800px;
+	margin: 40px auto;
+	padding-left: 5px;
+
+}
+	.member-profile #quotes .item .quote {
+		font-size: 24px;
+		line-height: 25px;
+	}
+
+ul.brief-info {
+	height: 67px;
+	margin: 18px 0 40px 0; 
+}
+	ul.brief-info li {
+		float: left;
+		width: auto;
+		width: 220px\0;
+		height: 67px;
+	}
+		ul.brief-info li img {
+			float: left;
+			display: inline;
+			width: auto;
+		}
+		ul.brief-info li .info {
+			float: left;
+			display: inline;
+			width: 90px;
+			padding: 12px 50px 0 6px;
+			padding-right: 20px\0;
+			line-height: 17px;
+		}
+		ul.brief-info li.wider {
+			width: 330px\0;
+		}
+		ul.brief-info li.wider .info {
+			width: 205px;
+		}
+			ul.brief-info li .info span {
+				font-size: 13px;
+			}
+			ul.brief-info li .info span.gray {
+				color: #d1d1d1;
+			}
+			ul.brief-info li .last {
+				padding-right: 0;
+			}
+
+.member-profile .stats {
+	margin: 25px 0 30px 0;
+	height: 80px;
+}
+	.member-profile .stat {
+		float: left;
+		width: 210px;
+		padding-left: 6px;
+	}
+	.member-profile .stat .place {
+		height: 20px;
+		margin-bottom: 10px;
+	}
+	.member-profile .stat .place span {
+		float: left;
+		width: auto;
+		margin-right: 3px;
+		height: 20px;
+		line-height: 20px;
+	}
+	.member-profile .stat .place span.label {
+		width: 76px;
+	}
+	.member-profile .stat .place span.count1 {
+		background: #FDB813;
+	}
+	.member-profile .stat .place span.count2 {
+		background: #cccccc;
+	}
+	.member-profile .stat .place span.count3 {
+		background: #C7B299;
+	}
+
+	.member-profile .stat p {
+		height: 20px;
+		line-height: 20px;
+		margin-bottom: 10px;
+	}
+
+	.member-profile .missions {
+		margin: 25px 10px 40px 20px;
+	}
+	.member-profile .missions .scrollable {
+		width: 560px;
+		height: 148px;
+		margin: 0 auto;
+	}
+		.member-profile .missions .item {
+			float: left;
+			width: 130px;
+			height: 148px;
+			background: #ebebeb;
+			margin-right: 10px;
+		}
+			.member-profile .missions .item span {
+				display: block;
+				text-align: center;
+				color: #787878;
+				line-height: 20px;
+				width: 110px;
+				margin: 3px auto;
+				font-size: 13px;
+			}
+				.member-profile .missions .item span.orange {
+					color: #de7a20;
+				}
+				.member-profile .missions .item span.first {
+					height: 40px;
+				}
+			.member-profile .missions .item img {
+				display: block;
+				width: 112px;
+				height: 72px;
+				margin: 0 auto;
+			}
+	.member-profile .slider {
+		position: relative;
+	}
+	.member-profile .slider .prev {
+		left: -10px;
+	}
+	.member-profile .slider .next {
+		right: 0;
+	}
+
+	.member-profile .recommendation {
+		padding: 0 0 0 10px;
+		height: 280px;
+	}
+		.member-profile .recommendation h4 {
+			margin-bottom: 30px;
+		}
+		.member-profile .recommendation textarea {
+			width: 640px;
+			margin-bottom: 30px;
+		}
+
+	.member-profile .span4 .content {
+		width: 280px;
+		margin: 0 0 0 15px;
+	}
+		.member-profile .span4 .slider .scrollable {
+			min-height: 350px;
+			*height: 350px;
+		} 
+	.member-profile .span4 p {
+		font-size: 13px;
+	}
+		.member-profile .span4 p .gray {
+			color: #d1d1d1;
+		}
+
+	.member-profile .span4 .slider {
+		margin: 0;
+	}
+		.member-profile .span4 .slider .prev {
+			left: 105px;
+			top: auto;
+			bottom: -40px;
+		}
+		.member-profile .span4 .slider .next {
+			right: 105px;
+			top: auto;
+			bottom: -40px;
+		}
+		.member-profile .span4 .scrollable .item {
+			width: 280px;
+			height: 300px;
+		}
+		.member-profile .span4 .total-link {
+			margin: 20px 0 20px 20px;
+		}
+
+
+
+
+/* end of content */
+
+
+#register-modal .title {
+	margin-bottom: 0;
+}
+#register-modal p {
+	/*font-weight: bold;*/
+	margin-bottom: 10px;
+}
+#register-modal ul.unstyled, #register-modal  ol.unstyled {
+  	/*margin: 0;*/
+  	clear: both;
+  	height: 71px;
+}
+	#register-modal ul.unstyled li {
+		/*width: 71px;*/
+		*float: left;
+		*display: inline;
+        margin-bottom: 5px;
+	}
+	#register-modal .form-horizontal .title {
+		margin-bottom: 0;
+	}
+	#register-modal .form-horizontal .content {
+		padding-top: 0;
+	}
+	#register-modal .form-horizontal .control-group {
+		margin: 15px 0 0 0;
+	}
+	#register-modal .form-horizontal .control-label {
+		/*font-weight: bold;*/
+		width: 200px;
+		padding-right: 15px;
+	}
+	#register-modal .form-horizontal .help-block {
+		padding-left: 215px;
+	}
+	#register-modal .form-horizontal .controls {
+		margin-left: 215px;
+	}
+	#register-modal .control-group.error .help-inline {
+		font-weight: bold;
+		padding-left: 15px;
+	}
+
+#forgot-password-modal p {
+  /*font-weight: bold;*/
+}
+
+#team-member-modal .title {
+	margin-bottom: 0;
+}
+#team-member-modal .photo {
+	width: 173px;
+	height: 173px;
+	margin: 0 15px 0 30px;
+}
+#team-member-modal .info {
+	width: 570px;
+}
+#team-member-modal .well {
+	background: transparent;
+	padding: 0 0 10px 0;
+	margin-bottom: 0;
+}
+#team-member-modal .share li {
+	padding: 0;
+}
+#team-member-modal p {
+	font-size: 15px;
+	line-height: 24px;
+}
+/* end of modal */
+
+.online-status{
+    line-height: 40px;
+    color: white;
+}
