@@ -91,6 +91,11 @@ $ ->
 							password_container = $('#input-password-container')
 							password_container.parents('.control-group').addClass('error')
 							password_container.append('<div class="help-inline">'+results+'</div>')	
+						# display any other errors
+						else 
+							password_container = $('#input-password-container')
+							password_container.parents('.control-group').addClass('error')
+							password_container.append('<div class="help-inline">'+results+'</div>')									
 
 						$('#sign-up-btn').val('Signup')							
 					error: (jqXHR, textStatus, errorThrown) ->	
