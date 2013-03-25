@@ -18,8 +18,8 @@
   <p>
     Ended <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
     <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>
-    <% if challenge.status.downcase.eql?('winner selected') %>
-      <br/><%= link_to 'View the winners', results_challenge_path %>
+    <% if ['winner selected','no winner selected'].include?(challenge.status.downcase) %>
+      <br/><%= link_to 'View the challenge results', results_challenge_path %>
       <br/><%= link_to 'Give us your feedback', survey_challenge_path %> about this challenge.
     <% end %>
   </p>
