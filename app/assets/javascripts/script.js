@@ -26,7 +26,7 @@ $(document).ready(function() {
             return $("<span class='challenge'>")
               .append("<i class='icon-leaf'>")
               .append(typeahead.highlighter(item.name))
-              .append("(<span class='prizes'>$" + item.total_prize_money + "</span>)")
+              .append("&nbsp;(<span class='prizes'>$" + item.total_prize_money + "</span>)")
           }
         },
         {
