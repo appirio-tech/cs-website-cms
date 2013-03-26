@@ -156,12 +156,10 @@ class Admin::Challenge
     if self.challenge_id && !self.challenge_id.blank?
       original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
       
-      original_challenge_categories = original_challenge.categories.records.map(&:display_name)
-      original_challenge_platforms = original_challenge.platforms.records.map(&:display_name)
-      original_challenge_technologies = original_challenge.technologies.records.map(&:display_name)
+      original_challenge.categories[0] != nil ? original_challenge_platforms = original_challenge.platforms.records.map(&:name) : original_challenge_platforms = []
+      original_challenge.technologies[0] != nil ? original_challenge_technologies = original_challenge.technologies.records.map(&:name) : original_challenge_technologies = []
 
       stuff_to_delete = {
-        categories_to_delete: (original_challenge_categories - categories).map {|name| {name: name}},
         platforms_to_delete: (original_challenge_platforms - platforms).map {|name| {name: name}},
         technologies_to_delete: (original_challenge_technologies - technologies).map {|name| {name: name}},
 

@@ -78,12 +78,24 @@ class Admin::ChallengesController < ApplicationController
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
+
+    if @challenge.challenge_id && !@challenge.challenge_id.blank?
+      redirect_url = '/admin/challenges/'+ @challenge.challenge_id +'/edit'
+    else
+      redirect_url = '/admin/challenges/new'
+    end
+
     if @challenge.valid?
-      ap @challenge.payload.as_json
-      render json: @challenge.payload
+
+      # create or update challenge
+
+      redirect_to redirect_url, notice: 'Challenge saved'
+
+      #ap @challenge.payload.as_json
+      #render json: @challenge.payload
     else
       puts @challenge.errors.inspect
-      redirect_to new_admin_challenge_path, notice: 'Validation failed'
+      redirect_to redirect_url, notice: 'Validation failed'
     end
   end
 
