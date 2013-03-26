@@ -4,7 +4,8 @@ class Participant < ApiModel
   end
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
-    :country, :total_wins, :total_public_money, :override_submission_upload
+    :country, :total_wins, :total_public_money, :override_submission_upload,
+    :apis, :paas, :languages, :technologies, :submission_overview
 
   # Cleanup up the __r convention
   def initialize(params={})
@@ -33,9 +34,22 @@ class Participant < ApiModel
     end
   end 
 
-  def create_deliverable(challenge_id, membername, params)
-    self.class.naked_post "participants/#{member.name}/#{challenge_id}/deliverable", params
+  def update
+    params = {apis: apis, paas: paas, languages: languages, technologies: technologies,
+      submission_overview: submission_overview }.to_safe_values
+    self.class.naked_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
   end
+
+  def create_deliverable(challenge_id, membername, deliverable)
+    self.class.naked_post "participants/#{member.name}/#{challenge_id}/deliverable", {data: deliverable}
+  end
+
+  def update_deliverable(challenge_id, membername, deliverable)
+    massaged_deliverable = {}
+    # remove the raw data data attributes so it doesn't get pushed to the api and crash it
+    SubmissionDeliverable.column_names.each {|col| massaged_deliverable[col] = eval("deliverable.#{col}") }
+    self.class.naked_put "participants/#{member.name}/#{challenge_id}/deliverable", {data: massaged_deliverable}
+  end  
 
   # kicks off the squirrelforce process
   def deploy_deliverable(submission_deliverable_id)
