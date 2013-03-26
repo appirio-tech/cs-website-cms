@@ -48,7 +48,6 @@ CsWebsiteCms::Application.routes.draw do
       get 'participants'
       get 'preview'
       get 'submissions'
-      get 'submission' => redirect('/not_found') # no access to an old route
       get 'all_submissions' => redirect {|params| "/challenges/#{params[:id]}/submissions" }      
       get 'cal' => 'challenges#submissions'
       get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }

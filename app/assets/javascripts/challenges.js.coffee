@@ -1,4 +1,6 @@
 $ ->
+  window.submission = new Submission
+  
   if $(".submission-wrapper").length > 0
     window.submission = new Submission
   if $(".search-form.challenges").length > 0
