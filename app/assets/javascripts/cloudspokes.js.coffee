@@ -50,6 +50,13 @@ $ ->
 			password_again_container = $('#input-password-again-container')		
 
 			if($('#register-modal .error').length==0)
+
+				allowableCharacters = /^[0-9a-zA-Z_+]+$/
+				if(!username.match(allowableCharacters))
+					username_container = $('#input-username-container')
+					username_container.parents('.control-group').addClass('error')
+					username_container.append('<div class="help-inline">May only contain letters, numbers & underscores.</div>')
+
 				# check the password length and if ok make sure they match
 				if(password.length < 8)
 					password_container.parents('.control-group').addClass('error')
