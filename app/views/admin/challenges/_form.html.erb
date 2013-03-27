@@ -1,6 +1,26 @@
 <%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal jqTransform' } do |f| %>
   <%= f.hidden_field :challenge_id, value: @challenge.challenge_id %>
 
+      <style type="text/css">
+        .jqTransformSelectWrapper ul {
+          height: auto !important;
+        }
+
+        .jqTransformInputInner .select2-container-multi div {
+          height: auto;
+          margin: 2px 2px 2px 8px;
+          color: #222;
+        }
+
+        .datepicker {
+          width: 500px !important;
+          height: 160px !important;
+        }
+
+        a.btn {
+          padding: 0 8px;
+        }
+      </style>
       <div class='tabbable'>
 
         <ul class='nav nav-tabs'>
@@ -21,7 +41,7 @@
             <%= render 'assets', {f: f} %>
           </div>
           <div class='tab-pane' id='advanced'>
-
+            <%= render 'advanced', {f: f} %>
           </div>          
         </div>
 

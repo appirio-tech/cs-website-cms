@@ -1,0 +1,149 @@
+<legend>Advanced</legend>
+
+<%= f.input :terms_of_service, collection: ['Standard Terms & Conditions', 'Private Challenge'], default: 'Standard Terms & Conditions' %>
+<%= f.input :challenge_type, collection: %w(Code First2Finish Design Bug), default: 'Code' %>
+
+<!-- review date -->
+<div class="control-group">
+  <label class="control-label">Review Date</label>
+  <div class="controls">
+    <div id="date-range">
+      <div id="review-date">
+        <span id="display"></span>
+      </div>
+      <div id="datepicker-calendar"></div>
+      <%= f.hidden_field :review_date, id: "review-date-hidden" %>
+
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  var to = new Date(<%= @challenge.review_date.to_time.utc.to_i * 1000 %>);
+  var $elem = $('#review-date')
+  $elem.DatePicker({
+    mode: 'single',
+    calendars: 3,
+    inline: true,
+    date: to,
+    onChange: function(date,el) {
+      // update the range display
+      $('#review-date span#display').text(
+        date.getDate()+' '+date.getMonthName(true)+', '+
+        date.getFullYear()
+      )
+      $('#review-date-hidden').val($elem.DatePickerGetDate()[0])
+    }
+  })
+  $('#review-date-hidden').val($elem.DatePickerGetDate()[0])
+
+  // initialize the special date dropdown field
+  $('#review-date span#display').text(to.getDate()+' '+to.getMonthName(true)+', '+to.getFullYear());
+
+})
+</script>
+
+<!-- winner announced -->
+<div class="control-group">
+  <label class="control-label">Winner Announced</label>
+  <div class="controls">
+    <div id="date-range">
+      <div id="winner-announced-date">
+        <span id="display"></span>
+      </div>
+      <div id="datepicker-calendar"></div>
+      <%= f.hidden_field :winner_announced, id: "winner-announced-hidden" %>
+
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  var to = new Date(<%= @challenge.winner_announced.to_time.utc.to_i * 1000 %>);
+  var $elem = $('#winner-announced-date')
+  $elem.DatePicker({
+    mode: 'single',
+    calendars: 3,
+    inline: true,
+    date: to,
+    onChange: function(date,el) {
+      // update the range display
+      $('#winner-announced-date span#display').text(
+        date.getDate()+' '+date.getMonthName(true)+', '+
+        date.getFullYear()
+      )
+      $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0])
+    }
+  })
+  $('#winner-announced-hidden').val($elem.DatePickerGetDate()[0])
+
+  // initialize the special date dropdown field
+  $('#winner-announced-date span#display').text(to.getDate()+' '+to.getMonthName(true)+', '+to.getFullYear());
+
+})
+</script>
+
+<!-- community judging -->
+<div class="control-group">
+  <label class="control-label">Community judging</label>
+  <div class="controls">
+    <input type="checkbox" />
+  </div>
+</div>
+
+<%= f.input :reviewers %>
+
+<%= f.input :commentNotifiers %>
+
+<script>
+$(function() {
+  var member_search_settings = {
+    initSelection: function(element, callback) {
+      var data = [];
+      $(element.val().split(",")).each(function () {
+        data.push({name: this});
+      });
+      callback(data);
+    },
+    placeholder: "Search for a member",
+    minimumInputLength: 1,
+    multiple: true,
+    id: "name",
+    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+      url: "/members/search",
+      dataType: 'jsonp',
+      data: function (term, page) {
+        return {
+          keyword: term, // search term
+        };
+      },
+      results: function (data, page) { // parse the results into the format expected by Select2.
+        // since we are using custom formatting functions we do not need to alter remote JSON data
+        return {results: data};
+      }
+    },
+    formatResult: function(member) {
+      return member.name
+    },
+    formatSelection: function(member) {
+      return member.name
+    },
+    containerCssClass: "span6" // apply css that makes the dropdown taller
+  }
+
+  $('#admin_challenge_reviewers').val("<%= @challenge_reviewers.join(',') %>").select2(member_search_settings)
+  $('#admin_challenge_commentNotifiers').val("<%= @challenge_commentNotifiers.join(',') %>").select2(member_search_settings)
+})
+</script>
+
+<!-- private community -->
+<div class="control-group">
+  <label class="control-label">Private community</label>
+  <div class="controls">
+    <input type="checkbox" />
+  </div>
+</div>
