@@ -80,7 +80,7 @@ class Admin::ChallengesController < ApplicationController
     @challenge = Admin::Challenge.new(params[:admin_challenge])
 
     if @challenge.challenge_id && !@challenge.challenge_id.blank?
-      redirect_url = '/admin/challenges/'+ @challenge.challenge_id +'/edit'
+      redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
     else
       redirect_url = '/admin/challenges/new'
     end

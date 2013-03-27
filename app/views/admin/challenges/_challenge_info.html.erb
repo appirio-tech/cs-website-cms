@@ -16,12 +16,12 @@
       <div id="datepicker-calendar"></div>
       <%= f.hidden_field :start_date, id: "date-range-hidden-start" %>
       <%= f.hidden_field :end_date, id: "date-range-hidden-end" %>
-      <span class="help-inline">the first click will set the start date, the second click will set the end date</span>
+      <span class="help-inline">The first click will set the start date, the second click will set the end date</span>
     </div>
   </div>
 </div>
 
-<%= f.input :start_date, as: :time, label: 'Time', required: false, hint: 'Times are in your local time zone' %>
+<%= f.input :start_date, as: :time, label: 'End Time', required: false, hint: 'Times are in your local time zone' %>
 
 <script>
 // we need erb here as well. for later refactoring, we should move these to
@@ -120,4 +120,4 @@ $(function() {
 
 
 
-<%= f.input :comments, :as => :text, input_html: { :class => 'ckeditor' } %>
+<%= f.input :comments, :as => :text, input_html: { :class => 'ckeditor' }, hint: 'These are internal comments only.' %>

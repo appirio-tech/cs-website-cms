@@ -4,7 +4,7 @@
 
   <div class="span10">
 
-	  <a class="btn btn-primary" type="button" href="/new"><span>New Challenge</span></a>
+	  <a class="btn btn-primary" type="button" href="<%= new_admin_challenge_path %>"><span>New Challenge</span></a>
 	  <br/><br/>
 	 
 	  <table class="table table-hover table-bordered">
@@ -19,7 +19,7 @@
 	    <tbody>
 	    	<% @challenges.each do |challenge| %>
 	      <tr>
-	        <td><%= challenge.name %></td>
+	        <td><%= link_to challenge.name, edit_admin_challenge_path(challenge) %></td>
 	        <td><%= challenge.status %></td>
 	        <td><%= challenge.challenge_type %></td>
 	        <td><%= format_challenge_end_date(challenge.end_date_utc) %></td>
