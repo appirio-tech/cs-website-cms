@@ -5,9 +5,10 @@ class Challenge < ApiModel
     :prize_type, :total_prize_money, :top_prize,
     :start_date, :end_date, :review_date, :usage_details, :requirements, :post_reg_info,
     :name, :description, :status, :release_to_open_source, :additional_info,
-    :categories, :is_open, :discussion_board, :registered_members, :challenge_prizes,
+    :categories, :platforms, :technologies, 
+    :is_open, :discussion_board, :registered_members, :challenge_prizes,
     :submission_details, :winner_announced, :community, :days_till_close,
-    :platforms, :technologies, :submissions, :participating_members, :default_tos,
+    :submissions, :participating_members, :default_tos,
     :challenge_prizes, :challenge_participants, :registration_end_date, :account,
     :blogged, :auto_blog_url,
 
@@ -24,6 +25,9 @@ class Challenge < ApiModel
   def initialize(params={})
     # there has GOT to be some better way to clean this up ...
     params['categories'] = params.delete('challenge_categories__r') if params['challenge_categories__r']
+    params['platforms'] = params.delete('challenge_platforms__r') if params['challenge_platforms__r']
+    params['technologies'] = params.delete('challenge_technologies__r') if params['challenge_technologies__r']
+
     params['challenge_participants'] = params.delete('challenge_participants__r') if params['challenge_participants__r']
     params['community'] = params.delete('community__r') if params['community__r']
     params['terms_of_service'] = params.delete('terms_of_service__r') if params['terms_of_service__r']
@@ -32,8 +36,6 @@ class Challenge < ApiModel
     params['challenge_comment_notifiers'] = params.delete('challenge_comment_notifiers__r') if params['challenge_comment_notifiers__r']
     params['challenge_prizes'] = params.delete('challenge_prizes__r') if params['challenge_prizes__r']
     params['assets'] = params.delete('assets__r') if params['assets__r']
-    params['platforms'] = params.delete('challenge_platforms__r') if params['challenge_platforms__r']
-    params['technologies'] = params.delete('challenge_technologies__r') if params['challenge_technologies__r']
 
     begin
       params['challenge_prizes'] = params['challenge_prizes'].records.map do |entry|

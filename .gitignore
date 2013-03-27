@@ -28,6 +28,9 @@ doc/app
 .yardopts
 coverage
 
+# Public Assets
+public/assets/*
+
 # Public Uploads
 public/system/*
 public/themes/*
