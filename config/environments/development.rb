@@ -20,15 +20,15 @@ CsWebsiteCms::Application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.delivery_method = :smtp
-  # to test the mailer... hard code the username & password
+  
   ActionMailer::Base.smtp_settings = {
-    :address        => "smtp.gmail.com",
-    :port           => "587",
+    :address        => ENV['DEV_MAILSERVER_ADDRESS'],
+    :port           => ENV['DEV_MAILSERVER_PORT'],
     :authentication => :plain,
     :enable_starttls_auto => true,
-    :domain         => 'gmail.com',
-    :user_name      => 'jeffdonthemic.test@gmail.com',
-    :password       => 'q9]1Bm6z3O'
+    :domain         => ENV['DEV_MAILSERVER_DOMAIN'],
+    :user_name      => ENV['DEV_MAILSERVER_USERNAME'],
+    :password       => ENV['DEV_MAILSERVER_PASSWORD']
   }    
 
   # Print deprecation notices to the Rails logger
