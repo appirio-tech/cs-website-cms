@@ -1,4 +1,4 @@
-/* line 1, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 1, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-widget-overlay {
   position: absolute;
   top: 0px;
@@ -11,7 +11,7 @@
   background: #000;
 }
 
-/* line 12, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 12, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog {
   position: absolute;
   background-color: #fff;
@@ -19,7 +19,7 @@
   border: 4px solid #22A7F2;
   width: auto;
 }
-/* line 18, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 18, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog #dialog_loading {
   position: fixed;
   top: 50%;
@@ -28,14 +28,14 @@
   height: 13px;
   margin: -6px 0 0 -104px;
 }
-/* line 26, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 26, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog .ui-dialog-titlebar {
   position: relative;
   width: 100%;
   height: 33px;
   background-color: #22A7F2;
 }
-/* line 32, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 32, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog .ui-dialog-title {
   float: left;
   height: 33px;
@@ -44,7 +44,7 @@
   padding-left: 10px;
   color: white;
 }
-/* line 40, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 40, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog .ui-dialog-titlebar-close {
   position: absolute;
   right: 10px;
@@ -52,18 +52,18 @@
   width: 19px;
   border: none;
 }
-/* line 46, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 46, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog .ui-dialog-titlebar-close span {
   display: block;
   margin: 1px;
   background: transparent url(/assets/refinery/cross.png) top left no-repeat;
   text-indent: -10000px;
 }
-/* line 53, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 53, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
   padding: 0;
 }
-/* line 56, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 56, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-dialog iframe {
   clear: both;
   border: 0px none;
@@ -73,7 +73,7 @@
 }
 
 /** Hide the tab without using display:none; This is required to hide flash embeds etc.**/
-/* line 65, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 65, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-tabs-hide {
   display: block !important;
   height: 0 !important;
@@ -84,14 +84,14 @@
   left: -10000px;
   top: -10000px;
 }
-/* line 75, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 75, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-tabs-hide object,
 .ui-tabs-hide embed {
   height: 0px !important;
   width: 0px !important;
 }
 
-/* line 80, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 80, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ie7 .ui-tabs-hide {
   display: none !important !important;
   height: auto !important !important;
@@ -99,14 +99,14 @@
   position: static;
 }
 
-/* line 86, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 86, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-tabs li.ui-state-default {
   float: left;
   list-style: none;
   margin-right: 2px;
 }
 
-/* line 91, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 91, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-tabs .ui-state-default a {
   background-color: #bcbcbc;
   color: white;
@@ -116,7 +116,7 @@
   margin-top: 6px;
 }
 
-/* line 99, ../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
+/* line 99, ../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/refinery/ui.css.scss */
 .ui-tabs .ui-state-active a {
   background-color: #808080;
   padding: 11px 13px;

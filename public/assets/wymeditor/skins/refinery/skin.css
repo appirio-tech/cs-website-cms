@@ -1,5 +1,5 @@
 /*TRYING TO RESET STYLES THAT MAY INTERFERE WITH WYMEDITOR*/
-/* line 4, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 4, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery p, .wym_skin_refinery h2, .wym_skin_refinery h3,
 .wym_skin_refinery ul, .wym_skin_refinery li {
   background: transparent;
@@ -10,43 +10,43 @@
 }
 
 /*HIDDEN BY DEFAULT*/
-/* line 14, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 14, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_left {
   display: none;
 }
 
-/* line 17, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 17, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_right {
   display: block;
 }
 
 /*TYPO*/
-/* line 23, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 23, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery {
   font-size: 62.5%;
   font-family: Verdana, Arial, sans-serif;
 }
 
-/* line 27, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 27, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery h2 {
   font-size: 110%;
   /* = 11px */
 }
 
-/* line 30, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 30, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery h3 {
   font-size: 100%;
   /* = 10px */
 }
 
-/* line 33, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 33, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li {
   font-size: 100%;
   /* = 10px */
 }
 
 /*WYM_BOX*/
-/* line 39, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 39, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery {
   border: 1px solid #CCCCCC;
   background: #F2F2F2;
@@ -54,7 +54,7 @@
 }
 
 /*auto-clear the wym_box*/
-/* line 46, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 46, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery:after {
   content: ".";
   display: block;
@@ -63,18 +63,18 @@
   visibility: hidden;
 }
 
-/* line 53, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 53, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_skin_refinery {
   height: 1%;
 }
 
 /*WYM_HTML*/
-/* line 59, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 59, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_html {
   width: 100%;
 }
 
-/* line 62, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 62, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_html textarea {
   width: 100% !important;
   height: 400px;
@@ -83,81 +83,81 @@
 }
 
 /*WYM_IFRAME*/
-/* line 70, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 70, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_iframe {
   width: 100%;
 }
 
-/* line 73, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 73, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_iframe iframe {
   border: 1px solid #CCCCCC;
 }
 
-/* line 76, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 76, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_iframe iframe {
   width: 100%;
   background: white;
 }
 
-/* line 80, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 80, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
   height: 400px;
 }
 
 /*AREAS*/
-/* line 85, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 85, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_left {
   width: 150px;
   float: left;
 }
 
-/* line 89, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 89, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_right {
   width: 150px;
   float: right;
 }
 
-/* line 93, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 93, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_bottom {
   height: 1%;
   clear: both;
 }
 
-/* line 97, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 97, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_skin_refinery .wym_area_main {
   height: 1%;
 }
 
-/* line 100, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 100, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_skin_refinery .wym_area_top {
   height: 1%;
 }
 
-/* line 103, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 103, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_skin_refinery .wym_area_top {
   height: 1%;
 }
 
-/* line 106, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 106, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .ie6 .wym_skin_refinery .wym_area_top, .ie7 .wym_skin_refinery .wym_area_top, .ie8 .wym_skin_refinery .wym_area_top {
   padding-bottom: 5px;
 }
 
 /*SECTIONS SYSTEM*/
 /*common defaults for all sections*/
-/* line 113, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 113, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section {
   margin-bottom: 5px;
 }
 
-/* line 117, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 117, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section h2,
 .wym_skin_refinery .wym_section h3 {
   padding: 1px 3px;
   margin: 0;
 }
 
-/* line 121, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 121, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section a {
   padding: 0 3px;
   display: block;
@@ -165,26 +165,26 @@ textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
   color: black;
 }
 
-/* line 127, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 127, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section a:hover, .wym_skin_refinery .wym_section a.selected {
   background-color: #22A7F2;
   color: white;
 }
 
 /*hide section titles by default*/
-/* line 132, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 132, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section h2 {
   display: none;
 }
 
 /*disable any margin-collapse*/
-/* line 136, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 136, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section {
   padding: 0px;
 }
 
 /*auto-clear sections*/
-/* line 140, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 140, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section ul:after {
   content: ".";
   display: block;
@@ -193,50 +193,50 @@ textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
   visibility: hidden;
 }
 
-/* line 147, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 147, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_skin_refinery .wym_section ul {
   height: 1%;
 }
 
 /*option: add this class to a section to make it render as a panel*/
-/* line 154, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 154, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_panel h2 {
   display: block;
 }
 
 /*option: add this class to a section to make it render as a dropdown menu*/
-/* line 159, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 159, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_dropdown h2 {
   display: block;
 }
 
-/* line 162, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 162, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_dropdown ul {
   display: none;
   position: absolute;
   background: white;
 }
 
-/* line 168, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 168, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_dropdown:hover ul,
 .wym_skin_refinery .wym_dropdown.hover ul {
   display: block;
 }
 
 /*option: add this class to a section to make its elements render buttons (icons are only available for the wym_tools section for now)*/
-/* line 173, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 173, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons li {
   float: left;
 }
 
-/* line 176, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 176, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons a {
   width: auto;
   height: 24px;
   overflow: hidden;
 }
 
-/* line 182, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 182, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li a {
   background-color: #F2F2F2;
   background-repeat: no-repeat;
@@ -250,7 +250,7 @@ textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
 }
 
 /* spacing */
-/* line 200, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 200, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_containers_p
 , .wym_skin_refinery .wym_section li.wym_containers_h2
 , .wym_skin_refinery .wym_section li.wym_tools_strong
@@ -260,7 +260,7 @@ textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
   margin-right: 1px;
 }
 
-/* line 206, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 206, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_unordered_list
 , .wym_skin_refinery .wym_section li.wym_tools_link
 , .wym_skin_refinery .wym_section li.wym_tools_image
@@ -271,35 +271,35 @@ textarea.wymeditor, .wym_skin_refinery .wym_iframe iframe {
 }
 
 /* image replacements */
-/* line 217, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 217, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_ordered_list a, .wym_skin_refinery .wym_section li.wym_tools_unordered_list a, .wym_skin_refinery .wym_section li.wym_tools_link a, .wym_skin_refinery .wym_section li.wym_tools_unlink a, .wym_skin_refinery .wym_section li.wym_tools_image a, .wym_skin_refinery .wym_section li.wym_tools_table a, .wym_skin_refinery .wym_section li.wym_tools_html a, .wym_skin_refinery .wym_section li.wym_tools_class a {
   padding-left: 24px;
 }
-/* line 222, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 222, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_ordered_list a {
   background-image: url(/assets/wymeditor/skins/refinery/text_list_numbers.png);
 }
-/* line 225, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 225, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_unordered_list a {
   background-image: url(/assets/wymeditor/skins/refinery/text_list_bullets.png);
 }
-/* line 228, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 228, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_link a {
   background-image: url(/assets/wymeditor/skins/refinery/link_add.png);
 }
-/* line 231, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 231, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_unlink a {
   background-image: url(/assets/wymeditor/skins/refinery/link_break.png);
 }
-/* line 234, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 234, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_image a {
   background-image: url(/assets/wymeditor/skins/refinery/photo_add.png);
 }
-/* line 237, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 237, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_table a {
   background-image: url(/assets/wymeditor/skins/refinery/table_add.png);
 }
-/* line 240, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 240, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section li.wym_tools_html a {
   background-image: url(/assets/wymeditor/skins/refinery/page_code.png);
 }
@@ -310,7 +310,7 @@ text-indent: -9999px;
 background-repeat: no-repeat;
 background-position: 4px 4px;
 } */
-/* line 252, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 252, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons li.wym_tools_strong a, .wym_skin_refinery .wym_buttons li.wym_tools_emphasis a {
   width: 20px;
   height: 20px;
@@ -321,12 +321,12 @@ background-position: 4px 4px;
   background-position: 4px 4px;
 }
 
-/* line 261, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 261, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons li.wym_tools_strong a {
   background-image: url(/assets/wymeditor/skins/refinery/text_bold.png);
 }
 
-/* line 264, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 264, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons li.wym_tools_emphasis a {
   background-image: url(/assets/wymeditor/skins/refinery/text_italic.png);
 }
@@ -379,7 +379,7 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
 }
 */
 /* make tools and containers play nicely next to eachother */
-/* line 317, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 317, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_tools, .wym_skin_refinery .wym_containers,
 .wym_skin_refinery .wym_classes_container {
   float: left;
@@ -387,12 +387,12 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
 }
 
 /* image replacements for containers */
-/* line 323, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 323, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_containers li {
   float: left;
 }
 
-/* line 326, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 326, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_containers li a, .wym_skin_refinery li.wym_tools_class a {
   background-repeat: no-repeat;
   width: auto;
@@ -401,7 +401,7 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
   border: 0px none;
 }
 
-/* line 333, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 333, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_containers li a {
   background-repeat: no-repeat;
   background-position: center center;
@@ -412,60 +412,60 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
   border: 0px none;
 }
 
-/* line 341, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 341, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h1 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_1.png);
 }
 
-/* line 344, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 344, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h2 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_2.png);
 }
 
-/* line 347, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 347, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h3 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_3.png);
 }
 
-/* line 350, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 350, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h4 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_4.png);
 }
 
-/* line 353, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 353, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h5 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_5.png);
 }
 
-/* line 356, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 356, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_h6 a {
   background-image: url(/assets/wymeditor/skins/refinery/text_heading_6.png);
 }
 
-/* line 359, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 359, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_containers_p a {
   background-image: url(/assets/wymeditor/skins/refinery/text_paragraph.png);
 }
 
-/* line 362, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 362, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery li.wym_tools_class a {
   background-image: url(/assets/wymeditor/skins/refinery/style.png);
 }
 
 /*DECORATION*/
-/* line 368, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 368, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section h2 {
   background: #DDD;
   border: solid gray;
   border-width: 0 0 1px;
 }
 
-/* line 373, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 373, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_section h2 span {
   color: gray;
 }
 
-/* line 376, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 376, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_panel {
   padding: 0;
   border: solid gray;
@@ -473,19 +473,19 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
   background: white;
 }
 
-/* line 382, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 382, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_panel ul {
   margin: 2px 0 5px;
 }
 
-/* line 385, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 385, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_dropdown {
   padding: 0;
   border: solid gray;
   border-width: 1px 1px 0 1px;
 }
 
-/* line 390, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 390, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_dropdown ul {
   border: solid gray;
   border-width: 0 1px 1px 1px;
@@ -494,17 +494,17 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
 }
 
 /*DIALOGS*/
-/* line 398, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 398, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row {
   margin-bottom: 5px;
 }
 
-/* line 401, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 401, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row input {
   margin-right: 5px;
 }
 
-/* line 404, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 404, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row label {
   float: left;
   width: 150px;
@@ -513,13 +513,13 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
   margin-right: 10px;
 }
 
-/* line 411, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 411, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row-indent {
   padding-left: 160px;
 }
 
 /*autoclearing*/
-/* line 415, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 415, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row:after {
   content: ".";
   display: block;
@@ -528,25 +528,25 @@ background-image: image_url('wymeditor/skins/refinery/eye.png');
   visibility: hidden;
 }
 
-/* line 422, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 422, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row {
   display: inline-block;
 }
 
 /* Hides from IE-mac \*/
-/* line 426, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 426, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 * html .wym_dialog div.row {
   height: 1%;
 }
 
-/* line 429, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 429, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_dialog div.row {
   display: block;
 }
 
 /* End hide from IE-mac */
 /*WYMEDITOR_LINK*/
-/* line 435, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 435, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 a.wym_wymeditor_link {
   text-indent: -9999px;
   float: right;
@@ -559,27 +559,27 @@ a.wym_wymeditor_link {
 }
 
 /* hide containers and classes */
-/* line 448, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 448, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_right, .wym_skin_refinery .wym_area_bottom {
   display: none !important;
 }
 
-/* line 451, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 451, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_area_main {
   margin-right: 0px !important;
 }
 
-/* line 455, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 455, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons ul, .wym_buttons ul li {
   margin: 0px;
 }
 
-/* line 459, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 459, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons li a {
   border-bottom: 0px !important;
 }
 
-/* line 463, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 463, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 #dialog_frame {
   width: 928px;
   height: 500px;
@@ -587,12 +587,12 @@ a.wym_wymeditor_link {
   border: 0px solid #F2F1ED;
 }
 
-/* line 469, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 469, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_hideables {
   display: none;
 }
 
-/* line 473, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 473, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_classes {
   display: block;
   position: absolute;
@@ -602,17 +602,17 @@ a.wym_wymeditor_link {
   width: 200px;
 }
 
-/* line 481, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 481, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_classes_hidden {
   display: none;
 }
 
-/* line 484, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 484, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_tools_class.activated {
   position: relative;
 }
 
-/* line 487, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 487, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons .wym_tools_class .wym_classes li {
   float: left;
   width: 200px;
@@ -620,7 +620,7 @@ a.wym_wymeditor_link {
   background-color: #F6F5F4;
 }
 
-/* line 493, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 493, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_buttons .wym_tools_class .wym_classes li a {
   text-indent: 0px;
   background-image: none;
@@ -629,7 +629,7 @@ a.wym_wymeditor_link {
   width: auto;
 }
 
-/* line 500, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 500, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_tools_class .wym_classes .wym_tools_class_multiple_rules span {
   display: block;
   cursor: auto;
@@ -640,7 +640,7 @@ a.wym_wymeditor_link {
   background: #EDEEDE;
 }
 
-/* line 511, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 511, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_tools_class .wym_classes .wym_tools_class_multiple_rules ul li a {
   width: 167px;
   padding-left: 12px;
@@ -649,19 +649,19 @@ a.wym_wymeditor_link {
   line-height: 20px;
 }
 
-/* line 519, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 519, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_tools_class .wym_classes li.enabled a {
   background-image: url(/assets/refinery/icons/star.png);
   background-repeat: no-repeat;
   background-position: 181px 2px;
 }
 
-/* line 525, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 525, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery .wym_status.wym_section {
   display: none;
 }
 
-/* line 529, ../../../../../../../.rvm/gems/ruby-1.9.2-p290/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
+/* line 529, ../../../../../../../../../usr/local/rvm/gems/ruby-1.9.3-p374/gems/refinerycms-core-2.0.8/app/assets/stylesheets/wymeditor/skins/refinery/skin.css.scss */
 .wym_skin_refinery {
   opacity: 0;
 }

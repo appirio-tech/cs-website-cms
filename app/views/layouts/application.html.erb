@@ -13,11 +13,15 @@
     <link rel="shortcut icon" type="image/png" href="/assets/favicon.png" />
 
     <%= include_gon %>
-    <!-- styles -->
-    <link href="/assets/base.css" rel="stylesheet">
-    <link href="/assets/responsive.css" rel="stylesheet">
-    <link href="/assets/screen.css" rel="stylesheet">
 
+    <!-- styles -->
+    <link href="/assets/bootstrap.css" rel="stylesheet">
+    <link href="/assets/bootstrap-responsive.css" rel="stylesheet">
+
+    <link href="/assets/screen.css" rel="stylesheet">
+    <%= stylesheet_link_tag params[:controller] %>
+
+    <!-- vendor styles -->
     <link href="/assets/select2.css" rel="stylesheet">
     <link href="/assets/datepicker/base.css" rel="stylesheet">
     <link href="/assets/datepicker/clean.css" rel="stylesheet">
@@ -25,12 +29,14 @@
 
     <!-- script -->
     <%= javascript_include_tag "base" %>
-    <script src="/assets/bootstrap-typeahead.js"></script>
+
     <%= javascript_include_tag "script" %>
-    <!-- not sure why this is not being picked up in applcition.js?? -->
-    <%= javascript_include_tag "cloudspokes" %>
     <%= javascript_include_tag params[:controller] %>
 
+    <%= javascript_include_tag "bootstrap-typeahead.js" %>
+    <%= javascript_include_tag "cloudspokes" %>
+    
+    <!-- vendor scripts -->
     <%= javascript_include_tag "select2" %>
     <%= javascript_include_tag "datepicker" %>
     <%= javascript_include_tag "plupload" %>
@@ -38,6 +44,7 @@
     <%= javascript_include_tag "plupload.html5" %>
     <%= javascript_include_tag "jquery.plupload.queue" %>
     <%= javascript_include_tag "ckeditor-jquery" %>
+    <%= javascript_include_tag "filedrop.jquery" %>
 
     <!-- start Google analytics -->
     <script type="text/javascript">
