@@ -1,5 +1,120 @@
-/*add own css*/
+/* custom styles here */
+/** // aprosxacs -- member / challenge typeahead **/
+form.challenges-filter .filter {
+  margin-bottom: 10px;
+}
+form.challenges-filter .state {
+  margin: 0 0 20px 20px;
 
+}
+form.challenges-filter .state label {
+  width: 150px;
+}
+/** // aprosxacs -- comments **/
+
+/** // soe -- global search box **/
+.dropdown-menu a span.source {
+  vertical-align: top;
+}
+.dropdown-menu a span.name {
+  white-space: normal;
+}
+.dropdown-menu a span.name i {
+  display: none;
+}
+/** // soe -- global search box **/
+
+.comment {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.comment.reply, .reply-form {
+  margin-left: 40px;
+}
+.comment .profile-picture {
+  float: left;
+  width: 60px;
+  padding: 10px;
+}
+.comment .profile-picture img {
+  width: 50px;
+  height: 50px;
+}
+.comment .main {
+  margin-left: 80px;
+  padding: 10px;
+}
+.comment .main .text {
+  color: #444;
+  margin-bottom: 10px;
+}
+.comment .main .info {
+  font-size: 12px;
+}
+.comment .main .info .time {
+  color: #999;
+}
+form input[type=submit] {
+  border: none;
+  padding: 0 10px;
+}
+form.new-comment textarea {
+  height: 6em;
+  width: 90%;
+}
+
+.typeahead.dropdown-menu {
+  margin-top: 7px;
+}
+.typeahead.dropdown-menu li > a {
+  padding: 5px 10px;
+}
+.dropdown-menu a span.source {
+  display: inline-block;
+  width: 80px;
+  font-size: 0.9em;
+  color: #999;
+  border-right: 1px solid #aaa;
+  text-align: right;
+  margin-right: 5px;
+  padding-right: 5px;
+}
+.dropdown-menu a span.source .count {
+  font-weight: bold;
+  color: #666;
+}
+.dropdown-menu li.active a span.source, .dropdown-menu li.active a span.source .count {
+  color: white;
+}
+.dropdown-menu a span.source img {
+  width: 32px;
+}
+.dropdown-menu a span.name {
+  display: inline-block;
+  width: 200px;
+}
+.dropdown-menu a span.name i {
+  margin-right: 5px;
+}
+.dropdown-menu a span.prizes, .dropdown-menu a span.wins {
+  color: green;
+  font-size: 0.9em;
+}
+.dropdown-menu li.active a span.prizes, .dropdown-menu li.active a span.wins {
+  color: white;
+}
+
+form.invite-friends .item {
+  margin-bottom: 5px;
+} 
+
+/** // end aprosxacs -- comments **/
+
+
+/* styles below used to be part of screen.css */
+
+/* starts screen.css */
 .jqTransformRadioWrapper {
 	margin-top: 0;
 }
@@ -581,3 +696,5 @@ ul.brief-info {
     line-height: 40px;
     color: white;
 }
+
+/* ends screen.css */

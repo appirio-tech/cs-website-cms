@@ -21,7 +21,7 @@ module ChallengesHelper
   end
 
   def format_long_challenge_name(name)
-    if name.length > 45
+    if name && name.length > 45
       "#{name[0...43]}..."
     else
       name
