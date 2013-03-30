@@ -12,6 +12,12 @@ unless jQuery.fn.highlight
           "opacity": ".9"   
         .fadeOut(1500)
 
+$ ->
+  if $(".submission-wrapper").length > 0
+    window.submission = new Submission
+
+  $(".select2").select2()
+
 class window.Submission
   constructor: ->
     @diliverableFormTemplate = $(".new-deliverable form").clone()
@@ -20,6 +26,7 @@ class window.Submission
     @initDeliverableForm()
     @initFileUpload()
     $("select.chosen").chosen()
+    $(".new-deliverable form").jqTransform()
 
   initSubmissionForm: ->
     $("form.submission").bind "ajax:before", ->
@@ -46,8 +53,10 @@ class window.Submission
       event.preventDefault()
       $(this).parents("form").slideUp()
 
-    $("form.deliverable select.type option[value=Code]").remove()
-    $("form.deliverable select.type").live "change", (event) ->
+    # $("form.deliverable select.deliverable-type option[value=Code]").remove()
+    $("form.deliverable select.paas").parents(".control-group").hide()
+    
+    $("body").on "change", "select.deliverable-type", (event) ->
       self.deliverableFormTypeChanged(this)
 
     $("form.deliverable").bind "ajax:before", ->
@@ -102,11 +111,11 @@ class window.Submission
     deliverable = $(ele).parents(".deliverable").data("deliverable")
     form = @diliverableFormTemplate.clone()
     if deliverable.source != "storage"
-      form.find("select.type option[value=Code]").remove()
+      form.find("select.deliverable-type option[value=Code]").remove()
     form.attr("action", ele.href)
     form.find("h4").text("Edit Deliverable")
     form.find("[type=submit]").val("update")
-    form.find("select.type").val(deliverable.type)
+    form.find("select.deliverable-type").val(deliverable.type)
     form.find("input.url").val(deliverable.url).attr("readonly", deliverable.source == "storage")
     form.find("textarea.comments").val(deliverable.comments)
     form.find("select.paas").val(deliverable.paas)
@@ -120,7 +129,7 @@ class window.Submission
 
     form.hide()
     $(ele).parents(".deliverable").find(".form-wrapper").empty().append(form)
-    form.find("select.chosen").chosen()
+    form.jqTransform()
     form.slideDown()
 
   deliverableFormbeforeAjax: (form) ->
@@ -155,7 +164,7 @@ class window.Submission
     ele = $("<div class='deliverable'>").attr("id", "deliverable-" + deliverable.id)
       .data("deliverable", deliverable)
     info = $("<div class='clearfix info'>")
-    info.append("<div class='type'>" + deliverable.type + "</div>")
+    info.append("<div class='label'>" + deliverable.type + "</div>")
     info.append("<div class='url'>" + deliverable.url + "</div>")
 
     actions = $("<div class='actions'>")
@@ -176,18 +185,18 @@ class window.Submission
     ele.highlight()
 
   checkDeliverableFormValidation: (form) ->
-    type = $(form).find("select.type").val()
+    type = $(form).find("select.deliverable-type").val()
     url = $(form).find("input.url").val()
 
     result = true
     $(form).find(".controls .error").remove()
     if type.length == 0
-      @addDeliverableFormError($(form).find("select.type"), "type cannot be blank!")
+      @addDeliverableFormError($(form).find("select.deliverable-type"), "type cannot be blank!")
       result = false
 
     deliverable = $(form).parents(".deliverable").data("deliverable")
     if type == "Code" and @hasCodeTypeExcept(deliverable)
-      @addDeliverableFormError($(form).find("select.type"), "Code should be uniq!")
+      @addDeliverableFormError($(form).find("select.deliverable-type"), "Code should be uniq!")
       result = false
 
     if url.length == 0

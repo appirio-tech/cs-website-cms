@@ -19,6 +19,8 @@ class Submission < Hashie::Mash
       submission.deliverables ||= []
       submission.deliverables.concat deliverables
 
+      puts submission.to_json
+
       submission
     end
 
@@ -30,10 +32,10 @@ class Submission < Hashie::Mash
       @storage ||= begin
         fog = Fog::Storage.new(
           :provider                 => 'AWS',
-          :aws_secret_access_key    => ENV['S3_SECRET'],
-          :aws_access_key_id        => ENV['S3_KEY']
+          :aws_secret_access_key    => ENV['AWS_SECRET'],
+          :aws_access_key_id        => ENV['AWS_KEY']
         )
-        fog.directories.get(ENV['S3_BUCKET'])
+        fog.directories.get(ENV['AWS_BUCKET'])
       end
     end
   end
@@ -81,11 +83,15 @@ class Submission < Hashie::Mash
   end
 
   def upload_file(file)
+    puts "upload_file"
     file = storage.files.create(
       :key    => storage_path(File.basename(file.original_filename)),
       :body   => file.read,
       :public => true
     )
+
+    puts file.key
+
     create_deliverable type: "Unmanaged Package", url: file.key, source: "storage"
   end
 

@@ -1,4 +1,5 @@
 class DeliverablesController < ApplicationController
+
   def create
     @deliverable = submission.create_deliverable(params[:deliverable])
 
@@ -9,6 +10,7 @@ class DeliverablesController < ApplicationController
   end
 
   def upload
+    puts params[:file]
     @deliverable = submission.upload_file(params[:file])  
     render json: @deliverable
   end

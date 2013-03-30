@@ -218,6 +218,7 @@ class Challenge < ApiModel
   end  
 
   def submission_of(user)
+    puts "submission_of(#{challenge_id}, #{user.username})"
     Submission.find(challenge_id, user.username)
   end 
 
