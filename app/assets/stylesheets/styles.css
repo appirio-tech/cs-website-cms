@@ -1,5 +1,4 @@
-/*add own css*/
-
+/* custom styles here */
 /** // aprosxacs -- member / challenge typeahead **/
 form.challenges-filter .filter {
   margin-bottom: 10px;
@@ -112,6 +111,10 @@ form.invite-friends .item {
 
 /** // end aprosxacs -- comments **/
 
+
+/* styles below used to be part of screen.css */
+
+/* starts screen.css */
 .jqTransformRadioWrapper {
 	margin-top: 0;
 }
@@ -693,3 +696,5 @@ ul.brief-info {
     line-height: 40px;
     color: white;
 }
+
+/* ends screen.css */
