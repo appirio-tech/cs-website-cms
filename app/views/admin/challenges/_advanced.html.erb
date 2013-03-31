@@ -1,7 +1,16 @@
-<legend>Advanced</legend>
+<%= f.input :challenge_type, collection: @challenge.categories, default: 'Code' %>
 
-<%= f.input :terms_of_service, collection: ['Standard Terms & Conditions', 'Private Challenge'], default: 'Standard Terms & Conditions' %>
-<%= f.input :challenge_type, collection: %w(Code First2Finish Design Bug), default: 'Code' %>
+<%= f.input :scorecard_type, collection: @challenge.scorecards, default: 'Sandbox' %>
+
+<%= f.input :community, label: 'Private Community?' ,collection: @challenge.communities %>
+
+<%= f.input :community_judging, label: 'Community Judging?', collection: [['Yes', true] ,['No', false]], default: true %>
+
+<%= f.input :terms_of_service, collection: @challenge.terms_of_services, default: 'Standard Terms & Conditions' %>
+
+<%= f.input :reviewers %>
+
+<%= f.input :commentNotifiers %>
 
 <!-- review date -->
 <div class="control-group">
@@ -87,18 +96,6 @@ $(function() {
 })
 </script>
 
-<!-- community judging -->
-<div class="control-group">
-  <label class="control-label">Community judging</label>
-  <div class="controls">
-    <input type="checkbox" />
-  </div>
-</div>
-
-<%= f.input :reviewers %>
-
-<%= f.input :commentNotifiers %>
-
 <script>
 $(function() {
   var member_search_settings = {
@@ -139,11 +136,3 @@ $(function() {
   $('#admin_challenge_commentNotifiers').val("<%= @challenge_commentNotifiers.join(',') %>").select2(member_search_settings)
 })
 </script>
-
-<!-- private community -->
-<div class="control-group">
-  <label class="control-label">Private community</label>
-  <div class="controls">
-    <input type="checkbox" />
-  </div>
-</div>

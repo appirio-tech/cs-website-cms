@@ -8,6 +8,7 @@ class Admin::ChallengesController < ApplicationController
 
   def new
     @challenge = Admin::Challenge.new
+    puts @challenge.challenge_id.nil?
 
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
@@ -24,7 +25,11 @@ class Admin::ChallengesController < ApplicationController
   def edit
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
-    #render :json => @challenge
+        puts @challenge.challenge_id
+    #=render :json => @challenge
+
+    # clean up places -- '1st' to 1
+    @challenge.prizes.each { |p| p.place = p.place[0..0] }
 
     @challenge_platforms = @challenge.platforms.records.map(&:name)
     @challenge_technologies = @challenge.technologies.records.map(&:name)
@@ -79,7 +84,7 @@ class Admin::ChallengesController < ApplicationController
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
 
-    if @challenge.challenge_id && !@challenge.challenge_id.blank?
+    if @challenge.challenge_id
       redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
     else
       redirect_url = '/admin/challenges/new'
@@ -89,14 +94,17 @@ class Admin::ChallengesController < ApplicationController
 
       # create or update challenge
 
-      redirect_to redirect_url, notice: 'Challenge saved'
+      #redirect_to redirect_url, notice: 'Challenge saved'
 
       #ap @challenge.payload.as_json
       #render json: @challenge.payload
     else
       puts @challenge.errors.inspect
-      redirect_to redirect_url, notice: 'Validation failed'
+      #redirect_to redirect_url, notice: 'Validation failed'
     end
+    results = @challenge.save
+    puts results
+    render :json => @challenge.payload
   end
 
   def assets

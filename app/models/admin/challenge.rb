@@ -1,8 +1,7 @@
 class Admin::Challenge
   include ActiveModel::Model
 
-  STATUSES = ['Created', 'Completed', 'Hidden', 'Review', 'Submission', 'Winner Selected', 'No Winner Selected', 'On Hold - Pending Reviews']
-  PRIZE_TYPES = ['Currency', 'Other']
+  STATUSES = [['Draft', 'Planned'] ,['Open for Submissions', 'Created'] ,['Hidden', 'Hidden']]
 
   # Overrides the attr_accesssor class method so we are able to capture and
   # then save the defined fields as column_names
@@ -18,15 +17,9 @@ class Admin::Challenge
   end
 
   attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
-                :status, :start_date, :requirements, :name, :status, :end_date, :description,
-                :reviewers, 
-                :categories, :platforms, :technologies, 
-                :prizes, :commentNotifiers, 
-                :reviewers_to_delete, 
-                :categories_to_delete, :platforms_to_delete, :technologies_to_delete, 
-                :prizes_to_delete, :commentNotifiers_to_delete, 
-                :assets, :challenge_type, :terms_of_service, 
-                :comments, :challenge_id,
+                :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
+                :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community,
+                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, 
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -64,6 +57,10 @@ class Admin::Challenge
     super(params)
   end
 
+  def challenge_id
+    @challenge_id unless @challenge_id.blank? || nil
+  end
+
   # Return an object instead of a string
   def start_date
     (Time.parse(@start_date) if @start_date) || Date.today
@@ -76,18 +73,40 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def winner_announced
-    (Time.parse(@winner_announced) if @winner_announced) || Date.today + 12.days
+    (Date.parse(@winner_announced) if @winner_announced) || Date.today + 12.days
   end
 
   def review_date
     (Time.parse(@review_date) if @review_date) || Date.today + 9.days
   end
 
-  # no longer need categories
-  def categories
-    (@categories.delete_if {|n| n.blank?} if @categories) || []
+  def auto_announce_winners
+    @community_judging
   end
   
+  def statuses
+    Admin::Challenge::STATUSES
+  end
+
+  def scorecards
+    scorecards = $restforce.query('select Name from QwikScore__c where active__c = true order by name')
+    scorecards.map {|s| s['Name']}
+  end  
+
+  def terms_of_services
+    scorecards = $restforce.query('select Name from Terms_of_Service__c order by name')
+    scorecards.map {|s| s['Name']}
+  end  
+
+  def categories
+    challenge_types = $restforce.picklist_values('Challenge__c', 'Challenge_Type__c')
+    challenge_types.map {|s| s['value']}
+  end    
+
+  def communities
+    Community.all.map {|c| c.name}
+  end      
+
   def platforms
     @platforms || []
   end
@@ -98,11 +117,7 @@ class Admin::Challenge
 
   def assets
     @assets || []
-  end
-
-  def statuses
-    Admin::Challenge::STATUSES
-  end
+  end   
 
   def reviewers
     @reviewers || []
@@ -115,6 +130,31 @@ class Admin::Challenge
   def prizes
     @prizes || []
   end
+
+  def save
+    if challenge_id
+      options = {
+        :body => {data: payload}.to_json,
+        :headers => api_request_headers
+      }
+      HTTParty::post("#{ENV['CS_API_URL']}/challenges", options)
+    else
+      options = {
+        :query => {data: payload},
+        :headers => api_request_headers
+      }
+      HTTParty::put("#{ENV['CS_API_URL']}/challenges/#{challenge_id}", options)
+    end
+
+  end
+
+  def api_request_headers
+    {
+      'oauth_token' => RestforceUtils.access_token,
+      'Authorization' => 'Token token="'+ENV['CS_API_KEY']+'"',
+      'Content-Type' => 'application/json'
+    }
+  end  
 
   # formats the object to conform to the api format
   # maybe we should use RABL for this one instead?
@@ -130,7 +170,7 @@ class Admin::Challenge
         detail: {
           winner_announced: winner_announced,
           terms_of_service: terms_of_service,
-          scorecard_type:"Sandbox Scorecard",
+          scorecard_type: scorecard_type,
           submission_details: submission_details,
           status: status,
           start_date: start_date.to_time.iso8601,
@@ -140,14 +180,14 @@ class Admin::Challenge
           description: description,
           comments: comments,
           challenge_type: challenge_type,
+          community_judging: community_judging,
+          auto_announce_winners: auto_announce_winners,
+          community: community,
+          challenge_id: challenge_id
         },
-        challenge_id: challenge_id,
         reviewers: reviewers.map {|name| {name: name}},
-
-        categories: categories.map {|name| {name: name}},
         platforms: platforms.map {|name| {name: name}},
         technologies: technologies.map {|name| {name: name}},
-
         prizes: prizes,
         commentNotifiers: commentNotifiers.map {|name| {name: name}},
         assets: assets.map {|filename| {filename: filename}},
@@ -156,51 +196,21 @@ class Admin::Challenge
     if self.challenge_id && !self.challenge_id.blank?
       original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
       
-      original_challenge.categories[0] != nil ? original_challenge_platforms = original_challenge.platforms.records.map(&:name) : original_challenge_platforms = []
+      original_challenge.platforms[0] != nil ? original_challenge_platforms = original_challenge.platforms.records.map(&:name) : original_challenge_platforms = []
       original_challenge.technologies[0] != nil ? original_challenge_technologies = original_challenge.technologies.records.map(&:name) : original_challenge_technologies = []
 
-      stuff_to_delete = {
-        platforms_to_delete: (original_challenge_platforms - platforms).map {|name| {name: name}},
-        technologies_to_delete: (original_challenge_technologies - technologies).map {|name| {name: name}},
+      # stuff_to_delete = {
+      #   platforms_to_delete: (original_challenge_platforms - platforms).map {|name| {name: name}},
+      #   technologies_to_delete: (original_challenge_technologies - technologies).map {|name| {name: name}},
 
-        reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
-        commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
-        prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,
-        assets_to_delete: (original_challenge.assets - assets).map {|filename| {filename: filename}},
-      }
-      result[:challenge].update(stuff_to_delete)
+      #   reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
+      #   commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
+      #   prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,
+      #   assets_to_delete: (original_challenge.assets - assets).map {|filename| {filename: filename}},
+      # }
+      # result[:challenge].update(stuff_to_delete)
     end
     result
   end
 
 end
-
-# {
-#   "challenge" : {
-#     "detail" : {
-#       "winner_announced":"2015-05-17",
-#       "terms_of_service":"Standard Terms & Conditions",
-#       "scorecard_type":"Sandbox Scorecard",
-#       "submission_details":"<em>&#39;Some submission details&#39;<br><br>Another double quoted stuff &quot;fdfdfd&quot;</em>",
-#       "status":"Hidden",
-#       "start_date":"2012-03-17T18:02:00.000+0000",
-#       "requirements":"Hello this is a sample requirement with some interesting stuff like<br><br>Bullets<br><ul><li>Bull1</li><li>Bull2</li></ul>\n<div style=\"text-align: center; \">Links <br><br><a href=\"http://developer.force.com\" target=\"_blank\">http://developer.force.com<br></a><br><strong>Bold Text</strong></div>\n<br><strike><em>Crossed - Italics<br></em></strike><br><br>",
-#       "name":"RSpec Challenge",
-#       "status":"Planned",
-#       "end_date":"2014-04-17T18:02:00.000+0000",
-#       "description":"sample Description",
-#       "comments":"My challenge comments",
-#       "challenge_type":"Design"
-#       },
-#     "reviewers" : [{"name" : "mess"}, {"name" : "jeffdonthemic"}],
-#     "categories" : [{"name" : "java"}, {"name": "heroku"}],
-#     "prizes" : [{"place":2,"points":222,"prize":"122","value":1212}, {"place":1,"points":2120,"prize":"1000","value":21212}],
-#     "commentNotifiers" : [{"email" : "jdouglas@appirio.com"}, {"name" : "mess"}],
-#     "assets" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}],
-#     "reviewers_to_delete" : [{"name" : "mess"}, {"name" : "jeffdonthemic"}],
-#     "categories_to_delete" : [{"name" : "java"}, {"name": "heroku"}],
-#     "prizes_to_delete" : [{"place":2,"points":222,"prize":"122","value":1212}, {"place":1,"points":2120,"prize":"1000","value":21212}],
-#     "commentNotifiers_to_delete" : [{"email" : "jdouglas@appirio.com"}, {"name" : "mess"}],
-#     "assets_to_delete" : [{"filename" : "img.png"}, {"filename": "logo.jpg"}]
-#   }
-# }

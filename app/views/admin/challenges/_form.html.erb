@@ -32,7 +32,7 @@
 
         <div class='tab-content'>
           <div class='tab-pane active' id='challenge-info'>
-            <%= render 'challenge_info', {f: f} %>
+            <br/><%= render 'challenge_info', {f: f} %>
           </div>
           <div class='tab-pane' id='prizes'>
             <%= render 'prizes' %>
@@ -41,13 +41,12 @@
             <%= render 'assets', {f: f} %>
           </div>
           <div class='tab-pane' id='advanced'>
-            <%= render 'advanced', {f: f} %>
+            <br/><%= render 'advanced', {f: f} %>
           </div>          
         </div>
 
-
       <hr />
-      <%= f.button :submit %>
+      <%= f.button :submit, value: @challenge.challenge_id ? 'Update Challenge' : 'Create Challenge' %>
 
     </div>
 <% end %>
