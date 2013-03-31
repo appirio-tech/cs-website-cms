@@ -24,7 +24,7 @@
 #= require filedrop.jquery
 #= require jquery.tools
 
-#= require scripts
-
 #= require rails.validations
 #= require rails.validations.simple_form
+
+#= require scripts

@@ -1,5 +1,6 @@
 class DeliverablesController < ApplicationController
-
+  before_filter :authenticate_user!
+  
   def create
     @deliverable = submission.create_deliverable(params[:deliverable])
 
@@ -10,7 +11,6 @@ class DeliverablesController < ApplicationController
   end
 
   def upload
-    puts params[:file]
     @deliverable = submission.upload_file(params[:file])  
     render json: @deliverable
   end
@@ -35,15 +35,17 @@ class DeliverablesController < ApplicationController
   end
 
   private
-  def deliverable
-    @deliverable ||= submission.find_deliverable(params[:id])
-  end
-  def challenge
-    @challenge ||= Challenge.find(params[:challenge_id])
-  end
 
-  def submission
-    @submission ||= challenge.submission_of(current_user)
-  end
+    def deliverable
+      @deliverable ||= submission.find_deliverable(params[:id])
+    end
+
+    def challenge
+      @challenge ||= Challenge.find(params[:challenge_id])
+    end
+
+    def submission
+      @submission ||= challenge.submission_of(current_user)
+    end
 
 end

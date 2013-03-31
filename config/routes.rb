@@ -65,6 +65,7 @@ CsWebsiteCms::Application.routes.draw do
       resources :deliverables, only: [:create, :update, :destroy] do
         collection do
           post "upload"
+          delete "destroy"
         end
       end
     end

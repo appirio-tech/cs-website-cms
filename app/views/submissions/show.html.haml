@@ -47,9 +47,9 @@
 
     = simple_form_for @submission, url: challenge_submission_path(@challenge, @submission.id), remote: true, method: :put, html: {class: "submission form-horizontal jqTransform"} do |f|
       %h2 Tell Us About Your Submission (Optional)
-      = f.input :details, as: :text, required: false
+      = f.input :submission_overview, as: :text, required: false
       = f.input :languages, collection: Submission::LANGUAGES, required: false, input_html: {multiple: true, style: "width: 500px", class: "select2"}
-      = f.input :platforms, collection: Submission::PLATFORMS, required: false, input_html: {multiple: true, style: "width: 500px", class: "select2"}
+      = f.input :paas, collection: Submission::PAAS, required: false, input_html: {multiple: true, style: "width: 500px", class: "select2"}
       = f.input :apis, collection: Submission::APIS, required: false, input_html: {multiple: true, style: "width: 500px", class: "select2"}
       = f.input :technologies, collection: Submission::TECHNOLOGIES, required: false, input_html: {multiple: true, style: "width: 500px", class: "select2"}
 

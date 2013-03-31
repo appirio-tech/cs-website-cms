@@ -55,7 +55,7 @@ class window.Submission
 
     # $("form.deliverable select.deliverable-type option[value=Code]").remove()
     $("form.deliverable select.paas").parents(".control-group").hide()
-    
+
     $("body").on "change", "select.deliverable-type", (event) ->
       self.deliverableFormTypeChanged(this)
 
@@ -114,7 +114,7 @@ class window.Submission
       form.find("select.deliverable-type option[value=Code]").remove()
     form.attr("action", ele.href)
     form.find("h4").text("Edit Deliverable")
-    form.find("[type=submit]").val("update")
+    form.find("[type=submit]").val("Update")
     form.find("select.deliverable-type").val(deliverable.type)
     form.find("input.url").val(deliverable.url).attr("readonly", deliverable.source == "storage")
     form.find("textarea.comments").val(deliverable.comments)
@@ -169,8 +169,8 @@ class window.Submission
 
     actions = $("<div class='actions'>")
     path = $("form.submission").attr("action") + "/deliverables/" + deliverable.id
-    actions.append("<a href='" + path + "' class='btn edit'> Edit </a>")
-    del = $("<a href='" + path + "' class='btn btn-danger delete' data-remote='true' data-method='delete' data-confirm='Are you sure?'> Delete </a>")
+    actions.append("<a href='" + path + "' class='btn edit' style='margin-right: 4px;'><span>Edit</span></a>")
+    del = $("<a href='" + path + "' class='btn btn-danger delete' data-remote='true' data-method='delete' data-confirm='Are you sure?'><span>Delete</span></a>")
     del.bind "ajax:before", -> 
       layer = $("<div class='layer'> Deleting... </div>")
       $(this).parents(".deliverable").append(layer)

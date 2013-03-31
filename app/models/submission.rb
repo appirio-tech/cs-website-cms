@@ -1,31 +1,45 @@
-class Submission < Hashie::Mash
-  extend ActiveModel::Naming
+#class Submission < Hashie::Mash
+  #extend ActiveModel::Naming
+class Submission < ApiModel
+
+  def self.api_endpoint
+    "#{ENV['CS_API_URL']}/challenges"
+  end
 
   LANGUAGES = %w{Node Java JavaScript Ruby Python Apex Other}
-  PLATFORMS = ["Heroku", "Salesforce.com", "CloudFoundry", "Google App Engine", "Other"]
+  PAAS = ["Heroku", "Salesforce.com", "CloudFoundry", "Google App Engine", "Other"]
   APIS = ["DocuSign REST API", "FullContact", "Google Chart Tools", "Twilio", "Other"]
   TECHNOLOGIES = ["redis", "mongodb", "rabbitmq", "Other"]
 
+  attr_accessor :id, :apis, :paas, :languages, :technologies, :submission_overview, :deliverables,
+                :challenge_id, :username, :participant, :next_deliverable_id
+
   class << self
     def find(challenge_id, username='jeffdonthemic')
-      key = "#{challenge_id}:#{username}"
-      json = REDIS.hget(redis_key, key) || "{}"
-      attrs = JSON.parse(json).symbolize_keys
-      attrs[:next_deliverable_id] ||= 1
-      deliverables = attrs.delete(:deliverables) || []
-      deliverables = deliverables.map {|d| Deliverable.new(d)}
+      puts "find"
+      puts challenge_id
 
-      submission = new attrs.merge(username: username, challenge_id: challenge_id)
-      submission.deliverables ||= []
-      submission.deliverables.concat deliverables
+      challenge_id = challenge_id
+      username = username
 
-      puts submission.to_json
+      participant = Participant.find_by_member(challenge_id, username)
+      deliverables = participant.submission_deliverables
+
+      attrs = {
+        :apis => participant.apis||[], 
+        :paas => participant.paas||[], 
+        :languages => participant.languages||[], 
+        :technologies => participant.technologies||[],
+        :submission_overview => participant.submission_overview,
+        :deliverables => deliverables,
+
+
+        :next_deliverable_id => deliverables.length || 1
+      }
+
+      submission = new attrs.merge(username: username, challenge_id: challenge_id, participant: participant)
 
       submission
-    end
-
-    def redis_key
-      "cs:submissions"
     end
 
     def storage
@@ -41,43 +55,81 @@ class Submission < Hashie::Mash
   end
 
   def save
-    REDIS.hset(redis_key, key, self.to_json)
+    puts "save"
   end
 
   def update(attrs)
-    attrs.each {|k,v| send("#{k}=", v)}
-    save
+    puts "update"
+
+    attrs.each do |k, v|
+      if v.kind_of?(Array) and v[0] == ""
+        attrs[k].shift
+      end
+    end
+
+    fields = {
+      submission_overview: attrs["submission_overview"],
+      apis: attrs["apis"].join(";"),
+      paas: attrs["paas"].join(";"),
+      languages: attrs["languages"].join(";"),
+      technologies: attrs["technologies"].join(";")
+    }
+
+    self.class.naked_put "participants/#{username}/#{challenge_id}", {'fields' => fields}
   end
 
   def destroy
-    REDIS.hdel(redis_key, key)
+    puts "destroy"
   end
 
 
   def create_deliverable(attrs)
-    # assign a uniq deliverable id
-    attrs[:id] = next_deliverable_id
-    self.next_deliverable_id += 1
 
-    deliverable = Deliverable.create(attrs)
+    deliverable = SubmissionDeliverable.new
+    deliverable.type = attrs[:type]
+    deliverable.comments = attrs[:comments]
+    deliverable.url = attrs[:url]
+    deliverable.hosting_platform = attrs[:hosting_platform]
+    deliverable.language = attrs[:language]
+    deliverable.source = attrs[:source]
+
+    # assign a uniq deliverable id
+    # deliverable.id = next_deliverable_id
+    # self.next_deliverable_id += 1
+
+    # create the new deliverable record
+    deliverable = self.class.naked_post "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
+
     self.deliverables << deliverable
-    save
+
+    puts deliverables
 
     deliverable
   end
 
   def find_deliverable(deliverable_id)
-    deliverables.detect {|d| d.id == deliverable_id.to_i}
+    deliverables.detect {|d| d.id == deliverable_id}
+  end
+
+  def delete_deliverable(deliverable_id)
+    puts "delete_deliverable"
+
+    # needs delete endpoint
   end
 
   def destroy_deliverable(deliverable_id)
-    deliverable = find_deliverable(deliverable_id.to_i)
+    deliverable = find_deliverable(deliverable_id)
+    deliverable = deliverable.raw_data
+
+    # destroy the deliverable file if it is stored in S3
     if deliverable.source == "storage"
       file = storage.files.get deliverable.url
+      puts file
       file.destroy if file
     end
-    deliverables.delete(deliverable)
-    save
+
+    # after destroying the deliverable file, delete the deliverable entry too
+    delete_deliverable(deliverable_id)
 
     deliverable
   end
@@ -90,20 +142,10 @@ class Submission < Hashie::Mash
       :public => true
     )
 
-    puts file.key
-
-    create_deliverable type: "Unmanaged Package", url: file.key, source: "storage"
+    create_deliverable type: "Code", hosting_platform: "Other", language: "Other", url: file.key, source: "storage"
   end
 
   private
-
-    def redis_key
-      self.class.redis_key
-    end
-
-    def key
-      @key ||= "#{challenge_id}:#{username}"
-    end
     
     def storage
       self.class.storage
