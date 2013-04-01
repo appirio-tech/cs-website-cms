@@ -8,24 +8,18 @@ class Admin::ChallengesController < ApplicationController
 
   def new
     @challenge = Admin::Challenge.new
-    puts @challenge.challenge_id.nil?
-
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
-
     @challenge_platforms = []
     @challenge_technologies = []
-
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
-
     @prizes = []
   end
 
   def edit
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
-        puts @challenge.challenge_id
     #=render :json => @challenge
 
     # clean up places -- '1st' to 1
@@ -54,8 +48,6 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
-    
-    params[:admin_challenge][:categories] = params[:admin_challenge][:categories].split(',') if params[:admin_challenge][:categories]
     params[:admin_challenge][:platforms] = params[:admin_challenge][:platforms].split(',') if params[:admin_challenge][:platforms]
     params[:admin_challenge][:technologies] = params[:admin_challenge][:technologies].split(',') if params[:admin_challenge][:technologies]
 
@@ -75,10 +67,6 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
     params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime    
 
-    # community judging ?
-
-    # private community ?
-
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
 
@@ -91,20 +79,16 @@ class Admin::ChallengesController < ApplicationController
     end
 
     if @challenge.valid?
-
       # create or update challenge
-
-      #redirect_to redirect_url, notice: 'Challenge saved'
-
-      #ap @challenge.payload.as_json
+      results = @challenge.save
+      puts results.to_yaml
+      redirect_to redirect_url, notice: 'Challenge saved'
       #render json: @challenge.payload
     else
-      puts @challenge.errors.inspect
-      #redirect_to redirect_url, notice: 'Validation failed'
+      @challenge.errors.full_messages.each {|msg| flash[:alert] = msg }
+      redirect_to redirect_url
     end
-    results = @challenge.save
-    puts results
-    render :json => @challenge.payload
+  
   end
 
   def assets

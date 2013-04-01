@@ -39,7 +39,7 @@ class Admin::Challenge
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
-  validates_inclusion_of :status, in: STATUSES
+  #validates_inclusion_of :status, in: STATUSES
 
   validate  do
     if start_date && end_date && winner_announced && review_date
@@ -134,18 +134,17 @@ class Admin::Challenge
   def save
     if challenge_id
       options = {
+        :query => {data: payload},
+        :headers => api_request_headers
+      }
+      HTTParty::put("#{ENV['CS_API_URL']}/challenges/#{challenge_id}", options)      
+    else
+      options = {
         :body => {data: payload}.to_json,
         :headers => api_request_headers
       }
       HTTParty::post("#{ENV['CS_API_URL']}/challenges", options)
-    else
-      options = {
-        :query => {data: payload},
-        :headers => api_request_headers
-      }
-      HTTParty::put("#{ENV['CS_API_URL']}/challenges/#{challenge_id}", options)
     end
-
   end
 
   def api_request_headers
