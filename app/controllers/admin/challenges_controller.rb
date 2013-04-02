@@ -1,26 +1,36 @@
 class Admin::ChallengesController < ApplicationController
-  # optionally, inherit from ::ProtectedController to gain any kind of protection
-  # in a standard way; maybe username/password or refinery usertypes?
+  before_filter :authenticate_user!
 
   def index
-    @challenges = ::Challenge.all.sort_by {|c| c.challenge_id.to_i }
+    @challenges = RestforceUtils.query_salesforce("select name, challenge_id__c, status__c, 
+      challenge_type__c, registered_members__c, submissions__c
+      from challenge__c where status__c IN ('Planned','Created','Hidden') order by end_date__c desc", current_user.access_token)
+    @challenges.map {|challenge| Admin::Challenge.new challenge}
   end
 
   def new
     @challenge = Admin::Challenge.new
+    # set the access token for the calls
+    @challenge.access_token = current_user.access_token
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
     @challenge_platforms = []
     @challenge_technologies = []
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
-    @prizes = []
+    # default in a first place prize
+    @prizes = [Hashie::Mash.new(:place => 1, :points => 100, :prize => '$100', :value => 100)]
   end
 
   def edit
     challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
     @challenge = Admin::Challenge.new(challenge.raw_data)
-    #=render :json => @challenge
+    # set the access token for the calls
+    @challenge.access_token = current_user.access_token    
+
+    @challenge_reviewers = []
+    @challenge_commentNotifiers = []
+    @prizes = @challenge.prizes || []    
 
     # clean up places -- '1st' to 1
     @challenge.prizes.each { |p| p.place = p.place[0..0] }
@@ -28,28 +38,34 @@ class Admin::ChallengesController < ApplicationController
     @challenge_platforms = @challenge.platforms.records.map(&:name)
     @challenge_technologies = @challenge.technologies.records.map(&:name)
 
-    @challenge_reviewers = []
-
     @challenge.reviewers.each do | reviewer |
       @challenge_reviewers.push(reviewer.member__r.name) 
     end
-
-    @challenge_commentNotifiers = []
 
     @challenge.commentNotifiers .each do | commentNotifier |
       @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
     end
 
-    @prizes = @challenge.prizes || []
+    @challenge.commentNotifiers .each do | commentNotifier |
+      @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
+    end    
 
   end
 
   def create
+    # scrub out this crap when nothing submitted in ckeditor -- <p>&Acirc;&#32;</p>\r\n (see http://dev.ckeditor.com/ticket/9732)
+    params[:admin_challenge][:description] = nil if params[:admin_challenge][:description].include?('&Acirc;&#32;')
+    params[:admin_challenge][:requirements] = nil if params[:admin_challenge][:requirements].include?('&Acirc;&#32;')
+    params[:admin_challenge][:submission_details] = nil if params[:admin_challenge][:submission_details].include?('&Acirc;&#32;')
+
     params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
     params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
     params[:admin_challenge][:platforms] = params[:admin_challenge][:platforms].split(',') if params[:admin_challenge][:platforms]
     params[:admin_challenge][:technologies] = params[:admin_challenge][:technologies].split(',') if params[:admin_challenge][:technologies]
+
+    # remove blank files names that are coming across for some reason
+    params[:admin_challenge][:assets].reject! { |c| c.empty? } if params[:admin_challenge][:assets]
 
     # add the time element
     hour = params[:admin_challenge]['start_date(4i)']
@@ -71,6 +87,8 @@ class Admin::ChallengesController < ApplicationController
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
+    # set the access token for the calls
+    @challenge.access_token = current_user.access_token
 
     if @challenge.challenge_id
       redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
@@ -82,16 +100,24 @@ class Admin::ChallengesController < ApplicationController
       # create or update challenge
       results = @challenge.save
       puts results.to_yaml
-      redirect_to redirect_url, notice: 'Challenge saved'
-      #render json: @challenge.payload
+
+      if results.success
+        #redirect_to redirect_url, notice: 'Challenge saved!'
+      else
+        #redirect_to redirect_url, alert: results.errors.first.errorMessage
+      end
+
     else
       @challenge.errors.full_messages.each {|msg| flash[:alert] = msg }
-      redirect_to redirect_url
+      #redirect_to redirect_url
     end
-  
+
+    render :json => @challenge
+
   end
 
   def assets
+    
     # TODO: fog is now used twice; should we extract this to a helper function?
     fog = Fog::Storage.new(
       :provider                 => 'AWS',
@@ -100,39 +126,15 @@ class Admin::ChallengesController < ApplicationController
     )
     storage = fog.directories.get(ENV['AWS_BUCKET'])
 
-    # create the folder for this challenge
-    # QUESTION: How to name the challenge folder? Since this is a new challenge,
-    # we still do not have a challenge id. There are a few approaches we can take:
-    # - look up the challenges api and use the last challenge id + 1; however
-    #   this method is prone to race conditions (when two challenge creators try
-    #   to create a challenge at the same time). It becomes too complicated to
-    #   create mutexes for this scenario
-    # - generate a unique hash. This gives us the benefit of a very low probabilty
-    #   of a folder clash happening; however the bucket is not human readable
-    #   anymore (you can't look at a folder and immediately tell that it belongs
-    #   to a particular challenge)
-    # - use a two-step process where a challenge HAS to be created first (and thus
-    #   a challenge id is already assigned), then create a folder and upload to
-    #   it. This I think is the best approach. I am leaving the uploader at the
-    #   first step for now as a proof of concept; once the API endpoint for saving
-    #   (and retrieving the challenge id assigned) is up, we can move this to
-    #   the second step.
-
-    # for now, let's just use the form's authenticity token as the folder name
-    folder = params[:authenticity_token]
-
-    # If we're hosting this on heroku, then we might run into timeout problems.
-    # We should look into uploading to S3 directly, or spinning off a small server
-    # to handle file uploads. This server can also be used for the submission
-    # deliverables (e.g. large videos or files).
     file = storage.files.create(
-      key: [folder, params[:name]].join('/'),
+      key: ['challenges', params[:challenge_id], params[:name]].join('/'),
       body: params[:file].read,
       :public => true
     )
 
     # create the file in this folder
     @asset = {url: file.public_url, filename: params[:name]}
+
   end
 
 end
