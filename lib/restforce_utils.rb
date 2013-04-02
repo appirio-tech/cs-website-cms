@@ -3,7 +3,7 @@ require 'uri'
 module RestforceUtils
 
   #
-  # Returns an access_token from saleforce
+  # Returns an access_token from saleforce for a type of generic user (guest or admin)
   # * *Args*    :
   #   - user_type -> admin or guest credentials
   # * *Returns* :
@@ -21,7 +21,7 @@ module RestforceUtils
   end
 
   #
-  # Returns a restforce client
+  # Returns a restforce client for a type of generic user (guest or admin)
   # * *Args*    :
   #   - user_type -> admin or guest credentials
   # * *Returns* :
@@ -40,6 +40,20 @@ module RestforceUtils
   end
 
   #
+  # Returns a restforce client from an access_token
+  # * *Args*    :
+  #   - access_token -> the oauth token to use
+  # * *Returns* :
+    #   - Restforce client
+  # * *Raises* :
+  #   - ++ ->
+  #  
+  def self.client_for_access_token(access_token)
+    Restforce.new :oauth_token => access_token,
+      :instance_url  => ENV['SFDC_INSTANCE_URL']
+  end  
+
+  #
   # Performs a soql query against salesforce
   # * *Args*    :
   #   - soql -> the soql query
@@ -48,8 +62,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.query_salesforce(soql, user_type=:guest)
-    Forcifier::JsonMassager.deforce_json(client(user_type).query(soql))
+  def self.query_salesforce(soql, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    Forcifier::JsonMassager.deforce_json(client.query(soql))
   rescue Exception => e
     Rails.logger.fatal "[FATAL][RestforceUtils] Query exception: #{soql} -- #{e.message}" 
     nil
@@ -64,8 +79,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.create_in_salesforce(sobject, params, user_type=:guest)
-    {:success => true, :message => client(user_type).create!(sobject, params)}      
+  def self.create_in_salesforce(sobject, params, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    {:success => true, :message => client.create!(sobject, params)}      
   rescue Exception => e
     Rails.logger.fatal "[FATAL][RestforceUtils] Create exception: #{e.message}" 
     {:success => false, :message => e.message}    
@@ -81,8 +97,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.update_in_salesforce(sobject, params, user_type=:guest)
-    {:success => client(user_type).update!(sobject, params), :message => ''}      
+  def self.update_in_salesforce(sobject, params, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    {:success => client.update!(sobject, params), :message => ''}      
   rescue Exception => e
     Rails.logger.fatal "[FATAL][RestforceUtils] Update exception: #{e.message}" 
     {:success => false, :message => e.message}    
@@ -163,6 +180,25 @@ module RestforceUtils
   end  
 
   private
+
+    #
+    # Returns a restforce client depending upon if an access token
+    # was passed or not. If not, grabs a user type specific token
+    # * *Args*    :
+    #   - access_token -> the access_token to use for the client
+    #   - user_type -> the type of user to fetch a client for
+    # * *Returns* :
+      #   - true/false
+    # * *Raises* :
+    #   - ++ ->
+    #  
+    def self.token_or_type_client(access_token=nil, user_type)
+      if access_token
+        client_for_access_token(access_token) 
+      else
+        client(user_type) 
+      end
+    end
 
     def self.salesforce_username(type)
       return ENV['SFDC_ADMIN_USERNAME'] if type == :admin
