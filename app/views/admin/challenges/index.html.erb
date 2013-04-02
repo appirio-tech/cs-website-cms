@@ -13,16 +13,18 @@
 	        <th>Name</th>
 	        <th>Status</th>
 	        <th>Category</th>
-	        <th>Ends</th>
+	        <th>Registered</th>
+	        <th>Submissions</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	    	<% @challenges.each do |challenge| %>
 	      <tr>
-	        <td><%= link_to challenge.name, edit_admin_challenge_path(challenge) %></td>
+	        <td><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %></td>
 	        <td><%= challenge.status %></td>
 	        <td><%= challenge.challenge_type %></td>
-	        <td><%= format_challenge_end_date(challenge.end_date_utc) %></td>
+	        <td><%= challenge.registered_members.to_i %></td>
+	        <td><%= challenge.submissions.to_i %></td>
 	      </tr>
 	      <% end %>        
 	    </tbody>

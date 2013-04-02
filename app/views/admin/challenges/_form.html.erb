@@ -24,9 +24,11 @@
       <div class='tabbable'>
 
         <ul class='nav nav-tabs'>
-          <li class="active"><a href="#challenge-info" data-toggle="tab">Challenge Info</a></li>
+          <li class="active"><a href="#challenge-info" data-toggle="tab">Main Info</a></li>
           <li><a href="#prizes" data-toggle="tab">Prizes</a></li>
-          <li><a href="#assets" data-toggle="tab">Assets</a></li>
+          <% if @challenge.challenge_id %>
+            <li><a href="#assets" data-toggle="tab">Assets</a></li>
+          <% end %>
           <li><a href="#advanced" data-toggle="tab">Advanced</a></li>
         </ul>
 
@@ -37,16 +39,18 @@
           <div class='tab-pane' id='prizes'>
             <%= render 'prizes' %>
           </div>
-          <div class='tab-pane' id='assets'>
-            <%= render 'assets', {f: f} %>
-          </div>
+          <% if @challenge.challenge_id %>
+            <div class='tab-pane' id='assets'>
+              <%= render 'assets', {f: f} %>
+            </div>
+          <% end %> 
           <div class='tab-pane' id='advanced'>
             <br/><%= render 'advanced', {f: f} %>
-          </div>          
+          </div>         
         </div>
 
       <hr />
-      <%= f.button :submit, value: @challenge.challenge_id ? 'Update Challenge' : 'Create Challenge' %>
+      <%= f.button :submit, value: @challenge.challenge_id ? 'Save Challenge' : 'Create Challenge' %>
 
     </div>
 <% end %>

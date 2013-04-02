@@ -1,6 +1,7 @@
 <%= content_wrapper do %>
 
-	<div class="title"><h1>CHALENGE ADMIN - <%= @challenge.challenge_id %></h1></div>
+	<div class="title"><h1>EDIT '<%= @challenge.name.upcase %>'</h1></div>
+	<div class="pull-right"><%= link_to 'Back to Challenge Admin', admin_challenges_path %></div>
 	<div class="span10">
 		<%= render 'form' %>
 	</div>
