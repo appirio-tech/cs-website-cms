@@ -16,10 +16,12 @@ class Admin::Challenge
     @column_names
   end
 
+  cattr_accessor :access_token
+
   attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
-                :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community,
-                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, 
+                :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
+                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions,
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -39,6 +41,10 @@ class Admin::Challenge
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validates :review_date, presence: true
+  validates :winner_announced, presence: true
+  validates :description, presence: true
+  validates :requirements, presence: true
   #validates_inclusion_of :status, in: STATUSES
 
   validate  do
@@ -89,21 +95,23 @@ class Admin::Challenge
   end
 
   def scorecards
-    scorecards = $restforce.query('select Name from QwikScore__c where active__c = true order by name')
-    scorecards.map {|s| s['Name']}
+    scorecards = RestforceUtils.query_salesforce('select Name from QwikScore__c where active__c = true order by name')
+    scorecards.map {|s| s.name}
   end  
 
   def terms_of_services
-    scorecards = $restforce.query('select Name from Terms_of_Service__c order by name')
-    scorecards.map {|s| s['Name']}
+    scorecards = RestforceUtils.query_salesforce('select Name from Terms_of_Service__c order by name')
+    scorecards.map {|s| s.name}
   end  
 
   def categories
-    challenge_types = $restforce.picklist_values('Challenge__c', 'Challenge_Type__c')
-    challenge_types.map {|s| s['value']}
+    challenge_types = RestforceUtils.client.picklist_values('Challenge__c', 'Challenge_Type__c')
+    challenge_types.map {|s| s.value}
   end    
 
   def communities
+    # make sure we are using the correct access token
+    ApiModel.access_token = access_token
     Community.all.map {|c| c.name}
   end      
 
@@ -132,24 +140,25 @@ class Admin::Challenge
   end
 
   def save
+    puts payload
     if challenge_id
       options = {
         :query => {data: payload},
         :headers => api_request_headers
       }
-      HTTParty::put("#{ENV['CS_API_URL']}/challenges/#{challenge_id}", options)      
+      Hashie::Mash.new HTTParty::put("#{ENV['CS_API_URL']}/challenges/#{challenge_id}", options)['response']    
     else
       options = {
         :body => {data: payload}.to_json,
         :headers => api_request_headers
       }
-      HTTParty::post("#{ENV['CS_API_URL']}/challenges", options)
+      Hashie::Mash.new HTTParty::post("#{ENV['CS_API_URL']}/challenges", options)['response']
     end
   end
 
   def api_request_headers
     {
-      'oauth_token' => RestforceUtils.access_token,
+      'oauth_token' => access_token,
       'Authorization' => 'Token token="'+ENV['CS_API_KEY']+'"',
       'Content-Type' => 'application/json'
     }
@@ -192,23 +201,6 @@ class Admin::Challenge
         assets: assets.map {|filename| {filename: filename}},
       }
     }
-    if self.challenge_id && !self.challenge_id.blank?
-      original_challenge = Admin::Challenge.new ::Challenge.find([self.challenge_id, 'admin'].join('/')).raw_data
-      
-      original_challenge.platforms[0] != nil ? original_challenge_platforms = original_challenge.platforms.records.map(&:name) : original_challenge_platforms = []
-      original_challenge.technologies[0] != nil ? original_challenge_technologies = original_challenge.technologies.records.map(&:name) : original_challenge_technologies = []
-
-      # stuff_to_delete = {
-      #   platforms_to_delete: (original_challenge_platforms - platforms).map {|name| {name: name}},
-      #   technologies_to_delete: (original_challenge_technologies - technologies).map {|name| {name: name}},
-
-      #   reviewes_to_delete: (original_challenge.reviewers - reviewers).map {|name| {name: name}},
-      #   commentNotifiers_to_delete: (original_challenge.commentNotifiers - commentNotifiers).map {|name| {name: name}},
-      #   prizes_to_delete: original_challenge.prizes.map {|c| c.to_hash } - prizes,
-      #   assets_to_delete: (original_challenge.assets - assets).map {|filename| {filename: filename}},
-      # }
-      # result[:challenge].update(stuff_to_delete)
-    end
     result
   end
 
