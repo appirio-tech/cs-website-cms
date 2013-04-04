@@ -13,6 +13,7 @@
 	        <th>Name</th>
 	        <th>Status</th>
 	        <th>Category</th>
+	        <th>Contact</th>
 	        <th>Registered</th>
 	        <th>Submissions</th>
 	      </tr>
@@ -23,6 +24,7 @@
 	        <td><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %></td>
 	        <td><%= challenge.status %></td>
 	        <td><%= challenge.challenge_type %></td>
+	        <td><%= challenge.contact %></td>
 	        <td><%= challenge.registered_members.to_i %></td>
 	        <td><%= challenge.submissions.to_i %></td>
 	      </tr>

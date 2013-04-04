@@ -8,6 +8,8 @@
 
 <%= f.input :terms_of_service, collection: @challenge.terms_of_services, default: 'Standard Terms & Conditions' %>
 
+<%= f.input :contact, label: 'Primary Contact' %>
+
 <%= f.input :reviewers %>
 
 <%= f.input :commentNotifiers %>
@@ -134,5 +136,6 @@ $(function() {
 
   $('#admin_challenge_reviewers').val("<%= @challenge_reviewers.join(',') %>").select2(member_search_settings)
   $('#admin_challenge_commentNotifiers').val("<%= @challenge_commentNotifiers.join(',') %>").select2(member_search_settings)
+  $('#admin_challenge_contact').val("<%= @challenge.contact %>").select2(member_search_settings)
 })
 </script>

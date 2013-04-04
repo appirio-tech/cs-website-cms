@@ -1,7 +1,24 @@
 <%= f.hidden_field :assets, value: @challenge.assets.join(',') %>
-<% @challenge.assets.each do |asset| %>
-  <div><p><%= asset.filename %> <a class='btn btn-danger btn-mini delete-asset' data-filename='<%= asset %>'>delete</a></p></div>
+
+<% unless @current_assets.empty? %>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Current Asset</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @current_assets.each do |asset| %>
+      <tr>
+        <td><%= link_to asset.filename, "https://s3.amazonaws.com/challenges/#{@challenge.challenge_id}/#{asset.filename}" %></td>
+        <td width="100" align="center"><%= link_to 'Delete', admin_delete_asset_path(@challenge.challenge_id, :asset_id => asset.id), :class => 'btn' %></td>
+      </tr>
+      <% end %>        
+    </tbody>
+  </table>
 <% end %>
+
 <div id="uploader">
   <script>
     // I need ERB support hence it has to be inlined with the HTML :(

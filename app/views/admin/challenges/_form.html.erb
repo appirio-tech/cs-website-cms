@@ -1,5 +1,6 @@
 <%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal jqTransform' } do |f| %>
   <%= f.hidden_field :challenge_id, value: @challenge.challenge_id %>
+  <%= f.hidden_field :account, value: @challenge.account %>
 
       <style type="text/css">
         .jqTransformSelectWrapper ul {
