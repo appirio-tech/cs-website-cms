@@ -1,0 +1,21 @@
+<% content_for :head do %><title>Your Submission Log - CloudSpokes</title><% end %>
+
+<%= content_wrapper do %>
+
+<body>
+<form action="https://papertrailapp.com/distributors/session" method="post" id="autosubmit">
+<input type="hidden" name="account_id" value="CP-Test1">
+<input type="hidden" name="user_id" value="jefftest1">
+<input type="hidden" name="timestamp" value="<%= Time.now.to_i %>">
+<input type="hidden" name="token" value="<%= @token %>"> 
+<input type="hidden" name="distributor" value="CloudSpokes">
+<input type="hidden" name="email" value="jeff+jefftest1@jeffdouglas.com">
+</form>
+</body>
+
+<script type='text/javascript'> //<![CDATA[
+document.forms['autosubmit'].submit(); //]]>
+</script> 
+</html>
+
+<% end %>
