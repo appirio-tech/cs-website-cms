@@ -1,4 +1,5 @@
 require 'will_paginate/array'
+require 'digest/sha1'
 
 class ChallengesController < ApplicationController
 
@@ -104,8 +105,14 @@ class ChallengesController < ApplicationController
     if current_challenge.uses_default_tos?
       results = Participant.change_status(params[:id], current_user.username, 
         {:status => 'Registered'})
-      flash[:notice] = "You have been registered for this challenge." if results.success.to_bool
-      flash[:error]  = "Could not register you for this challenge: #{results.message}" if !results.success.to_bool
+      if results.success.to_bool
+        flash[:notice] = "You have been registered for this challenge." 
+        # Resque.enqueue(CreatePapertrailSystem, current_user.username, 
+        #   current_user.email, current_challenge.name, 
+        #   results.message) unless ENV['PAPERTRAIL_DIST_USERNAME'].nil?
+      else
+        flash[:error]  = "Could not register you for this challenge: #{results.message}"
+      end
       redirect_to challenge_path(params[:id])
     # challenge has it's own terms. show and make them register
     else
@@ -132,6 +139,10 @@ class ChallengesController < ApplicationController
   def submit
     @submissions = @current_member_participant.current_submissions(params[:id])
   end
+
+  def submission_log
+    @token = Digest::SHA1.hexdigest("CP-Test1:jefftest1:00a8b0480a5e2155a5wim6961672c205:#{Time.now.to_i}")
+  end  
 
   def submit_url
     if uri?(params[:url_submission][:link])
