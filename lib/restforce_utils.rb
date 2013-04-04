@@ -179,6 +179,18 @@ module RestforceUtils
     success
   end  
 
+  def self.get_member_by_id(id)
+    results = query_salesforce("select id, name, sfdc_user__c 
+      from member__c where id = '#{id}'", nil)
+    results.first
+  end  
+
+  def self.get_member_by_name(membername)
+    results = query_salesforce("select id, name, sfdc_user__c 
+      from member__c where name = '#{membername}'", nil)
+    results.first
+  end    
+
   private
 
     #
