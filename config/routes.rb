@@ -51,6 +51,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'all_submissions' => redirect {|params| "/challenges/#{params[:id]}/submissions" }      
       get 'cal' => 'challenges#submissions'
       get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }
+      get 'submission_log'
       get 'submit'
       post 'submit_file'
       post 'submit_url'
@@ -83,6 +84,7 @@ CsWebsiteCms::Application.routes.draw do
   namespace :admin do
     resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up
     post 'challenges/assets'
+    match 'challenges/:id/delete_asset' => 'challenges#delete_asset', :as => 'delete_asset'
   end
 
   put '/account', to: 'accounts#update'
