@@ -21,7 +21,7 @@ class Admin::Challenge
   attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
-                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions,
+                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions, :account, :contact,
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -45,7 +45,7 @@ class Admin::Challenge
   validates :winner_announced, presence: true
   validates :description, presence: true
   validates :requirements, presence: true
-  #validates_inclusion_of :status, in: STATUSES
+  validates :account, presence: true
 
   validate  do
     if start_date && end_date && winner_announced && review_date
@@ -60,6 +60,12 @@ class Admin::Challenge
     params['reviewers'] = params.delete('challenge_reviewers') if params.include? 'challenge_reviewers'
     params['commentNotifiers'] = params.delete('challenge_comment_notifiers') if params.include? 'challenge_comment_notifiers'
     params['prizes'] = params.delete('challenge_prizes') if params.include? 'challenge_prizes'
+
+    # just want the contact name form the contact and not their id
+    if params.include? 'contact__r'
+      params['contact'] = params['contact__r']['name']
+      params.delete('contact__r')
+    end
     super(params)
   end
 
@@ -176,6 +182,8 @@ class Admin::Challenge
     result = {
       challenge: {
         detail: {
+          account: account,
+          contact: contact,
           winner_announced: winner_announced,
           terms_of_service: terms_of_service,
           scorecard_type: scorecard_type,
