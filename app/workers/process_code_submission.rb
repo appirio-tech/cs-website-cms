@@ -28,7 +28,7 @@ class ProcessCodeSubmission
 		deliverable.language = 'Apex'
 
 		# create the new deliverables record
-		results = participant.create_deliverable(challenge_id, membername, {data: deliverable})
+		results = participant.create_deliverable(challenge_id, membername, deliverable)
 
 		if results.success
 			Rails.logger.info "[INFO][Resque]==== Created submission deliverable for submission #{challenge_submission_id}: #{results.message}"
