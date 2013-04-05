@@ -51,7 +51,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'all_submissions' => redirect {|params| "/challenges/#{params[:id]}/submissions" }      
       get 'cal' => 'challenges#submissions'
       get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }
-      get 'submission_log'
+      get 'papertrail'
       get 'submit'
       post 'submit_file'
       post 'submit_url'
