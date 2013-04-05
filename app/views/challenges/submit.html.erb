@@ -23,6 +23,11 @@
                 </div>
                 <% end %>
 
+                <% if Rails.env.development? %>
+                    <div class="title"><h1>PAPERTRAIL</h1></div>
+                    <%= link_to 'Open Papertrail to view your logs.', papertrail_challenge_path, :target => :blank %>
+                <% end %>                 
+
                 <% if @challenge.open? || @current_member_participant.override_submission_upload %>
 
                     <div class="title"><h1>UPLOAD FILES</h1></div>
