@@ -178,11 +178,8 @@ class Challenge < ApiModel
   end  
 
   def open?
-    if Time.now.utc < end_date_utc
-      true
-    else
-      false
-    end
+    return true if is_open.eql?('true')
+    return false if is_open.eql?('false')
   end
 
   def show_discussion_board_entry?
