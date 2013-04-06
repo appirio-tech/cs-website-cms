@@ -47,7 +47,6 @@ var CKBUILDER_CONFIG = {
 		'flash' : 1,
 		'floatingspace' : 1,
 		'font' : 1,
-		'forms' : 1,
 		'format' : 1,
 		'htmlwriter' : 1,
 		'horizontalrule' : 1,
