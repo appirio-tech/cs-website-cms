@@ -276,7 +276,9 @@ module Redis::ChallengeSearchable
       nest[:technologies][t].srem challenge_id
     end    
 
-    open? ? nest[:open].srem(challenge_id) : nest[:closed].srem(challenge_id)
+    # remove it from the open and closed set
+    nest[:open].srem(challenge_id)
+    nest[:closed].srem(challenge_id)
 
     nest[:prize_money].zrem challenge_id
     nest[:prize_money][total_prize_money].srem challenge_id
