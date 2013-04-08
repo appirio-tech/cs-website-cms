@@ -28,7 +28,6 @@
 		imgFocus.src = strImgUrl.replace(/\.([a-zA-Z]*)$/,'-focus.$1');				
 	};
 
-
 	/***************************
 	  Labels
 	***************************/
@@ -271,14 +270,18 @@
 			
 			/* Add click handler to the a */
 			$ul.find('a').click(function(){
-					$('a.selected', $wrapper).removeClass('selected');
-					$(this).addClass('selected');	
-					/* Fire the onchange event */
-                if ($select[0].selectedIndex != $(this).attr('index')) {$select[0].selectedIndex = $(this).attr('index'); $($select[0]).trigger('change'); }
-					$select[0].selectedIndex = $(this).attr('index');
-					$('span:eq(0)', $wrapper).html($(this).html());
-					$ul.hide();
-					return false;
+				$('a.selected', $wrapper).removeClass('selected');
+				$(this).addClass('selected');	
+				
+				// Fire the onchange event
+                if ($select[0].selectedIndex != $(this).attr('index')) {
+                	$select[0].selectedIndex = $(this).attr('index'); 
+                	$($select[0]).trigger('change'); 
+                }
+				$select[0].selectedIndex = $(this).attr('index');
+				$('span:eq(0)', $wrapper).html($(this).html());
+				$ul.hide();
+				return false;
 			});
 			/* Set the default */
 			$('a:eq('+ this.selectedIndex +')', $ul).click();
@@ -287,6 +290,7 @@
 			this.oLabel = oLabel;
 			
 			/* Apply the click handler to the Open */
+			//var oLinkOpen = $('a.jqTransformSelectOpen', $wrapper);
 			var oLinkOpen = $('a.jqTransformSelectOpen', $wrapper)
 				.click(function(){
 					//Check if box is already open to still allow toggle, but close all other selects
@@ -300,6 +304,7 @@
 					return false;
 				})
 			;
+			// added the single listener within jqTransform() below
 
 			// Set the new width
 			var iSelectWidth = $select.outerWidth();
@@ -322,13 +327,13 @@
 		var opt = $.extend({},defaultOptions,options);
 		
 		/* each form */
-		 return this.each(function(){
+		this.each(function(){
 			var selfForm = $(this);
 			if(selfForm.hasClass('jqtransformdone')) {return;}
 			selfForm.addClass('jqtransformdone');
 			
 //			$('input:submit, input:reset, input[type="button"]', this).jqTransInputButton();
-			$('input:text, input:password', this).jqTransInputText();
+			$('input:text, input:password, input[type="url"]', this).jqTransInputText();
 			$('input:checkbox', this).jqTransCheckBox();
 			$('input:radio', this).jqTransRadio();
 //			$('textarea', this).jqTransTextarea();
@@ -360,6 +365,8 @@
 			
 			
 		}); /* End Form each */
+
+		return true;
 				
 	};/* End the Plugin */
 
