@@ -27,6 +27,7 @@ We've recently switched to use [Foreman to develop locally](https://devcenter.he
 	touch .env
 	# copy the contents from .env-example to .env
 	# add the enviroment variables (see below)
+	# remove the "streamer" and "worker" process types from the Procfile
 	foreman start -p 3000
 
 Once you get the application running, you can register for a new CloudSpokes member if necessary.
