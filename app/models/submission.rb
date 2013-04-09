@@ -15,8 +15,7 @@ class Submission < ApiModel
                 :challenge_id, :username, :participant, :next_deliverable_id
 
   class << self
-    def find(challenge_id, username='jeffdonthemic')
-      puts "find"
+    def find(challenge_id, username)
       puts challenge_id
 
       challenge_id = challenge_id
@@ -32,15 +31,16 @@ class Submission < ApiModel
         :technologies => participant.technologies||[],
         :submission_overview => participant.submission_overview,
         :deliverables => deliverables,
-
-
         :next_deliverable_id => deliverables.length || 1
       }
 
       submission = new attrs.merge(username: username, challenge_id: challenge_id, participant: participant)
-
       submission
     end
+
+    def save
+      puts "save"
+    end    
 
     def storage
       @storage ||= begin
@@ -54,13 +54,7 @@ class Submission < ApiModel
     end
   end
 
-  def save
-    puts "save"
-  end
-
   def update(attrs)
-    puts "update"
-
     attrs.each do |k, v|
       if v.kind_of?(Array) and v[0] == ""
         attrs[k].shift
@@ -76,6 +70,8 @@ class Submission < ApiModel
     }
 
     self.class.naked_put "participants/#{username}/#{challenge_id}", {'fields' => fields}
+  rescue Exception => e
+    puts e.message    
   end
 
   def destroy
@@ -84,14 +80,14 @@ class Submission < ApiModel
 
 
   def create_deliverable(attrs)
-
     deliverable = SubmissionDeliverable.new
     deliverable.type = attrs[:type]
     deliverable.comments = attrs[:comments]
     deliverable.url = attrs[:url]
     deliverable.hosting_platform = attrs[:hosting_platform]
     deliverable.language = attrs[:language]
-    deliverable.source = attrs[:source]
+    #deliverable.source = attrs[:source] # this was throwing an error
+    puts deliverable.to_yaml
 
     # assign a uniq deliverable id
     # deliverable.id = next_deliverable_id
@@ -99,12 +95,11 @@ class Submission < ApiModel
 
     # create the new deliverable record
     deliverable = self.class.naked_post "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
-
     self.deliverables << deliverable
-
     puts deliverables
-
     deliverable
+  rescue Exception => e
+    puts e.message
   end
 
   def find_deliverable(deliverable_id)
@@ -135,7 +130,6 @@ class Submission < ApiModel
   end
 
   def upload_file(file)
-    puts "upload_file"
     file = storage.files.create(
       :key    => storage_path(File.basename(file.original_filename)),
       :body   => file.read,
