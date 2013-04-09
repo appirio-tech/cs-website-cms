@@ -13,38 +13,40 @@ $(document).ready(function() {
           }
           window.location = url;
         },
-        sources: [{
-          name: "Challenges", 
-          type: "jsonp", 
-          url: gon.cs_api_url + "/challenges/search", 
-          queryName: "keyword",
-          val: {},
-          sourceTmpl: function(item) {
-            return $("<span class='challenge'>").append("<span class='count'>" + item.days_till_close  + "</span> days left");
+        sources: [
+          {
+            name: "Challenges", 
+            type: "jsonp", 
+            url: gon.cs_api_url + "/challenges/search", 
+            queryName: "keyword",
+            val: {},
+            sourceTmpl: function(item) {
+              return $("<span class='challenge'>").append("<span class='count'>" + item.days_till_close  + "</span> days left");
+            },
+            nameTmpl: function(item, typeahead) {
+              return $("<span class='challenge'>")
+                .append("<i class='icon-leaf'>")
+                .append(typeahead.highlighter(item.name))
+                .append("&nbsp;(<span class='prizes'>$" + item.total_prize_money + "</span>)")
+            }
           },
-          nameTmpl: function(item, typeahead) {
-            return $("<span class='challenge'>")
-              .append("<i class='icon-leaf'>")
-              .append(typeahead.highlighter(item.name))
-              .append("&nbsp;(<span class='prizes'>$" + item.total_prize_money + "</span>)")
+          {
+            name: "Members", 
+            type: "jsonp", 
+            url: gon.cs_api_url + "/members/search", 
+            queryName: "keyword",
+            val: {},
+            sourceTmpl: function(item) {
+              return $("<img>").attr("src", item.profile_pic);
+            },
+            nameTmpl: function(item, typeahead) {
+              return $("<span class='member'>")
+                .append("<i class='icon-user'>")
+                .append(typeahead.highlighter(item.name))
+                .append("(<span class='wins'>" + item.total_wins + " wins</span>)")
+            }        
           }
-        },
-        {
-          name: "Members", 
-          type: "jsonp", 
-          url: gon.cs_api_url + "/members/search", 
-          queryName: "keyword",
-          val: {},
-          sourceTmpl: function(item) {
-            return $("<img>").attr("src", item.profile_pic);
-          },
-          nameTmpl: function(item, typeahead) {
-            return $("<span class='member'>")
-              .append("<i class='icon-user'>")
-              .append(typeahead.highlighter(item.name))
-              .append("(<span class='wins'>" + item.total_wins + " wins</span>)")
-          }        
-        }]
+        ]
     });
 
     
