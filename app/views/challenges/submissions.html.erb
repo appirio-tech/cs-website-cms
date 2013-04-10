@@ -28,7 +28,7 @@
               <% if deliverable.username == member %>
                 <tr>
                   <td><%= deliverable.type %></td>
-                  <td width="45%"><%= link_to deliverable.url, deliverable.url.split('/').last, :target => '_blank' %></td>
+                  <td width="45%"><%= link_to deliverable.url, deliverable.url, :target => '_blank' %></td>
                   <td width="50%"><%= deliverable.comments %></td>
                 </tr>
               <% end %>
