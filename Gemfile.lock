@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/ghoppe/refinerycms-bootstrap.git
-  revision: 259ff56c0022d3daac287c9d7b62b428f1c7a1fd
-  specs:
-    refinerycms-bootstrap (2.1.0.dev)
-      bootstrap-sass (~> 2.1.1.0)
-      refinerycms-core (~> 2.0)
-      refinerycms-images (~> 2.0)
-      sass-rails (~> 3.1)
-
-GIT
   remote: git://github.com/jeffdonthemic/forcifier.git
   revision: 31a1339d09ba8464d943453baf9f09567aec78df
   specs:
@@ -530,7 +520,6 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   recaptcha
   redis
-  refinerycms-bootstrap!
   refinerycms-dashboard
   refinerycms-images
   refinerycms-pages
