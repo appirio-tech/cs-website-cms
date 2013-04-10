@@ -116,6 +116,43 @@ class ApiModel
     Kernel.const_get(self.name).new(raw_get entity, params)
   end  
 
+  def self.http_get(endpoint, params = nil)
+    options = { headers: api_request_headers }
+    options.merge!(query = {query: params}) if params.present?
+    process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
+  end
+
+  def self.http_post(endpoint, params)
+    options = { 
+      headers: api_request_headers, 
+      body: params.to_json
+    }
+    process_response(HTTParty::post("#{ENV['CS_API_URL']}/#{endpoint}", options))
+  end
+
+  def self.http_put(endpoint, params)
+    puts params.to_yaml
+    options = { 
+      headers: api_request_headers, 
+      query: params
+    }
+    process_response(HTTParty::put("#{ENV['CS_API_URL']}/#{endpoint}", options))
+  end     
+
+  def self.process_response(response)
+    puts "Processing response: #{response.code}"
+    case response.code
+      when 200
+        Hashie::Mash.new(response).response
+      when 404
+        raise ApiExceptions::EntityNotFoundError.new 
+      when 401
+        raise ApiExceptions::AccessDenied.new         
+      when 500...600
+        raise ApiExceptions::WTFError.new 
+    end    
+  end  
+
   def self.naked_get(endpoint, params = nil)
     endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
     endpoint << "?#{params.to_param}" if params.present?
