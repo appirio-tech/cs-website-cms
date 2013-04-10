@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
+  rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
   rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
 
   before_filter :set_access_token
@@ -32,6 +33,10 @@ class ApplicationController < ActionController::Base
   def entity_access_denied
     redirect_to '/access_denied'
   end    
+
+  def something_bad_happened
+    redirect_to '/bad'
+  end      
 
   def guest_access_token
     User.guest_access_token

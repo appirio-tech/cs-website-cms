@@ -6,4 +6,7 @@ module ApiExceptions
 	class AccessDenied < StandardError
 	end
 
+	class WTFError < StandardError
+	end	
+
 end
