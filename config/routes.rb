@@ -57,6 +57,7 @@ CsWebsiteCms::Application.routes.draw do
       post 'submit_url'
       get 'submit_url_or_file_delete'
       get 'results'
+      get 'appeals'
       get 'results/scorecard' => 'challenges#results_scorecard', :as => 'scorecard_results'
       get 'scorecard'
       match 'survey' => "challenges#survey", :as => 'survey'

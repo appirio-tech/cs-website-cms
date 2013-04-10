@@ -6,15 +6,17 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
-    :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard]
+    :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard, :appeals]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
-    :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey]
+    :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
+    :appeals]
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
   before_filter :redirect_advanced_search, :only => [:search]
+  before_filter :restrict_appeallate_member, :only => [:appeals]
   after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file]
 
   def index
@@ -249,6 +251,10 @@ class ChallengesController < ApplicationController
     @scorecard_group = Challenge.scorecard_questions(params[:id])
   end  
 
+  def appeals
+    @participants = @challenge.participants
+  end
+
   def survey
     if params[:survey]
       post_results = current_challenge.submit_post_survey(params[:survey])
@@ -350,6 +356,16 @@ class ChallengesController < ApplicationController
         delete_comments_cache
       end
     end   
+
+    def restrict_appeallate_member
+      being_appealed = RestforceUtils.query_salesforce("select id, being_appealed__c 
+        from challenge__c where challenge_id__c = '#{@challenge.challenge_id}'").first.being_appealed
+      appellate_member = RestforceUtils.query_salesforce("select id, appellate_member__c 
+        from member__c where name = '#{@current_user.username}'").first.appellate_member      
+      puts being_appealed
+      puts appellate_member      
+      redirect_to challenge_path, :alert => 'No access to requested page.' unless appellate_member and appellate_member
+    end
 
     def redirect_advanced_search
       redirect_to challenges_path unless params[:advanced]
