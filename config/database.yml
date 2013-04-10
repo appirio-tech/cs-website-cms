@@ -10,3 +10,8 @@ test:
   adapter: postgresql
   database: cs_website_cms_test
   host: localhost
+
+production:
+  adapter: postgresql
+  database: cs_website_cms_development
+  host: localhost
