@@ -1,0 +1,79 @@
+<% content_for :head do %><title>Appeals Board - CloudSpokes</title><% end %>
+
+<%= content_wrapper do %>
+
+	<div class="title"><h1>SCORECARDS</h1></div>
+
+		<% @challenge.scorecards.in_groups_of(2, false) do |scorecard_row| %>
+      <div class="row-fluid">
+      	<% for s in scorecard_row %>
+          <div class="placement well well-large span6">
+              <%= image_tag(s.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+              <%= link_to s.member.name, member_path(s.member), :style => 'margin-top:10px' %>
+              Score: <%= number_with_precision(s.score, :precision => 2) %><br/>
+              Submitted: <%= participant_submission_date(s.submission_date_utc) %>
+              <% if s.place.to_i > 0 %><span class="place p<%= s.place %>"><%= s.place.to_i.ordinalize %></span><% end %>
+									<div style="clear: both;"></div>
+                  <div style="padding-top:10px;padding-left:10px">
+	                  <table>
+	                  <% s.judges_scores.each do |judge| %>
+	                  <tr>
+	                  <td><%= link_to judge.reviewer__r.name, member_path(judge.reviewer__r.name), :style => 'font-size:12pt;margin:0' %></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	                  <td><%= number_with_precision(judge.final_score, :precision => 2) %></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	                  <td><a href="<%= scorecard_results_challenge_path(params[:id]) %>?participant=<%= s.member.name%>&judge=<%= judge.reviewer__r.name %>" style="font-size:12pt;margin:0">Scorecard</a></td>
+	                  </tr>
+	                  <% end %>
+		                </table>
+                	</div>
+          </div>
+          <% end %>
+      </div>
+    <% end %>
+
+  <div class="title"><h1>SUBMISSION DELIVERABLES</h1></div>
+
+  <div class="row-fluid">
+    <div class="span12">
+
+      <% if @participants.empty? %>
+        <div align="center"><strong>No access to appeals info.</strong></div>
+      <% else %>
+
+        <% @participants.each do |p| %>
+
+        	<% if p.has_submission %>
+
+	          <% submissions = p.current_submissions(params[:id]) %>   
+
+	          <h1><%= p.member.name %></h1>
+
+	          <table class="table table-hover table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Type</th>
+	              <th>Asset</th>
+	              <th>Comments</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	          	<% submissions.each do |s| %>
+	            <tr>
+	              <td><%= s.type %></td>
+	              <td><a href="<%= s.url %>"><%= s.url %></a></td>
+	              <td><%= s.comments %></td>
+	            </tr>
+	     				<% end %>
+	          </tbody>
+	          </table>
+
+	        <% end %>
+
+        <% end %>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+<% end %>
