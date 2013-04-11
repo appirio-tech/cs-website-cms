@@ -361,10 +361,8 @@ class ChallengesController < ApplicationController
       being_appealed = RestforceUtils.query_salesforce("select id, being_appealed__c 
         from challenge__c where challenge_id__c = '#{@challenge.challenge_id}'").first.being_appealed
       appellate_member = RestforceUtils.query_salesforce("select id, appellate_member__c 
-        from member__c where name = '#{@current_user.username}'").first.appellate_member      
-      puts being_appealed
-      puts appellate_member      
-      redirect_to challenge_path, :alert => 'No access to requested page.' unless appellate_member and appellate_member
+        from member__c where name = '#{@current_user.username}'").first.appellate_member       
+      redirect_to challenge_path, :alert => 'No access to requested page.' unless (being_appealed && appellate_member)
     end
 
     def redirect_advanced_search
