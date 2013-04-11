@@ -132,8 +132,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.get_apex_rest(url_string)
-    Forcifier::JsonMassager.deforce_json(get(ENV['SFDC_APEXREST_URL']+"#{url_string}"))
+  def self.get_apex_rest(url_string, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    Forcifier::JsonMassager.deforce_json(client.get(ENV['SFDC_APEXREST_URL']+"#{url_string}"))
   end  
 
   #
@@ -145,8 +146,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.post_apex_rest(url_string, options)
-    Forcifier::JsonMassager.deforce_json(post(ENV['SFDC_APEXREST_URL']+"#{url_string}", options))
+  def self.post_apex_rest(url_string, options, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    Forcifier::JsonMassager.deforce_json(client.post(ENV['SFDC_APEXREST_URL']+"#{url_string}", options))
   end    
 
   #
@@ -158,8 +160,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.put_apex_rest(url_string, params={})
-    Forcifier::JsonMassager.deforce_json(put(ENV['SFDC_APEXREST_URL']+"#{url_string}?#{params.to_param}"))
+  def self.put_apex_rest(url_string, params={}, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    Forcifier::JsonMassager.deforce_json(client.put(ENV['SFDC_APEXREST_URL']+"#{url_string}?#{params.to_param}"))
   end   
 
   #
