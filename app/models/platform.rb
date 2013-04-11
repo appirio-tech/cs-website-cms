@@ -4,6 +4,6 @@ class Platform < ApiModel
   end
 
   def self.names
-    @names ||= request :get, nil, {}
+    @names ||= http_get 'platforms'
   end
 end

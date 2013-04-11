@@ -19,7 +19,6 @@ CsWebsiteCms::Application.routes.draw do
   end
 
   get '/members' => redirect("/community")
-  get 'members/search'
   get '/community', to: 'members#community'
   get '/leaderboard', to: 'members#leaderboard' # this is temp
   resources :members, only: [:show, :update] do

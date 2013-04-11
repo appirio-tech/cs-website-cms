@@ -21,19 +21,6 @@ class MembersController < ApplicationController
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
     @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
   end
-  
-  # note that we provide our own search service so that we have greater control
-  # over the results; e.g. caching, endpoint configuration, result format, etc.
-  def search
-    @members = Member.search params[:keyword]
-    render json: @members, :callback => params[:callback]
-  end
-
-  def recommendations
-  end
-
-  def create_recommendations
-  end
 
   def show
     @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })

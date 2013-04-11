@@ -61,9 +61,4 @@ class Account < ApiModel
     self.class.put(["change_password_with_token", user.username], data)
   end    
 
-  # DEPRECATED
-  def reset_password
-    self.class.request(:get, ["reset_password", user.username], {})
-  end
-
 end

@@ -16,17 +16,17 @@ class Message < ApiModel
   def create
     body = {:data => {:to => self.to, :from => self.from, 
       :subject => self.subject, :body => self.body}}
-    self.class.naked_post("messages", body)
+    self.class.http_post("messages", body)
   end     
 
   def reply
     body = {:data => {:to => self.to, :from => self.from, 
       :subject => self.subject, :body => self.body}}
-    self.class.naked_post("messages/#{self.id}/reply", body)
+    self.class.http_post("messages/#{self.id}/reply", body)
   end     
 
   def mark_as_read(params)
-    self.class.naked_put("messages/#{self.id}", { 'data' => params })
+    self.class.http_put("messages/#{self.id}", { 'data' => params })
   end     
 
 end

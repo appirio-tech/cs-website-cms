@@ -1,9 +1,10 @@
+# class no longer needed!
 class Category < ApiModel
   def self.api_endpoint
   	"#{ENV['CS_API_URL']}/categories"
   end
 
   def self.names
-    @names ||= request :get, nil, {}
+    @names ||= http_get 'categories'
   end
 end

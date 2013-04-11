@@ -56,11 +56,11 @@ class Challenge < ApiModel
   end
 
   def self.increment_page_views(id) 
-    restforce_client.get "#{ENV['SFDC_APEXREST_URL']}/challenges/#{id}/pageview"
+    RestforceUtils.get_apex_rest "/challenges/#{id}/pageview"
   end 
 
   def self.scorecard_questions(id)
-    naked_get("challenges/#{id}/scorecard")
+    http_get("challenges/#{id}/scorecard")
   end  
 
   # Used for resourceful routes (instead of id)
@@ -69,12 +69,12 @@ class Challenge < ApiModel
   end
 
   def self.open    
-    request(:get, '', {}).map {|challenge| Challenge.new challenge}
+    http_get('challenges').map {|challenge| Challenge.new challenge}
   end
 
   def self.recent
     Rails.cache.fetch('recent-challenges', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-      request(:get, 'recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
+      http_get('challenges/recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
     end
   end
 
@@ -86,7 +86,7 @@ class Challenge < ApiModel
   #   technology, platform, category, order_by
   def self.all(options = {})
     options.each {|k,v| options.delete(k) if v.blank? } if options
-    naked_get('challenges', options).map {|challenge| Challenge.new challenge}
+    http_get('challenges', options).map {|challenge| Challenge.new challenge}
   end  
 
   # def submission_deliverables
@@ -116,8 +116,8 @@ class Challenge < ApiModel
   end    
 
   def results_overview
-    restforce_client.query("select results_overview__c from challenge__c 
-      where challenge_id__c = '#{@challenge_id}'").first.Results_Overview__c
+    RestforceUtils.query_salesforce("select results_overview__c from challenge__c 
+      where challenge_id__c = '#{@challenge_id}'").first.results_overview
   rescue Exception => e
     # simply return nil
   end
@@ -125,12 +125,6 @@ class Challenge < ApiModel
   def challenge_comments
     return [] if @challenge_comments.blank?
     @challenge_comments.records.map {|comment| Comment.new(comment)}
-  end
-
-  # TODO: DEPRECATED
-  def categories
-    return [] if @categories.blank?
-    @categories.records.map {|c| c.display_name}
   end
 
   def category_names
@@ -196,7 +190,7 @@ class Challenge < ApiModel
 
   def create_comment(attrs)
     attrs[:challenge_id] = challenge_id
-    self.class.post [challenge_id, "comment"], {data: attrs}
+    self.class.http_post "challenges/#{challenge_id}/comment", {data: attrs}
   end
 
   def submit_post_survey(params)
@@ -211,11 +205,10 @@ class Challenge < ApiModel
           :improvements => params[:improvements]
       }
     }
-    self.class.naked_post("challenges/#{self.challenge_id}/survey", body)    
+    self.class.http_post("challenges/#{self.challenge_id}/survey", body)    
   end  
 
   def submission_of(user)
-    puts "submission_of(#{challenge_id}, #{user.username})"
     Submission.find(challenge_id, user.username)
   end 
 
@@ -226,25 +219,5 @@ class Challenge < ApiModel
   def active?
     ['Created', 'Submission', 'Review', 'Review - Pending'].include?(status)
   end
-
-  private
-
-    def self.restforce_client
-      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-        :client_id      => ENV['SFDC_CLIENT_ID'],
-        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
-        :host           => ENV['SFDC_HOST']
-      client
-    end 
-
-    def restforce_client
-      client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
-        :password       => ENV['SFDC_PUBLIC_PASSWORD'],
-        :client_id      => ENV['SFDC_CLIENT_ID'],
-        :client_secret  => ENV['SFDC_CLIENT_SECRET'],
-        :host           => ENV['SFDC_HOST']
-      client
-    end     
 
 end

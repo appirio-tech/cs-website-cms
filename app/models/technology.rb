@@ -4,6 +4,6 @@ class Technology < ApiModel
   end
 
   def self.names
-    @names ||= request :get, nil, {}
+    @names ||= http_get 'technologies'
   end
 end

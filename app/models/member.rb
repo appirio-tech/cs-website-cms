@@ -53,21 +53,16 @@ class Member < ApiModel
     past_challenges
   end
 
-  def self.search(keyword)
-    request(:get, "search", {:keyword => keyword})
-      .map {|member| Member.new member}
-  end
-
   def self.login_type(membername)
-    request(:get, "#{membername}/login_type", nil)
+    http_get "members/#{membername}/login_type"
   end
 
   def inbox
-    self.class.naked_get("messages/inbox/#{@name}").map {|message| Message.new message}
+    self.class.http_get("messages/inbox/#{@name}").map {|message| Message.new message}
   end  
 
   def from
-    self.class.naked_get("messages/from/#{@name}").map {|message| Message.new message}
+    self.class.http_get("messages/from/#{@name}").map {|message| Message.new message}
   end    
 
 end
