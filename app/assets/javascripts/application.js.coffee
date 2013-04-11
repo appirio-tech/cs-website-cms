@@ -27,4 +27,4 @@
 #= require rails.validations
 #= require rails.validations.simple_form
 
-#= require scripts
+#= require_tree
