@@ -12,7 +12,7 @@
         <div class="row-fluid">
 
             <div class="span4">
-                <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS MONTH</h1></div>
+                <h2>THIS MONTH</h2>
                 <% @this_month.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="span4">
-                <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS YEAR</h1></div>
+                <h2>THIS YEAR</h2>
                 <% @this_year.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="span4">
-                <div class="title" style="margin:0px 0px 0px 0px"><h1>ALL TIME</h1></div>
+                <h2>ALL TIME</h2>
                 <% @all_time.each do |member| %>
                 <div class="placement well">
                     <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>

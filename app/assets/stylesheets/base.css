@@ -231,24 +231,32 @@ a.circle-orange-large span {
   background-repeat: no-repeat;
 }
 
-a.circle-orange-large .github {
-  background-position: -304px 0;
+.circle-orange:hover .github {
+    background-position: -376px -273px;
 }
 
-a.circle-orange-large .twitter {
-  background-position: -304px -71px;
+.circle-orange:hover .facebook {
+    background-position: -376px -351px;
 }
 
-a.circle-orange-large .facebook {
-  background-position: -304px -142px;
+.circle-orange:hover .twitter {
+    background-position: -376px -312px;
 }
 
-a.circle-orange-large .googleplus {
-  background-position: -304px -213px;
+.circle-orange:hover .linkedin {
+    background-position: -376px -507px;
 }
 
-a.circle-orange-large .salesforce {
-  background-position: -304px -284px;
+.circle-orange:hover .googleplus {
+    background-position: -376px -390px;
+}
+
+.circle-orange:hover .salesforce {
+    background-position: -376px -429px;
+}
+
+.circle-orange:hover .googleplus-small {
+    background-position: -376px -468px;
 }
 
 .next span {
@@ -260,43 +268,43 @@ a.circle-orange-large .salesforce {
 }
 
 .github {
-  background-position: -39px 0;
+    background-position: -376px 0;
 }
 
 .facebook {
-  background-position: -78px 0;
+    background-position: -376px -78px;
 }
 
 .twitter {
-  background-position: -39px -39px;
+    background-position: -376px -39px;
 }
 
 .linkedin {
-  background-position: -78px -39px;
+    background-position: -376px -234px;
 }
 
 .googleplus {
-  background-position: -375px -117px;
+    background-position: -376px -117px;
 }
 
 .salesforce {
-  background-position: -375px -156px;
+    background-position: -376px -156px;
 }
 
 .googleplus-small {
-  background-position: -375px -195px;
+    background-position: -376px -195px;
 }
 
 .email {
-  background-position: -375px -234px;
+  background-position: -376px -234px;
 }
 
 .print {
-  background-position: -375px -273px;
+  background-position: -376px -273px;
 }
 
 .add {
-  background-position: -375px -312px;
+  background-position: -376px -312px;
 }
 
 .pagination .circle-orange {
@@ -337,7 +345,7 @@ h1.rss {
 }
 
 .title {
-  margin: 60px 0 30px 0;
+  margin: 25px 0;
   text-align: center;
   background: url("/assets/title-bg.png") left center repeat-x;
 }
@@ -428,18 +436,23 @@ h1.rss {
 }
 
 .form-search {
+    clear: right;
   position: relative;
   margin-top: 15px;
   margin-bottom: 30px;
 }
 
 .form-search .search-query {
-  width: 292px !important;
+    color: #ffffff;
+    background: #999999;
+    border: none;
+    padding: 12px 40px 12px 12px;
+    width: 292px !important;
 }
 
 .form-search .btn-search {
   position: absolute;
-  top: 6px;
+  top: 12px;
   right: 15px;
   display: block;
   width: 24px;
@@ -549,27 +562,27 @@ a.jqTransformChecked {
   color: #ffffff;
   white-space: nowrap;
   cursor: pointer;
-  background: url("/assets/btn.png") no-repeat left top;
+  background: #f8941e;
 }
 
 .jqTransformSelectWrapper a.jqTransformSelectOpen {
   position: absolute;
-  top: 1px;
+  /*top: 1px;*/
   right: 0;
   display: block;
   width: 39px;
   height: 39px;
-  background: url("/assets/btn.png") no-repeat 0 -156px;
+  background: #f8941e url("/assets/btn.png") no-repeat right center;
 }
 
 .jqTransformSelectWrapper a.jqTransformSelectOpen:hover {
-  background-position: left -195px;
+  /*background-position: left -195px;*/
 }
 
 .jqTransformSelectWrapper ul {
   position: absolute;
-  top: 36px;
-  left: 1px;
+  top: 37px;
+  left: 0;
   z-index: 10;
   display: none;
   width: 38px;
@@ -580,29 +593,29 @@ a.jqTransformChecked {
   overflow-y: auto;
   list-style: none;
   background-color: #FFF;
-  border-right: solid 1px #de7a20;
-  border-bottom: solid 1px #de7a20;
-  border-left: solid 1px #de7a20;
+  border-right: solid 1px #f8941e;
+  border-bottom: solid 1px #f8941e;
+  border-left: solid 1px #f8941e;
 }
 
 .jqTransformSelectWrapper ul a {
   display: block;
   padding: 10px 10px;
   font-size: 14px;
-  color: #de7a20;
+  color: #f8941e;
   text-decoration: none;
   background-color: #FFF;
 }
 
 .jqTransformSelectWrapper ul a.selected {
-  color: #de7a20;
+  color: #f8941e;
   background: #EDEDED;
 }
 
 .jqTransformSelectWrapper ul a:hover,
 .jqTransformSelectWrapper ul a.selected:hover {
   color: #fff;
-  background: #de7a20;
+  background: #f8941e;
 }
 
 .jqTransformSelectWrapper select {
@@ -611,20 +624,21 @@ a.jqTransformChecked {
 
 .form-horizontal .jqTransformSelectWrapper {
   height: 36px;
+    border: 1px solid #d1d1d1;
 }
 
 .form-horizontal .jqTransformSelectWrapper div span {
   height: 36px;
   line-height: 36px;
   color: #787878;
-  background: url("/assets/input.png") no-repeat left top;
+  background: #ffffff;
 }
 
 .form-horizontal .jqTransformSelectWrapper a.jqTransformSelectOpen {
   top: 0;
   width: 36px;
   height: 36px;
-  background: url("/assets/select.png") no-repeat right top;
+  background: #ffffff url("/assets/select.png") no-repeat right top;
 }
 
 .form-horizontal .jqTransformSelectWrapper ul {
@@ -722,10 +736,6 @@ a.jqTransformChecked {
 
 .sidebar .links li {
   padding-left: 15px;
-}
-
-.sidebar .links li.active {
-  background: url("/assets/links-arrow.png") 5px center no-repeat;
 }
 
 .sidebar .links li.active a {
@@ -999,7 +1009,7 @@ h2.message {
   height: 39px;
   margin-top: -20px;
   overflow: hidden;
-  background-position: 1px -78px;
+  background-position: 1px 0;
 }
 
 .slider .prev {
@@ -1042,18 +1052,16 @@ h2.message {
   margin-left: 11px;
   font-weight: bold;
   color: #ffffff;
-  background: url("/assets/rect.png") left -387px no-repeat;
+  background: #136fb4;
 }
 
 #status > div > div {
   padding-right: 3px;
-  background: url("/assets/rect.png") right -645px no-repeat;
 }
 
 #status > div > div > div {
   width: 190px;
   height: 129px;
-  background: url("/assets/rect.png") left -516px repeat-x;
 }
 
 #status > div strong {
@@ -1103,7 +1111,7 @@ h2.message {
   height: 129px;
   padding-left: 3px;
   margin-left: 50px;
-  background: url("/assets/rect.png") left 0 no-repeat;
+  background: #136fb4;
 }
 
 #badges > a:first-child,
@@ -1128,14 +1136,12 @@ h2.message {
   height: 129px;
   padding-right: 3px;
   color: #ffffff;
-  background: url("/assets/rect.png") right -129px no-repeat;
 }
 
 #badges a > div table,
 #badges > div > div table {
   width: 300px;
   height: 129px;
-  background: url("/assets/rect.png") 0 -258px repeat-x;
 }
 
 #badges a > div table td,
@@ -1210,7 +1216,7 @@ ul.inline a {
 }
 
 .photo {
-  border: 4px solid #d1d1d1;
+  border: 1px solid #d1d1d1;
 }
 
 .span8 > h1 {
@@ -1256,7 +1262,10 @@ ul.inline a {
   line-height: 48px;
   color: #fff;
   text-align: center;
-  background: url("/assets/tab.png") no-repeat;
+  background: #f8941e;
+}
+.tab a.active{
+    background: #999999;
 }
 
 .tab a:hover {
@@ -1398,7 +1407,7 @@ ul.inline a {
   display: block;
   width: 65px;
   height: 64px;
-  margin-top: 21px;
+  margin-top: 23px;
   margin-bottom: 36px;
   margin-left: 39px;
   background: url("/assets/circle_orange.png") -111px 0 no-repeat;
@@ -1618,7 +1627,7 @@ hr {
   overflow: hidden;
   text-indent: -1000px;
   background: url("/assets/badge-categories.png") no-repeat;
-  border: 2px solid #de7a20;
+  border: 2px solid #F8941E;
 }
 
 .techs a:hover,
@@ -2154,4 +2163,12 @@ table.overview td.sep {
 
 .form-adv-search .clearfix {
   clear: both;
+}
+.forgot-password-form #reset-username{
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+body > .alert {
+    display: none;
 }

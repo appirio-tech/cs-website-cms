@@ -44,43 +44,17 @@
   <a name="login"></a> 
   <div class="loginbar-wrapper">
       <div class="container">
-        <% if current_user.nil? %>
-          <div class="login">
-              <div>
-                  <form action="/users/sign_in" method="post" class="login-form form-horizontal">
-                      <input placeholder="Username" type="text" name="user[username]"/>
-                      <input placeholder="Password" type="password" name="user[password]"/>
-                      <input type="hidden" name="user[remember_me]" value="1"/>
-                      <div class="btn"><input type="submit" class="btn" style="width:60px" value="LOGIN"></div>
-                  </form>
-              </div>
-              <div class="login-using">
-                  <span class="pull-left">LOGIN USING</span>
-                  <ul class="unstyled inline">
-                      <li><a href="/auth/github" class="circle-orange"><span class="github">github</span></a></li>
-                      <li><a href="/auth/facebook" class="circle-orange"><span class="facebook">facebook</span></a></li>
-                      <li><a href="/auth/twitter" class="circle-orange"><span class="twitter">twitter</span></a></li>
-                      <li><a href="/auth/google" class="circle-orange"><span class="googleplus">google+</span></a></li>
-                  </ul>
-              </div>
-              <div class="forgot-pwd">
-                  <a href="#forgot-password-modal" data-toggle="modal">FORGOT PASSWORD?</a>
-              </div>
-              <div class="last">
-                  <a href="#register-modal" data-toggle="modal" class="btn btn-grey"><span>REGISTER</span></a>
-              </div>
-          </div>
-        <% else %>
+        <% if !current_user.nil? %>
           <div class="logined">
               <div class="pull-left">
-                <span class="online-status"><%= @platform_stats['competing_today'].to_i %> MEMBERS WORKING</span>
+                <span class="online-status"><%= @platform_stats['competing_today'].to_i %> CS Members Working Now</span>
               </div>
 
               <div class="pull-right">
                   <%= image_tag(profile_pic, :width => "35x35") %>
-                  <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
-                  <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
-                  <% link_to 'Sign out', main_app.destroy_user_session_path, :method => :delete %>
+                  <a class="btn" href="<%= main_app.account_path %>"><span>My Account</span></a>
+                  <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>My Public Profile</span></a>
+                  <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
               </div>
           </div>
         <% end %>
@@ -100,24 +74,55 @@
 
           <%= link_to image_tag("logo.png"), root_path, :class => "logo" %>
 
-          <ul class="nav">
-              <li<% if @community_tick %> class="active"<% end %>><%= link_to 'COMMUNITY', main_app.community_path %></li>
-              <li<% if @challenges_tick %> class="active"<% end %>><%= link_to 'CHALLENGES', main_app.challenges_path %></li>
-              <li<% if @leaderboard_tick %> class="active"<% end %>><%= link_to 'LEADERBOARD', main_app.leaderboard_path %></li>
-              <li><%= link_to 'BADGES', '/badges' %></li>
-              <li><%= link_to 'BLOG', 'http://blog.cloudspokes.com' %></li>
-              <li><%= link_to 'HELP', '/help' %></li>
-              <li<% if @forums_tick %> class="active"<% end %>><%= link_to 'FORUMS', '/forums' %></li>              
-              <% if current_user %>
-                <li<% if @account_tick %> class="active"<% end %>><%= link_to 'ACCOUNT', main_app.account_path %></li>
+        <div class="nav pull-right">
+
+          <div class="btn-group" id="customer-solutions-list">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              Customer Solutions
+              <div class="caret"></div>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Overview', '/overview' %></li>
+              <li><%= link_to 'What We Do', '/what-we-do' %></li>
+              <li><%= link_to 'How It Works', '/how-it-works' %></li>
+              <li><%= link_to 'Highlights', '/what-we-do/highlights' %></li>
+              <li><%= link_to 'Spokes', '/partners' %></li>
+              <li><%= link_to 'Contact Us', '/contact' %></li>
+            </ul>
+          </div>
+
+          <div class="btn-group" id="community-list">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              Community
+              <div class="caret"></div>
+            </a>
+            <ul class="dropdown-menu">
+              <% if !current_user.nil? %>
+                  <li><%= link_to 'Dashboard', main_app.dashboard_path %></li>
+                  <li><%= link_to 'My Account', main_app.account_path %></li>
               <% end %>
-          </ul>
+              <li><%= link_to 'How It Works', '/how-it-works-members' %></li>
+              <li><%= link_to 'Challenges', main_app.challenges_path %></li>
+              <li><%= link_to 'Leaderboard', main_app.leaderboard_path %></li>
+              <li><%= link_to 'Forums', '/forums' %></li>
+            </ul>
+          </div>
 
+          <a class="btn" href="http://blog.cloudspokes.com"><span>Blog</span></a>
+          <% if current_user.nil? %>
+              <a href="#register-modal" data-toggle="modal" class="btn"><span>Register</span></a>
+              <a href="#login-modal" data-toggle="modal" class="btn"><span>Login</span></a>
+          <% else %>
+              <a class="btn btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>Logout</span></a>
+          <% end %>
+        </div>
 
-          <form class="form-search jqTransform pull-right">
-              <input type="text" class="search-query typeahead" placeholder="Search Members or Challenges"/>
+        <% if @community_tick ||  @challenges_tick || @leaderboard_tick %>
+          <form class="form-search pull-right">
+              <input type="text" class="search-query typeahead" placeholder="Members / Challenges"/>
               <a href="#" class="btn-search"></a>
           </form>
+        <% end %>
       </div> <!-- /.container -->
   </div><!-- /.nav-wrapper -->
 
@@ -133,11 +138,11 @@
                   <h2>MAIN LINKS</h2>
                   <ul class="links">
                       <li><%= link_to 'Home', main_app.root_path %></li>
+                      <li><%= link_to 'Overview', '/overview' %></li>
                       <li><%= link_to 'What We Do', '/what-we-do' %></li>
                       <li><%= link_to 'How It Works', '/how-it-works' %></li>
-                      <li><%= link_to 'About Us', '/about' %></li>
-                      <li><%= link_to 'Blog', 'http://blog.cloudspokes.com' %></li>
-                      <li><%= link_to 'Privacy & Terms', '/privacy' %></li>
+                      <li><%= link_to 'Highlights', '/what-we-do/highlights' %></li>
+                      <li><%= link_to 'Spokes', '/partners' %></li>
                       <li><%= link_to 'Contact Us', '/contact' %></li>
                   </ul>
               </div>
@@ -145,13 +150,12 @@
               <div class="pull-left">
                   <h2>MEMBER LINKS</h2>
                   <ul class="links">
-                      <li><%= link_to 'Community', main_app.community_path %></li>
+                      <li><%= link_to 'Dashboard', main_app.dashboard_path %></li>
                       <li><%= link_to 'Challenges', main_app.challenges_path %></li>
                       <li><%= link_to 'Leaderboard', main_app.leaderboard_path %></li>
-                      <li><%= link_to 'Badges', '/badges' %></li>
-                      <li><%= link_to 'FAQ', '/faq' %></li>
-                      <li><%= link_to 'Help', '/help' %></li>
                       <li><%= link_to 'Forums', '/forums' %></li>
+                      <li><%= link_to 'Blog', 'http://blog.cloudspokes.com' %></li>
+                      <li><%= link_to 'Privacy & Terms', '/privacy' %></li>
                   </ul>
               </div>
 
@@ -268,6 +272,55 @@
       </div>
       <div class="modal-footer"></div>
       <button type="button" class="close" data-dismiss="modal"></button>
+  </div>
+
+  <div id="login-modal" class="modal hide fade" tabindex="-1" role="dialog">
+    <div class="modal-header"></div>
+    <div class="modal-body">
+      <div class="title"><h1>LOGIN USING AN EXISTING ACCOUNT</h1></div>
+      <div class="content">
+        <p>Using an existing account is quick and easy. Select the account you would like to use and we'll do the rest for you.</p>
+        <ul class="unstyled inline">
+          <li><a href="/auth/github" class="circle-orange"><span class="github">github</span></a></li>
+          <li><a href="/auth/facebook" class="circle-orange"><span class="facebook">facebook</span></a></li>
+          <li><a href="/auth/twitter" class="circle-orange"><span class="twitter">twitter</span></a></li>
+          <li><a href="/auth/google" class="circle-orange"><span class="googleplus">google+</span></a></li>
+        </ul>
+      </div>
+
+      <form class="form-horizontal jqTransform jqtransformdone" action="/users/sign_in" method="post">
+        <div class="title"><h1>LOGIN</h1></div>
+        <p>Login with your account with CloudSpokes:</p>
+        <div class="info"></div>
+        <div class="control-group">
+          <label class="control-label" for="input-name">Username</label>
+          <div class="controls">
+            <input placeholder="Username" type="text" name="user[username]" id="login-username"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="input-pwd">Password</label>
+          <div class="controls">
+            <input placeholder="Password" type="password" name="user[password]" id="login-password"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox">
+              <input type="checkbox" name="user[remember_me]" checked="checked" id="login-rememberme">Remember Me</a>
+            </label>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <div class="btn"><input id="sign-in-btn" type="submit" value="Login"></div>
+            <a href="#forgot-password-modal" data-toggle="modal" data-dismiss="modal">FORGOT PASSWORD?</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer"></div>
+    <button type="button" class="close" data-dismiss="modal"></button>
   </div>
 
   <!-- Modal -->

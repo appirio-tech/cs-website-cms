@@ -11,8 +11,8 @@
         .controls
           = image_tag @member.profile_pic, class: "photo pull-left", alt: "", width: 82
           .btn-file
-            %a.btn.btn-grey{href: "#"}
-              %span CHOOSE FILE
+            %a.btn{href: "#"}
+              %span Choose File
             = file_field_tag "profile_picture"
             %span No file chosen
           / = link_to "#", class: "btn btn-grey submit" do
@@ -50,7 +50,7 @@
       .controls-row
         .control-group
           .controls
-            = submit_tag "SUBMIT", class: "btn pull-left"
+            = submit_tag "Save Profile", class: "btn pull-right"
         
 
 

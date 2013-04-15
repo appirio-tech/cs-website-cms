@@ -34,7 +34,7 @@ $(document).ready(function() {
 
         }
 
-        $('.nav-wrapper .container').append('<a href="#" class="btn btn-grey menu"><span><i></i></span></a>');
+        $('.nav-wrapper .container').append('<a href="#" class="btn menu"><span><i></i></span></a>');
         $('.nav-wrapper nav li a').click(function() {
             $('.nav-wrapper nav').hide();
         })

@@ -128,12 +128,6 @@ form.invite-friends .item {
 .jqTransformRadioWrapper  a.jqTransformChecked {
   background-position: 0 -21px;
 }
-textarea {
-	border: 1px solid #d1d1d1;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
 
 .content-wrapper .container > .row-fluid > [class^="span"] > h2 small {
 	float: right;
@@ -148,8 +142,9 @@ textarea {
 
 /** header **/
 .loginbar-wrapper {
-	height: 60px;
+	/*height: 60px;*/
 	/*overflow: hidden;*/
+    min-height: 10px;
 }
 .loginbar-wrapper .login > div {
 	padding-top: 9px;
@@ -199,9 +194,6 @@ textarea {
 		padding-left: 20px;
 	}
 
-.logined .pull-right {
-	width: 330px;
-}
 /** end of header **/
 
 /* nav */
@@ -273,13 +265,13 @@ textarea {
 				height: 50px;
 				color: #fff;
 				text-align: center;
-				background: url("/assets/tab-large.png") 0 0 no-repeat;
+				background: #f8941e;
 				padding-left: 3px;
 			}
 				.banner-unit a.get-started span {
 					display: block;
 					padding-right: 3px;
-					background: url(/assets/tab-large.png) 100% -195px no-repeat;
+                    background: #f8941e;
 				}
 					.banner-unit a.get-started span span {
 						display: block;
@@ -289,7 +281,7 @@ textarea {
 						padding: 0 9px;
 						font-weight: bold;
 						line-height: 50px;
-						background: url("/assets/tab-large.png") 0 -390px repeat-x;
+                        background: #f8941e;
 					}
 			.banner-unit a.get-started:hover {
 				background-position: 0 -65px;
@@ -545,7 +537,7 @@ ul.brief-info {
 				font-size: 13px;
 			}
 				.member-profile .missions .item span.orange {
-					color: #de7a20;
+					color: #F8941E;
 				}
 				.member-profile .missions .item span.first {
 					height: 40px;

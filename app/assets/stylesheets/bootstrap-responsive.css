@@ -108,6 +108,7 @@
 }
 
 @media (max-width: 979px) {
+
   .container {
     width: 100%;
     padding: 0 5px;
@@ -155,17 +156,14 @@
   .form-search {
     display: block;
     float: none;
-    padding: 0 15px 0 12px;
+    padding: 0 55px 0 5px;
     clear: both;
   }
+    .form-search .search-query{
+        width: 100% !important;
+    }
   .form-search .btn-search {
     right: 18px !important;
-  }
-  .form-search .jqTransformInputWrapper {
-    width: 100% !important;
-  }
-  .form-search .jqTransformInputWrapper input.search-query {
-    width: 98% !important;
   }
   .sidebar .links li.active {
     background: url("/assets/arrow-up.png") no-repeat scroll 5px center transparent;
@@ -208,8 +206,9 @@
     display: none;
     width: 100%;
     margin-bottom: 20px;
-    background: #535353;
+    /*background: #535353;*/
   }
+
   .nav a {
     display: block;
     font-size: 14px;
@@ -221,7 +220,6 @@
   .nav li {
     display: block;
     padding-top: 0;
-    padding-left: 10px;
     margin-top: -1px;
     margin-left: 0;
   }
@@ -562,6 +560,7 @@
 }
 
 @media (max-width: 767px) {
+
   .banner-unit {
     height: auto !important;
   }
@@ -604,6 +603,47 @@
   #status > div > div > div {
     width: 100%;
   }
+    /*.loginbar-wrapper .pull-right{*/
+        /*float: none !important;*/
+        /*padding: 0 5px;;*/
+    /*}*/
+  .loginbar-wrapper .pull-right .btn,.loginbar-wrapper .pull-right img{
+      /*margin-top: 5px;*/
+      /*width: 100%;*/
+      /*margin-left: 0;*/
+      margin-bottom: 5px;
+      margin-left: 0;
+      margin-right: 5px;
+  }
+
+    .nav{
+        width: auto !important;
+        float: none !important;
+        clear: both;;
+        padding: 0 5px 5px 5px;
+    }
+  .nav .btn-group{
+      width: 100%;
+      margin-top: 5px;
+      margin-left: 0 !important;
+
+  }
+    .nav .btn-group .btn{
+        text-align: left;
+    }
+  .nav > .btn{
+      margin-top: 5px;
+      margin-left: 0 !important;
+      text-align: left;
+  }
+    .nav > .btn span{
+        padding-left: 10px;
+    }
+  .nav .dropdown-menu{
+      position: relative;
+      width: 100% !important;
+  }
+
   .span6 .case {
     padding-top: 140px;
   }
@@ -909,6 +949,13 @@
   .form-adv-search .scrollbar {
     display: none;
   }
+    .btn{
+        font-size: 18px !important;
+    }
+    .nav li a{
+        font-size: 18px !important;
+        text-indent: 10px;
+    }
 }
 
 @media (max-width: 979px) {

@@ -192,6 +192,46 @@ $(document).ready(function() {
         }
         e.stopPropagation()
     })
+
+
+    $('.dropdown-toggle').each(function() {
+        var menu=$(this).next(".dropdown-menu");
+        menu.width($(this).outerWidth());
+    })
+
+    $('#login-modal input[type="submit"]').click(function() {
+        if ($('#login-modal .error').length === 0) {
+            $('#sign-in-btn').val('Processing....');
+            $.ajax({
+                type: 'POST',
+                url: '/users/sign_in',
+                data: {
+                    user: {
+                        username: $('#login-username').val(),
+                        password: $('#login-password').val(),
+                        remember_me: $('#login-rememberme:checked').length>0?1:0
+                    }
+                },
+                success: function(results, textStatus, jqHXR) {
+                    if(results.indexOf('alert-error')==-1){
+                        document.location.href="/dashboard";
+                    }else{
+                        console.log(results)
+                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">Invalid username / password combination</div>');
+                    }
+                    return $('#sign-in-btn').val('Login');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    return $('#sign-up-btn').val('Login');
+                }
+            });
+        }
+        return false;
+    });
+
+    $('html').off('touchstart.dropdown.data-api');
+
 });
 
 function exist(el) {
