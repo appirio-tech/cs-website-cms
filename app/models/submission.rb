@@ -99,7 +99,9 @@ class Submission < ApiModel
     
     self.deliverables << deliverable
     # puts deliverables
-    
+
+    attrs[:id] = deliverable.message if deliverable.success
+
     # also pass on the attrs
     deliverable.attrs = attrs
 
@@ -124,7 +126,7 @@ class Submission < ApiModel
 
     # also pass on the attrs
     deliverable.attrs = attrs
-    
+
     deliverable
   rescue Exception => e
     puts e.message

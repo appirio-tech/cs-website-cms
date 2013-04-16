@@ -165,10 +165,6 @@ class window.Submission
     $(".deliverables").find(".empty").remove()
     # to-do: handle when success if false
 
-    # newly created deliverable
-    if(deliverable.attrs.id == "" && deliverable.success)
-      deliverable.attrs.id = deliverable.message
-
     d = deliverable.attrs
 
     ele = $("<div class='deliverable'>").attr("id", "deliverable-" + d.id)
