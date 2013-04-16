@@ -82,15 +82,12 @@ group :development, :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
-  gem 'spork'
-  gem "guard-spork"
   gem 'growl'
   gem 'ruby-debug19'
   gem 'pg', '0.14.1'
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'
-  gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
 end
@@ -98,7 +95,9 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem "minitest"
+  gem 'vcr'
+  gem 'spork'
+  gem "guard-spork"  
   gem "rake"
   gem 'webmock'
   gem "mocha"

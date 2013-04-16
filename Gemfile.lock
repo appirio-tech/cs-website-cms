@@ -238,7 +238,6 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
-    minitest (4.2.0)
     mocha (0.13.1)
       metaclass (~> 0.0.1)
     multi_json (1.5.0)
@@ -499,7 +498,6 @@ DEPENDENCIES
   jquery-rails (~> 2.0.0)
   memcachier
   meta_request (= 0.2.1)
-  minitest
   mocha
   nest
   newrelic_rpm
