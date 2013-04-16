@@ -1,6 +1,6 @@
 
 <%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
-<%= f.input :status, required: true, collection: @challenge.statuses, default: 'Planned', input_html: {required: true} %>
+<%= f.input :status, required: true, collection: @challenge.statuses, default: 'Draft', input_html: {required: true} %>
 
 <%= f.input :description, :as => :text, input_html: { :class => 'ckeditor' } %>
 <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
