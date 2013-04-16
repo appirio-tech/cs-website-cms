@@ -100,6 +100,9 @@ class Submission < ApiModel
     self.deliverables << deliverable
     # puts deliverables
     
+    # also pass on the attrs
+    deliverable.attrs = attrs
+
     deliverable
   rescue Exception => e
     puts e.message
@@ -119,6 +122,9 @@ class Submission < ApiModel
 
     deliverable = self.class.naked_put "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
 
+    # also pass on the attrs
+    deliverable.attrs = attrs
+    
     deliverable
   rescue Exception => e
     puts e.message

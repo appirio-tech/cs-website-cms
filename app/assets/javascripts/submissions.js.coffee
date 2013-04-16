@@ -163,14 +163,22 @@ class window.Submission
 
   addDeliverable: (deliverable) ->
     $(".deliverables").find(".empty").remove()
-    ele = $("<div class='deliverable'>").attr("id", "deliverable-" + deliverable.id)
-      .data("deliverable", deliverable)
+    # to-do: handle when success if false
+
+    # newly created deliverable
+    if(deliverable.attrs.id == "" && deliverable.success)
+      deliverable.attrs.id = deliverable.message
+
+    d = deliverable.attrs
+
+    ele = $("<div class='deliverable'>").attr("id", "deliverable-" + d.id)
+      .data("deliverable", d)
     info = $("<div class='clearfix info'>")
-    info.append("<div class='label'>" + deliverable.type + "</div>")
-    info.append("<div class='url'>" + deliverable.url + "</div>")
+    info.append("<div class='label'>" + d.type + "</div>")
+    info.append("<div class='url'>" + d.url + "</div>")
 
     actions = $("<div class='actions'>")
-    path = $("form.submission").attr("action") + "/deliverables/" + deliverable.id
+    path = $("form.submission").attr("action") + "/deliverables/" + d.id
     actions.append("<a href='" + path + "' class='btn edit' style='margin-right: 4px;'><span>Edit</span></a>")
     del = $("<a href='" + path + "' class='btn btn-danger delete' data-remote='true' data-method='delete' data-confirm='Are you sure?'><span>Delete</span></a>")
     del.bind "ajax:before", -> 
