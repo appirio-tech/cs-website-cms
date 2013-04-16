@@ -1,78 +1,101 @@
 require 'spec_helper'
 
+=begin
+set up jeffdonthemic with recommendations, payment, referrals,
+inbox and sent messages, and all types of past and present challenges
+=end
+
 describe Member do
 
-  # there may be issues with these specs as it's hard to setup/maintain
-  # consistent data in a salesforce sandbox environment
+  before(:all) do
+    VCR.use_cassette "shared/public_oauth_token", :record => :all do
+      ApiModel.access_token = RestforceUtils.access_token
+    end    
+    VCR.use_cassette "models/member/find_jeffdonthemic" do
+      @member = Member.find 'jeffdonthemic'
+    end         
+  end    
 
-  context 'find by member name' do
-    use_vcr_cassette
-    let(:member) { Member.find('jeffdonthemic') }
-
-    it 'retrieves the correct id' do
-      member.id.should == 'a0IZ0000000FyJUMA0'
+  describe "Find member" do
+    it "should return the correct member" do
+      VCR.use_cassette "models/member/find_#{@member.name}" do
+        results = Member.find @member.name
+        results.name.should == @member.name
+      end      
     end
-
-    it 'retrieves the correct name' do
-      member.name.should == 'jeffdonthemic'
+    it "should return the correct member with specific keys" do
+      VCR.use_cassette "models/member/find_#{@member.name}_keys" do
+        results = Member.find @member.name, {fields: 'id,name'}
+        results.name.should == @member.name
+        # should not have this key
+        results.profile_pic.should be_nil
+      end      
     end
+  end    
 
-    it 'retrieves the correct profile picture' do
-      member.profile_pic.should == 'http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg'
+  describe "A member" do
+    it "should have recommendations" do  
+      VCR.use_cassette "models/member/recommendations" do
+        @member.recommendations.count.should > 0
+      end    
+    end  
+    it "should have challenges" do  
+      VCR.use_cassette "models/member/challenges" do
+        @member.challenges.count.should > 0
+      end    
+    end     
+    it "should have payments" do  
+      VCR.use_cassette "models/member/payments" do
+        @member.payments.count.should > 0
+      end    
+    end  
+    it "should have refferals" do  
+      VCR.use_cassette "models/member/refferals" do
+        @member.referrals.count.should > 0
+      end    
+    end      
+  end   
+
+  describe "Member challenges" do
+    it "should return a collection of active challenges" do
+      VCR.use_cassette "models/member/active_challenges" do
+        @member.active_challenges.count.should > 0     
+      end      
+    end  
+
+    it "should return a collection of watching challenges" do
+      VCR.use_cassette "models/member/watching_challenges" do
+        @member.watching_challenges.count.should > 0     
+      end      
+    end  
+
+    it "should return a collection of past challenges" do
+      VCR.use_cassette "models/member/past_challenges" do
+        @member.past_challenges.count.should > 0     
+      end      
+    end      
+  end       
+
+  describe "Logintype" do
+    it "should return the correct type of login" do
+      VCR.use_cassette "models/member/logintype_#{@member.name}" do
+        results = Member.login_type @member.name
+        results.should == 'Github'
+      end      
+    end  
+  end     
+
+  describe "Messages" do
+    it "should return a collection of messages in the inbox" do   
+      VCR.use_cassette "models/member/inbox_#{@member.name}" do
+        @member.inbox.count.should > 0
+      end         
     end
-
-    it 'retrieves the correct number of challenges entered' do
-      member.challenges_entered.should == 0
-    end
-
-    it 'retrieves the correct number of total points' do
-      member.total_points.should == 0
-    end
-
-    it 'retrieves the correct number of valid submissions' do
-      member.valid_submissions.should == 0
-    end
-
-    it 'retrieves the correct number of 1st/2nd/3rd place' do
-      member.total_1st_place.should == 0
-      member.total_2nd_place.should == 0
-      # NOTE: is this a mispelling? The API produces it like this
-      member.total_3st_place.should == 0
-    end
-
-    it 'retrieves the correct Time Zone' do
-      member.time_zone.should == '(GMT-07:00) Pacific Daylight Time (America/Los_Angeles)'
-    end
-
-    it 'retrieves the correct number of total public money' do
-      member.total_public_money.should == 2.0
-    end
-
-    it 'retrieves the correct number of total wins' do
-      member.total_points.should == 0
-    end
-
-    it 'retrieves the correct number of challenges for this member' do
-      member.challenges.count.should == 1
-    end
-
-    it 'retrieves the correct recommendations' do
-      pending 'the api used to have recommendation records, now none of the members have recommendations :('
-    end
-  end
-
-  context 'find all members' do
-    use_vcr_cassette
-    let(:all_members) { Member.all }
-
-    it 'retrieves the correct member count' do
-      all_members.count.should >= 0
-    end
-
-    # not a good test to run as members will be added often
-    #it 'retrieves the correct members' do
-      #all_members.map { |m| m.name }.should == ["jeffdonthemic", "salpartovi", "mess", "apextestmember", "tnjitsu", "romin", "aquacdr", "cmc", "tehnrd"]
-    #end
+    it "should return a collection of sent messages" do   
+      VCR.use_cassette "models/member/from_#{@member.name}" do
+        @member.from.count.should > 0
+      end         
+    end    
   end
 
 end

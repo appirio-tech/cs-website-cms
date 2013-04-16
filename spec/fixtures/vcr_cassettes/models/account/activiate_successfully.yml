@@ -1,8 +1,8 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    method: get
+    uri: http://localhost:3002/v1/accounts/activate/BMMGWO23
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '17'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,24 +27,24 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"0bd75264337702d501fe87ce0b52dc08"'
       Cache-Control:
-      - max-age=0, private, must-revalidate
+      - must-revalidate, private, max-age=0
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - c896500d86cc0a81355d843ed0b9c92d
       X-Runtime:
-      - '1.388038'
+      - '1.388808'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Sat, 13 Apr 2013 13:48:37 GMT
       X-Rack-Cache:
-      - invalidate, pass
+      - miss
       Connection:
       - keep-alive
       Server:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":true}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Sat, 13 Apr 2013 13:48:37 GMT
 recorded_with: VCR 2.3.0

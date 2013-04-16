@@ -31,11 +31,11 @@ http_interactions:
       Cache-Control:
       - must-revalidate, private, max-age=0
       X-Request-Id:
-      - 4c6befa9f4a5d4942b27835578296003
+      - 8bca08ad864a5d0cb7bc4b6b8825e32d
       X-Runtime:
-      - '0.577637'
+      - '0.548432'
       Date:
-      - Mon, 15 Apr 2013 14:53:43 GMT
+      - Mon, 15 Apr 2013 11:19:27 GMT
       X-Rack-Cache:
       - miss
       Connection:
@@ -53,5 +53,5 @@ http_interactions:
         Awesome Challenge","challenge_id":"2","challenge_type":"Code","id":"a0GK000000676zHMAQ","description":"<p>test</p>","start_date":"2013-03-05T12:59:00.000+0000","is_open":"true","days_till_close":8},{"attributes":{"type":"Challenge__c","url":"/services/data/v25.0/sobjects/Challenge__c/a0GK0000006KofYMAS"},"total_prize_money":100,"end_date":"2013-04-26T17:19:32.000+0000","registered_members":1,"challenge_platforms__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v25.0/sobjects/Challenge_Platform__c/a1KK0000001Hn8QMAS"},"name":"AWS","id":"a1KK0000001Hn8QMAS","challenge":"a0GK0000006KofYMAS"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v25.0/sobjects/Challenge_Platform__c/a1KK0000001Hn8PMAS"},"name":"Heroku","id":"a1KK0000001Hn8PMAS","challenge":"a0GK0000006KofYMAS"}]},"participating_members":1,"challenge_technologies__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v25.0/sobjects/Challenge_Technology__c/a1JK0000000Lh3IMAS"},"name":"Apex","id":"a1JK0000000Lh3IMAS","challenge":"a0GK0000006KofYMAS"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v25.0/sobjects/Challenge_Technology__c/a1JK0000000Lh3JMAS"},"name":"HTML5","id":"a1JK0000000Lh3JMAS","challenge":"a0GK0000006KofYMAS"}]},"name":"Appirio
         Test 3","challenge_id":"34","challenge_type":"Task","id":"a0GK0000006KofYMAS","description":"<p>dfasdf</p>","start_date":"2013-04-03T17:11:00.000+0000","is_open":"true","days_till_close":11}],"count":3}'
     http_version: !!null 
-  recorded_at: Mon, 15 Apr 2013 14:53:43 GMT
+  recorded_at: Mon, 15 Apr 2013 11:19:27 GMT
 recorded_with: VCR 2.3.0

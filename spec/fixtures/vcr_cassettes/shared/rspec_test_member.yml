@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    method: post
+    uri: http://localhost:3002/v1/accounts/create
     body:
       encoding: US-ASCII
-      string: ''
+      string: ! '{"email":"BMMGWO23@test.cloudspokes.com","username":"BMMGWO23","password":"11111111a","password_confirmation":"11111111a"}'
     headers:
       Oauth-Token:
       - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '147'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,15 +27,15 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"ccbafb6c543081327f23484d67855763"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - 3398d80ecac6e5cede12edf440208b32
       X-Runtime:
-      - '1.388038'
+      - '2.120581'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Sat, 13 Apr 2013 13:38:51 GMT
       X-Rack-Cache:
       - invalidate, pass
       Connection:
@@ -44,7 +44,8 @@ http_interactions:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":{"success":"true","username":"BMMGWO23","sfdc_username":"BMMGWO23@m.cloudspokes.com.sandbox","message":"Member
+        created successfully."}}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Sat, 13 Apr 2013 13:38:51 GMT
 recorded_with: VCR 2.3.0

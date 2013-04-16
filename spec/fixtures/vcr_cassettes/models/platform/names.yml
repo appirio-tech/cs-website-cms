@@ -1,14 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    method: get
+    uri: http://localhost:3002/v1/platforms
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Oauth-Token:
-      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      - 00DK0000008yRYr!AQQAQJVIlS2L9n1IfK4iKQKK7GgJUw8zdP6GfPgBpkcDzTbwynjXYaNkvqCLPpLKuPPnxt5_BrClSgBWmLY7Wp.Qp62JJIXD
       Authorization:
       - Token token="6757b55b396c51948422d915ba1f2ca2"
       Content-Type:
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '92'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,24 +27,24 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"f4528d90866943f286dece9be6f29783"'
       Cache-Control:
-      - max-age=0, private, must-revalidate
+      - must-revalidate, private, max-age=0
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - c7d8beefb7787bba5c665912d14c9162
       X-Runtime:
-      - '1.388038'
+      - '0.671675'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Mon, 15 Apr 2013 11:26:46 GMT
       X-Rack-Cache:
-      - invalidate, pass
+      - miss
       Connection:
       - keep-alive
       Server:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":["AWS","Cloud Foundry","Google App Engine","Heroku","Salesforce.com"],"count":5}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Mon, 15 Apr 2013 11:26:46 GMT
 recorded_with: VCR 2.3.0

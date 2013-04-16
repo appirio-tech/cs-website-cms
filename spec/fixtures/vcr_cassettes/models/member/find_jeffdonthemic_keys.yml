@@ -1,14 +1,14 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic?fields=id,name
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Oauth-Token:
-      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      - 00DK0000008yRYr!AQQAQHH80AtjHiYFnBFliPDNRW.sU51mF3j4KAeCh80YYYdaKDxXdS3NmP8LbEaDrWdEpF18a_EelAW1TdChFovot8eiycNo
       Authorization:
       - Token token="6757b55b396c51948422d915ba1f2ca2"
       Content-Type:
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '164'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,24 +27,24 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"d6e667519ba0b6f4f88ea5324cc87e39"'
       Cache-Control:
-      - max-age=0, private, must-revalidate
+      - must-revalidate, private, max-age=0
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - 7d96b2cb57afb5af91ad20f31871ccfb
       X-Runtime:
-      - '1.388038'
+      - '0.942179'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Sun, 14 Apr 2013 11:13:35 GMT
       X-Rack-Cache:
-      - invalidate, pass
+      - miss
       Connection:
       - keep-alive
       Server:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK00000058lO8MAI"},"name":"jeffdonthemic","id":"a0IK00000058lO8MAI"}}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Sun, 14 Apr 2013 11:13:35 GMT
 recorded_with: VCR 2.3.0

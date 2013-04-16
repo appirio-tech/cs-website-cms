@@ -93,4 +93,155 @@ http_interactions:
         cool challenge","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AZ0000000n8XuMAI"},"has_submission":false,"money_awarded":0.0,"score":0,"member":"a0IZ0000000FyJUMA0","id":"a0AZ0000000n8XuMAI","status":"Registered","challenge":"a0GZ0000005VQogMAG"}]}}],"count":1}'
     http_version: !!null 
   recorded_at: Tue, 27 Nov 2012 12:50:30 GMT
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Oauth-Token:
+      - ''
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '86'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"a696c68f1729b00815e36b504aac9093"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 8da5267648b5316924c79ef93aa6c08e
+      X-Runtime:
+      - '1.690304'
+      Date:
+      - Sat, 13 Apr 2013 10:25:53 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: !str
+        str: ! '{"response":{"message":"Session expired or invalid","errorcode":"INVALID_SESSION_ID"}}'
+        net_http_res: &70311341722560 !ruby/object:Net::HTTPOK
+          http_version: '1.0'
+          code: '200'
+          message: OK
+          header:
+            content-length:
+            - '86'
+            content-type:
+            - application/json; charset=utf-8
+            x-meta-request-version:
+            - 0.2.1
+            x-ua-compatible:
+            - IE=Edge
+            etag:
+            - ! '"a696c68f1729b00815e36b504aac9093"'
+            cache-control:
+            - must-revalidate, private, max-age=0
+            x-request-id:
+            - 8da5267648b5316924c79ef93aa6c08e
+            x-runtime:
+            - '1.690304'
+            date:
+            - Sat, 13 Apr 2013 10:25:53 GMT
+            x-rack-cache:
+            - miss
+            connection:
+            - keep-alive
+            server:
+            - thin 1.5.0 codename Knife
+          body: !str
+            str: ! '{"response":{"message":"Session expired or invalid","errorcode":"INVALID_SESSION_ID"}}'
+            net_http_res: *70311341722560
+            args: &70311366444140
+              :method: :get
+              :url: http://localhost:3002/v1/members/jeffdonthemic
+              :headers:
+                oauth_token: !!null 
+                Authorization: Token token="6757b55b396c51948422d915ba1f2ca2"
+                Content-Type: application/json
+            code: 200
+          read: true
+          __read_body_previously_called: true
+        args: *70311366444140
+        code: 200
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 10:25:53 GMT
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members//challenges
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Oauth-Token:
+      - ''
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '86'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"a696c68f1729b00815e36b504aac9093"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 4788a6b2a56117ce92862f3d04d50bc0
+      X-Runtime:
+      - '0.508537'
+      Date:
+      - Sat, 13 Apr 2013 10:25:54 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"message":"Session expired or invalid","errorcode":"INVALID_SESSION_ID"}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 10:25:54 GMT
 recorded_with: VCR 2.3.0

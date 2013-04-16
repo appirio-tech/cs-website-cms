@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    uri: http://localhost:3002/v1/accounts/BMMGWO23/marketing?campaign_medium=some%20medium&campaign_name=campaign%20name&campaign_source=some%20source
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '102'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,15 +27,15 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"d71b1c34592653a37ca9a008f785a7eb"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - ae6bf1de25ac793855c78a189fefaed8
       X-Runtime:
-      - '1.388038'
+      - '2.765981'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Sat, 13 Apr 2013 14:49:19 GMT
       X-Rack-Cache:
       - invalidate, pass
       Connection:
@@ -44,7 +44,8 @@ http_interactions:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":{"success":true,"message":"BMMGWO23 updated with marketing
+        info. No matching community."}}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Sat, 13 Apr 2013 14:49:19 GMT
 recorded_with: VCR 2.3.0

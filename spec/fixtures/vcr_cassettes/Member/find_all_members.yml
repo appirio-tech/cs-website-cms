@@ -45,4 +45,57 @@ http_interactions:
       string: ! '{"response":[{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJUMA0"},"name":"jeffdonthemic","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJUMA0","total_wins":0,"total_public_money":2.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJVMA0"},"name":"salpartovi","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJVMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJWMA0"},"name":"mess","challenges_entered":1,"total_2nd_place":0,"active_challenges":1,"total_1st_place":0,"id":"a0IZ0000000FyJWMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJXMA0"},"name":"apextestmember","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJXMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJYMA0"},"name":"tnjitsu","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJYMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJZMA0"},"name":"romin","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJZMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJaMAK"},"name":"aquacdr","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJaMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJbMAK"},"name":"cmc","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJbMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FyJjMAK"},"name":"tehnrd","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FyJjMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FzGSMA0"},"name":"testreferral2","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FzGSMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://lh4.ggpht.com/4wzpuaY9Oz1uNSyjinB72Re8V3DMEEyaeaLzJegV_tHyDYZm2nrNq6E_LuICWFs0-r-E70LgxlHca4qKxXKCSaP2zjarwgg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FzGDMA0"},"name":"testreferral1","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FzGDMA0","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"},{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IZ0000000FzGwMAK"},"name":"testreferral3","challenges_entered":0,"total_2nd_place":0,"active_challenges":0,"total_1st_place":0,"id":"a0IZ0000000FzGwMAK","total_wins":0,"total_public_money":0.0,"total_3st_place":0,"profile_pic":"http://cloudspokes.s3.amazonaws.com/Cloud_th_100.jpg"}],"count":12}'
     http_version: !!null 
   recorded_at: Tue, 27 Nov 2012 12:50:30 GMT
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members?
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Oauth-Token:
+      - ''
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '98'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"48da56c98e7df6afd376ba4e188af667"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - a6ad1af26dddeab556c1e415ef922145
+      X-Runtime:
+      - '0.486733'
+      Date:
+      - Sat, 13 Apr 2013 10:25:54 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"message":"Session expired or invalid","errorcode":"INVALID_SESSION_ID"}],"count":1}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 10:25:54 GMT
 recorded_with: VCR 2.3.0

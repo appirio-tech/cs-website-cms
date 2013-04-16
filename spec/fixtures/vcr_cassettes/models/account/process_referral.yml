@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: http://localhost:3002/v1/accounts/change_password_with_token/BMMGWO23?new_password=99999999q&token=sometoken
+    uri: http://localhost:3002/v1/accounts/BMMGWO23/referred_by?referral_id_or_membername=mess
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '74'
+      - '105'
       Content-Type:
       - application/json; charset=utf-8
       X-Meta-Request-Version:
@@ -27,15 +27,15 @@ http_interactions:
       X-Ua-Compatible:
       - IE=Edge
       Etag:
-      - ! '"627259baefbee5921ce78e45b82415fc"'
+      - ! '"ed1c8094724d99c9621c71f0f1375bfe"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 114e9e45c4050fc54ea6ac4e556e7704
+      - 487272220cfdfd688d925cd456555a6a
       X-Runtime:
-      - '1.388038'
+      - '1.888114'
       Date:
-      - Sat, 13 Apr 2013 15:18:03 GMT
+      - Sat, 13 Apr 2013 15:10:53 GMT
       X-Rack-Cache:
       - invalidate, pass
       Connection:
@@ -44,7 +44,8 @@ http_interactions:
       - thin 1.5.0 codename Knife
     body:
       encoding: US-ASCII
-      string: ! '{"response":{"success":"true","message":"Password changed successfully."}}'
+      string: ! '{"response":{"success":true,"message":"Referral for a0IK0000006Zl1eMAC
+        assigned to a0IK00000058lOAMAY."}}'
     http_version: !!null 
-  recorded_at: Sat, 13 Apr 2013 15:18:03 GMT
+  recorded_at: Sat, 13 Apr 2013 15:10:53 GMT
 recorded_with: VCR 2.3.0
