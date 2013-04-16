@@ -16,8 +16,7 @@ class DeliverablesController < ApplicationController
   end
 
   def update
-    deliverable.update(params[:deliverable])
-    submission.save
+    @deliverable = submission.update_deliverable(params[:deliverable])
 
     respond_to do |format|
       format.html {redirect_to challenge_submission_path(challenge)}

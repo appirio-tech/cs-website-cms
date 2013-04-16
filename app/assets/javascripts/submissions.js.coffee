@@ -25,7 +25,7 @@ class window.Submission
     @initDeliverables()
     @initDeliverableForm()
     @initFileUpload()
-    $("select.chosen").chosen()
+    # $("select.chosen").chosen()
     $(".new-deliverable form").jqTransform()
 
   initSubmissionForm: ->
@@ -109,16 +109,18 @@ class window.Submission
     $(".deliverable form").remove()
     self = this
     deliverable = $(ele).parents(".deliverable").data("deliverable")
+    console.log deliverable
     form = @diliverableFormTemplate.clone()
-    if deliverable.source != "storage"
-      form.find("select.deliverable-type option[value=Code]").remove()
+    form.find("input.id").val(deliverable.id)
+    # if deliverable.source != "storage"
+      # form.find("select.deliverable-type option[value=Code]").remove()
     form.attr("action", ele.href)
     form.find("h4").text("Edit Deliverable")
     form.find("[type=submit]").val("Update")
     form.find("select.deliverable-type").val(deliverable.type)
     form.find("input.url").val(deliverable.url).attr("readonly", deliverable.source == "storage")
     form.find("textarea.comments").val(deliverable.comments)
-    form.find("select.paas").val(deliverable.paas)
+    form.find("select.paas").val(deliverable.hosting_platform)
     if deliverable.type != "Code"
       form.find("select.paas").parents(".control-group").hide()
     form.find("input.username").val(deliverable.username)
@@ -161,14 +163,18 @@ class window.Submission
 
   addDeliverable: (deliverable) ->
     $(".deliverables").find(".empty").remove()
-    ele = $("<div class='deliverable'>").attr("id", "deliverable-" + deliverable.id)
-      .data("deliverable", deliverable)
+    # to-do: handle when success if false
+
+    d = deliverable.attrs
+
+    ele = $("<div class='deliverable'>").attr("id", "deliverable-" + d.id)
+      .data("deliverable", d)
     info = $("<div class='clearfix info'>")
-    info.append("<div class='label'>" + deliverable.type + "</div>")
-    info.append("<div class='url'>" + deliverable.url + "</div>")
+    info.append("<div class='label'>" + d.type + "</div>")
+    info.append("<div class='url'>" + d.url + "</div>")
 
     actions = $("<div class='actions'>")
-    path = $("form.submission").attr("action") + "/deliverables/" + deliverable.id
+    path = $("form.submission").attr("action") + "/deliverables/" + d.id
     actions.append("<a href='" + path + "' class='btn edit' style='margin-right: 4px;'><span>Edit</span></a>")
     del = $("<a href='" + path + "' class='btn btn-danger delete' data-remote='true' data-method='delete' data-confirm='Are you sure?'><span>Delete</span></a>")
     del.bind "ajax:before", -> 
