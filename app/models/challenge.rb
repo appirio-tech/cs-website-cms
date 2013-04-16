@@ -52,8 +52,12 @@ class Challenge < ApiModel
   end
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    "challenges"
   end
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   def self.increment_page_views(id) 
     RestforceUtils.get_apex_rest "/challenges/#{id}/pageview"
@@ -213,11 +217,11 @@ class Challenge < ApiModel
   end 
 
   def preview?
-    @status.downcase == "planned"
+    @status.downcase == "draft"
   end
 
   def active?
-    ['Created', 'Submission', 'Review', 'Review - Pending'].include?(status)
+    ['Open for Submissions', 'Review', 'Scored - Awaiting Approval'].include?(status)
   end
 
 end

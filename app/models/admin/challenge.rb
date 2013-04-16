@@ -1,7 +1,7 @@
 class Admin::Challenge
   include ActiveModel::Model
 
-  STATUSES = [['Draft', 'Planned'] ,['Open for Submissions', 'Created'] ,['Hidden', 'Hidden']]
+  STATUSES = [['Draft', 'Draft'] ,['Open for Submissions', 'Open for Submissions'] ,['Hidden', 'Hidden']]
 
   # Overrides the attr_accesssor class method so we are able to capture and
   # then save the defined fields as column_names

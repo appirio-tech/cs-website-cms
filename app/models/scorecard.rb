@@ -2,8 +2,12 @@ class Scorecard < ApiModel
   attr_accessor :name, :money_awarded, :submitted_date, :score, :prize_awarded, :place
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    "challenges"
   end
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   def member
     Member.new raw_data.member__r

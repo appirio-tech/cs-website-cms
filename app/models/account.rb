@@ -3,18 +3,16 @@ class Account < ApiModel
 
   attr_reader :user
 
-  class << self
-    def api_endpoint
-      "#{ENV['CS_API_URL']}/accounts"
-    end
+  def self.api_endpoint
+    "accounts"
+  end 
 
-    def find_by_service(name, provider = "cloudspokes")
-      data = {
-        service: provider,
-        service_username: name
-      }
-      request :get, "find_by_service", data
-    end
+  def self.find_by_service(name, provider = "cloudspokes")
+    data = {
+      service: provider,
+      service_username: name
+    }
+    http_get "accounts/find_by_service", data
   end
 
   def initialize(user)
@@ -22,11 +20,11 @@ class Account < ApiModel
   end
 
   def create(params)
-    self.class.post("create", params)
+    self.class.http_post("accounts/create", params)
   end
 
   def activate
-    self.class.naked_get("accounts/activate/#{user.username}")
+    self.class.http_get("accounts/activate/#{user.username}")
   end  
 
   def authenticate(password)
@@ -34,23 +32,23 @@ class Account < ApiModel
       membername: user.username,
       password: password
     }
-    self.class.post("authenticate", data)
+    self.class.http_post("accounts/authenticate", data)
   end
 
   def process_referral(referred_by)
     data = { referral_id_or_membername: referred_by }
-    self.class.naked_put("accounts/#{user.username}/referred_by", data)
+    self.class.http_put("accounts/#{user.username}/referred_by", data)
   end
 
   def process_marketing(source, medium, name)
     data = { campaign_source: source, campaign_medium: medium, campaign_name: name }
-    self.class.naked_put("accounts/#{user.username}/marketing", data)
+    self.class.http_put("accounts/#{user.username}/marketing", data)
   end  
 
   # updates the member's user in sfdc with the devise change password token
   def update_password_token(token)
     data = { token: token }
-    self.class.put(["update_password_token", user.username], data)
+    self.class.http_put("accounts/update_password_token/#{user.username}", data)
   end
 
   def update_password(token, new_password)
@@ -58,7 +56,7 @@ class Account < ApiModel
       token: token,
       new_password: new_password
     }
-    self.class.put(["change_password_with_token", user.username], data)
+    self.class.http_put("accounts/change_password_with_token/#{user.username}", data)
   end    
 
 end

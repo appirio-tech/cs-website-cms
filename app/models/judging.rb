@@ -1,7 +1,7 @@
 class Judging < ApiModel
   def self.api_endpoint
-  	"#{ENV['CS_API_URL']}/judging"
-  end
+  	"judging"
+  end  
 
   def self.judging_queue
      http_get('judging').map {|challenge| Challenge.new challenge}

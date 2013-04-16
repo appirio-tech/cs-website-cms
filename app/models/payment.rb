@@ -3,8 +3,12 @@ class Payment < ApiModel
     :reference_number, :payment_sent, :challenge
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/members"
+    "members"
   end
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   def initialize(params={})
     params['challenge'] = params.delete('challenge__r') if params['challenge__r']

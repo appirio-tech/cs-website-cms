@@ -3,8 +3,12 @@ class SubmissionDeliverable < ApiModel
   	:username, :password, :hosting_platform, :deleted
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    "challenges"
   end
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   def challenge
   	Challenge.new raw_data.challenge__r

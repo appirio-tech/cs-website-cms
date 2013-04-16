@@ -15,8 +15,12 @@ class Member < ApiModel
   has_many :referrals
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/members"
-  end
+    "members"
+  end  
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   # Used for resourceful routes (instead of id)
   def to_param

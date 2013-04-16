@@ -10,7 +10,7 @@ class AccountsController < ApplicationController
       account_attrs["profile_pic"] = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 125, height: 125, crop: "fill"
     end
 
-    response = Member.put(current_user.username, account_attrs)
+    response = Member.http_put("members/#{current_user.username}", account_attrs)
     if response.success == "false"
       flash[:error] = "Failed to update, reason : #{response.message}"
     else

@@ -1,7 +1,11 @@
 class Participant < ApiModel
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    "participants"
   end
+
+  def self.has_many_api_endpoint
+    "challenges"
+  end  
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
     :country, :total_wins, :total_public_money, :override_submission_upload,
@@ -14,13 +18,8 @@ class Participant < ApiModel
     super(params)
   end
 
-  # override because of structure of api_endpoint
-  def self.find(id)
-    Participant.new naked_get "participants/#{id}"
-  end
-
   def self.find_by_member(challenge_id, membername)
-    Participant.new naked_get "participants/#{membername}/#{challenge_id}"
+    Participant.new http_get "participants/#{membername}/#{challenge_id}"
   rescue Exception
     # rest call returns nil if the member is not a participant
     Participant.new(:status => 'Not Registered', :has_submission => false)
@@ -28,57 +27,57 @@ class Participant < ApiModel
 
   def self.change_status(challenge_id, membername, params)
     if find_by_member(challenge_id, membername).participating?
-      naked_put "participants/#{membername}/#{challenge_id}", {'fields' => params}
+      http_put "participants/#{membername}/#{challenge_id}", {'fields' => params}
     else
-      naked_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
+      http_post "participants/#{membername}/#{challenge_id}", {'fields' => params}
     end
   end 
 
   def update
     #params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }.to_safe_values
     params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }
-    self.class.naked_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
+    self.class.http_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
   end
 
   def create_deliverable(challenge_id, membername, deliverable)
-    self.class.naked_post "participants/#{member.name}/#{challenge_id}/deliverable", {data: deliverable}
+    self.class.http_post "participants/#{member.name}/#{challenge_id}/deliverable", {data: deliverable}
   end
 
   def update_deliverable(challenge_id, membername, deliverable)
     massaged_deliverable = {}
     # remove the raw data data attributes so it doesn't get pushed to the api and crash it
     SubmissionDeliverable.column_names.each {|col| massaged_deliverable[col] = eval("deliverable.#{col}") }
-    self.class.naked_put "participants/#{member.name}/#{challenge_id}/deliverable", {data: massaged_deliverable}
+    self.class.http_put "participants/#{member.name}/#{challenge_id}/deliverable", {data: massaged_deliverable}
   end  
 
   # kicks off the squirrelforce process
   def deploy_deliverable(submission_deliverable_id)
-    self.class.naked_get "squirrelforce/unleash_squirrel/#{submission_deliverable_id}"
+    self.class.http_get "squirrelforce/unleash_squirrel/#{submission_deliverable_id}"
   end   
 
   # temp till we move to new submissions
   def save_submission_file_or_url(challenge_id, params)
-    self.class.naked_post "participants/#{member.name}/#{challenge_id}/submission_url_file", params
+    self.class.http_post "participants/#{member.name}/#{challenge_id}/submission_url_file", params
   end
 
   # temp till we move to new submissions
   def current_submissions(challenge_id)
-    self.class.naked_get "participants/#{member.name}/#{challenge_id}/current_submssions"
+    self.class.http_get "participants/#{member.name}/#{challenge_id}/current_submssions"
   end
 
   # temp till we move to new submissions
   def delete_submission(challenge_id, submission_id)
-    self.class.naked_get "participants/#{member.name}/#{challenge_id}/delete_submission_url_file?submission_id=#{submission_id}"
+    self.class.http_get "participants/#{member.name}/#{challenge_id}/delete_submission_url_file?submission_id=#{submission_id}"
   end  
 
   def submission_deliverables
     #self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
-    self.class.naked_get("participants/#{member.name}/#{challenge.challenge_id}/deliverables").map {|submission| SubmissionDeliverable.new(submission)}
+    self.class.http_get("participants/#{member.name}/#{challenge.challenge_id}/deliverables").map {|submission| SubmissionDeliverable.new(submission)}
   end
 
   # temp till we move to new submissions
   def find_submission(challenge_id, membername, submission_id)
-    self.class.naked_get "participants/#{membername}/#{challenge_id}/submission/#{submission_id}"
+    self.class.http_get "participants/#{membername}/#{challenge_id}/submission/#{submission_id}"
   end    
 
   def member
