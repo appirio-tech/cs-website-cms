@@ -84,9 +84,10 @@ class Submission < ApiModel
     deliverable.type = attrs[:type]
     deliverable.comments = attrs[:comments]
     deliverable.url = attrs[:url]
-    deliverable.hosting_platform = attrs[:hosting_platform]
-    deliverable.language = attrs[:language]
+    deliverable.hosting_platform = attrs[:paas]
+    deliverable.language = "blank" # set to blank, as it is required
     #deliverable.source = attrs[:source] # this was throwing an error
+    
     puts deliverable.to_yaml
 
     # assign a uniq deliverable id
@@ -95,12 +96,33 @@ class Submission < ApiModel
 
     # create the new deliverable record
     deliverable = self.class.naked_post "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
+    
     self.deliverables << deliverable
-    puts deliverables
+    # puts deliverables
+    
     deliverable
   rescue Exception => e
     puts e.message
   end
+
+  def update_deliverable(attrs)
+    deliverable = SubmissionDeliverable.new
+    deliverable.id = attrs[:id]
+    deliverable.type = attrs[:type]
+    deliverable.comments = attrs[:comments]
+    deliverable.url = attrs[:url]
+    deliverable.hosting_platform = attrs[:paas]
+    deliverable.language = "blank" # set to blank, as it is required
+    #deliverable.source = attrs[:source] # this was throwing an error
+    
+    puts deliverable.to_yaml
+
+    deliverable = self.class.naked_put "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
+
+    deliverable
+  rescue Exception => e
+    puts e.message
+  end 
 
   def find_deliverable(deliverable_id)
     deliverables.detect {|d| d.id == deliverable_id}
@@ -109,6 +131,7 @@ class Submission < ApiModel
   def delete_deliverable(deliverable_id)
     puts "delete_deliverable"
 
+    # to-do
     # needs delete endpoint
   end
 
@@ -136,7 +159,7 @@ class Submission < ApiModel
       :public => true
     )
 
-    create_deliverable type: "Code", hosting_platform: "Other", language: "Other", url: file.key, source: "storage"
+    create_deliverable type: "Code", paas: "Other", language: "Other", url: file.key, source: "storage"
   end
 
   private

@@ -25,7 +25,7 @@ class window.Submission
     @initDeliverables()
     @initDeliverableForm()
     @initFileUpload()
-    $("select.chosen").chosen()
+    # $("select.chosen").chosen()
     $(".new-deliverable form").jqTransform()
 
   initSubmissionForm: ->
@@ -109,16 +109,18 @@ class window.Submission
     $(".deliverable form").remove()
     self = this
     deliverable = $(ele).parents(".deliverable").data("deliverable")
+    console.log deliverable
     form = @diliverableFormTemplate.clone()
-    if deliverable.source != "storage"
-      form.find("select.deliverable-type option[value=Code]").remove()
+    form.find("input.id").val(deliverable.id)
+    # if deliverable.source != "storage"
+      # form.find("select.deliverable-type option[value=Code]").remove()
     form.attr("action", ele.href)
     form.find("h4").text("Edit Deliverable")
     form.find("[type=submit]").val("Update")
     form.find("select.deliverable-type").val(deliverable.type)
     form.find("input.url").val(deliverable.url).attr("readonly", deliverable.source == "storage")
     form.find("textarea.comments").val(deliverable.comments)
-    form.find("select.paas").val(deliverable.paas)
+    form.find("select.paas").val(deliverable.hosting_platform)
     if deliverable.type != "Code"
       form.find("select.paas").parents(".control-group").hide()
     form.find("input.username").val(deliverable.username)

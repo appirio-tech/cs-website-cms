@@ -1,4 +1,3 @@
 deliverable = JSON.parse('<%= @deliverable.to_json.html_safe %>')
-submission.addDeliverable(deliverable)
+submission.addDeliverable('<%= deliverable %>')
 submission.completeSaveDeliverableForm($("$.new-deliverable form"))
-
