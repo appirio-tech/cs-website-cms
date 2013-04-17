@@ -1,0 +1,38 @@
+<p>Select any Platforms and Technologies that apply to this challenge. If you would like to include any
+that are not in the list, please include it in the Comments step and we'll see if we can accommodate you.</p>
+
+<!-- platforms -->
+<%= f.input :platforms, input_html: { :class => 'jqtranformdone' } %>
+
+<!-- technologies -->
+<%= f.input :technologies, input_html: { :class => 'jqtranformdone' } %>
+
+<script>
+$(function() {
+  $('#admin_challenge_platforms').val("<%= @challenge_platforms.join(', ') %>").select2({
+    initSelection: function(element, callback) {
+      var data = [];
+      $(element.val().split(",")).each(function () {
+        data.push({id: this, text: this});
+      });
+      callback(data);
+    },
+    multiple: true,
+    data:  <%= Platform.names.map {|name| { id: name, text: name } }.to_json.html_safe %>,
+    containerCssClass: "span6" // apply css that makes the dropdown taller
+  })
+
+  $('#admin_challenge_technologies').val("<%= @challenge_technologies.join(', ') %>").select2({
+    initSelection: function(element, callback) {
+      var data = [];
+      $(element.val().split(",")).each(function () {
+        data.push({id: this, text: this});
+      });
+      callback(data);
+    },
+    multiple: true,
+    data:  <%= Technology.names.map {|name| { id: name, text: name } }.to_json.html_safe %>,
+    containerCssClass: "span6" // apply css that makes the dropdown taller
+  })   
+})
+</script>

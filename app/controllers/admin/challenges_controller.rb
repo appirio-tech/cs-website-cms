@@ -20,14 +20,49 @@ class Admin::ChallengesController < ApplicationController
     # always set the account of the current user
     @challenge.account = current_user.accountid
     @challenge.contact = current_user.username
+    @challenge.status = 'Draft'
+    @challenge.name = 'Enter Name'
+    @challenge.community_judging = true
+    #@challenge.auto_announce_winners =  false
+    # @challenge.terms_of_service = ''
+    # @challenge.winner_announced = ''
+    @challenge.description = '<p>Your 
+      overview should describe what you are trying to build within a few simple sentences. Remember, 
+      the person reading your overview has no background on what you are trying to build so try to think 
+      of the best way to convey the goal of the challenge. You can provide more details in the requirements 
+      section. Here is a sample:</p><p>We have an existing Salesforce.com application that is not visually 
+      appealing. It&#39;s a simple search and details application which consists of 1-2 Apex Controllers 
+      and 3 Visualforce pages. We used a third party service to design a new layout and they have sent us 
+      the HTML and CSS for our new application. We need your Visualforce and Apex skills to merge the 
+      HTML and CSS with our existing code.</p>'
+    @challenge.submission_details = '<p>Upload all your source code as a zip (you can simply zip up 
+      your Eclipse project for convenience) and provide any documentation and/or instructions that 
+      are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
+      application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'
+
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
     @challenge_platforms = []
     @challenge_technologies = []
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
-    # default in a first place prize
-    @prizes = [Hashie::Mash.new(:place => 1, :points => 100, :prize => '$100', :value => 100)]
+
+    # default in a first and second place prizes
+    @prizes = [
+      Hashie::Mash.new(:place => 1, :prize => '$500'),
+      Hashie::Mash.new(:place => 2, :prize => '$250'),
+    ]
+
+    # no asset tab here for new challenge
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Related Technologies"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
+      Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
+      Hashie::Mash.new(:shortname => "review", :name => "Review & Save")
+    ]
+
   end
 
   def edit
@@ -57,6 +92,16 @@ class Admin::ChallengesController < ApplicationController
     @challenge.commentNotifiers .each do | commentNotifier |
       @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
     end  
+
+    # here there is one more step - assets
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Related Technologies"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
+      Hashie::Mash.new(:shortname => "assets", :name => "Assets"),      
+      Hashie::Mash.new(:shortname => "step5", :name => "Advanced")
+    ]
 
   end
 

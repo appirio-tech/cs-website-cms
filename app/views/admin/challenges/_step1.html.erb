@@ -1,0 +1,87 @@
+
+<%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
+<%= f.input :challenge_type, label: 'Category', collection: @challenge.categories, default: 'Code' %>
+
+<div class="control-group">
+  <label class="control-label">* Start and End Dates</label>
+  <div class="controls">
+    <div id="date-range">
+      <div id="start-end-date">
+        <span id="display"></span>
+      </div>
+      <div id="datepicker-calendar"></div>
+      <%= f.hidden_field :start_date, id: "date-range-hidden-start" %>
+      <%= f.hidden_field :end_date, id: "date-range-hidden-end" %>
+      <span class="help-inline">The first click will set the start date, the second click will set the end date</span>
+    </div>
+  </div>
+</div>
+
+<%= f.input :start_date, as: :time, label: 'End Time', required: false, hint: 'Times are in your local time zone' %>
+
+<%= f.input :description, label: 'Overview', :as => :text, input_html: { :class => 'ckeditor' } %>
+
+<script>
+// we need erb here as well. for later refactoring, we should move these to
+// a data-attribute somewhere (or maybe use gon)
+$(function() {
+  var to = new Date(<%= @challenge.end_date.to_time.utc.to_i * 1000 %>);
+  var from = new Date(<%= @challenge.start_date.to_time.utc.to_i * 1000 %>);
+
+  var $elem = $('#start-end-date')
+  $elem.DatePicker({
+    inline: true,
+    date: [from, to],
+    calendars: 3,
+    mode: 'range',
+    onChange: function(dates,el) {
+      // update the range display
+      $('#start-end-date span#display').text(
+        dates[0].getDate()+' '+dates[0].getMonthName(true)+', '+
+        dates[0].getFullYear()+' - '+
+        dates[1].getDate()+' '+dates[1].getMonthName(true)+', '+
+        dates[1].getFullYear()
+      );
+      $('#date-range-hidden-start').val($elem.DatePickerGetDate()[0][0])
+      $('#date-range-hidden-end').val($elem.DatePickerGetDate()[0][1])
+
+      // when end date change and if review_date and winner_announced are before end date
+      endDate = dates[1].getTime()
+
+      o_review_date = new Date(endDate)
+      o_review_date.addDays(2)
+
+      o_winner_announced_date = new Date(endDate)
+      o_winner_announced_date.addDays(5)
+
+      $('#review-date span#display').text(
+        o_review_date.getDate() +' '+o_review_date.getMonthName(true)+', '+
+        o_review_date.getFullYear()
+      )
+
+      $('#review-date').DatePickerSetDate(o_review_date, true)
+      $('#review-date-hidden').val(o_review_date.toString())
+
+      $('#winner-announced-date span#display').text(
+        o_winner_announced_date.getDate() +' '+o_winner_announced_date.getMonthName(true)+', '+
+        o_winner_announced_date.getFullYear()
+      )
+
+      $('#winner-announced-date').DatePickerSetDate(o_winner_announced_date, true)
+      $('#winner-announced-date-hidden').val(o_winner_announced_date.toString())
+    }
+  });
+  $('#date-range-hidden-start').val($elem.DatePickerGetDate()[0][0])
+  $('#date-range-hidden-end').val($elem.DatePickerGetDate()[0][1])
+
+
+  // initialize the special date dropdown field
+  $('#start-end-date span#display').text(from.getDate()+' '+from.getMonthName(true)+', '+from.getFullYear()+' - '+to.getDate()+' '+to.getMonthName(true)+', '+to.getFullYear());
+})
+</script>
+<style type="text/css">
+  .control-group.time .jqTransformSelectWrapper > ul {
+    top: auto;
+    bottom: 36px;
+  }
+</style>
