@@ -1,5 +1,6 @@
 class Admin::ChallengesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :fetch_account_logo, :only => [:index]
   before_filter :load_challenge, :only => [:edit]
   before_filter :restrict_by_account_access
   before_filter :restrict_edit_by_account, :only => [:edit]
@@ -21,11 +22,8 @@ class Admin::ChallengesController < ApplicationController
     @challenge.account = current_user.accountid
     @challenge.contact = current_user.username
     @challenge.status = 'Draft'
-    @challenge.name = 'Enter Name'
     @challenge.community_judging = true
-    #@challenge.auto_announce_winners =  false
-    # @challenge.terms_of_service = ''
-    # @challenge.winner_announced = ''
+    @challenge.auto_announce_winners = false
     @challenge.description = '<p>Your 
       overview should describe what you are trying to build within a few simple sentences. Remember, 
       the person reading your overview has no background on what you are trying to build so try to think 
@@ -57,7 +55,7 @@ class Admin::ChallengesController < ApplicationController
     @steps = [
       Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
       Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
-      Hashie::Mash.new(:shortname => "step3", :name => "Related Technologies"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
       Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
       Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
       Hashie::Mash.new(:shortname => "review", :name => "Review & Save")
@@ -97,10 +95,11 @@ class Admin::ChallengesController < ApplicationController
     @steps = [
       Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
       Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
-      Hashie::Mash.new(:shortname => "step3", :name => "Related Technologies"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
       Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
       Hashie::Mash.new(:shortname => "assets", :name => "Assets"),      
-      Hashie::Mash.new(:shortname => "step5", :name => "Advanced")
+      Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
+      Hashie::Mash.new(:shortname => "review-update", :name => "Review & Save")
     ]
 
   end
@@ -132,14 +131,22 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:end_date] = Time.mktime(e.year, e.month, e.day, t.hour, t.min).ctime
 
     # review_date and winner_announced
-    r = Time.parse(params[:admin_challenge][:review_date])
-    w = Time.parse(params[:admin_challenge][:winner_announced])
+    r = Time.parse(params[:admin_challenge][:end_date]) + 2.days
+    w = Time.parse(params[:admin_challenge][:end_date]) + 7.days
 
     params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
     params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime    
 
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
+
+    # make sure the prizes have values and points
+    params[:admin_challenge][:prizes].each do |p|
+      p['prize'] = "$#{p['prize']}" unless p['prize'].include?('$')
+      unless p.has_key?('points')
+        p.merge!({:points => p['prize'].scan(/\d*/).second, :value => p['prize'].scan(/\d*/).second})
+      end
+    end
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     # set the access token for the calls
@@ -193,6 +200,12 @@ class Admin::ChallengesController < ApplicationController
   end
 
   private
+
+    def fetch_account_logo
+      @logo = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo   
+      end
+    end    
 
     def load_challenge
       challenge = ::Challenge.find([params[:id], 'admin'].join('/'))

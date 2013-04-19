@@ -1,6 +1,5 @@
-
-<%= f.input :name, required: true, input_html: {required: true, autofocus: true} %>
-<%= f.input :challenge_type, label: 'Category', collection: @challenge.categories, default: 'Code' %>
+<%= f.input :name %>
+<%= f.input :challenge_type, required: true, label: 'Category', collection: @challenge.categories, default: 'Code' %>
 
 <div class="control-group">
   <label class="control-label">* Start and End Dates</label>
@@ -17,9 +16,9 @@
   </div>
 </div>
 
-<%= f.input :start_date, as: :time, label: 'End Time', required: false, hint: 'Times are in your local time zone' %>
+<%= f.input :start_date, as: :time, label: 'End Time', required: true, hint: 'Times are in your local time zone' %>
 
-<%= f.input :description, label: 'Overview', :as => :text, input_html: { :class => 'ckeditor' } %>
+<%= f.input :description, label: 'Overview', required: true, :as => :text, input_html: { :class => 'ckeditor' } %>
 
 <script>
 // we need erb here as well. for later refactoring, we should move these to

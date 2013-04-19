@@ -18,6 +18,35 @@ function prevTab(elem) {
     scrollTop: $(elem).offset().top - 40
   }, 200);
 }
+
+function validateForm() {
+
+  var errors = [];
+  var startDate = new Date($('#date-range-hidden-start').val());
+  var endDate = new Date($('#date-range-hidden-end').val());
+
+  if ($('#admin_challenge_name').val() == '')
+    errors.push('Name');
+
+  if (parseInt((endDate-startDate)/(24*3600*1000)) == 0) {
+    errors.push('Start Date');
+    errors.push('End Date');          
+  }
+
+  if (CKEDITOR.instances['admin_challenge_description'].getData() == '')
+    errors.push('Overview');  
+
+  if (CKEDITOR.instances['admin_challenge_requirements'].getData() == '')
+    errors.push('Requirements');  
+
+  if (errors.length > 0) {
+    alert('The following fields are required: \n\n' + errors.join(', '))
+    return false;
+  } else {
+    return true;
+  }
+
+}
   
 $(function() {
 
