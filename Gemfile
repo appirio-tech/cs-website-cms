@@ -37,6 +37,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
+gem 'omniauth-openid'
 gem "omniauth-google-oauth2"
 gem 'omniauth-salesforce'
 
