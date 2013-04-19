@@ -11,7 +11,7 @@ module ApplicationHelper
   MENU_OPTIONS_MY_STUFF = { 
     :messages                 => {:value => 'MESSAGES',             :link => '/messages/inbox'},
   	:challenges  							=> {:value => 'CHALLENGES', 					:link => '/account/challenges'},
-  #	:challenges_as_admin			=> {:value => 'ADMIN CHALLENGES',			:link => '/account/challenges-admin'},
+  	:challenges_as_admin			=> {:value => 'ADMINISTER CHALLENGES', :link => '/admin/challenges'},
 		:communities      				=> {:value => 'COMMUNITIES',  	  	  :link => '/account/communities'} 
 	}	
 
