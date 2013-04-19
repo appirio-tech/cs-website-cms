@@ -8,7 +8,7 @@ class Admin::ChallengesController < ApplicationController
   def index
     @challenges = RestforceUtils.query_salesforce("select name, challenge_id__c, status__c, 
       challenge_type__c, registered_members__c, submissions__c, contact__r.name
-      from challenge__c where status__c IN ('Draft','Open for Submissions','Hidden') 
+      from challenge__c where status__c IN ('Draft','Open for Submissions') 
       and account__c = '#{current_user.accountid}'
       order by end_date__c desc", current_user.access_token)
     @challenges.map {|challenge| Admin::Challenge.new challenge}
