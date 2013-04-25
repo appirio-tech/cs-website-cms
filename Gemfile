@@ -50,7 +50,7 @@ gem 'dalli'
 gem 'encryptor'
 gem 'ratchetio', '~> 0.6.0'
 gem 'rack-timeout'
-gem 'miniprofiler', require: 'rack-mini-profiler'
+gem 'rack-mini-profiler'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data

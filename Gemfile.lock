@@ -238,8 +238,6 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.19)
-    miniprofiler (0.1.7.4)
-      rack (>= 1.1.3)
     mocha (0.13.1)
       metaclass (~> 0.0.1)
     multi_json (1.5.0)
@@ -306,6 +304,8 @@ GEM
       rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
+    rack-mini-profiler (0.1.26)
+      rack (>= 1.1.3)
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
@@ -503,7 +503,6 @@ DEPENDENCIES
   jquery-rails (~> 2.0.0)
   memcachier
   meta_request (= 0.2.1)
-  miniprofiler
   mocha
   nest
   newrelic_rpm
@@ -518,6 +517,7 @@ DEPENDENCIES
   pg (= 0.14.1)
   plupload-rails!
   quiet_assets
+  rack-mini-profiler
   rack-timeout
   rails (= 3.2.11)
   rake
