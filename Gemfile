@@ -50,6 +50,7 @@ gem 'dalli'
 gem 'encryptor'
 gem 'ratchetio', '~> 0.6.0'
 gem 'rack-timeout'
+gem 'rack-mini-profiler'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data
@@ -79,6 +80,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'annotate', '2.4.0'
   gem 'guard'
   gem 'guard-bundler'
