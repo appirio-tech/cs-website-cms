@@ -32,7 +32,11 @@
         Being registered for a challenge will allow you to receive all comments posted to the discussion board plus we may periodically contact registered members to provide them with challenge specific information, obtain feedback or additional input. You are not obligated to submit an entry.
 
       <% elsif current_member_participant.try('registered?') %>
-        <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), submit_challenge_path(challenge), class: "btn" %>
+        <%= link_to content_tag(:span, "SUBMIT YOUR ENTRY"), submit_challenge_path(challenge), class: "btn" %>        
+
+      <% elsif challenge.closed_for_registration? %>
+        This challenge is closed for registration.
+
       <% end %>                    
     <% else %>
         Please login to register and submit for this challenge.
