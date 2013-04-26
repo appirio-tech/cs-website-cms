@@ -185,7 +185,7 @@ class Challenge < ApiModel
   end
 
   def closed_for_registration?
-    @registration_end_date.nil? ? false : Time.parse(@registration_end_date.getutc).past?
+    @registration_end_date.nil? ? false : Time.parse(@registration_end_date).getutc.past?
   end  
 
   def release_to_open_source?
