@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/accounts/find_by_service?service=cloudspokes&service_username=BMMGWO23
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '241'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"95d9d63c98770720d05a672b24eaf695"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - b860e6f3a42b87ccebe269ee823df3f6
+      X-Runtime:
+      - '1.544955'
+      Date:
+      - Sat, 13 Apr 2013 14:01:38 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","username":"BMMGWO23","sfdc_username":"bmmgwo23@m.cloudspokes.com.sandbox","profile_pic":"http://cs-public.s3.amazonaws.com/default_cs_member_image.png","email":"bmmgwo23@test.cloudspokes.com","accountid":null}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 14:01:38 GMT
+recorded_with: VCR 2.3.0

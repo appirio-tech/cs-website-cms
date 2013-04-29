@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/challenges/21/scorecards?21&scorecards
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHM1Xoc1Ga1X6UJiSoXtICXZAfzwRQof5AkTvcb8NVhDESksYlMi69uZh_1o9BuJhIaCXiUC9C4KU1dIPFSMRrAc5S_4
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '1540'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"713cf0aa7b72409eeddaaa306680f87b"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 019e0770c859f8f7deddd9cfb546f043
+      X-Runtime:
+      - '0.560292'
+      Date:
+      - Mon, 15 Apr 2013 14:53:47 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076X6NMAU"},"name":"CP-56120","submitted_date":"2013-04-13T17:57:00.000+0000","money_awarded":0.0,"score":0,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK00000058lO8MAI"},"name":"jeffdonthemic","country":"United
+        States","id":"a0IK00000058lO8MAI","profile_pic":"http://cs-public.s3.amazonaws.com/default_appirio_member_image.png"},"member":"a0IK00000058lO8MAI","id":"a0AK00000076X6NMAU","scorecard__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"QwikScore_Scorecard__c","url":"/services/data/v22.0/sobjects/QwikScore_Scorecard__c/a0OK0000001ae4mMAA"},"challenge_participant":"a0AK00000076X6NMAU","reviewer__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK00000058lOAMAY"},"name":"mess","id":"a0IK00000058lOAMAY"},"final_score":0.0,"reviewer":"a0IK00000058lOAMAY","id":"a0OK0000001ae4mMAA","total_raw_score":0.0},{"attributes":{"type":"QwikScore_Scorecard__c","url":"/services/data/v22.0/sobjects/QwikScore_Scorecard__c/a0OK0000001ae4lMAA"},"challenge_participant":"a0AK00000076X6NMAU","reviewer__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK0000006Z1euMAC"},"name":"jeff+testsignup1","id":"a0IK0000006Z1euMAC"},"final_score":0.0,"reviewer":"a0IK0000006Z1euMAC","id":"a0OK0000001ae4lMAA","total_raw_score":0.0}]},"challenge":"a0GK0000006KmxmMAC"}],"count":1}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 14:53:47 GMT
+recorded_with: VCR 2.3.0

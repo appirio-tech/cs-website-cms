@@ -102,4 +102,9 @@ module ChallengesHelper
     value
   end
 
+  def challenge_closed_status_label(value)
+    return 'Review' if value.eql?('Open for Submissions')
+    value
+  end
+
 end

@@ -14,7 +14,7 @@
 
 <% else %>
 
-  <h2><%= challenge.status.upcase %></h2>
+  <h2><%= challenge_closed_status_label(challenge.status).upcase %></h2>
   <p>
     Ended <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
     <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %>

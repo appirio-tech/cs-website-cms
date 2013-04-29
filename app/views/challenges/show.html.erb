@@ -13,16 +13,17 @@
         <div class="challenge well well-large" style="background-color:#d1d1d1">
           <h2 style="color:#ffffff">OVERVIEW</h2><table class="type <%= @challenge.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(@challenge.challenge_type.upcase)) %></td></tr></table>
         </div>
-        <p><%= @challenge.description.html_safe %> </p>
-
-        <% if @challenge.post_reg_info && @current_member_participant.try('registered?')%>
-          <p> <%= @challenge.post_reg_info.html_safe %> </p>
-        <% end %>          
+        <p><%= @challenge.description.html_safe %> </p>     
 
         <% if @challenge.requirements %>
           <h2>REQUIREMENTS</h2>
           <p> <%= @challenge.requirements.html_safe %> </p>
         <% end %>
+
+        <% if @challenge.post_reg_info && @current_member_participant.try('registered?')%>
+          <h2 class="discussion">REGISTRANTS PRIVATE DETAILS</h2>
+          <p><%= @challenge.post_reg_info.html_safe %> </p>
+        <% end %>     
         
         <% if @challenge.submission_details %>
           <h2>SUBMISSION DETAILS</h2>
@@ -35,7 +36,7 @@
             unless there is a valid reason.</p> 
         <% end %>        
 
-        <% if @challenge.additional_info %>
+        <% if @challenge.additional_info && !@challenge.additional_info.gsub(/<\/?[^>]*>/, "").empty? %>
           <h2>ADDITIONAL INFO</h2>
           <p> <%= @challenge.additional_info.html_safe %> </p>
         <% end %>      

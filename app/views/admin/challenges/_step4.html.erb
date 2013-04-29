@@ -1,0 +1,31 @@
+<div>
+  <div id="prize-set" style="margin-left:75px">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="span1">Place</th>
+          <th class="span1">Value</th>
+          <th class="span3">
+            <a class='btn btn-info add-new-prize-set'><span>Add New Prize Set</span></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @prizes.each do |prize| %>
+        <tr>
+          <td>
+            <input class="jqtransformdone" type="text" name="admin_challenge[prizes][][place]" value='<%= prize.place %>' />
+          </td>
+          <td>
+            <input class="jqtransformdone" type="text" name="admin_challenge[prizes][][prize]" value='<%= prize.prize %>' />
+          </td>
+          <td>
+            <a class='btn btn-danger delete-prize-set'><span>Delete This Prize Set</span></a>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr />

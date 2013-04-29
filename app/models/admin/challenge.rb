@@ -1,7 +1,7 @@
 class Admin::Challenge
   include ActiveModel::Model
 
-  STATUSES = [['Draft', 'Planned'] ,['Open for Submissions', 'Created'] ,['Hidden', 'Hidden']]
+  STATUSES = [['Draft', 'Draft'] ,['Open for Submissions', 'Open for Submissions'] ,['Hidden', 'Hidden']]
 
   # Overrides the attr_accesssor class method so we are able to capture and
   # then save the defined fields as column_names
@@ -21,7 +21,8 @@ class Admin::Challenge
   attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
                 :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
-                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions, :account, :contact,
+                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions, 
+                :account, :contact, :auto_announce_winners,
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -63,7 +64,7 @@ class Admin::Challenge
 
     # just want the contact name form the contact and not their id
     if params.include? 'contact__r'
-      params['contact'] = params['contact__r']['name']
+      params['contact'] = params['contact__r']['name'] unless !params['contact__r']
       params.delete('contact__r')
     end
     super(params)
@@ -90,10 +91,6 @@ class Admin::Challenge
 
   def review_date
     (Time.parse(@review_date) if @review_date) || Date.today + 9.days
-  end
-
-  def auto_announce_winners
-    @community_judging
   end
   
   def statuses
@@ -199,6 +196,8 @@ class Admin::Challenge
           community_judging: community_judging,
           auto_announce_winners: auto_announce_winners,
           community: community,
+          community_judging: community_judging,
+          auto_announce_winners: auto_announce_winners,
           challenge_id: challenge_id
         },
         reviewers: reviewers.map {|name| {name: name}},

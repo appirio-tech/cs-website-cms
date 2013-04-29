@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic?fields=id,name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHH80AtjHiYFnBFliPDNRW.sU51mF3j4KAeCh80YYYdaKDxXdS3NmP8LbEaDrWdEpF18a_EelAW1TdChFovot8eiycNo
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '164'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"d6e667519ba0b6f4f88ea5324cc87e39"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 7d96b2cb57afb5af91ad20f31871ccfb
+      X-Runtime:
+      - '0.942179'
+      Date:
+      - Sun, 14 Apr 2013 11:13:35 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK00000058lO8MAI"},"name":"jeffdonthemic","id":"a0IK00000058lO8MAI"}}'
+    http_version: !!null 
+  recorded_at: Sun, 14 Apr 2013 11:13:35 GMT
+recorded_with: VCR 2.3.0

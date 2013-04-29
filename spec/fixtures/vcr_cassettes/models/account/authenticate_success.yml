@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/v1/accounts/authenticate
+    body:
+      encoding: US-ASCII
+      string: ! '{"membername":"BMMGWO23","password":"11111111a"}'
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '196'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"44ecf07f5a47abd7956342d11f6e6a21"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - aba2f593e3ee2a9ce2c1e16ec3ca1751
+      X-Runtime:
+      - '1.228151'
+      Date:
+      - Sat, 13 Apr 2013 14:08:36 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","message":"Successful sfdc login.","access_token":"00DK0000008yRYr!AQQAQKo6rwuogiKnBtvcWqXUE10BhCq1AQh0sjzc9jgrbcOp.7XTH.MxRly38aZNSl3n6SeSPp1t_YqOL42fijWz3li2CzUW"}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 14:08:36 GMT
+recorded_with: VCR 2.3.0

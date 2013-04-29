@@ -38,6 +38,7 @@ gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-openid'
+gem "omniauth-google-oauth2"
 gem 'omniauth-salesforce'
 
 gem "recaptcha", :require => "recaptcha/rails"
@@ -49,6 +50,7 @@ gem 'dalli'
 gem 'encryptor'
 gem 'ratchetio', '~> 0.6.0'
 gem 'rack-timeout'
+gem 'rack-mini-profiler'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data
@@ -78,19 +80,17 @@ group :production do
 end
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'annotate', '2.4.0'
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
-  gem 'spork'
-  gem "guard-spork"
   gem 'growl'
   gem 'ruby-debug19'
   gem 'pg', '0.14.1'
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'
-  gem 'vcr'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
 end
@@ -98,7 +98,9 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem "minitest"
+  gem 'vcr'
+  gem 'spork'
+  gem "guard-spork"  
   gem "rake"
   gem 'webmock'
   gem "mocha"

@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic/referrals?jeffdonthemic&referrals
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHM1Xoc1Ga1X6UJiSoXtICXZAfzwRQof5AkTvcb8NVhDESksYlMi69uZh_1o9BuJhIaCXiUC9C4KU1dIPFSMRrAc5S_4
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '249'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"707148eb1340b38c13465508f521bf9c"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 243be77a20654bb1a0aedfde7db32215
+      X-Runtime:
+      - '0.770275'
+      Date:
+      - Mon, 15 Apr 2013 14:31:19 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"signup_date":"2013-04-15T13:02:55.000Z","referral_money":0.0,"referral_id":"a11K0000000dguYIAQ","profile_pic":"http://cs-public.s3.amazonaws.com/default_appirio_member_image.png","membername":"mess","first_year_money":0.0}],"count":1}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 14:31:19 GMT
+recorded_with: VCR 2.3.0

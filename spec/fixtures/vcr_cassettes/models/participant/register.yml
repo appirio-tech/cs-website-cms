@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/participants/BMMGWO23/21
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQEbuHuLn92rinSzH.Ig6Do9fAY7MF9dwHJUdu39ZitsWHWBMnp_AI4PZXOEFeC0mM24n5Jsjx0GL0CAw6ix_moVtl50_
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '17'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"a0b2301eecfa09a6fc29ec3f5a6fee02"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 01d509d7f1e7b779640972982e00aa75
+      X-Runtime:
+      - '0.581007'
+      Date:
+      - Sat, 13 Apr 2013 17:48:52 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":null}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 17:48:52 GMT
+- request:
+    method: post
+    uri: http://localhost:3002/v1/participants/BMMGWO23/21
+    body:
+      encoding: US-ASCII
+      string: ! '{"fields":{"status":"Registered"}}'
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQEbuHuLn92rinSzH.Ig6Do9fAY7MF9dwHJUdu39ZitsWHWBMnp_AI4PZXOEFeC0mM24n5Jsjx0GL0CAw6ix_moVtl50_
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '62'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"7c5c0c66ae9c6298fc813698697b5906"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 474bf9a1ecf4baed37bb2a02c47ba004
+      X-Runtime:
+      - '1.280242'
+      Date:
+      - Sat, 13 Apr 2013 17:48:53 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","message":"a0AK000000Ah0ZEMAZ"}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 17:48:53 GMT
+recorded_with: VCR 2.3.0

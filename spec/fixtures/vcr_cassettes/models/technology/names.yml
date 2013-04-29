@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/technologies
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQJVIlS2L9n1IfK4iKQKK7GgJUw8zdP6GfPgBpkcDzTbwynjXYaNkvqCLPpLKuPPnxt5_BrClSgBWmLY7Wp.Qp62JJIXD
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '141'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"c6a1867d9a4d26e800c52ad88ca454a3"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 4ec88100c50bbb517f53c13cf3de0c99
+      X-Runtime:
+      - '0.650955'
+      Date:
+      - Mon, 15 Apr 2013 11:30:22 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":["Android","Apex","HTML5","iOS","Java","JavaScript","jQuery","Node.js","Other","Python","Redis","Ruby","Visualforce"],"count":13}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 11:30:22 GMT
+recorded_with: VCR 2.3.0

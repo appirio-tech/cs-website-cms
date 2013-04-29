@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic/challenges?challenges&jeffdonthemic
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHM1Xoc1Ga1X6UJiSoXtICXZAfzwRQof5AkTvcb8NVhDESksYlMi69uZh_1o9BuJhIaCXiUC9C4KU1dIPFSMRrAc5S_4
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '11495'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"06f207dce13d106c300e8f38530449ec"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - a2db6c12b89d77e62224eccee4143728
+      X-Runtime:
+      - '1.005780'
+      Date:
+      - Mon, 15 Apr 2013 13:07:57 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KmBiMAK"},"prize_type":"Currency","total_prize_money":0,"end_date":"2013-04-19T14:04:56.000+0000","registered_members":0,"challenge_platforms__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HmxAMAS"},"name":"AWS","id":"a1KK0000001HmxAMAS","challenge":"a0GK0000006KmBiMAK"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HmxBMAS"},"name":"Google
+        App Engine","id":"a1KK0000001HmxBMAS","challenge":"a0GK0000006KmBiMAK"}]},"participating_members":1,"challenge_technologies__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgsPMAS"},"name":"Apex","id":"a1JK0000000LgsPMAS","challenge":"a0GK0000006KmBiMAK"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgsQMAS"},"name":"HTML5","id":"a1JK0000000LgsQMAS","challenge":"a0GK0000006KmBiMAK"}]},"name":"test","challenge_id":"14","challenge_type":"Task","id":"a0GK0000006KmBiMAK","start_date":"2013-03-29T13:58:00.000+0000","description":"<p>asdfa</p>","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK000000Ah1AyMAJ"},"has_submission":false,"money_awarded":0.0,"score":0,"member":"a0IK00000058lO8MAI","id":"a0AK000000Ah1AyMAJ","status":"Watching","challenge":"a0GK0000006KmBiMAK"}]}},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KmClMAK"},"prize_type":"Currency","total_prize_money":4,"end_date":"2013-04-05T18:09:00.000+0000","registered_members":2,"challenge_platforms__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn25MAC"},"name":"Heroku","id":"a1KK0000001Hn25MAC","challenge":"a0GK0000006KmClMAK"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn26MAC"},"name":"Cloud
+        Foundry","id":"a1KK0000001Hn26MAC","challenge":"a0GK0000006KmClMAK"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn27MAC"},"name":"Google
+        App Engine","id":"a1KK0000001Hn27MAC","challenge":"a0GK0000006KmClMAK"}]},"participating_members":2,"challenge_technologies__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgvxMAC"},"name":"Apex","id":"a1JK0000000LgvxMAC","challenge":"a0GK0000006KmClMAK"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgvyMAC"},"name":"JavaScript","id":"a1JK0000000LgvyMAC","challenge":"a0GK0000006KmClMAK"}]},"name":"Test
+        Challenge 2 -- Admin","top_prize":"$2","challenge_id":"18","challenge_type":"Code","id":"a0GK0000006KmClMAK","start_date":"2013-03-29T18:09:00.000+0000","description":"<p>test</p>","status":"Winner
+        Selected","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076XgBMAU"},"has_submission":true,"money_awarded":0.0,"score":0,"member":"a0IK00000058lO8MAI","id":"a0AK00000076XgBMAU","status":"Submitted","challenge":"a0GK0000006KmClMAK"}]}},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KmxmMAC"},"prize_type":"Currency","total_prize_money":4,"end_date":"2013-04-19T18:19:55.000+0000","registered_members":2,"challenge_platforms__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HmymMAC"},"name":"Heroku","id":"a1KK0000001HmymMAC","challenge":"a0GK0000006KmxmMAC"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HmynMAC"},"name":"Cloud
+        Foundry","id":"a1KK0000001HmynMAC","challenge":"a0GK0000006KmxmMAC"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HmyoMAC"},"name":"Google
+        App Engine","id":"a1KK0000001HmyoMAC","challenge":"a0GK0000006KmxmMAC"}]},"participating_members":3,"challenge_technologies__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgtmMAC"},"name":"Apex","id":"a1JK0000000LgtmMAC","challenge":"a0GK0000006KmxmMAC"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgtnMAC"},"name":"JavaScript","id":"a1JK0000000LgtnMAC","challenge":"a0GK0000006KmxmMAC"}]},"name":"Test
+        Challenge 2 -- Admin","challenge_id":"21","challenge_type":"Task","id":"a0GK0000006KmxmMAC","start_date":"2013-03-29T18:09:00.000+0000","description":"<p>Sample
+        Description</p>","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076X6NMAU"},"has_submission":true,"money_awarded":0.0,"score":0,"member":"a0IK00000058lO8MAI","id":"a0AK00000076X6NMAU","status":"Submitted","challenge":"a0GK0000006KmxmMAC"}]}},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK000000676zHMAQ"},"prize_type":"Currency","total_prize_money":1000,"end_date":"2013-04-23T11:59:00.000+0000","registered_members":3,"challenge_platforms__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn5DMAS"},"name":"Heroku","id":"a1KK0000001Hn5DMAS","challenge":"a0GK000000676zHMAQ"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn5EMAS"},"name":"Cloud
+        Foundry","id":"a1KK0000001Hn5EMAS","challenge":"a0GK000000676zHMAQ"}]},"participating_members":3,"challenge_technologies__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000Lh1RMAS"},"name":"Apex","id":"a1JK0000000Lh1RMAS","challenge":"a0GK000000676zHMAQ"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000Lh1TMAS"},"name":"Visualforce","id":"a1JK0000000Lh1TMAS","challenge":"a0GK000000676zHMAQ"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000Lh1SMAS"},"name":"jQuery","id":"a1JK0000000Lh1SMAS","challenge":"a0GK000000676zHMAQ"}]},"name":"Really
+        Awesome Challenge","top_prize":"$1000","challenge_id":"2","challenge_type":"Code","id":"a0GK000000676zHMAQ","start_date":"2013-03-05T12:59:00.000+0000","description":"<p>test</p>","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076KTEMA2"},"has_submission":true,"money_awarded":500.0,"score":100,"place":"1","member":"a0IK00000058lO8MAI","id":"a0AK00000076KTEMA2","status":"1st
+        Place","challenge":"a0GK000000676zHMAQ"}]}},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KMuLMAW"},"prize_type":"Currency","total_prize_money":300,"end_date":"2013-04-08T14:41:00.000+0000","registered_members":1,"challenge_platforms__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HlZhMAK"},"name":"Salesforce.com","id":"a1KK0000001HlZhMAK","challenge":"a0GK0000006KMuLMAW"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001HlZmMAK"},"name":"Heroku","id":"a1KK0000001HlZmMAK","challenge":"a0GK0000006KMuLMAW"}]},"participating_members":1,"challenge_technologies__r":{"totalsize":3,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgQcMAK"},"name":"Apex","id":"a1JK0000000LgQcMAK","challenge":"a0GK0000006KMuLMAW"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgQhMAK"},"name":"Visualforce","id":"a1JK0000000LgQhMAK","challenge":"a0GK0000006KMuLMAW"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000LgQmMAK"},"name":"Java","id":"a1JK0000000LgQmMAK","challenge":"a0GK0000006KMuLMAW"}]},"name":"Test
+        Challenge 2","top_prize":"$100","challenge_id":"4","challenge_type":"Task","id":"a0GK0000006KMuLMAW","start_date":"2013-03-05T12:59:00.000+0000","description":"test","status":"Review","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076Q6AMAU"},"has_submission":true,"money_awarded":0.0,"score":0,"member":"a0IK00000058lO8MAI","id":"a0AK00000076Q6AMAU","status":"Submitted","challenge":"a0GK0000006KMuLMAW"}]}},{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KofYMAS"},"prize_type":"Currency","total_prize_money":100,"end_date":"2013-04-26T17:19:32.000+0000","registered_members":1,"challenge_platforms__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn8PMAS"},"name":"Heroku","id":"a1KK0000001Hn8PMAS","challenge":"a0GK0000006KofYMAS"},{"attributes":{"type":"Challenge_Platform__c","url":"/services/data/v22.0/sobjects/Challenge_Platform__c/a1KK0000001Hn8QMAS"},"name":"AWS","id":"a1KK0000001Hn8QMAS","challenge":"a0GK0000006KofYMAS"}]},"participating_members":1,"challenge_technologies__r":{"totalsize":2,"done":true,"records":[{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000Lh3IMAS"},"name":"Apex","id":"a1JK0000000Lh3IMAS","challenge":"a0GK0000006KofYMAS"},{"attributes":{"type":"Challenge_Technology__c","url":"/services/data/v22.0/sobjects/Challenge_Technology__c/a1JK0000000Lh3JMAS"},"name":"HTML5","id":"a1JK0000000Lh3JMAS","challenge":"a0GK0000006KofYMAS"}]},"name":"Appirio
+        Test 3","top_prize":"$100","challenge_id":"34","challenge_type":"Task","id":"a0GK0000006KofYMAS","start_date":"2013-04-03T17:11:00.000+0000","description":"<p>dfasdf</p>","status":"Created","challenge_participants__r":{"totalsize":1,"done":true,"records":[{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK00000076XCKMA2"},"has_submission":false,"money_awarded":0.0,"score":0,"member":"a0IK00000058lO8MAI","id":"a0AK00000076XCKMA2","status":"Registered","challenge":"a0GK0000006KofYMAS"}]}}],"count":6}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 13:07:57 GMT
+recorded_with: VCR 2.3.0

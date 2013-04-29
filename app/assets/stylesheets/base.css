@@ -945,7 +945,7 @@ h2.message {
 }
 
 .switch {
-  height: 952px;
+  /*height: 952px;*/
 }
 
 .switch .item {
@@ -1374,23 +1374,27 @@ ul.inline a {
   background-position: right -325px;
 }
 
+.switch{
+    font-size: 18px;
+}
+
 .res ul {
-  display: inline-block;
-  *display: inline;
-  list-style: none;
-  *zoom: 1;
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 10px;
 }
 
 .res li {
-  float: left;
-  font-size: 16px;
-  font-weight: bold;
-  background: url("/assets/circle-gray-large.png") center 10px no-repeat;
+  font-size: 24px;
+  color: #fff;
+  background: #136fb4;
+  text-align: center;
+  padding: 20px 0;
 }
 
 .res li a {
   display: block;
-  width: 142px;
+  width: 30%;
   height: 140px;
   text-align: center;
 }
@@ -1412,60 +1416,73 @@ ul.inline a {
   margin-left: 39px;
   background: url("/assets/circle_orange.png") -111px 0 no-repeat;
 }
-
-.res li a span i {
+.icon-large em {
+    display: block;
+    width: 114px;
+    height: 114px;
+}
+.res li i,
+.res li em{
+    margin: 0 auto;
   display: block;
   width: 64px;
   height: 64px;
   background: url("/assets/icons.png") no-repeat;
 }
 
-.res li a span i.icon-dev {
+.res li .icon-dev {
   background-position: -415px 0;
 }
 
-.res li a span i.icon-resolve {
+.res li .icon-resolve {
   background-position: -414px -64px;
 }
 
-.res li a span i.icon-design {
+.res li .icon-design {
   background-position: -414px -128px;
 }
 
-.res li a span i.icon-challenge {
+.res li .icon-challenge {
   background-position: -414px -192px;
 }
 
-.res li a span i.icon-submission {
+.res li .icon-submission {
   background-position: -414px -256px;
 }
 
-.res li a span i.icon-win {
+.res li .icon-win {
   background-position: -414px -320px;
 }
 
-.res li a span i.icon-app {
+.res li .icon-app {
   background-position: -414px -384px;
 }
 
-.res li a span i.icon-mobile {
+.res li .icon-mobile {
   background-position: -414px -448px;
 }
 
-.res li a span i.icon-analytics {
+.res li .icon-analytics {
   background-position: -414px -512px;
 }
 
-.res li a span i.icon-outsourced {
+.res li .icon-outsourced {
   background-position: -414px -576px;
 }
 
-.res li a span i.icon-cloud {
+.res li .icon-cloud {
   background-position: -414px -640px;
 }
 
-.res li a span i.icon-team {
+.res li .icon-team {
   background-position: -414px -706px;
+}
+
+.res p.clear{
+    clear: both;
+    padding-top: 10px;
+    margin-bottom: 0;
+    line-height: 150%;
 }
 
 .post {
@@ -2171,4 +2188,10 @@ table.overview td.sep {
 
 body > .alert {
     display: none;
+}
+
+h2.center{
+    background: none !important;
+    color: #999 !important;
+    text-align: center;
 }

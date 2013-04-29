@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/accounts/activate/BMMGWO23
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '17'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"0bd75264337702d501fe87ce0b52dc08"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - c896500d86cc0a81355d843ed0b9c92d
+      X-Runtime:
+      - '1.388808'
+      Date:
+      - Sat, 13 Apr 2013 13:48:37 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":true}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 13:48:37 GMT
+recorded_with: VCR 2.3.0

@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9FS3IyroMOh7UWRPIYGRY.Bs.cgyom6VCFt65sIuzCN4ApRdtFJvoPN_f4CuhZiXcDiKhiTayvB_Qz_gm&client_secret=1039828845765785494&username=jeffdonthemic%40m.cloudspokes.com.sandbox&password=%21cloudspokes963
+    headers:
+      User-Agent:
+      - Faraday v0.8.7
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 15 Apr 2013 11:30:21 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"https://test.salesforce.com/id/00DK0000008yRYrMAM/005U0000000M1nPIAS","issued_at":"1366025421657","instance_url":"https://cs9.salesforce.com","signature":"uI2WQacvSEUH2McMps48q/07R0CU1KR6h6MkBclieYM=","access_token":"00DK0000008yRYr!AQQAQJVIlS2L9n1IfK4iKQKK7GgJUw8zdP6GfPgBpkcDzTbwynjXYaNkvqCLPpLKuPPnxt5_BrClSgBWmLY7Wp.Qp62JJIXD"}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 11:30:21 GMT
+recorded_with: VCR 2.3.0

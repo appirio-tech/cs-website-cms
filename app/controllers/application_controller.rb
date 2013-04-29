@@ -20,7 +20,13 @@ class ApplicationController < ActionController::Base
 
   def get_platform_stats
     @platform_stats = CsPlatform.stats  
-  end        
+  end   
+
+  def authorize
+    if current_user && current_user.email == 'jdouglas@appirio.com'
+      Rack::MiniProfiler.authorize_request
+    end
+  end     
 
   def show_welcome_page?
     false

@@ -221,12 +221,12 @@ class ChallengesController < ApplicationController
   end  
 
   # when signed in, if the status is NOT 'winner selected' or 'no winner selected' 
-  # AND the user is not a challegne admin with a status of 'review - pending', redirect them.
+  # AND the user is not a challegne admin with a status of 'Scored - Awaiting Approval', redirect them.
   # if not signed in, the status must be 'winner selected' or 'no winner selected'
   def results
     if user_signed_in?
       unless ['winner selected','no winner selected'].include?(@challenge.status.downcase) || 
-        (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'review - pending')
+        (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'scored - awaiting approval')
         redirect_to challenge_path, :alert => 'Results are not available at this time.' 
       end
     else

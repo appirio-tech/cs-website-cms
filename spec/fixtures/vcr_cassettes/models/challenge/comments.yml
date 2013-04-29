@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/challenges/21/comments?21&comments
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHM1Xoc1Ga1X6UJiSoXtICXZAfzwRQof5AkTvcb8NVhDESksYlMi69uZh_1o9BuJhIaCXiUC9C4KU1dIPFSMRrAc5S_4
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '661'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"e57d57e8f42cbb11c447588ce560bbaa"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 20908e66b4045a20894865601ee745ad
+      X-Runtime:
+      - '0.629057'
+      Date:
+      - Mon, 15 Apr 2013 14:53:46 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Challenge_Comment__c","url":"/services/data/v22.0/sobjects/Challenge_Comment__c/a09K0000007Gh1HIAS"},"from_challenge_admin":true,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK0000006Z2ffMAC"},"name":"clyde","id":"a0IK0000006Z2ffMAC","profile_pic":"http://lh5.ggpht.com/L2gH7ymbZGgnivthS1i2yF-PlJeBJliF38J7gF5xWq_jgmmfMLgW_dbza_ZybuBIJYFV84Jis8DT5jG9tvggMIbYn1d3Sg"},"comment":"A
+        new submission has been uploaded for this task.","member":"a0IK0000006Z2ffMAC","createddate":"2013-04-13T17:57:02.000+0000","id":"a09K0000007Gh1HIAS","challenge":"a0GK0000006KmxmMAC"}],"count":1}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 14:53:46 GMT
+recorded_with: VCR 2.3.0

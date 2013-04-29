@@ -916,12 +916,40 @@
   .tabs .tab {
     margin: 0 auto;
   }
-  .banner {
-    background: none !important;
+  .banner{
+    /*background: none !important;*/
+      padding: 0;
+      padding-top: 20px;
+      margin-bottom: 40px;
   }
+  .banner .container{
+      margin: 0 5px;
+  }
+    .banner h1{
+        font-size: 35px;
+    }
+    .banner h2{
+        font-size: 20px;
+    }
+  .banner h1,
+  .banner h2,
   .banner .container {
     width: 100%;
   }
+    .banner .buttons{
+        width: auto;
+        margin: 10px;
+    }
+    .banner .buttons p{
+        padding: 15px;
+    }
+    .res li{
+        margin-bottom: 5px;
+    }
+    .banner-unit a.learn-more{
+        margin-top: 20px;
+    }
+
   .form-adv-search .control-group,
   .form-adv-search .jqTransformRadioWrapper {
     clear: both;

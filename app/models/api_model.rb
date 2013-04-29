@@ -3,8 +3,6 @@ class ApiModel
 
   cattr_accessor :access_token  
 
-  # RestClient::Request.execute(:method => :get, :url => url, :timeout => 10, :open_timeout => 10)
-
   # Implements the has_many relationship
   # Passing :parent as an option allows modification of the calling class
   # This is used mostly for has and belongs to many relationships, where
@@ -23,7 +21,7 @@ class ApiModel
 
     define_method(entity.to_sym) do
       klass = entity.to_s.classify.constantize
-      (parent || klass).raw_get_has_many([to_param, entity.to_s]).map do |e|
+      (parent || klass).get_has_many([to_param, entity.to_s]).map do |e|
         next if e.respond_to?(:last) # we got an array instead of a Hashie::Mash
         klass.new e
       end
@@ -55,12 +53,10 @@ class ApiModel
 
   # Returns all the records from the CloudSpokes API
   def self.all
-    request(:get, '', {}).map {|item| new item}
+    http_get(api_endpoint).map {|item| new item}
   end
 
   # Returns the first record
-  # TODO: when the API supports it, simply request for the first record.
-  # There should be no need to request for all the records first.
   def self.first
     all.first
   end
@@ -112,13 +108,14 @@ class ApiModel
   end
 
   # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
-  def self.find(entity, params={})
-    Kernel.const_get(self.name).new(raw_get entity, params)
+  def self.find(entity, params = nil)
+    Kernel.const_get(self.name).new(http_get "#{self.api_endpoint}/#{entity}", params)
   end  
 
   def self.http_get(endpoint, params = nil)
     options = { headers: api_request_headers }
     options.merge!(query = {query: params}) if params.present?
+    puts "#{ENV['CS_API_URL']}/#{endpoint}"
     process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
   end
 
@@ -131,16 +128,27 @@ class ApiModel
   end
 
   def self.http_put(endpoint, params)
-    puts params.to_yaml
     options = { 
       headers: api_request_headers, 
       query: params
     }
     process_response(HTTParty::put("#{ENV['CS_API_URL']}/#{endpoint}", options))
-  end     
+  end   
+
+  def self.get_has_many(entities = [], params)
+    endpoint = has_many_endpoint_from_entities(entities)
+    endpoint << "/#{params.to_param}" unless params.empty?  
+    puts "==== calling get_has_may with #{endpoint}" 
+    http_get endpoint, params
+  end 
+
+  def self.has_many_endpoint_from_entities(entities = [])
+    entities = entities.respond_to?(:join) ? entities.join("/") : entities.to_s
+    entities.present? ? "#{has_many_api_endpoint}/#{entities}" : has_many_api_endpoint
+  end   
 
   def self.process_response(response)
-    puts "Processing response: #{response.code}"
+    # puts "Processing response: #{response.code}"
     case response.code
       when 200
         Hashie::Mash.new(response).response
@@ -151,89 +159,7 @@ class ApiModel
       when 500...600
         raise ApiExceptions::WTFError.new 
     end    
-  end  
-
-  def self.naked_get(endpoint, params = nil)
-    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
-    endpoint << "?#{params.to_param}" if params.present?
-    Rails.logger.info "[APIMODEL] $$$$$ CALLING NAKED GET for #{endpoint}"
-    get_response(RestClient.get(endpoint, api_request_headers))
-  rescue RestClient::ResourceNotFound => e
-    raise ApiExceptions::EntityNotFoundError.new    
-  end  
-
-  def self.naked_post(endpoint, params)
-    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
-    params = params.to_json unless params.is_a?(String)
-    resp = RestClient.send 'post', endpoint, params, api_request_headers
-    get_response(resp)
-  end    
-
-  def self.naked_put(endpoint, params)
-    endpoint = "#{ENV['CS_API_URL']}/#{endpoint}"
-    params = params.to_json unless params.is_a?(String)
-    resp = RestClient.send 'put', endpoint, params, api_request_headers
-    get_response(resp)
-  end    
-
-  # Convenience method to request an entity from the CloudSpokes RESTful source
-  # Accepts an array or a string
-  # If given an array, will join the elements with '/'
-  # If given a string, will use the argument as is
-  def self.raw_get(entities = [], params = nil)
-    endpoint = endpoint_from_entities(entities)
-    endpoint << "?#{params.to_param}" if params.present?
-    Rails.logger.info "[APIMODEL] $$$$$ CALLING RAW GET #{entities} for #{endpoint}"
-    get_response(RestClient.get(endpoint, api_request_headers))
-  rescue RestClient::ResourceNotFound => e
-    raise ApiExceptions::EntityNotFoundError.new
-  end
-
-  def self.raw_get_has_many(entities = [], params)
-    endpoint = endpoint_from_entities(entities)
-    endpoint << "/#{params.to_param}" unless params.empty?
-    Rails.logger.info "[APIMODEL] $$$$$ CALLING RAW GET HAS MANY #{entities} for #{endpoint}"
-    get_response(RestClient.get(endpoint, api_request_headers))
-  rescue RestClient::ResourceNotFound => e
-    raise ApiExceptions::EntityNotFoundError.new    
-  end  
-
-  # Sanitized response to only the attributes we've defined
-  def self.get(entity = '')
-    Rails.logger.info "[APIMODEL] calling self.get with #{entity}"
-    raw_get(entity).delete_if {|k, v| !column_names.include? k.to_sym}
-  end
-
-  def self.endpoint_from_entities(entities = [])
-    entities = entities.respond_to?(:join) ? entities.join("/") : entities.to_s
-    entities.present? ? "#{api_endpoint}/#{entities}" : api_endpoint
-  end
-
-  def self.get_response(data)
-    Hashie::Mash.new(JSON.parse(data)).response
-  end
-
-  def self.request(method, entities, data)
-    endpoint = endpoint_from_entities(entities)  
-    if method.to_sym == :get
-      endpoint += "?#{data.to_param}"
-      Rails.logger.info "[APIMODEL] request method endpoint (get): #{endpoint}"  
-      resp = RestClient.send method, endpoint, api_request_headers
-    else
-      Rails.logger.info "[APIMODEL] request method endpoint (not get): #{endpoint}"  
-      data = data.to_json unless data.is_a?(String)
-      resp = RestClient.send method, endpoint, data, api_request_headers
-    end
-    get_response(resp)
-  end
-
-  def self.post(entities, data)
-    request :post, entities, data
-  end
-
-  def self.put(entities, data)
-    request :put, entities, data
-  end
+  end   
 
   private
 

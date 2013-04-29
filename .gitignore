@@ -102,3 +102,4 @@ config/initializers/development_settings.rb
 .env-production
 .env-sandbox
 all routes.txt
+dump.rdb

@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/members/jeffdonthemic
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHH80AtjHiYFnBFliPDNRW.sU51mF3j4KAeCh80YYYdaKDxXdS3NmP8LbEaDrWdEpF18a_EelAW1TdChFovot8eiycNo
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '502'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"cfd1c17d43f8e5f424564ffe5018c1da"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - 90f7e4d9e81cd88099138ccfd8de8f23
+      X-Runtime:
+      - '1.050452'
+      Date:
+      - Sun, 14 Apr 2013 11:12:04 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK00000058lO8MAI"},"valid_submissions":1,"total_2nd_place":0,"country":"United
+        States","total_1st_place":1,"total_public_money":500.0,"name":"jeffdonthemic","total_points":100,"challenges_entered":4,"active_challenges":3,"time_zone":"Eastern
+        Time (US & Canada)","id":"a0IK00000058lO8MAI","total_wins":1,"profile_pic":"http://cs-public.s3.amazonaws.com/default_appirio_member_image.png","total_3st_place":0}}'
+    http_version: !!null 
+  recorded_at: Sun, 14 Apr 2013 11:12:04 GMT
+recorded_with: VCR 2.3.0

@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:3002/v1/accounts/BMMGWO23/referred_by?referral_id_or_membername=mess
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '105'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"ed1c8094724d99c9621c71f0f1375bfe"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 487272220cfdfd688d925cd456555a6a
+      X-Runtime:
+      - '1.888114'
+      Date:
+      - Sat, 13 Apr 2013 15:10:53 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":true,"message":"Referral for a0IK0000006Zl1eMAC
+        assigned to a0IK00000058lOAMAY."}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 15:10:53 GMT
+recorded_with: VCR 2.3.0

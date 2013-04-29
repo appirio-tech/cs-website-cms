@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/communities
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQNRC0St32iSZyBvMq.7tQQm4CbZuTmEjzliOxbCGlovIH.tgIzGaz4Lh3lrWMxudo_Dto8FgJ2AGIOWySyfkYdn96DDR
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '568'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"48de5f5ac3c6719f0f444eb34209a9d9"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - f8701697640aa970c26939f9e514a3d3
+      X-Runtime:
+      - '0.999746'
+      Date:
+      - Sun, 14 Apr 2013 10:42:17 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":[{"attributes":{"type":"Community__c","url":"/services/data/v26.0/sobjects/Community__c/a12K0000000WmoqIAC"},"name":"Appirio","community_id":"appirio","about":"Test","members":0.0},{"attributes":{"type":"Community__c","url":"/services/data/v26.0/sobjects/Community__c/a12K0000000Wn4CIAS"},"name":"Jeff''s
+        Community","community_id":"jeff","about":"Test","members":9.0},{"attributes":{"type":"Community__c","url":"/services/data/v26.0/sobjects/Community__c/a12K0000000Wn1eIAC"},"name":"Public","community_id":"public","about":"test","members":0.0}],"count":3}'
+    http_version: !!null 
+  recorded_at: Sun, 14 Apr 2013 10:42:17 GMT
+recorded_with: VCR 2.3.0

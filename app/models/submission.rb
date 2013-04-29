@@ -3,7 +3,7 @@
 class Submission < ApiModel
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
+    "challenges"
   end
 
   LANGUAGES = %w{Node Java JavaScript Ruby Python Apex Other}
@@ -69,7 +69,7 @@ class Submission < ApiModel
       technologies: attrs["technologies"].join(";")
     }
 
-    self.class.naked_put "participants/#{username}/#{challenge_id}", {'fields' => fields}
+    self.class.http_put "participants/#{username}/#{challenge_id}", {'fields' => fields}
   rescue Exception => e
     puts e.message    
   end
@@ -94,7 +94,7 @@ class Submission < ApiModel
     # self.next_deliverable_id += 1
 
     # create the new deliverable record
-    deliverable = self.class.naked_post "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
+    deliverable = self.class.http_post "participants/#{username}/#{challenge_id}/deliverable", {data: deliverable}
     self.deliverables << deliverable
     puts deliverables
     deliverable

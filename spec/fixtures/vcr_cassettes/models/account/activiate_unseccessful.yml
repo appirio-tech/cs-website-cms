@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/accounts/activate/idonotexist
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '18'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"2fde213ea0048398f1e09bb7ae6df64d"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - a21f445aa0a1deaa661792ed7d74f7d1
+      X-Runtime:
+      - '4.776402'
+      Date:
+      - Sat, 13 Apr 2013 13:48:35 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":false}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 13:48:35 GMT
+recorded_with: VCR 2.3.0

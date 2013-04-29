@@ -1,39 +1,72 @@
+function nextTab(elem) {
+  $(elem + ' li.active')
+    .next()
+    .find('a[data-toggle="tab"]')
+    .click();
+
+  $('html, body').animate({
+    scrollTop: $(elem).offset().top - 40
+  }, 200);
+}
+
+function prevTab(elem) {
+  $(elem + ' li.active')
+    .prev()
+    .find('a[data-toggle="tab"]')
+    .click();
+  $('html, body').animate({
+    scrollTop: $(elem).offset().top - 40
+  }, 200);
+}
+
+function validateForm() {
+
+  var errors = [];
+  var startDate = new Date($('#date-range-hidden-start').val());
+  var endDate = new Date($('#date-range-hidden-end').val());
+
+  if ($('#admin_challenge_name').val() == '')
+    errors.push('Name');
+
+  if (parseInt((endDate-startDate)/(24*3600*1000)) == 0) {
+    errors.push('Start Date');
+    errors.push('End Date');          
+  }
+
+  if (CKEDITOR.instances['admin_challenge_description'].getData() == '')
+    errors.push('Overview');  
+
+  if (CKEDITOR.instances['admin_challenge_requirements'].getData() == '')
+    errors.push('Requirements');  
+
+  if (errors.length > 0) {
+    alert('The following fields are required: \n\n' + errors.join(', '))
+    return false;
+  } else {
+    return true;
+  }
+
+}
+  
 $(function() {
+
   // Add new prize sets
   $('.add-new-prize-set').live('click', function(e) {
-    $('#prize-set').append('\
-<div class="well"><div class="control-group"> \
-  <label class="control-label">Place</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][place]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Prize</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][prize]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Points</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][points]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Value</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][value]"></input> \
-  </div> \
-</div> \
-<a class="btn btn-danger delete-prize-set">Delete This Prize Set</a> \
-</div>')
+    $('#prize-set tbody').append('\
+      <tr> \
+        <td><input type="text" name="admin_challenge[prizes][][place]" /></td> \
+        <td><input type="text" name="admin_challenge[prizes][][prize]" /></td> \
+        <td><a class="btn btn-danger delete-prize-set"><span>Delete This Prize Set</span></a></td> \
+      </tr>')
+
+    $('#prize-set tbody > tr').jqTransform()
+
     e.preventDefault()
   })
 
   // Delete prize sets
   $('.delete-prize-set').live('click', function(e) {
-    $(this).parent().fadeOut().empty()
+    $(this).parents('tr').fadeOut().empty()
     e.preventDefault()
   })
 
@@ -56,17 +89,5 @@ $(function() {
     $(this).parent().fadeOut()
     e.preventDefault()
   })
-
-  // onBlur thingie for prizes
-  //$('input.prize-prize').live('blur', function(e) {
-    //value = this.value.replace(/[$,]/g,"")
-    //if (isNaN(value) == false) {
-      //$great_grand_parent = $(this).parent().parent().parent()
-      //$great_grand_parent.find('input.prize-points').val(value)
-      //$great_grand_parent.find('input.prize-value').val(value)
-    //}
-
-    // value
-  //})
 
 })

@@ -1,0 +1,98 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/participants/BMMGWO23/21
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQEbuHuLn92rinSzH.Ig6Do9fAY7MF9dwHJUdu39ZitsWHWBMnp_AI4PZXOEFeC0mM24n5Jsjx0GL0CAw6ix_moVtl50_
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '768'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"4d539276240d3178a11145835ee71af7"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - f1e944899cbe4c9fe25a48e968c44cf0
+      X-Runtime:
+      - '0.566808'
+      Date:
+      - Sat, 13 Apr 2013 17:48:54 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v22.0/sobjects/Challenge_Participant__c/a0AK000000Ah0ZEMAZ"},"challenge__r":{"attributes":{"type":"Challenge__c","url":"/services/data/v22.0/sobjects/Challenge__c/a0GK0000006KmxmMAC"},"name":"Test
+        Challenge 2 -- Admin","challenge_id":"21","id":"a0GK0000006KmxmMAC"},"name":"CP-56215","has_submission":false,"money_awarded":0.0,"member__r":{"attributes":{"type":"Member__c","url":"/services/data/v22.0/sobjects/Member__c/a0IK0000006Zl1eMAC"},"valid_submissions":0,"name":"BMMGWO23","id":"a0IK0000006Zl1eMAC"},"member":"a0IK0000006Zl1eMAC","send_discussion_emails":true,"id":"a0AK000000Ah0ZEMAZ","status":"Registered","override_submission_upload":false,"challenge":"a0GK0000006KmxmMAC"}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 17:48:54 GMT
+- request:
+    method: put
+    uri: http://localhost:3002/v1/participants/BMMGWO23/21?fields%5Bstatus%5D=Watching
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQEbuHuLn92rinSzH.Ig6Do9fAY7MF9dwHJUdu39ZitsWHWBMnp_AI4PZXOEFeC0mM24n5Jsjx0GL0CAw6ix_moVtl50_
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '62'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"7c5c0c66ae9c6298fc813698697b5906"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 15e863cd453f73dc1fa0259035badd41
+      X-Runtime:
+      - '0.993941'
+      Date:
+      - Sat, 13 Apr 2013 17:48:55 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","message":"a0AK000000Ah0ZEMAZ"}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 17:48:55 GMT
+recorded_with: VCR 2.3.0

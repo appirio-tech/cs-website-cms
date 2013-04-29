@@ -2,8 +2,12 @@ class Comment < ApiModel
   attr_accessor :id, :comment, :createddate, :member, :replies, :reply_to, :from_challenge_admin
 
   def self.api_endpoint
-    "#{ENV['CS_API_URL']}/challenges"
-  end
+    "challenges"
+  end   
+
+  def self.has_many_api_endpoint
+    api_endpoint
+  end    
 
   # Cleanup up the __r convention
   def initialize(params={})

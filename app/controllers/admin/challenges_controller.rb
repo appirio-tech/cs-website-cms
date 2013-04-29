@@ -1,5 +1,6 @@
 class Admin::ChallengesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :fetch_account_logo, :only => [:index]
   before_filter :load_challenge, :only => [:edit]
   before_filter :restrict_by_account_access
   before_filter :restrict_edit_by_account, :only => [:edit]
@@ -7,7 +8,7 @@ class Admin::ChallengesController < ApplicationController
   def index
     @challenges = RestforceUtils.query_salesforce("select name, challenge_id__c, status__c, 
       challenge_type__c, registered_members__c, submissions__c, contact__r.name
-      from challenge__c where status__c IN ('Planned','Created','Hidden') 
+      from challenge__c where status__c IN ('Draft','Open for Submissions') 
       and account__c = '#{current_user.accountid}'
       order by end_date__c desc", current_user.access_token)
     @challenges.map {|challenge| Admin::Challenge.new challenge}
@@ -20,14 +21,46 @@ class Admin::ChallengesController < ApplicationController
     # always set the account of the current user
     @challenge.account = current_user.accountid
     @challenge.contact = current_user.username
+    @challenge.status = 'Draft'
+    @challenge.community_judging = true
+    @challenge.auto_announce_winners = false
+    @challenge.description = '<p>Your 
+      overview should describe what you are trying to build within a few simple sentences. Remember, 
+      the person reading your overview has no background on what you are trying to build so try to think 
+      of the best way to convey the goal of the challenge. You can provide more details in the requirements 
+      section. Here is a sample:</p><p>We have an existing Salesforce.com application that is not visually 
+      appealing. It&#39;s a simple search and details application which consists of 1-2 Apex Controllers 
+      and 3 Visualforce pages. We used a third party service to design a new layout and they have sent us 
+      the HTML and CSS for our new application. We need your Visualforce and Apex skills to merge the 
+      HTML and CSS with our existing code.</p>'
+    @challenge.submission_details = '<p>Upload all your source code as a zip (you can simply zip up 
+      your Eclipse project for convenience) and provide any documentation and/or instructions that 
+      are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
+      application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'
+
     # defaulted to the current time so that the user can make changes if desired
     @challenge.start_date = Time.now.ctime
     @challenge_platforms = []
     @challenge_technologies = []
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
-    # default in a first place prize
-    @prizes = [Hashie::Mash.new(:place => 1, :points => 100, :prize => '$100', :value => 100)]
+
+    # default in a first and second place prizes
+    @prizes = [
+      Hashie::Mash.new(:place => 1, :prize => '$500'),
+      Hashie::Mash.new(:place => 2, :prize => '$250'),
+    ]
+
+    # no asset tab here for new challenge
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
+      Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
+      Hashie::Mash.new(:shortname => "review", :name => "Review & Save")
+    ]
+
   end
 
   def edit
@@ -58,6 +91,17 @@ class Admin::ChallengesController < ApplicationController
       @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
     end  
 
+    # here there is one more step - assets
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
+      Hashie::Mash.new(:shortname => "assets", :name => "Assets"),      
+      Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
+      Hashie::Mash.new(:shortname => "review-update", :name => "Review & Save")
+    ]
+
   end
 
   def create
@@ -87,14 +131,22 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:end_date] = Time.mktime(e.year, e.month, e.day, t.hour, t.min).ctime
 
     # review_date and winner_announced
-    r = Time.parse(params[:admin_challenge][:review_date])
-    w = Time.parse(params[:admin_challenge][:winner_announced])
+    r = Time.parse(params[:admin_challenge][:end_date]) + 2.days
+    w = Time.parse(params[:admin_challenge][:end_date]) + 7.days
 
     params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
     params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime    
 
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
+
+    # make sure the prizes have values and points
+    params[:admin_challenge][:prizes].each do |p|
+      p['prize'] = "$#{p['prize']}" unless p['prize'].include?('$')
+      unless p.has_key?('points')
+        p.merge!({:points => p['prize'].scan(/\d*/).second, :value => p['prize'].scan(/\d*/).second})
+      end
+    end
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     # set the access token for the calls
@@ -148,6 +200,12 @@ class Admin::ChallengesController < ApplicationController
   end
 
   private
+
+    def fetch_account_logo
+      @logo = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo   
+      end
+    end    
 
     def load_challenge
       challenge = ::Challenge.find([params[:id], 'admin'].join('/'))

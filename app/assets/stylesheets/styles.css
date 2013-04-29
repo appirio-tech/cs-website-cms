@@ -215,21 +215,50 @@ form.invite-friends .item {
 /* banner */
 .banner {
 	margin: 30px 0 0 0;
-	background: url(/assets/banner-bg.png) 0 0 repeat-x;
+	background: #136fb4;
+    padding: 74px 0 70px;
+}
+.banner h1{
+    font-size: 50px;
+    width: 625px;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 120%;
+    margin: 0;
+}
+.banner h2{
+    font-size: 32px;
+    width: 625px;
+    color: #dddddd;
+    line-height: 120%;
+    margin: 0;
 }
 .banner .tabs{
     position: absolute;
-    top:230px;
-    width: 1024px;
+    bottom: -36px;
     z-index: 200;
+    height: 36px;
+}
+.banner .tabs .tab{
+    margin: 0;
+}
+.banner .tabs .tab a{
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    width: 97px;
+    background: #f8941e;
+    margin-right: 5px;
+}
+.banner .tabs .tab a.active{
+    background: #136fb4;
 }
 	.banner-unit {
-        text-align: center;
 		top: 0;
 		/*width: 1024px;*/
-		height: 210px;
+		/*height: 210px;*/
 		position: relative;
-        margin-bottom: 100px;
+        /*margin-bottom: 100px;*/
 	}
 		.banner-unit img {
 			/*position: absolute;*/
@@ -237,9 +266,24 @@ form.invite-friends .item {
 			left: 0;
 		}
 		.banner-unit .buttons {
+            width: 330px;
 			position: absolute;
-			text-align: right;
+			text-align: center;
+            right: 0;
+            top: 0;
+            font-size: 26px;
+            color: #fff !important;
+            background: #1164a2;
 		}
+        .banner-unit .buttons p{
+            display: block;
+            padding: 40px 30px 30px;
+            line-height: 120%;
+            margin: 0;
+        }
+        .banner-unit .buttons strong{
+            color: #09e104;
+        }
 		.crowdsouced-banner .buttons {
 			top: 120px;
 			left: 590px;
@@ -275,11 +319,11 @@ form.invite-friends .item {
 				}
 					.banner-unit a.get-started span span {
 						display: block;
-						width: 217px;
+						/*width: 217px;*/
 						height: 50px;
-						font-size: 24px;
+						font-size: 36px;
 						padding: 0 9px;
-						font-weight: bold;
+						font-weight: normal;
 						line-height: 50px;
                         background: #f8941e;
 					}
@@ -295,8 +339,10 @@ form.invite-friends .item {
 					}
 
 			.banner-unit a.learn-more {
+                position: absolute;
+                right: 0;
 				display: block;
-				color: #fff;
+				color: #dddddd;
 				font-size: 14px;
 				line-height: 30px;
 				margin-right: 5px;

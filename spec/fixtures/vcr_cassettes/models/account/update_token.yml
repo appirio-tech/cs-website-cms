@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:3002/v1/accounts/update_password_token/BMMGWO23?token=sometoken
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQO4WJnYkNmiAiVr3FCBXUPxExpHKjAnAXIiKCBzVEOWLCgSw.KH3stkHJDoaz5PcHq2qTOWhYu0xvxybUe4Ko6DDIAAx
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '74'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"6e11bd540846038b236147513d900d81"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6742685b529c29601cedddd3092ccb59
+      X-Runtime:
+      - '1.403548'
+      Date:
+      - Sat, 13 Apr 2013 15:05:52 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","message":"Passcode successfully updated."}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 15:05:52 GMT
+recorded_with: VCR 2.3.0

@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3002/v1/accounts/create
+    body:
+      encoding: US-ASCII
+      string: ! '{"email":"BMMGWOXGPI74@test.cloudspokes.com","username":"BMMGWOXGPI74","password":"11111111a","password_confirmation":"11111111a"}'
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQNl3fFI6gSvo4aHKEX8e.RPdE4m5UBnM2p6QvzbaHXjDAOUtV7lyNK3s4yazIfiqTYFB32r8y9k3yqzfn_XrKLG6CU9B
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '155'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"1ba4baa2945fb33db852341e0ffb6395"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 084a2443d3b48353e98ca3625de450b1
+      X-Runtime:
+      - '1.208487'
+      Date:
+      - Sat, 13 Apr 2013 13:38:53 GMT
+      X-Rack-Cache:
+      - invalidate, pass
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"success":"true","username":"BMMGWOXGPI74","sfdc_username":"BMMGWOXGPI74@m.cloudspokes.com.sandbox","message":"Member
+        created successfully."}}'
+    http_version: !!null 
+  recorded_at: Sat, 13 Apr 2013 13:38:53 GMT
+recorded_with: VCR 2.3.0

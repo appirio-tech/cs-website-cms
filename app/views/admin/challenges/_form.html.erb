@@ -1,59 +1,98 @@
 <%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal jqTransform' } do |f| %>
-  <%= f.hidden_field :challenge_id, value: @challenge.challenge_id %>
-  <%= f.hidden_field :account, value: @challenge.account %>
+  <%= f.hidden_field :challenge_id %>
+  <%= f.hidden_field :account %>
+  <%= f.hidden_field :contact %>
+  <%= f.hidden_field :status %>
+  <%= f.hidden_field :community_judging %>
+  <%= f.hidden_field :auto_announce_winners %>  
 
-      <style type="text/css">
-        .jqTransformSelectWrapper ul {
-          height: auto !important;
-        }
+  <style type="text/css">
+    .jqTransformSelectWrapper ul {
+      height: auto !important;
+    }
 
-        .jqTransformInputInner .select2-container-multi div {
-          height: auto;
-          margin: 2px 2px 2px 8px;
-          color: #222;
-        }
+    .select2-container-multi div {
+      height: auto;
+      margin: 2px 2px 2px 8px;
+      color: #222;
+    }
 
-        .datepicker {
-          width: 500px !important;
-          height: 160px !important;
-        }
+    .select2-container-multi .select2-choices {
+      min-height: 26px;
+      padding: 4px 2px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: none;
+    } 
 
-        a.btn {
-          padding: 0 8px;
-        }
-      </style>
-      <div class='tabbable'>
+    .select2-container-multi.select2-dropdown-open .select2-choices {
+      border-radius: 4px 4px 0 0;
+      border: 1px solid #999;
+    } 
 
-        <ul class='nav nav-tabs'>
-          <li class="active"><a href="#challenge-info" data-toggle="tab">Main Info</a></li>
-          <li><a href="#prizes" data-toggle="tab">Prizes</a></li>
-          <% if @challenge.challenge_id %>
-            <li><a href="#assets" data-toggle="tab">Assets</a></li>
+    .select2-container-multi.select2-dropdown-open.select2-drop-above .select2-choices {
+      border-radius: 0 0 4px 4px;
+    }
+
+    .jqTransformInputInner .select2-container-multi div {
+      height: auto;
+      margin: 2px 2px 2px 8px;
+      color: #222;
+    }
+
+    .jqTransformInputInner .datepicker {
+      width: 500px !important;
+      height: 160px !important;
+    }
+
+    .form-nav {
+      padding: 8px 20px;
+      background-color: #f8f8f8;
+    }
+
+    #prize-set .jqTransformInputWrapper[style] {
+      width: 72px !important;
+    }
+    #prize-set .jqTransformInput {
+      width: 48px;
+    }
+  </style>
+
+  <div class='tabbable' id="tabs">
+    <!-- tab links: these can be styled to not look like tabs easily -->
+    <ul class='nav nav-tabs' style='font-size:16px'>
+      <% @steps.each_with_index do |step, index| %>
+      <li class="<% if index == 0 %> active <% end %>">
+        <a href="#<%= step.shortname %>" data-toggle="tab"><%= step.name %></a>
+      </li>
+      <% end %>          
+    </ul>
+
+    <!-- tabs -->
+    <div class='tab-content'>
+      <% @steps.each_with_index do |step, index| %>
+      <div class="tab-pane <% if index == 0 %> active <% end %>" id="<%= step.shortname %>">
+        <%= render step.shortname, {f: f} %>
+
+        <div class="form-nav clearfix">
+          <% if index != 0 %>
+            <a href="#" class="btn .btn-info pull-left" style="margin-left:25px" onclick="prevTab('#tabs'); return false;">
+              <span>Prev</span>
+            </a>
           <% end %>
-          <li><a href="#advanced" data-toggle="tab">Advanced</a></li>
-        </ul>
 
-        <div class='tab-content'>
-          <div class='tab-pane active' id='challenge-info'>
-            <br/><%= render 'challenge_info', {f: f} %>
-          </div>
-          <div class='tab-pane' id='prizes'>
-            <%= render 'prizes' %>
-          </div>
-          <% if @challenge.challenge_id %>
-            <div class='tab-pane' id='assets'>
-              <%= render 'assets', {f: f} %>
-            </div>
-          <% end %> 
-          <div class='tab-pane' id='advanced'>
-            <br/><%= render 'advanced', {f: f} %>
-          </div>         
+          <% if index < @steps.length - 1 %>
+            <a href="#" class="btn .btn-info pull-right" style="margin-right:25px" onclick="nextTab('#tabs'); return false;">
+              <span>Next</span>
+            </a>
+          <% else %>
+            <%= f.button :submit, :onclick => "return validateForm()", class: 'pull-right', value: @challenge.challenge_id ? 'Save Challenge' : 'Create Challenge' %>
+          <% end %>
         </div>
+      </div>
+      <% end %>
 
-      <hr />
-      <%= f.button :submit, value: @challenge.challenge_id ? 'Save Challenge' : 'Create Challenge' %>
+    </div>  
 
     </div>
 <% end %>
-
-

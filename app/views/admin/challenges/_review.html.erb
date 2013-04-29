@@ -1,0 +1,7 @@
+<% if @challenge.community_judging %>
+	<p>Your challenge is set to be judged my members of the CloudSpokes community two days after your indicated close date. Once the challenge ends, you will receive an email with the number of submissions and how to access the submitted code. You can wait for the judges to fill out their scorecards (this should tell you the best coded based upon the scorecard) or analyze the code yourself to determine which is best for your application.</p>
+<% end %>
+
+<p>If you have included any images in the challenge, make sure they are publically accessible. If you need to attach assets for the challenge (additional docs, screenshots, ERD diagrams, wireframes, etc.) you'll be able to upload them after you create the challenge.</p>
+
+<%= f.input :comments, label: 'Internal Comments', :as => :text, hint: 'Any comments you want to pass along to us.' %>

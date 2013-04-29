@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3002/v1/participants/a0AK000000Ah0ZEMAZ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Oauth-Token:
+      - 00DK0000008yRYr!AQQAQHM1Xoc1Ga1X6UJiSoXtICXZAfzwRQof5AkTvcb8NVhDESksYlMi69uZh_1o9BuJhIaCXiUC9C4KU1dIPFSMRrAc5S_4
+      Authorization:
+      - Token token="6757b55b396c51948422d915ba1f2ca2"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '827'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Meta-Request-Version:
+      - 0.2.1
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"e7449f698718ec8dcbf3f1ccf06b4ea1"'
+      Cache-Control:
+      - must-revalidate, private, max-age=0
+      X-Request-Id:
+      - e0c392440e98cd8c31d2113b4a265576
+      X-Runtime:
+      - '0.552376'
+      Date:
+      - Mon, 15 Apr 2013 11:19:28 GMT
+      X-Rack-Cache:
+      - miss
+      Connection:
+      - keep-alive
+      Server:
+      - thin 1.5.0 codename Knife
+    body:
+      encoding: US-ASCII
+      string: ! '{"response":{"attributes":{"type":"Challenge_Participant__c","url":"/services/data/v26.0/sobjects/Challenge_Participant__c/a0AK000000Ah0ZEMAZ"},"id":"a0AK000000Ah0ZEMAZ","member":"a0IK0000006Zl1eMAC","member__r":{"attributes":{"type":"Member__c","url":"/services/data/v26.0/sobjects/Member__c/a0IK0000006Zl1eMAC"},"name":"BMMGWO23","profile_pic":"http://cs-public.s3.amazonaws.com/default_cs_member_image.png","country":null},"challenge":"a0GK0000006KmxmMAC","challenge__r":{"attributes":{"type":"Challenge__c","url":"/services/data/v26.0/sobjects/Challenge__c/a0GK0000006KmxmMAC"},"name":"Test
+        Challenge 2 -- Admin","challenge_id":"21"},"money_awarded":0.0,"place":null,"points_awarded":0.0,"score":0.0,"status":"Watching","has_submission":false,"completed_scorecards":0.0,"submitted_date":null,"send_discussion_emails":true}}'
+    http_version: !!null 
+  recorded_at: Mon, 15 Apr 2013 11:19:28 GMT
+recorded_with: VCR 2.3.0
