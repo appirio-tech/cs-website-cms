@@ -70,7 +70,6 @@ GEM
     addressable (2.3.2)
     annotate (2.4.0)
     ansi (1.4.3)
-    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
@@ -117,6 +116,12 @@ GEM
     curb (0.8.3)
     daemons (1.1.9)
     dalli (2.5.0)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -221,8 +226,6 @@ GEM
     json (1.7.7)
     jwt (0.1.5)
       multi_json (>= 1.0)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     listen (0.5.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
@@ -390,17 +393,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
     ruby-hmac (0.4.0)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -483,6 +476,7 @@ DEPENDENCIES
   compass (~> 0.12.2)
   country-select
   dalli
+  debugger
   devise (~> 2.0.0)
   encryptor
   faye (= 0.8.3)
@@ -534,7 +528,6 @@ DEPENDENCIES
   rest-client (= 1.6.7)
   restforce
   rspec-rails
-  ruby-debug19
   ruby-openid!
   sass-rails (~> 3.2.3)
   select2-rails

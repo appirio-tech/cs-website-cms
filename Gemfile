@@ -86,7 +86,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'growl'
-  gem 'ruby-debug19'
+  gem 'debugger'
   gem 'pg', '0.14.1'
   gem 'rspec-rails'
   gem 'sextant'
