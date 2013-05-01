@@ -34,7 +34,7 @@
         %h4 Add New Deliverable
         = f.input :type, collection: Deliverable::TYPES, input_html: {class: "deliverable-type"}
         = f.input :paas, collection: Deliverable::PAAS, required: false, input_html: {class: "paas"}
-        = f.input :url, input_html: {class: "url"}
+        = f.input :url, label: 'URL', input_html: {class: "url"}
         = f.input :comments, as: :text, required: false, input_html: {class: "comments"}
         = f.input :username, required: false, input_html: {class: "username"}
         = f.input :password, required: false, input_html: {class: "password"}
