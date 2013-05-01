@@ -203,7 +203,7 @@
     <div class="clearfix"></div>            
 
     <% if @challenges.empty? %>
-        <p style="text-align:center;font-weight:bold">No open challenges found matching your criteria.</p>
+        <p style="text-align:center;font-weight:bold">No challenges found matching your criteria.</p>
     <% else %>
         <% @challenges.in_groups_of(2, false) do |row_challenges| %>
         <div class="row-fluid">
