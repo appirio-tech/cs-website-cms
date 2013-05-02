@@ -57,6 +57,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'submit_url_or_file_delete'
       get 'results'
       get 'appeals'
+      get 'instructions'
       get 'results/scorecard' => 'challenges#results_scorecard', :as => 'scorecard_results'
       get 'scorecard'
       match 'survey' => "challenges#survey", :as => 'survey'
@@ -119,6 +120,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/admin/redis_search'
   get '/admin/redis_sync_all'
   get '/admin/blog_fodder'
+  get '/admin/unleash_squirrel'
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
