@@ -146,7 +146,13 @@ class ChallengesController < ApplicationController
   end
 
   def papertrail
-    @token = Digest::SHA1.hexdigest("#{current_user.username}:#{current_user.username}:#{ENV['PAPERTRAIL_DIST_SSO_SALT']}:#{Time.now.to_i}")
+    @member_name = current_user.username
+    # used the passed participant id so judges, sponsors, etc. can view the logs
+    if params[:participant_id]
+      p = Participant.find(params[:participant_id])
+      @member_name = p.member.name
+    end
+    @token = Digest::SHA1.hexdigest("#{@member_name}:#{@member_name}:#{ENV['PAPERTRAIL_DIST_SSO_SALT']}:#{Time.now.to_i}")
   end  
 
   def submit_url

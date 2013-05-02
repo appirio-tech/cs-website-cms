@@ -2,12 +2,12 @@
 
 <%= content_wrapper do %>
 
-Launching Papertrail for your submission....
+Launching Papertrail for the submission....
 
 <body>
 <form action="https://papertrailapp.com/distributors/session" method="post" id="autosubmit">
-<input type="hidden" name="account_id" value="<%= current_user.username %>">
-<input type="hidden" name="user_id" value="<%= current_user.username %>">
+<input type="hidden" name="account_id" value="<%= @member_name %>">
+<input type="hidden" name="user_id" value="<%= @member_name %>">
 <input type="hidden" name="timestamp" value="<%= Time.now.to_i %>">
 <input type="hidden" name="token" value="<%= @token %>"> 
 <input type="hidden" name="distributor" value="CloudSpokes">
