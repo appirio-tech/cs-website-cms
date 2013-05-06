@@ -40,14 +40,14 @@ class Participant < ApiModel
   end
 
   def create_deliverable(challenge_id, membername, deliverable)
-    self.class.http_post "participants/#{member.name}/#{challenge_id}/deliverable", {data: deliverable}
+    self.class.http_post "participants/#{membername}/#{challenge_id}/deliverable", {data: deliverable}
   end
 
   def update_deliverable(challenge_id, membername, deliverable)
     massaged_deliverable = {}
     # remove the raw data data attributes so it doesn't get pushed to the api and crash it
     SubmissionDeliverable.column_names.each {|col| massaged_deliverable[col] = eval("deliverable.#{col}") }
-    self.class.http_put "participants/#{member.name}/#{challenge_id}/deliverable", {data: massaged_deliverable}
+    self.class.http_put "participants/#{membername}/#{challenge_id}/deliverable", {data: massaged_deliverable}
   end  
 
   # kicks off the squirrelforce process
