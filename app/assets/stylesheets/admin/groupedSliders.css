@@ -1,22 +1,29 @@
-@charset "utf-8";
-/* CSS Document */
-
 .sliderGroup .ui-slider-vertical
 {
 	margin-bottom:45px !important;		
 }
 .sliderGroup span.slide {
 height: 5px;
+#float: left;
 float: right;
+#margin: 15px;
  margin: 7px 75px 7px 7px;
 width: 250px;
 }
 
+#.sliderGroup span {
+#	height:420px; 
+#	float:left; 
+#	margin:15px
+#}
+
 .sliderGroupTally
 {
+#	color:black;
 	font-size:10px;
 	font-family:Verdana, Geneva, sans-serif;
 	position: absolute;
+#	bottom: -46px;	
 	
 	color: white;
 	left: 290px;
@@ -27,6 +34,8 @@ width: 250px;
 .lockButton
 {
 	position: absolute;
+#	bottom: -33px;	
+#	left:-5px;		
 	bottom: -7px;
     left: 255px;
 	
@@ -43,6 +52,11 @@ width: 250px;
 width: 5px;
 height: 15px;
 }
+
+#.ui-slider .ui-slider-handle{
+#	width:18px;
+#	height:5px;
+#}
 
 .button.ui-button-icon-only
 {
