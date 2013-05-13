@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_access_token
   before_filter :set_gon_variables
   before_filter :get_platform_stats
-  before_filter :miniprofiler
 
   def set_access_token
     ApiModel.access_token = current_access_token
@@ -21,13 +20,7 @@ class ApplicationController < ActionController::Base
 
   def get_platform_stats
     @platform_stats = CsPlatform.stats  
-  end   
-
-  def miniprofiler
-    if current_user && current_user.email == 'jdouglas@appirio.com'
-      Rack::MiniProfiler.authorize_request
-    end
-  end     
+  end    
 
   def show_welcome_page?
     false
