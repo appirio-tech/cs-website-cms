@@ -27,7 +27,7 @@ class Member < ApiModel
     name
   end
 
-  def active_challenges
+  def active_challenges(challenges)
     active_challenges = []
     challenges.each do |c|
       if !c.challenge_participants.records.first.status.eql?('Watching') && c.active?
@@ -37,7 +37,7 @@ class Member < ApiModel
     active_challenges
   end  
 
-  def watching_challenges
+  def watching_challenges(challenges)
     watching_challenges = []
     challenges.each do |c|
       if c.challenge_participants.records.first.status.eql?('Watching') && c.active?
@@ -47,7 +47,7 @@ class Member < ApiModel
     watching_challenges
   end    
 
-  def past_challenges
+  def past_challenges(challenges)
     past_challenges = []
     challenges.each do |c|
       if c.challenge_participants.records.first.has_submission

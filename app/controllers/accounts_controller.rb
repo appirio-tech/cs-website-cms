@@ -50,9 +50,10 @@ class AccountsController < ApplicationController
 
 	def challenges
 		member = Member.find current_user.username
-    @followed_challenges = member.watching_challenges
-    @active_challenges   = member.active_challenges
-    @past_challenges     = member.past_challenges
+		challenges = member.challenges
+    @followed_challenges = member.watching_challenges(challenges)
+    @active_challenges   = member.active_challenges(challenges)
+    @past_challenges     = member.past_challenges(challenges)
 	end
 
 	def communities
