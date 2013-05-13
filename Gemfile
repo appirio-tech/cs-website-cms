@@ -49,8 +49,7 @@ gem 'memcachier'
 gem 'dalli'
 gem 'encryptor'
 gem 'ratchetio', '~> 0.6.0'
-gem 'rack-timeout'
-gem 'rack-mini-profiler'
+gem 'rack-timeout', '0.1.0beta2'
 
 gem 'chosen-rails'
 gem "select2-rails" # this is WAY better than chosen as it supports loading remote data

@@ -307,8 +307,6 @@ GEM
       rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
-    rack-mini-profiler (0.1.26)
-      rack (>= 1.1.3)
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
@@ -318,7 +316,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rack-timeout (0.0.3)
+    rack-timeout (0.1.0beta2)
     rails (3.2.11)
       actionmailer (= 3.2.11)
       actionpack (= 3.2.11)
@@ -511,8 +509,7 @@ DEPENDENCIES
   pg (= 0.14.1)
   plupload-rails!
   quiet_assets
-  rack-mini-profiler
-  rack-timeout
+  rack-timeout (= 0.1.0beta2)
   rails (= 3.2.11)
   rake
   ratchetio (~> 0.6.0)
