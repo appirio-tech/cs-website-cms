@@ -522,7 +522,6 @@ DEPENDENCIES
   refinerycms-resources
   remote_syslog_logger
   resque!
-  rest-client (= 1.6.7)
   restforce
   rspec-rails
   ruby-openid!
