@@ -203,7 +203,7 @@ class Admin::ChallengesController < ApplicationController
 
     def fetch_account_logo
       @logo = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-        RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo   
+        RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo if current_user.accountid 
       end
     end    
 
