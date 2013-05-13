@@ -10,14 +10,21 @@ class CsPlatform
 		HTTParty.get("#{ENV['CS_API_URL']}/tos/#{id}")['response']
 	end	
 
+	def self.leaderboard_all(access_token, options = {:limit => nil})
+		HTTParty.get("#{ENV['CS_API_URL']}/leaderboard_all?#{options.to_param}")['response']
+	end	
+
+	# depracated -- no longer being used. use leaderboard_all instead
 	def self.leaderboard_month(access_token, options = {:period => nil, :category => nil, :limit => nil})
 		HTTParty.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}")['response']
 	end
 
+	# depracated -- no longer being used. use leaderboard_all instead
 	def self.leaderboard_year(access_token, options = {:period => nil, :category => nil, :limit => nil})
 		HTTParty.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}")['response']
 	end
 
+	# depracated -- no longer being used. use leaderboard_all instead
 	def self.leaderboard_alltime(access_token, options = {:period => nil, :category => nil, :limit => nil})
 		HTTParty.get("#{ENV['CS_API_URL']}/leaderboard?#{options.to_param}")['response']
 	end	
