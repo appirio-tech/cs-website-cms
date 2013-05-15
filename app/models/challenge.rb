@@ -72,6 +72,59 @@ class Challenge < ApiModel
     challenge_id
   end
 
+  def self.advanced_search(options)
+    
+    params = Hashie::Mash.new()    
+
+    if options[:platforms]
+      if options[:platforms].include?('all platforms')
+        params.p = 'all'
+      else
+        params.p = options[:platforms].join(",")
+      end
+    else
+      params.p = 'none'
+    end
+
+    if options[:technologies]
+      if options[:technologies].include?('all technologies')
+        params.t = 'all'
+      else
+        params.t = options[:technologies].join(",")
+      end
+    else
+      params.t = 'none'
+    end
+
+    if options[:categories]
+      if options[:categories].include?('all categories')
+        params.c = 'all'
+      else
+        params.c = options[:categories].join(",")
+      end
+    else
+      params.c = 'none'
+    end        
+  
+    params.p_min = options[:participants][:min]
+    params.p_max = options[:participants][:max]
+    params.m_min = options[:prize_money][:min]
+    params.m_max = options[:prize_money][:max]
+    params.state = options[:state]
+    params.q = options[:query]
+    params.sort_by = options[:sort_by]
+    params.sort_order = options[:order]
+
+    # fix this temp issue with field name -- need to change ui
+    if options[:sort_by] == 'end_date'
+      params.sort_by = "end_date__c" 
+    elsif options[:sort_by] == 'total_prize_money desc'
+      params.sort_by = 'total_prize_money__c'
+    end
+
+    http_get("challenges/advsearch?#{params.to_param}").map {|challenge| Challenge.new challenge}
+  end
+
   def self.open    
     http_get('challenges').map {|challenge| Challenge.new challenge}
   end

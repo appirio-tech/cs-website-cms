@@ -48,16 +48,25 @@ class ChallengesController < ApplicationController
     @selected_categories = params[:advanced][:categories] 
 
     @selected_platforms_all = false
-    @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
-    @selected_technologies_all = false
-    @selected_technologies_all = true if @selected_technologies.include?('All Technologies')
-    @selected_categories_all = false
-    @selected_categories_all = true if @selected_categories.include?('All Categories')  
+    if @selected_platforms
+      @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
+      #downcase all of the platforms, technologies and categories for redis
+      search_platforms = @selected_platforms.map{|i| i.downcase}      
+    end
 
-    #downcase all of the platforms, technologies and categories for redis
-    search_platforms = @selected_platforms.map{|i| i.downcase}
-    search_technologies = @selected_technologies.map{|i| i.downcase}
-    search_categories = @selected_categories.map{|i| i.downcase}
+    @selected_technologies_all = false
+    if @selected_technologies
+      @selected_technologies_all = true if @selected_technologies.include?('All Technologies')
+      #downcase all of the platforms, technologies and categories for redis
+      search_technologies = @selected_technologies.map{|i| i.downcase}
+    end
+
+    @selected_categories_all = false
+    if @selected_categories
+      @selected_categories_all = true if @selected_categories.include?('All Categories')  
+      #downcase all of the platforms, technologies and categories for redis
+      search_categories = @selected_categories.map{|i| i.downcase}
+    end    
 
     options = {state: params[:advanced][:status], 
       query: @keyword,
@@ -70,8 +79,11 @@ class ChallengesController < ApplicationController
       sort_by: @selected_sort_by,
       order: params[:advanced][:order_by]}
 
-    # run the search in redis
-    @challenges = Challenge.search options
+    if ENV['USE_ADVANCED_CHALLENGE_SEARCH']
+      @challenges = Challenge.advanced_search(options)
+    else
+      @challenges = Challenge.search options
+    end
     render 'index'
   end  
 
