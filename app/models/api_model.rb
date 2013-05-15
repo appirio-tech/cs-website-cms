@@ -138,7 +138,6 @@ class ApiModel
   def self.get_has_many(entities = [], params)
     endpoint = has_many_endpoint_from_entities(entities)
     endpoint << "/#{params.to_param}" unless params.empty?  
-    puts "==== calling get_has_may with #{endpoint}" 
     http_get endpoint, params
   end 
 
