@@ -103,3 +103,6 @@ config/initializers/development_settings.rb
 .env-sandbox
 all routes.txt
 dump.rdb
+
+# ignore ckeditor
+public/assets/ckeditor/*
