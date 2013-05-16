@@ -61,6 +61,8 @@ class Admin::Challenge
     params['reviewers'] = params.delete('challenge_reviewers') if params.include? 'challenge_reviewers'
     params['commentNotifiers'] = params.delete('challenge_comment_notifiers') if params.include? 'challenge_comment_notifiers'
     params['prizes'] = params.delete('challenge_prizes') if params.include? 'challenge_prizes'
+    # delete the old challenge categories if they somehow exist (old challenges?)
+    params.delete('categories') unless !params['categories']
 
     # just want the contact name form the contact and not their id
     if params.include? 'contact__r'

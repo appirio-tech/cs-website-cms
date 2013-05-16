@@ -65,6 +65,8 @@ class Admin::ChallengesController < ApplicationController
 
   def edit
 
+    @challenge_platforms = []
+    @challenge_technologies = []
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
     @prizes = @challenge.prizes || []
@@ -76,8 +78,8 @@ class Admin::ChallengesController < ApplicationController
     # clean up places -- '1st' to 1
     @challenge.prizes.each { |p| p.place = p.place[0..0] }
 
-    @challenge_platforms = @challenge.platforms.records.map(&:name)
-    @challenge_technologies = @challenge.technologies.records.map(&:name)
+    @challenge_platforms = @challenge.platforms.records.map(&:name) unless @challenge.platforms.empty?
+    @challenge_technologies = @challenge.technologies.records.map(&:name) unless @challenge.technologies.empty?
 
     @challenge.reviewers.each do | reviewer |
       @challenge_reviewers.push(reviewer.member__r.name) 
@@ -140,6 +142,9 @@ class Admin::ChallengesController < ApplicationController
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
 
+    # clean up the prizes
+    params[:admin_challenge][:prizes] = params[:admin_challenge][:prizes] || []
+    params[:admin_challenge][:prizes].delete_if {|p| p['prize'] == '' }
     # make sure the prizes have values and points
     params[:admin_challenge][:prizes].each do |p|
       p['prize'] = "$#{p['prize']}" unless p['prize'].include?('$')
