@@ -20,3 +20,11 @@ task :get_admin_access_token => :environment do
 	access_token = client.authenticate!.access_token 
 	puts "Admin access token for #{ENV['SFDC_HOST']}: #{access_token}"
 end
+
+desc "Updates postgres with new feed items"
+task :update_rss_feeds => :environment do
+	puts "Update news feed from RSS"
+	CloudspokesFeed.update_news_from_feed
+	puts "Update posts feed from RSS"
+	CloudspokesFeed.update_posts_from_feed
+end
