@@ -6,7 +6,7 @@ gem "compass", "~> 0.12.2"
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails', '~> 2.0.0'
 gem 'redis'
-gem 'thin'
+gem 'unicorn'
 gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 
 gem 'devise', '~> 2.0.0'
@@ -15,9 +15,7 @@ gem 'simple_form', '2.0.4'
 gem 'will_paginate'
 gem 'gon'
 gem 'time_diff'
-gem 'heroku-forward'
 
-#gem 'refinerycms', '2.0.8'
 gem 'refinerycms-dashboard'
 gem 'refinerycms-images'
 gem 'refinerycms-pages'
