@@ -19,7 +19,7 @@ class CreatePapertrailSystem
     Rails.logger.info "[Resque][PT]==== Create Papertrail account: #{account_create_results.to_yaml}"
     puts "[Resque][PT]==== Create Papertrail account: #{account_create_results.to_yaml}"
 
-    Raise account_create_results.error_description if account_create_results.has_key?('error')
+    raise account_create_results.error_description if account_create_results.has_key?('error')
 
     # create the system
     system = {
