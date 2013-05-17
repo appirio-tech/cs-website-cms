@@ -34,7 +34,7 @@ class ProcessCodeSubmission
 	   	if @@sfdc_update_results.success
 	   		submit_thurgood_job(participant.id)
 	   	else
-		   	Rails.logger.fatal "[FATAL][Resque]==== Error updating participant with job_id: #{update_results.message}" 
+		   	Rails.logger.fatal "[FATAL][Resque]==== Error updating participant with job_id: #{sfdc_update_results.message}" 
 		  end
 
 			Rails.logger.info "[INFO][Resque]==== Created submission deliverable for submission #{challenge_submission_id}: #{results.message}"
@@ -58,7 +58,7 @@ class ProcessCodeSubmission
 
 	  	payload = { :job =>
 		  	{
-		  		:user_id => "cs-#{membername}", 
+		  		:user_id => "#{membername}", 
 		  		:email => email, 	  		
 		  		:language => deliverable.language.downcase, 
 		  		:platform => deliverable.hosting_platform.downcase, 
@@ -76,7 +76,7 @@ class ProcessCodeSubmission
 
 	   	# write the participant with the job id
 	   	@@sfdc_update_results = Hashie::Mash.new(RestforceUtils.update_in_salesforce('Challenge_Participant__c',
-	   		:id => participant_id, :thurgood_job_id__c => @@new_job.job_id))
+	   		{:id => participant_id, :thurgood_job_id__c => @@new_job.job_id}, nil, :admin))
 	   	Rails.logger.info "[INFO][Resque]==== Update Thurgood job for participant in sfdc: #{@@sfdc_update_results.to_yaml}"
 
   	end  
