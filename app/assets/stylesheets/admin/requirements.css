@@ -34,3 +34,13 @@
 {
 	float:right;
 }
+
+.editLink {
+	padding-left: 20px;
+	font-size: 8pt;
+}
+
+.deleteLink {
+	padding-left: 5px;
+	font-size: 8pt;
+}

@@ -8,7 +8,6 @@ $(document).ready(function(){
 	setupCollapsibles(); 
 	
 	$('#newRequirementBtn').unbind("click").click(function(){
-		console.log(' !!!!new reqirement ----');
 		var title = $('#reqTitle').val();
 		var section = $('#reqSection').val();
 		var type = $('#reqType').val();
@@ -108,7 +107,7 @@ function renderRequirements(){
 		
 		//added for Challenge 2200 --> we added two links --> delete & edit
 		if($('#'+section.toLowerCase()).html() == null){
-			reqHtml = '<div id="'+section.toLowerCase()+'" > <div class="sectionheading">'+section+'<div class="headingValue"></div></div><div class="collapse sectionbody"><div class="reqheading">'+title+' <a id ="'+i+'" class="editLink" href="#add-requirement-modal" data-toggle="modal">Edit</a> <a id ="'+i+'" class="deleteLink">Delete</a><span id="col'+(i+1)+'" class="slide">'+rating+'</span></div><div class="collapse reqbody">'+description+'</div></div></div>';
+			reqHtml = '<div id="'+section.toLowerCase()+'" > <div class="sectionheading">Section: '+section+'<div class="headingValue"></div></div><div class="collapse sectionbody"><div class="reqheading">'+title+' <a id ="'+i+'" class="editLink" href="#add-requirement-modal" data-toggle="modal">Edit</a> <a id ="'+i+'" class="deleteLink">Delete</a><span id="col'+(i+1)+'" class="slide">'+rating+'</span></div><div class="collapse reqbody">'+description+'</div></div></div>';
 			$('#eq').append(reqHtml);
 		}else{
 			reqHtml = '<div class="reqheading">'+title+' <a id ="'+i+'" class="editLink" href="#add-requirement-modal" data-toggle="modal">Edit</a> <a id ="'+i+'" class="deleteLink">Delete</a><span id="col'+(i+1)+'" class="slide"></span></div><div class="collapse reqbody">'+description+'</div>';
@@ -164,7 +163,7 @@ function updateModalBody(jqueryObject)
 	$('#reqType').val(reqJsonObj.Requirements[jsonPositionIndex].Type);
 	$('#reqDescription').val(reqJsonObj.Requirements[jsonPositionIndex].Description);
 	$("#addRequirement").hide();
-	$("#addRequirement").parent().prepend('<button type="button" onclick="updateRequirement('+jsonPositionIndex+')" id="editRequirement" class="btn">Edit Requirement</button>');
+	$("#addRequirement").parent().prepend('<button type="button" onclick="updateRequirement('+jsonPositionIndex+')" id="editRequirement" class="btn">Save Requirement</button>');
 }
 
 //added for Challenge 2200
