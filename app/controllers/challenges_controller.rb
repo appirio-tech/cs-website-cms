@@ -155,6 +155,9 @@ class ChallengesController < ApplicationController
 
   def submit
     @submissions = @current_member_participant.current_submissions(params[:id])
+    @uploader = CodeUpload.new.code
+    @uploader.set_dir_vars(params[:id],current_user.username)
+    @uploader.success_action_redirect = submit_challenge_url(:anchor => "uploadfiles")
   end
 
   def papertrail
@@ -183,45 +186,20 @@ class ChallengesController < ApplicationController
   end  
 
   def submit_file
-    if params[:file].nil?
-      flash[:error] = "Please upload a valid file."
+    params[:file_submission][:link] = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/#{params[:file_submission][:link]}"
+    submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
+    if submission_results.success.to_bool
+      flash[:notice] = "File successfully submitted for this challenge."
+      send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
+      # kick off the squirrelforce process
+      Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
+        current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
+      redirect_to submit_challenge_url
     else
-      begin
-        file = params[:file][:file_name]
-        storage ||= begin
-          fog = Fog::Storage.new(
-            :provider                 => 'AWS',
-            :aws_secret_access_key    => ENV['AWS_SECRET'],
-            :aws_access_key_id        => ENV['AWS_KEY']
-          )
-          fog.directories.get(ENV['AWS_BUCKET'])
-        end
-        uploaded_file = storage.files.create(
-          :key    => "challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}",
-          :body   => file.read,
-          :public => true
-        )  
-        complete_url = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}"
-        submission_params = {:link => complete_url, :comments => params[:file_submission][:comments], :type => params[:file_submission][:type]}    
-        submission_results = @current_member_participant.save_submission_file_or_url(params[:id], submission_params)
-        if submission_results.success.to_bool
-          flash[:notice] = "File successfully uploaded and submitted for this challenge."
-          send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
-          # kick off the squirrelforce process
-          Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
-            current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'
-        else
-          flash[:error] = "There was an error submitting your file. Please check it and submit it again."
-        end
-      rescue => e    
-        flash[:error] = "There was an error submitting your File: #{e.message}. Please check it and submit it again."
-      end
+      flash[:error] = "There was an error submitting your File. Please check it and submit it again."
+      redirect_to :back
     end
-    redirect_to :back
-  # add rescue for local dev without redis running (for challenge participants)
-  rescue Exception => e
-    puts e.message
-  end  
+  end    
 
   def submit_url_or_file_delete
     submission_results = @current_member_participant.delete_submission(params[:id], params[:submissionId])

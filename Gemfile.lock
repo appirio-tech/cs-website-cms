@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/jeffdonthemic/carrierwave_direct.git
+  revision: 82ed0794e89c348ae6b4df38dea44a399f8761f8
+  specs:
+    carrierwave_direct (0.0.12)
+      carrierwave
+      fog
+      uuidtools
+
+GIT
   remote: git://github.com/jeffdonthemic/forcifier.git
   revision: 31a1339d09ba8464d943453baf9f09567aec78df
   specs:
@@ -83,6 +92,8 @@ GEM
     binding_of_caller (0.6.8)
     bootstrap-sass (2.1.1.0)
     builder (3.0.4)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chosen-rails (0.9.10)
@@ -438,6 +449,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.4)
     vcr (2.3.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -458,6 +470,8 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (= 2.1.1.0)
+  carrierwave
+  carrierwave_direct!
   chosen-rails
   ckeditor_rails!
   client_side_validations
