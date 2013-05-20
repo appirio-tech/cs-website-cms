@@ -79,12 +79,16 @@ class ProcessCodeSubmission
 	   		{:id => participant_id, :thurgood_job_id__c => @@new_job.job_id}, nil, :admin))
 	   	Rails.logger.info "[INFO][Resque]==== Update Thurgood job for participant in sfdc: #{@@sfdc_update_results.to_yaml}"
 
+	  rescue Exception => e
+			Rails.logger.fatal "[FATAL][Resque]==== Error creating Thurgood job: #{e.message}"
   	end  
 
   	def self.submit_thurgood_job(participant_id)
   		set_api_request_headers
 	  	submit_job = Hashie::Mash.new(HTTParty.get("#{ENV['THURGOOD_API_URL']}/jobs/#{@@new_job.job_id}/submit?system_papertrail_id=#{participant_id}")['response'])
 	  	Rails.logger.info "[INFO][Resque]==== Submitted Thurgood job: #{submit_job.to_yaml}"
+	  rescue Exception => e
+			Rails.logger.fatal "[FATAL][Resque]==== Error submitting Thurgood job: #{e.message}"	  	
   	end
 
 	  def self.set_api_request_headers
