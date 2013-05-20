@@ -23,26 +23,17 @@ class MembersController < ApplicationController
     @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
   end
 
-  # def leaderboard
-  #   @leaderboard_tick = true
-  #   @this_month = CsPlatform.leaderboard_month(guest_access_token, :period => 'month', :category => params[:category] || nil, :limit => 1000)
-  #   @this_year = CsPlatform.leaderboard_year(guest_access_token, :period => 'year', :category => params[:category] || nil, :limit => 1000)
-  #   @all_time = CsPlatform.leaderboard_alltime(guest_access_token, :category => params[:category] || nil, :limit => 1000)
-
-  #   @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
-  #   @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
-  #   @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
-  # end
-
   def show
     @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
-    challenges = @member.challenges
-    @active_challenges = @member.active_challenges(challenges)
-    @past_challenges = @member.past_challenges(challenges)
+    all_challenges = @member.challenges
+    @active_challenges = @member.active_challenges(all_challenges)
+    @past_challenges = @member.past_challenges(all_challenges)
   end
 
   def past_challenges
-    @past_challenges = Member.find(params[:id]).past_challenges 
+    member = Member.find(params[:id])
+    all_challenges = member.challenges
+    @past_challenges = member.past_challenges(all_challenges)
   end  
 
   private
