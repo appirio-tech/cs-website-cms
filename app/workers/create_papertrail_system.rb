@@ -15,10 +15,9 @@ class CreatePapertrailSystem
 
     set_api_request_headers
     account_create_results = HTTParty.post("#{ENV['THURGOOD_API_URL']}/loggers/account/create", options)['response']
+    raise "Could not create Papertrail account for #{membername} and challenge #{challenge_id}" unless account_create_results
     Rails.logger.info "[Resque][PT]==== Create Papertrail account: #{account_create_results.to_yaml}"
     puts "[Resque][PT]==== Create Papertrail account: #{account_create_results.to_yaml}"
-
-    raise account_create_results.error_description if account_create_results.has_key?('error')
 
     # create the system
     system = {
