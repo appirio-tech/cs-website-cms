@@ -32,7 +32,7 @@ class ProcessCodeSubmission
 		if results.success
 			sfdc_update_results = create_thurgood_job(deliverable, participant.id, membername)
 	   	if @@sfdc_update_results.success
-	   		submit_thurgood_job(participant.id)
+	   		submit_thurgood_job(challenge_id, membername, participant.id)
 	   	else
 		   	Rails.logger.fatal "[FATAL][Resque]==== Error updating participant with job_id: #{sfdc_update_results.message}" 
 		  end
@@ -80,10 +80,22 @@ class ProcessCodeSubmission
 			Rails.logger.fatal "[FATAL][Resque]==== Error creating Thurgood job: #{e.message}"
   	end  
 
-  	def self.submit_thurgood_job(participant_id)
-			options = { :query => {:system_papertrail_id => participant_id}, :headers => api_request_headers }	  	
-	  	submit_job = Hashie::Mash.new(HTTParty.get("#{ENV['THURGOOD_API_URL']}/jobs/#{@@new_job.job_id}/submit", options)['response'])
-	  	Rails.logger.info "[INFO][Resque]==== Submitted Thurgood job: #{submit_job.to_yaml}"
+  	def self.submit_thurgood_job(challenge_id, membername, participant_id)
+
+	    payload = {
+	      :system_papertrail_id => "#{membername}-#{participant_id}", 
+	      :challenge_id => challenge_id,
+	      :participant_id => participant_id
+	    }
+
+	    options = { 
+	      :options => { :options => payload }.to_json,
+	      :headers => api_request_headers 
+	    }  
+
+	    submit_job = Hashie::Mash.new(HTTParty.put("#{ENV['THURGOOD_API_URL']}/jobs/#{@@new_job.job_id}/submit", options)['response'])
+	    Rails.logger.info "[INFO][Resque]==== Submitted Thurgood job: #{submit_job.to_yaml}"
+
 	  rescue Exception => e
 			Rails.logger.fatal "[FATAL][Resque]==== Error submitting Thurgood job: #{e.message}"	  	
   	end
