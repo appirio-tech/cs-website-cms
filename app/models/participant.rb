@@ -50,11 +50,6 @@ class Participant < ApiModel
     self.class.http_put "participants/#{membername}/#{challenge_id}/deliverable", {data: massaged_deliverable}
   end  
 
-  # kicks off the squirrelforce process
-  def deploy_deliverable(submission_deliverable_id)
-    self.class.http_get "squirrelforce/unleash_squirrel/#{submission_deliverable_id}"
-  end   
-
   # temp till we move to new submissions
   def save_submission_file_or_url(challenge_id, params)
     self.class.http_post "participants/#{member.name}/#{challenge_id}/submission_url_file", params

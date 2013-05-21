@@ -36,10 +36,7 @@ class ProcessCodeSubmission
 	   	else
 		   	Rails.logger.fatal "[FATAL][Resque]==== Error updating participant with job_id: #{sfdc_update_results.message}" 
 		  end
-
-			Rails.logger.info "[INFO][Resque]==== Created submission deliverable for submission #{challenge_submission_id}: #{results.message}"
-			deploy_status = participant.deploy_deliverable(results.message)
-			Rails.logger.info "[INFO][Resque]==== Thurgood deployment status for submission deliverable #{results.message}: #{deploy_status.to_yaml}"
+			Rails.logger.info "[INFO][Resque]==== Deployed submission deliverable for #{challenge_submission_id} to Thurgood: #{results.message}"
 		else
 			Rails.logger.fatal "[FATAL][Resque]==== Could not create submission deliverable for submission #{challenge_submission_id}: #{results.message}"
 		end
@@ -66,9 +63,9 @@ class ProcessCodeSubmission
 		  	} 
 		  }
 	  	options = { 
-	  		:body => payload
+	  		:body => payload.to_json, 
+	  		:headers => api_request_headers
 	  	}	 
-	  	set_api_request_headers
 	  	
 	  	# create the new thurgood job
 	  	@@new_job = Hashie::Mash.new(HTTParty.post("#{ENV['THURGOOD_API_URL']}/jobs", options)['response'])
@@ -84,14 +81,14 @@ class ProcessCodeSubmission
   	end  
 
   	def self.submit_thurgood_job(participant_id)
-  		set_api_request_headers
-	  	submit_job = Hashie::Mash.new(HTTParty.get("#{ENV['THURGOOD_API_URL']}/jobs/#{@@new_job.job_id}/submit?system_papertrail_id=#{participant_id}")['response'])
+			options = { :query => {:system_papertrail_id => participant_id}, :headers => api_request_headers }	  	
+	  	submit_job = Hashie::Mash.new(HTTParty.get("#{ENV['THURGOOD_API_URL']}/jobs/#{@@new_job.job_id}/submit", options)['response'])
 	  	Rails.logger.info "[INFO][Resque]==== Submitted Thurgood job: #{submit_job.to_yaml}"
 	  rescue Exception => e
 			Rails.logger.fatal "[FATAL][Resque]==== Error submitting Thurgood job: #{e.message}"	  	
   	end
 
-	  def self.set_api_request_headers
+	  def self.api_request_headers
 	    {
 	      'Authorization' => 'Token token="'+ENV['THURGOOD_API_KEY']+'"',
 	      'Content-Type' => 'application/json'
