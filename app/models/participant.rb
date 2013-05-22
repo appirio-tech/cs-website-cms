@@ -39,6 +39,13 @@ class Participant < ApiModel
     self.class.http_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
   end
 
+  def send_message_to_thurgood_logger(text)
+    # get the job id for the participant
+    job_id = RestforceUtils.query_salesforce("select thurgood_job_id__c from 
+      challenge_participant__c where id = '#{@id}'").first.thurgood_job_id
+    Thurgood.send_message(job_id, text) if job_id
+  end  
+
   def create_deliverable(challenge_id, membername, deliverable)
     self.class.http_post "participants/#{membername}/#{challenge_id}/deliverable", {data: deliverable}
   end
