@@ -191,7 +191,7 @@ class ChallengesController < ApplicationController
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
       send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
-      # kick off the squirrelforce process
+      # kick off the thurgood process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
       redirect_to submit_challenge_url
