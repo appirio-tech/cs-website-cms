@@ -79,11 +79,7 @@ class ChallengesController < ApplicationController
       sort_by: @selected_sort_by,
       order: params[:advanced][:order_by]}
 
-    if ENV['USE_ADVANCED_CHALLENGE_SEARCH']
-      @challenges = Challenge.advanced_search(options)
-    else
-      @challenges = Challenge.search options
-    end
+    @challenges = Challenge.advanced_search(options)
     render 'index'
   end  
 
