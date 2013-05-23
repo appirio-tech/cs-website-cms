@@ -21,7 +21,7 @@ class ChallengesController < ApplicationController
 
   def index
     @title = 'Open Challenges'
-    search_default_params1
+    search_default_params
     # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
