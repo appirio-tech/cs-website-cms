@@ -21,7 +21,7 @@ class ChallengesController < ApplicationController
 
   def index
     @title = 'Open Challenges'
-    search_default_params
+    search_default_params1
     # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
@@ -191,7 +191,7 @@ class ChallengesController < ApplicationController
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
       send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
-      # kick off the thurgood process
+      # kick off the squirrelforce process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
       redirect_to submit_challenge_url
