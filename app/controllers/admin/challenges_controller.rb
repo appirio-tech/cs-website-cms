@@ -61,6 +61,34 @@ class Admin::ChallengesController < ApplicationController
       Hashie::Mash.new(:shortname => "review", :name => "Review & Save")
     ]
 
+    check_for_appirio_task
+
+  end
+
+  def check_for_appirio_task
+    if params[:task]
+
+      cmc_client = Restforce.new :username => ENV['CMC_USERNAME'],
+        :password       => ENV['CMC_PASSWORD'],
+        :client_id      => ENV['CMC_CLIENT_ID'],
+        :client_secret  => ENV['CMC_CLIENT_SECRET']
+
+      cmc_client.authenticate!
+      task = cmc_client.query("select id, name, task_name__c, description__c from 
+        cmc_task__c where id = '#{params[:task]}'")
+
+      if task.empty?
+        flash.now[:error] = "CMC Task '#{params[:task]}' not found."
+      else
+        flash.now[:notice] = "Prefilling data for new challenge from CMC Task #{task.first.Name}."
+        @challenge.name = task.first.Task_Name__c
+        @challenge.description = task.first.Description__c
+        @challenge.cmc_task = params[:task]
+        @challenge.scorecard_type = 'Sandbox Scorecard'
+        @challenge.terms_of_service = 'Standard Terms & Conditions'
+      end
+
+    end
   end
 
   def edit

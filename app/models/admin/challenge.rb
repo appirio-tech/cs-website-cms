@@ -22,7 +22,7 @@ class Admin::Challenge
                 :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
                 :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions, 
-                :account, :contact, :auto_announce_winners,
+                :account, :contact, :auto_announce_winners, :cmc_task,
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -200,6 +200,7 @@ class Admin::Challenge
           community: community,
           community_judging: community_judging,
           auto_announce_winners: auto_announce_winners,
+          cmc_task: cmc_task,
           challenge_id: challenge_id
         },
         reviewers: reviewers.map {|name| {name: name}},
