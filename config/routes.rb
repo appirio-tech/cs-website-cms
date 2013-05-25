@@ -114,17 +114,12 @@ CsWebsiteCms::Application.routes.draw do
   get '/bad', to: 'content#bad'  
 
   get '/admin', to: 'admin#index'
-  get '/admin/redis_challenge'
-  get '/admin/redis_sync_challenge/:id' => "admin#redis_sync_challenge"
-  get '/admin/redis_search'
-  get '/admin/redis_sync_all'
   get '/admin/blog_fodder'
-  get '/admin/unleash_squirrel'
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
-  match "/tos" => redirect("http://content.cloudspokes.com/terms-of-service")
+  match "/tos" => redirect("/terms-of-service")
   match "/signup" => redirect("/users/sign_up")
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
