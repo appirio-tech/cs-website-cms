@@ -9,6 +9,10 @@ class MembersController < ApplicationController
     @leaderboard = CsPlatform.leaderboard_alltime(guest_access_token, :category => nil, :limit => 1000)
     @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(3)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(3)    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @platform_stats }
+    end        
   end   
 
   def leaderboard
@@ -21,6 +25,14 @@ class MembersController < ApplicationController
     @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
     @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
     @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => { :this_month => @this_month, 
+          :this_year => @this_year, 
+          :all_time => @all_time }
+      }
+    end     
   end
 
   def show

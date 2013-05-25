@@ -32,6 +32,11 @@ class AccountsController < ApplicationController
 		@payments = @member.payments
 		@paid_payments = @payments.select(&:paid?)
 		@outstanding_payments = @payments - @paid_payments
+    respond_to do |format|
+      format.html
+      format.json { render :json => {:outstanding => @outstanding_payments, 
+        :paid => @paid_payments } }
+    end     
 	end
 
 	def school_and_work
@@ -54,6 +59,11 @@ class AccountsController < ApplicationController
     @followed_challenges = member.watching_challenges(challenges)
     @active_challenges   = member.active_challenges(challenges)
     @past_challenges     = member.past_challenges(challenges)
+    respond_to do |format|
+      format.html
+      format.json { render :json => {:active => @active_challenges, 
+        :past => @past_challenges, :watching => @followed_challenges } }
+    end        
 	end
 
 	def communities

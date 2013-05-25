@@ -2,7 +2,11 @@ class JudgingController < ApplicationController
 	before_filter :authenticate_user!
 
 	def outstanding_reviews
-		@scorecards = Judging.outstanding_reviews(current_user.username)
+    @scorecards = Judging.outstanding_reviews(current_user.username)    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @scorecards }
+    end     
 	end
 
 	def scorecard
@@ -42,7 +46,12 @@ class JudgingController < ApplicationController
 		elsif @member.can_judge.include?('Banned')
 			@challenges = []
 			@no_challenges_message = 'Sorry... you are not able to judge challenges are this time.' 
-		end		
+		end	
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @challenges }
+    end     	
 
 	end
 

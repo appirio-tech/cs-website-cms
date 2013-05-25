@@ -25,7 +25,11 @@ class ChallengesController < ApplicationController
     # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
-    @challenges = Challenge.all params[:filters]      
+    @challenges = Challenge.all params[:filters]
+    respond_to do |format|
+      format.html
+      format.json { render :json => @challenges }
+    end    
   end   
 
   def search
