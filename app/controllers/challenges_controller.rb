@@ -370,8 +370,8 @@ class ChallengesController < ApplicationController
       @technologies = all_technologies
       @categories = all_categories
       @sort_by_options = [["End Date", "end_date"],["Challenge Title", "name"],["Prize Money", "total_prize_money desc"]]
-      @communities = Community.names
-      @communities.insert(0, 'Public') if !@communities.include?('Public')
+      @communities = ['Public']
+      # @communities.insert(0, 'Public') if !@communities.include?('Public')
       gon.adv_search_display = false
       gon.adv_search_status = 'open'
       gon.adv_search_order_by = 'asc'
