@@ -7,8 +7,8 @@ class MembersController < ApplicationController
     @open_challenges = Challenge.open
     @featured_challenge =  featured_challenge @platform_stats['featured_challenge_id']
     @leaderboard = CsPlatform.leaderboard_alltime(guest_access_token, :category => nil, :limit => 1000)
-    @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(3)
-    @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(3)    
+    @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(5)
+    @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(5)    
     respond_to do |format|
       format.html
       format.json { render :json => @platform_stats }
