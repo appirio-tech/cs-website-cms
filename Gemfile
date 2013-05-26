@@ -105,6 +105,7 @@ group :test do
 end
 
 group :development do
+  gem 'rack-mini-profiler'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request', '0.2.1' # see https://github.com/dejan/rails_panel
