@@ -51,6 +51,11 @@ class ChallengesController < ApplicationController
     @selected_technologies = params[:advanced][:technologies] 
     @selected_categories = params[:advanced][:categories] 
 
+    # select all if NOTHING was selected
+    @selected_platforms = all_platforms if !@selected_platforms
+    @selected_technologies = all_technologies if !@selected_technologies
+    @selected_categories = all_categories if !@selected_categories    
+
     @selected_platforms_all = false
     if @selected_platforms
       @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
@@ -70,7 +75,7 @@ class ChallengesController < ApplicationController
       @selected_categories_all = true if @selected_categories.include?('All Categories')  
       #downcase all of the platforms, technologies and categories for redis
       search_categories = @selected_categories.map{|i| i.downcase}
-    end    
+    end
 
     options = {state: params[:advanced][:status], 
       query: @keyword,
@@ -96,6 +101,7 @@ class ChallengesController < ApplicationController
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       current_challenge.comments
     end
+    @comments  = nil
     # add rescue for local dev without redis running (for challenge participants)
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   rescue Exception => e
