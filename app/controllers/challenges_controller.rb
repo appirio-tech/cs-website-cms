@@ -101,7 +101,6 @@ class ChallengesController < ApplicationController
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       current_challenge.comments
     end
-    @comments  = nil
     # add rescue for local dev without redis running (for challenge participants)
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   rescue Exception => e
