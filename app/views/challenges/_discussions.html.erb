@@ -1,31 +1,25 @@
-<% if comments %>
+<% if comments.empty? %>No discussion comments for this challenge.<% end %>
 
-  <% if comments.empty? %>No discussion comments for this challenge.<% end %>
-
-  <% comments.each do |comment| %>
-    <%= render partial: "comment", locals: {comment: comment, challenge: challenge} %>
-    <% comment.replies.each do |reply| %>
-      <%= render partial: "comment", locals: {comment: reply} %>
-    <% end %>
-    <% if challenge.show_discussion_board_entry? %>
-      <% if comment.id == params[:reply_to] %>
-        <div class="reply-form">
-          <%= render partial: "new_comment", locals: {challenge: challenge} %>
-        </div>
-      <% end %>
-    <% end %>
+<% comments.each do |comment| %>
+  <%= render partial: "comment", locals: {comment: comment, challenge: challenge} %>
+  <% comment.replies.each do |reply| %>
+    <%= render partial: "comment", locals: {comment: reply} %>
   <% end %>
-
-  <hr/>
-
   <% if challenge.show_discussion_board_entry? %>
-    <% if params[:reply_to].blank? %>
-      <%= render partial: "new_comment", locals: {challenge: challenge} %>
+    <% if comment.id == params[:reply_to] %>
+      <div class="reply-form">
+        <%= render partial: "new_comment", locals: {challenge: challenge} %>
+      </div>
     <% end %>
-  <% else %>
-    The discussion board is closed for this challenge. 
   <% end %>
+<% end %>
 
+<hr/>
+
+<% if challenge.show_discussion_board_entry? %>
+  <% if params[:reply_to].blank? %>
+    <%= render partial: "new_comment", locals: {challenge: challenge} %>
+  <% end %>
 <% else %>
-  No discussion comments for this challenge.
+  The discussion board is closed for this challenge. 
 <% end %>
