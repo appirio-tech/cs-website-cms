@@ -94,11 +94,11 @@ class ChallengesController < ApplicationController
   end  
 
   def recent
-    filters = {:order_by => 'end_date desc'}
+    filters = {}
     filters.merge!( {:technology => params[:technology] }) if params[:technology] 
     filters.merge!( {:platform => params[:platform] }) if params[:platform] 
     filters.merge!( {:category => params[:category] }) if params[:category] 
-    @challenges = Challenge.closed filters
+    @challenges = Challenge.recent filters
     @challenges = @challenges.paginate(:page => params[:page], :per_page => 20)
   end  
 

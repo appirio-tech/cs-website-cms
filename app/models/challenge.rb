@@ -129,10 +129,8 @@ class Challenge < ApiModel
     http_get('challenges').map {|challenge| Challenge.new challenge}
   end
 
-  def self.recent
-    Rails.cache.fetch('recent-challenges', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-      http_get('challenges/recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
-    end
+  def self.recent(filters)
+    http_get("challenges/recent", {:limit => 200}.merge!(filters)).map {|challenge| Challenge.new challenge}
   end
 
   def self.per_page
