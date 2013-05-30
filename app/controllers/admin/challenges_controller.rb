@@ -84,8 +84,8 @@ class Admin::ChallengesController < ApplicationController
         @challenge.name = task.first.Task_Name__c
         @challenge.description = task.first.Description__c
         @challenge.cmc_task = params[:task]
-        @challenge.scorecard_type = 'Sandbox Scorecard'
-        @challenge.terms_of_service = 'Standard Terms & Conditions'
+        # @challenge.scorecard_type = 'Sandbox Scorecard'
+        # @challenge.terms_of_service = 'Standard Terms & Conditions'
       end
 
     end

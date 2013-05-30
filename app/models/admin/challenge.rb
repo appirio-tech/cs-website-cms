@@ -145,7 +145,6 @@ class Admin::Challenge
   end
 
   def save
-    puts payload
     if challenge_id
       options = {
         :query => {data: payload},
@@ -178,7 +177,9 @@ class Admin::Challenge
     # conditions aren't totally eliminated, but the window is largely smaller
     # in this case. Plus the logic is much simpler too :)
 
-    result = {
+    # do not pass values that are not being fetched from sfdc. will overwrite with null
+
+    @json_payload = {
       challenge: {
         detail: {
           account: account,
@@ -211,7 +212,18 @@ class Admin::Challenge
         assets: assets.map {|filename| {filename: filename}},
       }
     }
-    result
+    
+    remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
+    @json_payload
   end
+
+  private
+
+    def remove_nil_keys
+      @json_payload[:challenge][:detail].remove_key!(:scorecard_type) if !@json_payload[:challenge][:detail][:scorecard_type]
+      @json_payload[:challenge][:detail].remove_key!(:terms_of_service) if !@json_payload[:challenge][:detail][:terms_of_service]
+      @json_payload[:challenge][:detail].remove_key!(:cmc_task) if !@json_payload[:challenge][:detail][:cmc_task]
+      @json_payload[:challenge][:detail].remove_key!(:community) if !@json_payload[:challenge][:detail][:community]
+    end
 
 end
