@@ -160,6 +160,7 @@ class ChallengesController < ApplicationController
   end  
 
   def submit
+    redirect_to challenge_submission_path(params[:id]) if params[:run_with_scissors]
     @submissions = @current_member_participant.current_submissions(params[:id])
     @uploader = CodeUpload.new.code
     @uploader.set_dir_vars(params[:id],current_user.username)
