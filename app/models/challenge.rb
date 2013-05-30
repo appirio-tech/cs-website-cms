@@ -146,6 +146,11 @@ class Challenge < ApiModel
     http_get('challenges', options).map {|challenge| Challenge.new challenge}
   end  
 
+  def self.closed(options = {})
+    options.each {|k,v| options.delete(k) if v.blank? } if options
+    http_get('challenges/closed', options).map {|challenge| Challenge.new challenge}
+  end    
+
   # def submission_deliverables
   #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
   # end
