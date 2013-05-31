@@ -6,11 +6,11 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
-    :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard, :appeals]
+    :toggle_discussion_email, :submit, :submit_details, :participant_submissions, :results_scorecard, :appeals]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
     :appeals]
-  before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
+  before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, :submit_details, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
@@ -164,12 +164,30 @@ class ChallengesController < ApplicationController
   end  
 
   def submit
-    redirect_to challenge_submission_path(params[:id]) if params[:run_with_scissors]
     @submissions = @current_member_participant.current_submissions(params[:id])
     @uploader = CodeUpload.new.code
     @uploader.set_dir_vars(params[:id],current_user.username)
     @uploader.success_action_redirect = submit_challenge_url(:anchor => "uploadfiles")
+    # convert the sem-colon separated list to an array
+    @current_member_participant.paas = @current_member_participant.paas.split(';') if @current_member_participant.paas
+    @current_member_participant.languages = @current_member_participant.languages.split(';') if @current_member_participant.languages
+    @current_member_participant.technologies = @current_member_participant.technologies.split(';') if @current_member_participant.technologies
+    # get the metadata for the multiselect picklist
+    @participant_metadata = participant_metadata
   end
+
+  def submit_details
+    @current_member_participant.submission_overview = params[:participant][:submission_overview]
+    @current_member_participant.paas = params[:participant][:paas].reject! { |c| c.empty? }.join(';')
+    @current_member_participant.languages = params[:participant][:languages].reject! { |c| c.empty? }.join(';')
+    @current_member_participant.technologies = params[:participant][:technologies].reject! { |c| c.empty? }.join(';')
+    if @current_member_participant.update.success.to_bool
+      flash[:notice] = "Successfully updated your submission."
+    else
+      flash[:error] = "There was an error updating your submission."
+    end
+    redirect_to :back
+  end    
 
   def papertrail
     @member_name = current_user.username
@@ -320,6 +338,12 @@ class ChallengesController < ApplicationController
         Category.names
       end
     end     
+
+    def participant_metadata
+      Rails.cache.fetch('participant_metadata', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        ApiModel.http_get 'metadata/participant'
+      end
+    end         
 
     def load_current_challenge
       @challenge = current_challenge    

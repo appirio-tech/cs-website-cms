@@ -34,7 +34,6 @@ class Participant < ApiModel
   end 
 
   def update
-    #params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }.to_safe_values
     params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }
     self.class.http_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
   end

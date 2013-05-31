@@ -9,7 +9,7 @@
         <div class="span8">
             <h1><%= @challenge.name %></h1>
 
-            <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>CURRENT MEDIA FOR YOUR SUBMISSION</h1></div>
+            <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>DELIVERABLES FOR YOUR SUBMISSION</h1></div>
             <% if @submissions.empty? %><div style="text-align:center;margin-bottom:25px">No media found for your submissions for the challenge.</div><% end %>
             <% @submissions.each do |s| %>
             <div class="well well-large">
@@ -23,7 +23,29 @@
             <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>THURGOOD</h1></div>
             <p><%= link_to 'Thurgood', 'http://blog.cloudspokes.com/2013/04/automated-cloudspokes-code-testing.html', :target => '_blank' %> is our automated build, quality and security analysis platform for submitted challenge code. <%= link_to 'The process', 'http://cs-public.s3.amazonaws.com/thurgood-process.png', :target => '_blank' %> runs through various services to execute your unit tests, scan code for security violations and ensure best practices. You can submit your code to Thurgood as often as you'd like and check the outcome. We highly encourage you to submit your code "early and often" to make sure it is of high quality before your final submission. Your code must be submitted <a href="#submit-instructions" data-toggle="modal">in this format</a> to be processed successfully.</p>
 
-            <p><strong>View your results!</strong> <%= link_to 'Open your Papertrail submission log', papertrail_challenge_path, :target => '_blank' %> for details on the processing of your code. Once your code has been successfully scanned, you will be able to <%= link_to 'download a PDF of the results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{current_user.username}/cx-report.pdf", :target => '_blank' %>.</p>            
+            <p><%= link_to image_tag('papertrail-screenshot.png', :style => 'float:left;margin:0 15px 15px 0'), papertrail_challenge_path, :target => '_blank' %> We log events for your submission to <%= link_to 'Papertrail', 'http://www.papertrailapp.com', :target => '_blank' %> for more insight into the Thurgood process. With Papertrail you can set alerts for certain events (code scan failure, scorecard submitted, etc.), save custom searches and much more. <strong>View your results!</strong> <%= link_to 'Open your Papertrail submission log', papertrail_challenge_path, :target => '_blank' %> for this challenge.</p>
+
+             <p><br/>Once your code has been successfully scanned, you will be able to <%= link_to 'download a PDF of the results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{current_user.username}/cx-report.pdf", :target => '_blank' %>.</p>             
+
+            <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>TELL US ABOUT YOUR SUBMISSION</h1></div>
+
+            <p>Tell us a litte about your application? What cool technologies or awesome approach to solving a problem did you use? We'll pass along all of your
+            info to the judges so they'll have a better grasp of your application when going through it and won't miss some of the awesome work you've done.</p>
+
+            <%= simple_form_for @current_member_participant, url: submit_details_challenge_path(@challenge), html: {:id => 'submission_details', class: "form-horizontal jqTransform"} do |f| %>
+                <div class="control-group">
+                    <label class="control-label">Brief Overview</label>
+                    <div class="controls">
+                        <%= f.text_area :submission_overview %>
+                    </div>
+                </div>                    
+                <%= f.input :languages, label: 'Languages Used', collection: @participant_metadata[:languages], required: false, input_html: {multiple: true, style: "width: 400px", class: "select2"} %>
+                <%= f.input :technologies,  label: 'Technologies Used', collection: @participant_metadata[:technologies], required: false, input_html: {multiple: true, style: "width: 400px", class: "select2"} %>
+                <%= f.input :paas, label: 'Platforms Used', collection: @participant_metadata[:platforms], required: false, input_html: {multiple: true, style: "width: 400px", class: "select2"} %>  
+                <div class="control-group">
+                    <a class="btn pull-right" onclick="document.getElementById('submission_details').submit();"><span>SAVE</span></a>
+                </div>
+            <% end %>                           
 
             <% if @challenge.open? || @current_member_participant.override_submission_upload %>
 
