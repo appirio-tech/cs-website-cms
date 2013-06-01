@@ -67,8 +67,8 @@ class User < ActiveRecord::Base
       sfdc_authentication.access_token
     else
       # check for any authentication errors and return guest token if error
-      User.guest_access_token
       Rails.logger.info "[FATAL][User] Could not refresh #{username}'s access token: #{sfdc_authentication.message}"
+      User.guest_access_token
     end
   end  
 
