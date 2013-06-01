@@ -115,7 +115,6 @@ class ApiModel
   def self.http_get(endpoint, params = nil)
     options = { headers: api_request_headers }
     options.merge!(query = {query: params}) if params.present?
-    puts "#{ENV['CS_API_URL']}/#{endpoint}"
     process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
   end
 
