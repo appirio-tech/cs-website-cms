@@ -57,13 +57,14 @@ class ApplicationController < ActionController::Base
         guest_access_token
       else
         if current_user.access_token
-          # temp
           current_user.last_access_token_refresh_at = Date.yesterday if current_user.last_access_token_refresh_at.nil?
-          logger.info "[APPLICATION] Has Access Token expired?: #{Time.now.utc} > 60minutes past #{current_user.last_access_token_refresh_at} - expired #{Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)}"
+          puts "[ACCESS_TOKEN] Has access token expired?: #{Time.now.utc} (Now) > 45 minutes past last refresh #{current_user.last_access_token_refresh_at.getutc} - expired? #{Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)}"
           # check and see if it's an hour old
-          if Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)
+          if Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)
+            puts "[ACCESS_TOKEN] Updating token from salesforce"
             current_user.update_with_sfdc_info     
           else
+            puts "[ACCESS_TOKEN] Returning current access token in db"
             current_user.access_token
           end
         else
