@@ -577,7 +577,7 @@
     width: auto !important;
   }
   .banner-unit .buttons a.get-started {
-    margin: 0 5px;
+    /*margin: 0 5px;*/
   }
   .banner-unit .buttons a.learn-more {
     margin: 10px 5px 10px auto;

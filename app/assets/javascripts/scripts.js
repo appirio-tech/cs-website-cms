@@ -77,7 +77,7 @@ $(document).ready(function() {
     }
 
     if(exist('.scrollable')) {
-        $('.scrollable').scrollable({circular:true,touch:false}).autoscroll();
+        $('.scrollable').scrollable({circular:true,touch:false}).autoscroll(20000);
     }
     if(exist('.switch')) {
         $('.switch').scrollable({next:'',prev:'',touch:false}).navigator({navi:'.tab'});

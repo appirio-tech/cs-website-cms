@@ -215,7 +215,8 @@ form.invite-friends .item {
 /* banner */
 .banner {
 	margin: 30px 0 0 0;
-	background: #136fb4;
+	/*background: #136fb4;*/
+    background: #0d4066 url(/assets/banner-bg.png) left top repeat-x;
     padding: 74px 0 70px;
 }
 .banner h1{
@@ -251,7 +252,8 @@ form.invite-friends .item {
     margin-right: 5px;
 }
 .banner .tabs .tab a.active{
-    background: #136fb4;
+    /*background: #136fb4;*/
+    background: #0a4a79;
 }
 	.banner-unit {
 		top: 0;
@@ -273,7 +275,8 @@ form.invite-friends .item {
             top: 0;
             font-size: 26px;
             color: #fff !important;
-            background: #1164a2;
+            /*background: #1164a2;*/
+            background: #136fb4;
 		}
         .banner-unit .buttons p{
             display: block;
@@ -397,19 +400,27 @@ ul.share li {
 	padding: 5px 0 0 0;
 	position: relative;
 	height: 135px;
-	margin-bottom: 0;
+	margin-bottom: 30px;
 }
 	.member-profile .well h2{
 		font-size: 21px;
         font-weight: bold;
 	}
+    .member-profile .well .top{
+        color: #136fb4;
+    }
+    .member-profile .well strong{
+        font-size: 20px;
+    }
 	.member-profile .well .top span {
-		font-size: 19px;
+		font-size: 14px;
+        font-weight: normal;
+        color: #787878;
 	}
 	.member-profile .well .bottom {
 		position: absolute;
 		bottom: 0;
-		font-size: 19px;
+		font-size: 14px;
 	}
 	.member-profile .span6 {
 		margin-left: 10px;
@@ -467,17 +478,8 @@ ul.share li {
 		}
 	/* end of level */
 
-.member-profile #quotes .item {
-	/*height: 25px;*/
-	text-align: center;
-	width: 800px;
-	margin: 40px auto;
-	padding-left: 5px;
-
-}
-	.member-profile #quotes .item .quote {
-		font-size: 24px;
-		line-height: 25px;
+	.member-profile .quote p{
+		font-size: 20px;
 	}
 
 ul.brief-info {
@@ -625,7 +627,7 @@ ul.brief-info {
 			*height: 350px;
 		} 
 	.member-profile .span4 p {
-		font-size: 13px;
+		/*font-size: 13px;*/
 	}
 		.member-profile .span4 p .gray {
 			color: #d1d1d1;
