@@ -64,3 +64,12 @@
     </div>      
 
 <% end %>
+
+<% if params[:task] %>
+  <!-- if a cmc task was passed, show the modal immediately -->
+  <script type="text/javascript">
+    $(window).load(function(){
+      $('#new-challenge-modal').modal('show');
+    });
+  </script>
+<% end %>
