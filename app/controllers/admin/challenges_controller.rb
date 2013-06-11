@@ -83,7 +83,7 @@ class Admin::ChallengesController < ApplicationController
 
       unless task.empty?
         @challenge.name = task.first.Task_Name__c
-        @challenge.description = task.first.Description__c unless task.first.Description__c.blank?
+        @challenge.description = task.first.Description__c unless task.first.Description__c.nil? || task.first.Description__c == '<br>'
         @challenge.cmc_task = params[:task]
         # @challenge.scorecard_type = 'Sandbox Scorecard'
         # @challenge.terms_of_service = 'Standard Terms & Conditions'
