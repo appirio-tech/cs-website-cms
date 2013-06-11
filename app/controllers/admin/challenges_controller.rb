@@ -14,17 +14,11 @@ class Admin::ChallengesController < ApplicationController
     @challenges.map {|challenge| Admin::Challenge.new challenge}
   end
 
-  def new
-    @challenge = Admin::Challenge.new
-    # set the access token for the calls
-    @challenge.access_token = current_user.access_token
-    # always set the account of the current user
-    @challenge.account = current_user.accountid
-    @challenge.contact = current_user.username
-    @challenge.status = 'Draft'
-    @challenge.community_judging = true
-    @challenge.auto_announce_winners = false
-    @challenge.description = '<p>Your 
+  def create
+
+    data = {}
+    data[:name] = params[:name]
+    data[:description] = '<p>Your 
       overview should describe what you are trying to build within a few simple sentences. Remember, 
       the person reading your overview has no background on what you are trying to build so try to think 
       of the best way to convey the goal of the challenge. You can provide more details in the requirements 
@@ -33,35 +27,45 @@ class Admin::ChallengesController < ApplicationController
       and 3 Visualforce pages. We used a third party service to design a new layout and they have sent us 
       the HTML and CSS for our new application. We need your Visualforce and Apex skills to merge the 
       HTML and CSS with our existing code.</p>'
-    @challenge.submission_details = '<p>Upload all your source code as a zip (you can simply zip up 
+    data[:requirements] = '<p>Add the requirements for your challenge...</p>'      
+    # only use the first contact entered
+    data[:contact] = current_user.username
+    data[:account] = current_user.accountid
+    data[:status] = 'Draft'
+    data[:community_judging] = true
+    data[:auto_announce_winners] = false
+    data[:submission_details] = '<p>Upload all your source code as a zip (you can simply zip up 
       your Eclipse project for convenience) and provide any documentation and/or instructions that 
       are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
-      application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'
+      application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'    
+    data[:start_date] = Time.now.ctime
+    data[:end_date] = (Time.now+(4*60 * 60 * 24)).ctime # add 4 days
+    data[:review_date] = (Date.today+6).ctime
+    data[:winner_announced] = (Date.today+8).ctime
 
-    # defaulted to the current time so that the user can make changes if desired
-    @challenge.start_date = Time.now.ctime
-    @challenge_platforms = []
-    @challenge_technologies = []
-    @challenge_reviewers = []
-    @challenge_commentNotifiers = []
+    data[:prizes] = [
+        Hashie::Mash.new(:place => 1, :prize => '$500', :points => 500, :value => 500),
+        Hashie::Mash.new(:place => 2, :prize => '$250', :points => 250, :value => 250)
+      ]    
 
-    # default in a first and second place prizes
-    @prizes = [
-      Hashie::Mash.new(:place => 1, :prize => '$500'),
-      Hashie::Mash.new(:place => 2, :prize => '$250'),
-    ]
-
-    # no asset tab here for new challenge
-    @steps = [
-      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
-      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
-      Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
-      Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
-      Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
-      Hashie::Mash.new(:shortname => "review", :name => "Review & Save")
-    ]
+    @challenge = Admin::Challenge.new(data)    
+    # set the access token for the calls
+    @challenge.access_token = current_user.access_token 
 
     check_for_appirio_task
+
+    if @challenge.valid?
+      new_challenge = @challenge.save
+      if new_challenge.success
+        render :json => new_challenge
+      else
+        # any sfdc errors
+        render :json =>  { success: false, error: new_challenge.errors.first.errorMessage } 
+      end
+    else
+      #any validation errors
+      render :json => { success: false, error: @challenge.errors.full_messages.join(', ') }
+    end
 
   end
 
@@ -77,12 +81,9 @@ class Admin::ChallengesController < ApplicationController
       task = cmc_client.query("select id, name, task_name__c, description__c from 
         cmc_task__c where id = '#{params[:task]}'")
 
-      if task.empty?
-        flash.now[:error] = "CMC Task '#{params[:task]}' not found."
-      else
-        flash.now[:notice] = "Prefilling data for new challenge from CMC Task #{task.first.Name}."
+      unless task.empty?
         @challenge.name = task.first.Task_Name__c
-        @challenge.description = task.first.Description__c
+        @challenge.description = task.first.Description__c unless task.first.Description__c.blank?
         @challenge.cmc_task = params[:task]
         # @challenge.scorecard_type = 'Sandbox Scorecard'
         # @challenge.terms_of_service = 'Standard Terms & Conditions'
@@ -134,7 +135,7 @@ class Admin::ChallengesController < ApplicationController
 
   end
 
-  def create
+  def update
     # scrub out this crap when nothing submitted in ckeditor -- <p>&Acirc;&#32;</p>\r\n (see http://dev.ckeditor.com/ticket/9732)
     params[:admin_challenge][:description] = nil if params[:admin_challenge][:description].include?('&Acirc;&#32;')
     params[:admin_challenge][:requirements] = nil if params[:admin_challenge][:requirements].include?('&Acirc;&#32;')

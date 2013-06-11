@@ -1,4 +1,4 @@
-<%= simple_form_for @challenge, validate: true, html: { :class => 'form-horizontal jqTransform' } do |f| %>
+<%= simple_form_for @challenge, validate: true, :url => admin_challenge_path, :method => :put, html: { :class => 'form-horizontal jqTransform' } do |f| %>
   <%= f.hidden_field :challenge_id %>
   <%= f.hidden_field :account %>
   <%= f.hidden_field :contact %>
@@ -89,7 +89,7 @@
               <span>Next</span>
             </a>
           <% else %>
-            <%= f.button :submit, :onclick => "return validateForm()", class: 'pull-right', value: @challenge.challenge_id ? 'Save Challenge' : 'Create Challenge' %>
+            <%= f.button :submit, :onclick => "return validateForm()", class: 'pull-right', value: 'Save Changes' %>
           <% end %>
         </div>
       </div>
