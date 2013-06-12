@@ -50,6 +50,9 @@ CsWebsiteCms::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # used for ckeditor in dev
+  config.serve_static_assets = false
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   config.assets.initialize_on_precompile = true
