@@ -105,8 +105,8 @@ class Admin::Challenge
   end  
 
   def terms_of_services
-    scorecards = RestforceUtils.query_salesforce('select Name from Terms_of_Service__c order by name')
-    scorecards.map {|s| s.name}
+    terms = RestforceUtils.query_salesforce('select Name from Terms_of_Service__c order by name')
+    terms.map {|s| s.name}
   end  
 
   def categories
@@ -214,16 +214,30 @@ class Admin::Challenge
     }
     
     remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
+    puts @json_payload.to_yaml
     @json_payload
   end
 
   private
 
     def remove_nil_keys
-      @json_payload[:challenge][:detail].remove_key!(:scorecard_type) if !@json_payload[:challenge][:detail][:scorecard_type]
-      @json_payload[:challenge][:detail].remove_key!(:terms_of_service) if !@json_payload[:challenge][:detail][:terms_of_service]
-      @json_payload[:challenge][:detail].remove_key!(:cmc_task) if !@json_payload[:challenge][:detail][:cmc_task]
-      @json_payload[:challenge][:detail].remove_key!(:community) if !@json_payload[:challenge][:detail][:community]
+
+      if !@json_payload[:challenge][:detail][:scorecard_type] || @json_payload[:challenge][:detail][:scorecard_type].blank?
+        @json_payload[:challenge][:detail].remove_key!(:scorecard_type) 
+      end
+
+      if !@json_payload[:challenge][:detail][:terms_of_service] || @json_payload[:challenge][:detail][:terms_of_service].blank?
+        @json_payload[:challenge][:detail].remove_key!(:terms_of_service)
+      end
+
+      if !@json_payload[:challenge][:detail][:cmc_task] || @json_payload[:challenge][:detail][:cmc_task].blank?
+        @json_payload[:challenge][:detail].remove_key!(:cmc_task) 
+      end
+
+      if !@json_payload[:challenge][:detail][:community] || @json_payload[:challenge][:detail][:community].blank?
+        @json_payload[:challenge][:detail].remove_key!(:community)
+      end
+
     end
 
 end

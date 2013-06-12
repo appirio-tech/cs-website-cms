@@ -246,6 +246,8 @@ class Admin::ChallengesController < ApplicationController
       @challenge = Admin::Challenge.new(challenge.raw_data)
       # set the access token for the calls
       @challenge.access_token = current_user.access_token    
+      # change the terms to the id if it exists
+      @challenge.terms_of_service = @challenge.terms_of_service.id if @challenge.terms_of_service
     end  
 
     # make sure users cannot edit challenges from another account
