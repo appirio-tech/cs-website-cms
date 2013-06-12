@@ -13,8 +13,7 @@ CKEDITOR.editorConfig = (config) ->
     { name: 'paragraph',   items: [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
     { name: 'links',       items: [ 'Link','Unlink','Anchor' ] },
     { name: 'insert',      items: [ 'Image','Table','HorizontalRule','Smiley','SpecialChar'] },
-    '/',
-    { name: 'styles',      items: [ 'Styles','Format','Font','FontSize' ] },
+    { name: 'styles',      items: [ 'Styles','Format','FontSize' ] },
     { name: 'colors',      items: [ 'TextColor','BGColor' ] },
   ]
   config.toolbar = 'Pure'
