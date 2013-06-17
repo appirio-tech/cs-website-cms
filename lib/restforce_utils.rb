@@ -106,6 +106,25 @@ module RestforceUtils
   end  
 
   #
+  # Upserts a record in salesforce
+  # * *Args*    :
+  #   - sobject -> the sobject to update
+  #   - params -> the hash of values for the new record
+  # * *Returns* :
+    #   - new record id
+  # * *Raises* :
+  #   - ++ ->
+  #  
+  def self.upsert_in_salesforce(sobject, params, external_field_name, access_token=nil, user_type=:guest)
+    client = token_or_type_client(access_token, user_type)
+    {:success => client.upsert!(sobject, external_field_name, params), :message => ''}      
+  rescue Exception => e
+    puts e.message
+    Rails.logger.fatal "[FATAL][RestforceUtils] Update exception: #{e.message}" 
+    {:success => false, :message => e.message}    
+  end    
+
+  #
   # Makes generic destroy to delete a records in salesforce
   # * *Args*    :
   #   - sobject -> the sObject to create
