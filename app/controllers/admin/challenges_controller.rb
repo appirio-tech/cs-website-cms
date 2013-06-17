@@ -6,11 +6,11 @@ class Admin::ChallengesController < ApplicationController
   before_filter :restrict_edit_by_account, :only => [:edit]
 
   def index
-    @challenges = RestforceUtils.query_salesforce("select name, challenge_id__c, status__c, 
+    @challenges = RestforceUtils.query_salesforce("select id, name, challenge_id__c, status__c, 
       challenge_type__c, registered_members__c, submissions__c, contact__r.name
       from challenge__c where status__c IN ('Draft','Open for Submissions') 
       and account__c = '#{current_user.accountid}'
-      order by end_date__c desc", current_user.access_token)
+      order by status__c, end_date__c desc", current_user.access_token)
     @challenges.map {|challenge| Admin::Challenge.new challenge}
   end
 
@@ -121,6 +121,12 @@ class Admin::ChallengesController < ApplicationController
     @challenge.commentNotifiers .each do | commentNotifier |
       @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
     end  
+
+    # find out if there are madison requirements for this challenge
+    @madison_requirements = Requirement.where("challenge_id = ?", params[:id]).count
+
+    @can_edit_challenge_requirements = false
+    @can_edit_challenge_requirements = true if @challenge.status.downcase.eql?('draft')
 
     # here there is one more step - assets
     @steps = [

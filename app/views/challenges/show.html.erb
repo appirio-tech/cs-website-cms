@@ -18,6 +18,15 @@
         <% if @challenge.requirements %>
           <h2>REQUIREMENTS</h2>
           <p> <%= @challenge.requirements.html_safe %> </p>
+
+          <% if @madison_requirements %>
+            <ol>
+            <% @madison_requirements.each do |req| %>
+              <li><%= req.description %></li>
+            <% end %>
+            </ol><br/>
+            <% end %>
+            
         <% end %>
 
         <% if @challenge.post_reg_info && @current_member_participant.try('registered?')%>

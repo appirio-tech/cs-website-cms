@@ -96,6 +96,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/public-profile', to: 'accounts#public_profile'
   get '/account/change-password', to: 'accounts#change_password'
   get '/account/challenges', to: 'accounts#challenges'
+  get '/account/past-challenges', to: 'accounts#past_challenges', :as => 'account_past_challenges'
   get '/account/communities', to: 'accounts#communities'
   get '/account/referred-members', to: 'accounts#referred_members'
   match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
@@ -109,6 +110,9 @@ CsWebsiteCms::Application.routes.draw do
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
 
+  resources :requirements
+
+  get '/madison', to: 'content#madison'
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'
   get '/bad', to: 'content#bad'  

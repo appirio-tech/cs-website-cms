@@ -106,6 +106,7 @@ class ChallengesController < ApplicationController
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       current_challenge.comments
     end
+    @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by") if @challenge.status.downcase.eql?('draft')
     # add rescue for local dev without redis running (for challenge participants)
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   rescue Exception => e
@@ -256,6 +257,8 @@ class ChallengesController < ApplicationController
 
   def scorecard
     @scorecard_group = Challenge.scorecard_questions(params[:id])
+    # array of madison section names if the challenge is in draft
+    @madison_sections = Requirement.where("challenge_id = ?", params[:id]).uniq.pluck(:section) if @challenge.status.downcase.eql?('draft')
   end  
 
   def appeals

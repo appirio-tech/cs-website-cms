@@ -1,3 +1,9 @@
+<script>
+function openInSalesforce(id) {
+  window.open("<%= ENV['SFDC_INSTANCE_URL'] %>/"+id,"_blank");
+}
+</script>
+
 <%= csrf_meta_tag %>
 <%= content_wrapper do %>
 
@@ -16,6 +22,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>ID</th>
           <th>Status</th>
           <th>Category</th>
           <th>Contact</th>
@@ -26,7 +33,8 @@
       <tbody>
         <% @challenges.each do |challenge| %>
         <tr>
-          <td><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %></td>
+          <td><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %> <%= link_to image_tag('open.png'), challenge_path(challenge.challenge_id), :target => '_blank' %></td>
+          <td><div onclick="openInSalesforce('<%= challenge.id %>')"><%= challenge.challenge_id %></div></td>
           <td><%= challenge.status %></td>
           <td><%= challenge.challenge_type %></td>
           <td><%= challenge.contact %></td>
