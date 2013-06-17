@@ -27,34 +27,24 @@ class Member < ApiModel
     name
   end
 
-  def active_challenges(challenges)
-    active_challenges = []
-    challenges.each do |c|
-      if !c.challenge_participants.records.first.status.eql?('Watching') && c.active?
-        active_challenges << c
-      end
-    end
-    active_challenges
+  def all_challenges
+    self.class.http_get "members/#{name}/challenges"
+  end
+
+  def all_past_challenges(offset=0)
+    self.class.http_get("members/#{name}/challenges/past?offset=#{offset}")
+  end        
+
+  def active_challenges(all_challenges)
+    all_challenges.active.map {|challenge| Challenge.new challenge}
   end  
 
-  def watching_challenges(challenges)
-    watching_challenges = []
-    challenges.each do |c|
-      if c.challenge_participants.records.first.status.eql?('Watching') && c.active?
-        watching_challenges << c
-      end
-    end
-    watching_challenges
+  def watching_challenges(all_challenges)
+    all_challenges.watching.map {|challenge| Challenge.new challenge}
   end    
 
-  def past_challenges(challenges)
-    past_challenges = []
-    challenges.each do |c|
-      if c.challenge_participants.records.first.has_submission
-        past_challenges << c
-      end
-    end
-    past_challenges
+  def past_challenges(all_challenges)
+    all_challenges.past.map {|challenge| Challenge.new challenge}
   end
 
   def self.login_type(membername)

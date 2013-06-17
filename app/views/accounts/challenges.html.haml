@@ -22,6 +22,7 @@
     - if @past_challenges.present?
       - @past_challenges.each do |challenge|
         = render "challenge", :challenge => challenge
+      %p= link_to 'View all past challenges', account_past_challenges_path
     - else
       %p{:align => 'center'} No past challenge found.
 

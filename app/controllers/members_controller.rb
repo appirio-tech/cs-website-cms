@@ -37,14 +37,14 @@ class MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
-    all_challenges = @member.challenges
+    all_challenges = @member.all_challenges
     @active_challenges = @member.active_challenges(all_challenges)
     @past_challenges = @member.past_challenges(all_challenges)
   end
 
   def past_challenges
     member = Member.find(params[:id])
-    all_challenges = member.challenges
+    all_challenges = member.all_challenges
     @past_challenges = member.past_challenges(all_challenges)
   end  
 

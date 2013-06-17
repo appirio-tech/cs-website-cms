@@ -280,4 +280,8 @@ class Challenge < ApiModel
     ['Open for Submissions', 'Review', 'Scored - Awaiting Approval'].include?(status)
   end
 
+  def open_for_submissions?
+    ['Open for Submissions'].include?(status)
+  end  
+
 end

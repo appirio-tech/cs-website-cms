@@ -1,0 +1,25 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="row-fluid">
+
+            <div class="span8">
+                <div class="title"><h1>ALL PAST CHALLENGES</h1></div>
+                <% if @past_challenges.present? %>
+                  <% @past_challenges.each do |challenge| %>
+                    <%= render "challenge", :challenge => challenge %>
+                  <% end %>
+                  <div class="pagination pagination-centered"><%= will_paginate @pagination %></div>
+                <% else %>
+                    <center>No past challenge found.</center>
+                <% end %>
+
+            </div>
+
+            <%= render 'shared/account_menu', :selected_item => 'challenges' %>
+        </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->

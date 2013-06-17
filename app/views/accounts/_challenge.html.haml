@@ -2,10 +2,10 @@
 
 .challenge.well.well-large
   %h3= link_to challenge.name, challenge_path(challenge)
-  .status= status
+  .status= "Your status: #{status}"
   %strong
     %span= "#{number_to_currency(challenge.total_prize_money, :precision => 0)} for #{platform_display(challenge)}"
-  .submit-status= format_challenge_due_in(challenge.end_date_utc)
+  .submit-status= "Challenge status: #{challenge.status}"
   - if challenge.active?
     = "#{pluralize(challenge.participating_members, 'member')} participating, #{challenge.registered_members} registered"
 
@@ -16,6 +16,6 @@
   - if status == 'Registered'
     = link_to content_tag(:span, "SUBMIT"), submit_challenge_path(challenge), class: "btn pull-right-bottom"
   - elsif status == 'Watching'
-    = link_to content_tag(:span, "REGISTER"), register_challenge_path(challenge), class: "btn pull-right-bottom"
+    = link_to content_tag(:span, "REGISTER"), register_challenge_path(challenge), class: "btn pull-right-bottom" if challenge.open_for_submissions?
   - else
     = link_to content_tag(:span, "VIEW YOUR SUBMISSION"), submit_challenge_path(challenge), class: "btn pull-right-bottom"
