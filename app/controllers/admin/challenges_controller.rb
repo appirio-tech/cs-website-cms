@@ -191,12 +191,7 @@ class Admin::ChallengesController < ApplicationController
     @challenge = Admin::Challenge.new(params[:admin_challenge])
     # set the access token for the calls
     @challenge.access_token = current_user.access_token
-
-    if @challenge.challenge_id
-      redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
-    else
-      redirect_url = '/admin/challenges/new'
-    end
+    redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
 
     if @challenge.valid?
       # create or update challenge
