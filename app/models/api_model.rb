@@ -100,11 +100,12 @@ class ApiModel
   end
 
   def self.api_request_headers
-    {
-      'oauth_token' => access_token,
+    headers =  {
       'Authorization' => 'Token token="'+ENV['CS_API_KEY']+'"',
       'Content-Type' => 'application/json'
     }
+    headers.merge!('oauth_token' => access_token) if access_token
+    headers
   end
 
   # Finds an entity (i.e., /members/jeffdonthemic) and any supported params {fields: 'id,name'}
@@ -115,7 +116,15 @@ class ApiModel
   def self.http_get(endpoint, params = nil)
     options = { headers: api_request_headers }
     options.merge!(query = {query: params}) if params.present?
-    process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
+    if access_token
+      puts "+++++++++++++ calling #{ENV['CS_API_URL']}/#{endpoint}" 
+      process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))      
+    else
+      puts "****[CACHE]********** calling #{ENV['CS_API_URL']}/#{endpoint} from cache **************"
+      Rails.cache.fetch("#{ENV['CS_API_URL']}/#{endpoint}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
+      end
+    end
   end
 
   def self.http_post(endpoint, params)
