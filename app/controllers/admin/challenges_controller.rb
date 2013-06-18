@@ -73,9 +73,10 @@ class Admin::ChallengesController < ApplicationController
     if params[:task]
 
       cmc_client = Restforce.new :username => ENV['CMC_USERNAME'],
-        :password       => ENV['CMC_PASSWORD'],
-        :client_id      => ENV['CMC_CLIENT_ID'],
-        :client_secret  => ENV['CMC_CLIENT_SECRET']
+        :password         => ENV['CMC_PASSWORD'],
+        :client_id          => ENV['CMC_CLIENT_ID'],
+        :client_secret    => ENV['CMC_CLIENT_SECRET'],
+        :host                 => ENV['CMC_HOST']
 
       cmc_client.authenticate!
       task = cmc_client.query("select id, name, task_name__c, description__c from 
