@@ -1,23 +1,25 @@
-<% if @can_edit_challenge_requirements %>
+<% if params[:use_madison] %>
+  <% if @can_edit_challenge_requirements %>
 
-  <script>
-  function showMadison() {
-    window.open("/madison/#/<%= @challenge.challenge_id %>","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1000, height=700");
-  }
-  </script>
+    <script>
+    function showMadison() {
+      window.open("/madison/#/<%= @challenge.challenge_id %>","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1000, height=700");
+    }
+    </script>
 
-  <center><p>
-  <% if @madison_requirements > 0 %>
-    You have <%= @madison_requirements %> requirements for this challenge which will display after any text
-    you enter in the requirements<br/>rich text editor below. You can edit these requirements while the challenge is in Draft by <a href="#" onclick="showMadison();">clicking here</a>.
+    <center><p>
+    <% if @madison_requirements > 0 %>
+      You have <%= @madison_requirements %> requirements for this challenge which will display after any text
+      you enter in the requirements<br/>rich text editor below. You can edit these requirements while the challenge is in Draft by <a href="#" onclick="showMadison();">clicking here</a>.
+    <% else %>
+      <a href="#" onclick="showMadison();">Define your requirements using Madison.</a> 
+    <% end %> 
+    </p></center>
+
   <% else %>
-    <a href="#" onclick="showMadison();">Define your requirements using Madison.</a> 
-  <% end %> 
-  </p></center>
-
-<% else %>
-  <center><p>You cannot modify the requirements after the challenge has been launched. Please contact support@cloudspokes.com.</p></center>
-  <%= f.hidden_field :requirements %>
+    <center><p>You cannot modify the requirements after the challenge has been launched. Please contact support@cloudspokes.com.</p></center>
+    <%= f.hidden_field :requirements %>
+  <% end %>
 <% end %>
 
 <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor', :disabled => !@can_edit_challenge_requirements } %>
