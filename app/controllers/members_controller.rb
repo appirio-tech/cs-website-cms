@@ -2,6 +2,8 @@ require 'will_paginate/array'
 
 class MembersController < ApplicationController  
 
+  before_filter :redirect_old_params
+
   def community
     @community_tick = true
     @open_challenges = Challenge.open
@@ -55,5 +57,11 @@ class MembersController < ApplicationController
         Challenge.find challenge_id
       end
     end   
+
+    def redirect_old_params
+      if params.include?('page_all') || params.include?('page_month') || params.include?('page_year')
+        redirect_to leaderboard_path
+      end
+    end
 
 end
