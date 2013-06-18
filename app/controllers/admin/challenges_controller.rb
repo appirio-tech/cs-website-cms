@@ -202,7 +202,7 @@ class Admin::ChallengesController < ApplicationController
       # create or update challenge
       results = @challenge.save
       if results.success
-        redirect_to redirect_url, notice: 'Challenge saved!'
+        redirect_to '/admin/challenges', notice: 'Challenge saved!'
       else
         redirect_to redirect_url, alert: results.errors.first.errorMessage
       end
