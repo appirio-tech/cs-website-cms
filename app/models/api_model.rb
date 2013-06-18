@@ -117,10 +117,8 @@ class ApiModel
     options = { headers: api_request_headers }
     options.merge!(query = {query: params}) if params.present?
     if access_token
-      puts "+++++++++++++ calling #{ENV['CS_API_URL']}/#{endpoint}" 
       process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))      
     else
-      puts "****[CACHE]********** calling #{ENV['CS_API_URL']}/#{endpoint} from cache **************"
       Rails.cache.fetch("#{ENV['CS_API_URL']}/#{endpoint}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
       end
