@@ -57,6 +57,16 @@ class Member < ApiModel
 
   def from
     self.class.http_get("messages/from/#{@name}").map {|message| Message.new message}
+  end
+
+  def update_country_from_ip(remote_ip)
+    unless ['127.0.0.1', 'localhost'].include?(remote_ip)
+      if @country.nil?
+        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")    
+        geo_data = @geoip.country(remote_ip)
+        Member.http_put("members/#{@name}", {"Country__c" => geo_data['country_name']})  unless geo_data.nil? 
+      end
+    end
   end    
 
 end
