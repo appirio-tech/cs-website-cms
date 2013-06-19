@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<%= f.input :start_date, as: :time, label: 'End Time', required: true, hint: 'Times are in your local time zone' %>
+<%= f.input :start_date, as: :time, :minute_step => 15, label: 'End Time', required: true, hint: 'Times are in your local time zone' %>
 
 <%= f.input :description, label: 'Overview', required: true, :as => :text, input_html: { :class => 'ckeditor' } %>
 
