@@ -30,6 +30,7 @@ class Users::SessionsController < Devise::SessionsController
         if user.save
           logger.info "[CS-USER][LOGIN] updated user last_access_token_refresh_at successfully. signing in."
           sign_in_and_redirect(:user, user)
+          Resque.enqueue(PostLogin, admin_access_token, user.username, request.remote_ip)
         else
           logger.info "[CS-USER][LOGIN] error updating with last_access_token_refresh_at: #{user.errors.full_messages}"
           flash[:error]  = "Sorry... there was an error logging you in: #{user.errors.full_messages}"
