@@ -30,8 +30,6 @@ gem 'forcifier', git: 'git://github.com/jeffdonthemic/forcifier.git'
 gem 'haml'
 
 # are these 8 needed any longer?
-gem 'ruby-openid', :git => "git://github.com/mbleigh/ruby-openid.git"
-gem 'openid_active_record_store'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
