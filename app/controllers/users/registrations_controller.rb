@@ -55,6 +55,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if results.success.to_bool
         if user.save
           message = "#{results.message} Please confirm your email address before logging in. Check your inbox."
+          Resque.enqueue(PostUserCreate, user)
         else
           message = user.errors.full_messages
         end        
@@ -75,6 +76,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if results.success.to_bool
         if user.save
           flash[:notice] = "#{results.message} Please confirm your email address before logging in. Check your inbox."
+          Resque.enqueue(PostUserCreate, user) 
           redirect_to root_path
         else
           flash.now[:error] = user.errors.full_messages
