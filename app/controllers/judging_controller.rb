@@ -11,6 +11,7 @@ class JudgingController < ApplicationController
 
 	def scorecard
 		@participant = Participant.find(params[:participant_id])
+            @challenge = Challenge.find(@participant.challenge.challenge_id)
 		@submissions = @participant.current_submissions(@participant.challenge.challenge_id)
 		scorecard_questions = Judging.participant_scorecard(params[:participant_id], current_user.username)
 		@scorecard = JSON.parse(scorecard_questions.keys.first)	
