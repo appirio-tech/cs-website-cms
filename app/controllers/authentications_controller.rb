@@ -13,7 +13,7 @@ class AuthenticationsController < ApplicationController
     if sfdc_account.success.to_bool
       logger.info "[OAUTH] found the user in sfdc"
       # run any events after successful login
-      Resque.enqueue(PostLogin, admin_access_token, sfdc_account['username'], request.remote_ip)
+      Resque.enqueue(PostLogin, sfdc_account['username'], request.remote_ip)
       login_third_party(omniauth, sfdc_account)
     else
       logger.info "[OAUTH] new user -- did not find the user in sfdc"
