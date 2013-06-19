@@ -53,9 +53,7 @@ class ApplicationController < ActionController::Base
     end  
 
     def current_access_token
-      if current_user.nil?
-        guest_access_token
-      else
+      if current_user
         if current_user.access_token
           current_user.last_access_token_refresh_at = Date.yesterday if current_user.last_access_token_refresh_at.nil?
           logger.info "[ACCESS_TOKEN] Has access token expired?: #{Time.now.utc} (Now) > 45 minutes past last refresh #{current_user.last_access_token_refresh_at.getutc} - expired? #{Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)}"
