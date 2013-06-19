@@ -59,6 +59,18 @@ class Member < ApiModel
     self.class.http_get("messages/from/#{@name}").map {|message| Message.new message}
   end
 
+  def create_badgeville_account
+      # create the badgeville user
+      Badgeville.create_user(@name, @email.downcase)
+      #create the badgeville player
+      player_id = Badgeville.create_player(@name.downcase, @email.downcase)
+      unless player_id.nil?
+        Badgeville.send_site_registration player_id
+        # update sfdc with badgeville player id
+        Member.http_put("members/#{@name}", {"Badgeville_Id__c" => player_id})
+      end      
+  end      
+
   def update_country_from_ip(remote_ip)
     unless ['127.0.0.1', 'localhost'].include?(remote_ip)
       if @country.nil?
