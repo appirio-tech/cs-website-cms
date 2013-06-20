@@ -2,7 +2,7 @@
 
 var app = angular.module('madison');
 
-app.controller('MainUICtrl', function($scope, $routeParams, Requirement, $http) {
+app.controller('MainUICtrl', ['$scope', '$routeParams', 'Requirement', function($scope, $routeParams, Requirement) {
 
   $scope.requirements = Requirement.query({challenge_id: $routeParams.challenge_id});
   $scope.requirement = null;
@@ -76,4 +76,4 @@ app.controller('MainUICtrl', function($scope, $routeParams, Requirement, $http) 
     return requirement;
   }
 
-});
+}]);
