@@ -71,7 +71,6 @@ GEM
       multi_json (~> 1.0)
     acts_as_indexed (0.7.8)
     addressable (2.3.2)
-    angularjs-rails (1.0.6)
     annotate (2.4.0)
     ansi (1.4.3)
     arel (3.0.2)
@@ -460,7 +459,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angularjs-rails
   annotate (= 2.4.0)
   awesome_print
   better_errors
