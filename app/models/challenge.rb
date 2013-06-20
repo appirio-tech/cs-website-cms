@@ -10,7 +10,7 @@ class Challenge < ApiModel
     :submission_details, :winner_announced, :community, :days_till_close,
     :submissions, :participating_members, :default_tos,
     :challenge_prizes, :challenge_participants, :registration_end_date, :account,
-    :blogged, :auto_blog_url, :license_type__r,
+    :blogged, :auto_blog_url, :license_type__r, :require_registration,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
@@ -283,5 +283,30 @@ class Challenge < ApiModel
   def open_for_submissions?
     ['Open for Submissions'].include?(status)
   end  
+
+  # member must be registered in order to view restricted challenge
+  def show_assets?(participant)
+    show_restricted_info(participant)
+  end
+
+  # member must be registered in order to view restricted challenge
+  def show_discussion_board?(participant)
+    show_restricted_info(participant)
+  end    
+
+  private
+
+    def show_restricted_info(participant)
+      if @require_registration
+        return false if participant.nil?
+        if ['not registered', 'watching'].include?(participant.status.downcase)
+          return false
+        else
+          return true
+        end
+      else
+        true
+      end
+    end
 
 end

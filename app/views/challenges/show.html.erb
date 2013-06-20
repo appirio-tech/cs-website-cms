@@ -56,7 +56,11 @@
         <br/>
 
         <h2 class="discussion">DISCUSSION</h2>
-        <%= render partial: "discussions", locals: {challenge: @challenge, comments: @comments} %>
+        <% if @challenge.show_discussion_board?(@current_member_participant) %>
+          <%= render partial: "discussions", locals: {challenge: @challenge, comments: @comments} %>
+        <% else %>
+          Only registered members have access to the discussion board for this challenge.
+        <% end %>
       </div>
 
       <div class="span4">
