@@ -41,13 +41,19 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id], { fields: 'id,name,profile_pic,quote,country,total_points,total_public_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
     all_challenges = @member.all_challenges
     @active_challenges = @member.active_challenges(all_challenges)
-    @past_challenges = @member.past_challenges(all_challenges)
+    @past_challenges = @member.past_challenges(all_challenges)[0..4]
   end
 
   def past_challenges
     member = Member.find(params[:id])
-    all_challenges = member.all_challenges
-    @past_challenges = member.past_challenges(all_challenges)
+    page = params[:page] || 1
+    offset = (page.to_i * 10) - 10
+    all_challenges  = member.all_past_challenges(offset)
+    @past_challenges = all_challenges.records.map {|challenge| Challenge.new challenge}
+    # fake the pagination
+    @pagination = []
+    (1..all_challenges.total).each { |x| @pagination << x }
+    @pagination = @pagination.paginate(:page => params[:page], :per_page => 10)    
   end  
 
   private

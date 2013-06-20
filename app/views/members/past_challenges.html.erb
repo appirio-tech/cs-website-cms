@@ -7,6 +7,8 @@
 
         <div class="title"><h1>PAST CHALLENGES</h1></div>
 
+        <% if @past_challenges.empty? %><center>No past challenge found.</center><% end %>
+
         <% @past_challenges.in_groups_of(2, false) do |row_challenges| %>
         <div class="row-fluid">
         <% for c in row_challenges %>                
@@ -24,6 +26,8 @@
         <% end %> 
         </div>
         <% end %>
+
+        <div class="pagination pagination-centered"><%= will_paginate @pagination %></div>
 
     </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->
