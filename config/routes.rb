@@ -85,7 +85,7 @@ CsWebsiteCms::Application.routes.draw do
   namespace :admin do
     resources :challenges, only: [:index, :create, :edit, :update] # remove the restrictions once the new challenges are up
     post 'challenges/assets'
-    match 'challenges/:id/delete_asset' => 'challenges#delete_asset', :as => 'delete_asset'
+    match 'challenges/delete_asset' => 'challenges#delete_asset', :as => 'delete_asset'
   end
 
   put '/account', to: 'accounts#update'
