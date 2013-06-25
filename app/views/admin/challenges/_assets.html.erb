@@ -1,18 +1,18 @@
 <%= f.hidden_field :assets, value: @challenge.assets.join(',') %>
 
 <% unless @current_assets.empty? %>
-  <table class="table table-hover table-bordered">
+  <table class="table table-hover table-bordered" id="assetsTable">
     <thead>
       <tr>
-        <th>Current Asset</th>
+        <th>Current Assets</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <% @current_assets.each do |asset| %>
-      <tr>
+      <% @current_assets.each_with_index do |asset, index| %>
+      <tr id="row-<%= index %>">
         <td><%= link_to asset.filename, "https://s3.amazonaws.com/challenges/#{@challenge.challenge_id}/#{asset.filename}" %></td>
-        <td width="75"><a href="<%= admin_delete_asset_path %>?asset_id=<%= asset.id %>" class="btn .btn-info"><span>Delete</span></a></td>
+        <td width="75"><a href="#" onclick="deleteAsset('row-<%= index %>', '<%= asset.id %>')" class="btn .btn-info"><span>Delete</span></a></td>
       </tr>
       <% end %>        
     </tbody>

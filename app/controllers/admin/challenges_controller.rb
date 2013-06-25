@@ -6,12 +6,15 @@ class Admin::ChallengesController < ApplicationController
   before_filter :restrict_edit_by_account, :only => [:edit]
 
   def index
+    @administering_account = current_user.accountid
+    @administering_account = params[:account] if params[:account]
     @challenges = RestforceUtils.query_salesforce("select id, name, challenge_id__c, status__c, 
       challenge_type__c, registered_members__c, submissions__c, contact__r.name
       from challenge__c where status__c IN ('Draft','Open for Submissions') 
-      and account__c = '#{current_user.accountid}'
+      and account__c = '#{@administering_account}'
       order by status__c, end_date__c desc", current_user.access_token)
     @challenges.map {|challenge| Admin::Challenge.new challenge}
+    @sponsors = all_sponsors if current_user.sys_admin?
   end
 
   def create
@@ -32,6 +35,7 @@ class Admin::ChallengesController < ApplicationController
     data[:contact] = current_user.username
     data[:account] = current_user.accountid
     data[:status] = 'Draft'
+    data[:challenge_type] = 'Code'
     data[:community_judging] = true
     data[:auto_announce_winners] = false
     data[:submission_details] = '<p>Upload all your source code as a zip (you can simply zip up 
@@ -69,65 +73,32 @@ class Admin::ChallengesController < ApplicationController
 
   end
 
-  def check_for_appirio_task
-    if params[:task]
-
-      cmc_client = Restforce.new :username => ENV['CMC_USERNAME'],
-        :password         => ENV['CMC_PASSWORD'],
-        :client_id          => ENV['CMC_CLIENT_ID'],
-        :client_secret    => ENV['CMC_CLIENT_SECRET'],
-        :host                 => ENV['CMC_HOST']
-
-      cmc_client.authenticate!
-      task = cmc_client.query("select id, name, task_name__c, description__c from 
-        cmc_task__c where id = '#{params[:task]}'")
-
-      unless task.empty?
-        @challenge.name = task.first.Task_Name__c
-        @challenge.description = task.first.Description__c unless task.first.Description__c.nil? || task.first.Description__c == '<br>'
-        @challenge.cmc_task = params[:task]
-        # @challenge.scorecard_type = 'Sandbox Scorecard'
-        # @challenge.terms_of_service = 'Standard Terms & Conditions'
-      end
-
-    end
-  end
-
   def edit
 
-    @challenge_platforms = []
-    @challenge_technologies = []
-    @challenge_reviewers = []
-    @challenge_commentNotifiers = []
-    @prizes = @challenge.prizes || []
     # move the existing assets to a new array
     @current_assets = @challenge.assets || []
     # this array will only contain new assets being uploaded  
     @challenge.assets = []
 
     # clean up places -- '1st' to 1
-    @challenge.prizes.each { |p| p.place = p.place[0..0] }
+    @challenge.prizes.each { |p| p.place = p.place.to_s[0..0] }
 
-    @challenge_platforms = @challenge.platforms.records.map(&:name) unless @challenge.platforms.empty?
-    @challenge_technologies = @challenge.technologies.records.map(&:name) unless @challenge.technologies.empty?
+    @challenge_platforms = @challenge.platforms.map(&:name).join(',') unless @challenge.platforms.empty?
+    @challenge_technologies = @challenge.technologies.map(&:name) .join(',') unless @challenge.technologies.empty? 
 
-    @challenge.reviewers.each do | reviewer |
-      @challenge_reviewers.push(reviewer.member__r.name) 
-    end
-
-    @challenge.commentNotifiers .each do | commentNotifier |
-      @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
-    end
-
-    @challenge.commentNotifiers .each do | commentNotifier |
-      @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
-    end  
+    # set the time picklistt for the end time
+    @challenge.end_time = @challenge.end_date.hour
 
     # find out if there are madison requirements for this challenge
     @madison_requirements = Requirement.where("challenge_id = ?", params[:id]).count
 
     @can_edit_challenge_requirements = false
     @can_edit_challenge_requirements = true if @challenge.status.downcase.eql?('draft')
+
+    @all_platforms = all_platforms
+    @all_technologies = all_technologies
+
+    @sponsors = all_sponsors if current_user.sys_admin?
 
     # here there is one more step - assets
     @steps = [
@@ -143,13 +114,12 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def update
+
     # scrub out this crap when nothing submitted in ckeditor -- <p>&Acirc;&#32;</p>\r\n (see http://dev.ckeditor.com/ticket/9732)
     params[:admin_challenge][:description] = nil if params[:admin_challenge][:description].include?('&Acirc;&#32;')
     params[:admin_challenge][:requirements] = nil if params[:admin_challenge][:requirements].include?('&Acirc;&#32;')
     params[:admin_challenge][:submission_details] = nil if params[:admin_challenge][:submission_details].include?('&Acirc;&#32;')
 
-    params[:admin_challenge][:reviewers] = params[:admin_challenge][:reviewers].split(',') if params[:admin_challenge][:reviewers]
-    params[:admin_challenge][:commentNotifiers] = params[:admin_challenge][:commentNotifiers].split(',') if params[:admin_challenge][:commentNotifiers]
     params[:admin_challenge][:assets] = params[:admin_challenge][:assets].split(',') if params[:admin_challenge][:assets]
     params[:admin_challenge][:platforms] = params[:admin_challenge][:platforms].split(',') if params[:admin_challenge][:platforms]
     params[:admin_challenge][:technologies] = params[:admin_challenge][:technologies].split(',') if params[:admin_challenge][:technologies]
@@ -160,8 +130,8 @@ class Admin::ChallengesController < ApplicationController
     params[:admin_challenge][:assets].reject! { |c| c.empty? } if params[:admin_challenge][:assets]
 
     # add the time element
-    hour = params[:admin_challenge]['start_date(4i)']
-    min = params[:admin_challenge]['start_date(5i)']
+    hour = params[:admin_challenge][:end_time].to_i
+    min = 0
     t = Time.mktime(1 ,1 ,1 ,hour, min)
     s = Time.parse(params[:admin_challenge][:start_date])
     e = Time.parse(params[:admin_challenge][:end_date])
@@ -209,9 +179,34 @@ class Admin::ChallengesController < ApplicationController
 
   end
 
+  def check_for_appirio_task
+    if params[:task]
+
+      cmc_client = Restforce.new :username => ENV['CMC_USERNAME'],
+        :password         => ENV['CMC_PASSWORD'],
+        :client_id          => ENV['CMC_CLIENT_ID'],
+        :client_secret    => ENV['CMC_CLIENT_SECRET'],
+        :host                 => ENV['CMC_HOST']
+
+      cmc_client.authenticate!
+      task = cmc_client.query("select id, name, task_name__c, description__c from 
+        cmc_task__c where id = '#{params[:task]}'")
+
+      unless task.empty?
+        @challenge.name = task.first.Task_Name__c
+        @challenge.description = task.first.Description__c unless task.first.Description__c.nil? || task.first.Description__c == '<br>'
+        @challenge.cmc_task = params[:task]
+        # @challenge.scorecard_type = 'Sandbox Scorecard'
+        # @challenge.terms_of_service = 'Standard Terms & Conditions'
+      end
+
+    end
+  end  
+
+  # called via ajax
   def delete_asset
-    RestforceUtils.destroy_in_salesforce('Asset__c', params[:asset_id], :admin)
-    redirect_to "/admin/challenges/#{params[:id]}/edit"
+    results = RestforceUtils.destroy_in_salesforce('Asset__c', params[:asset_id], :admin)
+    render :text => results[:success]
   end
 
   def assets
@@ -237,6 +232,18 @@ class Admin::ChallengesController < ApplicationController
 
   private
 
+    def all_platforms
+      Rails.cache.fetch('all-platforms', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        Platform.names
+      end
+    end    
+
+    def all_technologies
+      Rails.cache.fetch('all-technologies', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        Technology.names
+      end
+    end   
+
     def fetch_account_logo
       @logo = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo if current_user.accountid 
@@ -244,17 +251,22 @@ class Admin::ChallengesController < ApplicationController
     end    
 
     def load_challenge
-      challenge = ::Challenge.find([params[:id], 'admin'].join('/'))
-      @challenge = Admin::Challenge.new(challenge.raw_data)
+      @challenge = Admin::Challenge.new(Admin::Challenge.find(params[:id]).first)
       # set the access token for the calls
       @challenge.access_token = current_user.access_token    
-      # change the terms to the id if it exists
-      @challenge.terms_of_service = @challenge.terms_of_service.id if @challenge.terms_of_service
     end  
+
+    # all accounts marked as a 'sponsor'
+    def all_sponsors
+      #Rails.cache.fetch('all-sponsors', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do 
+        RestforceUtils.query_salesforce("select id, name from account where 
+          type = 'sponsor' order by name", nil, :admin)
+      #end
+    end      
 
     # make sure users cannot edit challenges from another account
     def restrict_edit_by_account
-      redirect_to challenges_path, :alert => 'You do not have access to this page.' unless @challenge.account == current_user.accountid
+      redirect_to challenges_path, :alert => 'You do not have access to this page.' unless @challenge.account == current_user.accountid || current_user.sys_admin?
     end    
 
     def restrict_by_account_access

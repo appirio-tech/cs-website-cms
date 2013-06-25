@@ -1,20 +1,29 @@
-<script>
-function openInSalesforce(id) {
-  window.open("<%= ENV['SFDC_INSTANCE_URL'] %>/"+id,"_blank");
-}
-</script>
-
 <%= csrf_meta_tag %>
 <%= content_wrapper do %>
 
-  <div class="title"><h1>CHALLENGE ADMIN</h1></div>
+  <div class="title" style="margin-bottom:5px"><h1>CHALLENGE ADMIN</h1></div>
 
   <div class="span10">
 
-    <a class="btn btn-primary" style="float:left;" type="button" href="#new-challenge-modal" data-toggle="modal"><span>New Challenge</span></a>
-    <% if @logo %>
-  	  <span style="float:right; margin-top:-10px"><img src="<%= @logo %>"></span>
+    <% if @sponsors %>
+      <div class="pull-right" style="padding-bottom: 20px">
+          <form id="form_account" class="form-horizontal jqTransform" action="/admin/challenges">
+          <label class="control-label" style="padding-right:10px" for="accounts">Show Challenges for: </label>
+          <select name="account">
+            <% @sponsors.each do |s| %><option value="<%= s.id %>" <% if s.id == @administering_account %>selected <% end %>><%= s.name %></option><% end %>
+          </select> <a class="btn btn-primary" type="button" onclick="$('#form_account').submit();"><span>Go</span></a>
+          </form>
+      </div>
     <% end %>
+
+    <table border="0" width="100%">
+    <tr>
+      <td>    
+        <a class="btn btn-primary" type="button" href="#new-challenge-modal" data-toggle="modal"><span>New Challenge</span></a></p>
+      <td>
+      <td><% if @logo %><span class="pull-right" style="margin-top:-10px"><img src="<%= @logo %>"></span><% end %></td>
+    </tr>
+    </table>
 
     <div style="clear: both;"></div><br/>
    
@@ -55,8 +64,8 @@ function openInSalesforce(id) {
             <div class="content">
               <%= form_for 'challenge_admin', :action => admin_challenges_path, :method => "post", html: { :id => 'new_challenge_frm' } do |f| %>
                 <% if params[:task] %>
-                  <p>It looks like you are trying to create a challenge from a CMC task. We'll magically reference your task info when creating the challenge and pull in some data
-                  such as task name, description, etc.</p>
+                  <p>It looks like you are trying to create a challenge from a CMC task. Just leave the name below as it is and hit the Submit button. 
+                  We'll magically reference your task info when creating the challenge and pull in some data such as task name, description, etc.</p>
                   <p><%= f.text_field :name, :id => 'challenge_name', :value => "CMC Task #{params['task']}", :size => 70 %><br/><br/></p>      
                 <% else %>
                   <p>Enter the display name for your challenge. You can always change this later if you are unsure now. </p>

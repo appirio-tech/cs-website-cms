@@ -1,6 +1,5 @@
 <%= simple_form_for @challenge, validate: true, :url => admin_challenge_path, :method => :put, html: { :class => 'form-horizontal jqTransform' } do |f| %>
   <%= f.hidden_field :challenge_id %>
-  <%= f.hidden_field :account %>
   <%= f.hidden_field :contact %>
   <%= f.hidden_field :status %>
   <%= f.hidden_field :community_judging %>
