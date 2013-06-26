@@ -1,6 +1,5 @@
 class Admin::ChallengesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :fetch_account_logo, :only => [:index]
   before_filter :load_challenge, :only => [:edit]
   before_filter :restrict_by_account_access
   before_filter :restrict_edit_by_account, :only => [:edit]
@@ -15,6 +14,11 @@ class Admin::ChallengesController < ApplicationController
       order by status__c, end_date__c desc", current_user.access_token)
     @challenges.map {|challenge| Admin::Challenge.new challenge}
     @sponsors = all_sponsors if current_user.sys_admin?
+
+    @logo = Rails.cache.fetch("account-logo-#{@administering_account}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+      RestforceUtils.query_salesforce("select logo__c from account where id = '#{@administering_account}'").first.logo 
+    end
+
   end
 
   def create
@@ -243,12 +247,6 @@ class Admin::ChallengesController < ApplicationController
         Technology.names
       end
     end   
-
-    def fetch_account_logo
-      @logo = Rails.cache.fetch("participant-#{current_user.username}-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-        RestforceUtils.query_salesforce("select logo__c from account where id = '#{current_user.accountid}'").first.logo if current_user.accountid 
-      end
-    end    
 
     def load_challenge
       @challenge = Admin::Challenge.new(Admin::Challenge.find(params[:id]).first)
