@@ -1,7 +1,3 @@
-$('#accounts').change( function() {
-    alert('i am changed');
-});
-
 function deleteAsset(row, asset_id) {
   $('#' + row).fadeOut();
   $.ajax({
