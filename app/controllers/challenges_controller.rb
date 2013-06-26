@@ -17,7 +17,7 @@ class ChallengesController < ApplicationController
   before_filter :must_be_registered, :only => [:submit]
   before_filter :redirect_advanced_search, :only => [:search]
   before_filter :restrict_appeallate_member, :only => [:appeals]
-  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file]
+  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file, :submit_details]
 
   def index
     @title = 'Open Challenges'
@@ -215,12 +215,14 @@ class ChallengesController < ApplicationController
   end  
 
   def submit_file
+    # if not submitting code, remove 'hidden' language
+    params[:file_submission][:language] = nil if params[:file_submission][:type].downcase != 'code'
     params[:file_submission][:link] = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/#{params[:file_submission][:link]}"
     submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
       send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
-      # kick off the squirrelforce process
+      # kick off the thurgood process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
       redirect_to submit_challenge_url
