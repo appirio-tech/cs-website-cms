@@ -9,107 +9,15 @@
         <div class="span8">
             <h1><%= @challenge.name %></h1>
 
-            <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>CURRENT MEDIA FOR YOUR SUBMISSION</h1></div>
-            <% if @submissions.empty? %><div style="text-align:center;margin-bottom:25px">No media found for your submissions for the challenge.</div><% end %>
-            <% @submissions.each do |s| %>
-            <div class="well well-large">
-                Media : <a href="<%= s.url %>"><%= s.url %></a><br/>
-                Type : <%= s.type %><br/>
-                Comments : <%= s.comments %>
-                <a href="<%= submit_url_or_file_delete_challenge_path %>?submissionId=<%= s.id %>" class="btn pull-right-bottom"><span>DELETE</span></a>
-            </div>
-            <% end %>
+            <%= render partial: "submit_deliverables", locals: {challenge: @challenge} %> 
 
-            <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>THURGOOD</h1></div>
-            <p><%= link_to 'Thurgood', 'http://blog.cloudspokes.com/2013/04/automated-cloudspokes-code-testing.html', :target => '_blank' %> is our automated build, quality and security analysis platform for submitted challenge code. <%= link_to 'The process', 'http://cs-public.s3.amazonaws.com/thurgood-process.png', :target => '_blank' %> runs through various services to execute your unit tests, scan code for security violations and ensure best practices. You can submit your code to Thurgood as often as you'd like and check the outcome. We highly encourage you to submit your code "early and often" to make sure it is of high quality before your final submission. Your code must be submitted <a href="#submit-instructions" data-toggle="modal">in this format</a> to be processed successfully.</p>
+            <%= render partial: "submit_thurgood", locals: {challenge: @challenge} %>  
 
-            <p><strong>View your results!</strong> <%= link_to 'Open your Papertrail submission log', papertrail_challenge_path, :target => '_blank' %> for details on the processing of your code. Once your code has been successfully scanned, you will be able to <%= link_to 'download a PDF of the results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{current_user.username}/cx-report.pdf", :target => '_blank' %>.</p>            
+            <%= render partial: "submit_overview", locals: {challenge: @challenge} %>  
 
-            <% if @challenge.open? || @current_member_participant.override_submission_upload %>
-
-                <div class="title" style="margin-top:10px;margin-bottom:15px" id="uploadfiles"><h1>UPLOAD FILES</h1></div>
-                <p>Upload any deliverables for your challenge submission. This can be a zip file containing code, a Word or text file containing instructions, a movie or image. Max size is 15MB. Please do not embed any files in Word docs as we cannot access them. Upload them as files separately.</p>
-
-                <p><strong>Submitting files is a two step process. First upload your file to Cloud Storage using the form below. After the file is successfully uploaded (the page will refresh), select the type of file, add any relevant comments and then add it to your submission. When adding your code, after you upload it to Cloud Storage, you must add it to your submission as <i>Type = 'Code'</i> in order to be accepted for the challenge (unless specified otherwise in the challenge requirements).</p>
-                <p>Upload a <a href="#submit-instructions" data-toggle="modal">.zip file of all of your code in this format.</a> Files not in this format will not be processed successfully for your submission and will not be accepted.</strong></p>
-
-                <% if params[:key] %>
-
-                    <%= form_for :file_submission, :url => submit_file_challenge_path, html: { :id => 'file_submit_form', :class => 'form-horizontal jqTransform' } do |f| %>
-                        <%= f.hidden_field :link, :value => params[:key] %>
-
-                        <div class="control-group">
-                            <label class="control-label">File</label>
-                            <div class="controls">
-                                <%= params[:key] %>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Type</label>
-                            <div class="controls">
-                                <%= f.select :type, ['Code','Video','File'] %>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Comments</label>
-                            <div class="controls">
-                                <%= f.text_area :comments %>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <a class="btn pull-right" onclick="document.getElementById('file_submit_form').submit();"><span>ADD TO SUBMISSION</span></a>
-                        </div>
-                    <% end %>  
-
-                
-                <% else %>
-
-                    <%= direct_upload_form_for @uploader, html: { :id => 'cloud_storage_upload_form', :class => 'form-horizontal jqTransform' } do |f| %>
-                        <div class="control-group">
-                            <label class="control-label">File</label>
-                            <div class="controls">
-                                <div class="btn-file">
-                                    <a href="#" class="btn btn-grey"><span>CHOOSE FILE</span></a>
-                                    <%= f.file_field :code %>
-                                    <spam style="padding-left:10px">No file chosen</spam>
-                                </div>
-                            </div>
-                        </div>                
-                        <div class="control-group">
-                            <a class="btn pull-right" onclick="document.getElementById('cloud_storage_upload_form').submit();"><span>UPLOAD TO CLOUD STORAGE</span></a>
-                        </div>
-                    <% end %>
-
-                <% end %>
-
-
-
-                <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>INCLUDE URLS</h1></div>
-                <p>Add any URLs to supporting into such as a You Tube or Jing videos, a GitHub repo or any other URL you would like to include in your submission.</p>
-
-                <%= form_for :url_submission, :url => submit_url_challenge_path, html: { :id => 'url_submit_form', :class => 'form-horizontal jqTransform' } do |f| %>
-                    <%= f.hidden_field :type, :value => 'URL' %>
-                    <div class="control-group">
-                        <label class="control-label">URL</label>
-                        <div class="controls">
-                            <%= f.text_field :link, :placeholder => 'http://' %>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Comments</label>
-                        <div class="controls">
-                            <%= f.text_area :comments %>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <a class="btn pull-right" onclick="document.getElementById('url_submit_form').submit();"><span>ADD TO SUBMISSION</span></a>
-                    </div>
-                <% end %>
-
-            <% end %>
+            <%= render partial: "submit_upload", locals: {challenge: @challenge} %>
 
         </div>
-
 
         <div class="span4">
             <%= render partial: "right_side", locals: {challenge: @challenge} %>

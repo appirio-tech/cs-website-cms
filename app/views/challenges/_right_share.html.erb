@@ -1,4 +1,4 @@
-<%= render partial: "shared/share_this" %>
+<%= render partial: "shared/share_this" if Rails.env.production? %>
 
 <h2>Chrome Extension</h2>
 <p>Install the <a href="https://chrome.google.com/webstore/detail/gdlkedihjlddoaplefphpmiibpnnpeap">CloudSpokes Chrome Extension</a> for quick and easy access to the latest
