@@ -43,8 +43,8 @@ task :create_badgeville_users => :environment do
   members = client.query("select id, name, email__c, badgeville_id__c from member__c where 
     badgeville_id__c = '' order by createddate desc limit 500")
   members.each do |m|
-    puts "Processing #{m.Name}..."
-    Resque.enqueue(NewBadgeVilleUser, access_token, m['Name'], m['Email__c'])
+    member = Member.find(m.Name, { fields: 'id,email,name' })
+    member.create_badgeville_account
   end
 
 end
