@@ -157,7 +157,7 @@ GEM
     faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
-      faraday (< 0.9, >= 0.7.4)
+      faraday (>= 0.7.4, < 0.9)
     faye (0.8.3)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
