@@ -20,10 +20,6 @@ function deleteAsset(row, asset_id) {
   });
 }
 
-function openInSalesforce(id) {
-  window.open("<%= ENV['SFDC_INSTANCE_URL'] %>/"+id,"_blank");
-}
-
 function nextTab(elem) {
   $(elem + ' li.active')
     .next()

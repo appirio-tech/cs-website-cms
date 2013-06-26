@@ -1,3 +1,9 @@
+<script type="text/javascript">
+function openInSalesforce(id) {
+  window.open("<%= ENV['SFDC_INSTANCE_URL'] %>/"+id,"_blank");
+}
+</script>
+
 <%= csrf_meta_tag %>
 <%= content_wrapper do %>
 
