@@ -57,7 +57,7 @@ info to the judges so they'll have a better grasp of your application when going
 
 <%= simple_form_for @current_member_participant, url: submit_details_challenge_path(@challenge), html: {:id => 'submission_details', class: "form-horizontal jqTransform"} do |f| %>
 
-    <div style="padding-left:40px; padding-bottom:40px"><%= f.text_area :submission_overview, :class => 'ckeditor' %></div>
+    <div style="padding-left:30px; padding-bottom:40px"><%= f.text_area :submission_overview, :class => 'ckeditor' %></div>
 
     <%= f.input :languages, label: 'Languages Used', collection: @participant_metadata[:languages], required: false, input_html: {multiple: true, style: "width: 450px", class: "select2"} %>
 
