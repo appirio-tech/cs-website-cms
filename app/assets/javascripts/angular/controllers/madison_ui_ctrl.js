@@ -11,9 +11,8 @@ app.controller('MainUICtrl', ['$scope', '$routeParams', 'Requirement', function(
   $scope.types = ["Yes/No","1-4","1-5","1-10","Comments"];  
 
   $scope.libraries = [
-    {name: "Salesforce.com", value: "salesforce.com"},
-    {name: "Google App Engine - Java", value: "appengine-java"},
-    {name: "Google App Engine - Python", value: "appengine-python"}    
+    {name: "Salesforce.com", value: "Salesforce.com"},
+    {name: "Generic", value: "All"}
   ];  
 
   $scope.addFromLibrary = function() {
@@ -24,6 +23,16 @@ app.controller('MainUICtrl', ['$scope', '$routeParams', 'Requirement', function(
           converted.$save();
         });     
     });
+    // if they picked something besides Generic / All, load all generic also
+    if ($scope.library.value != 'All') {
+      Requirement.query({library: 'All'}, function(requirements) {
+          angular.forEach(requirements, function(req){
+            var converted = convertRequirement(req);
+            $scope.requirements.push(converted);
+            converted.$save();
+          });     
+      });    
+    }
   }
 
   $scope.add = function() {
