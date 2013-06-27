@@ -8,7 +8,7 @@ class Participant < ApiModel
   end  
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
-    :country, :total_wins, :total_public_money, :override_submission_upload,
+    :country, :total_wins, :total_money, :override_submission_upload,
     :apis, :paas, :languages, :technologies, :submission_overview
 
   # Cleanup up the __r convention

@@ -48,7 +48,7 @@
                         </div>
                         <div class="bottom">
                             <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong> pts<br>
-                            <strong><%= number_to_currency(@member.total_public_money, :precision => 0) %></strong>
+                            <strong><%= number_to_currency(@member.total_money, :precision => 0) %></strong>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                     <div class="stat">
                         <p>Contest Entered: <strong><%= @member.challenges_entered %></strong></p>
                         <p>Total Points: <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong></p>
-                        <p>Total Money: <strong><%= number_to_currency(@member.total_public_money, :precision => 0) %></strong></p>
+                        <p>Total Money: <strong><%= number_to_currency(@member.total_money, :precision => 0) %></strong></p>
                     </div>
                     <div class="stat">
                         <p>Valid Submissions: <strong><%= @member.valid_submissions %></strong></p>

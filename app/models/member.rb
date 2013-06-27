@@ -2,7 +2,7 @@ class Member < ApiModel
   attr_accessor :id, :name, :profile_pic, :attributes,
     :challenges_entered, :active_challenges, :time_zone,
     :total_1st_place, :total_2nd_place, :total_3st_place,
-    :total_wins, :total_public_money, :total_points, :valid_submissions,
+    :total_wins, :total_money, :total_points, :valid_submissions,
     :summary_bio, :quote, :percent_submitted,
     :first_name, :last_name, :email, :address_line1, :address_line2, :city, :zip, :state, :phone_mobile, :time_zone, :country,
     :preferred_payment, :paperwork_received, :paperwork_sent, :paperwork_year, :paypal_payment_address,

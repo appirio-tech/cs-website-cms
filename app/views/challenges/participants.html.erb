@@ -20,7 +20,7 @@
                     <div class="detail">
                         <h2><%= link_to p.member.name, member_path(p.member) %></h2>
                         <% if p.member.country %><%= p.member.country %><br/><% end %>
-                        <%= number_to_currency p.member.total_public_money, precision: 0 %><br/>
+                        <%= number_to_currency p.member.total_money, precision: 0 %><br/>
                         <%= pluralize(p.member.total_wins, 'win') %><br>
                         <%= p.status %>
                     </div>
