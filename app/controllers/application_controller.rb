@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_gon_variables
   before_filter :get_platform_stats
 
+  after_filter  :set_csrf_cookie_for_madison
+
   def set_access_token
     ApiModel.access_token = current_access_token
   end    
@@ -45,6 +47,16 @@ class ApplicationController < ActionController::Base
   def admin_access_token
     User.admin_access_token
   end    
+
+  def set_csrf_cookie_for_madison
+    cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end      
+
+  protected
+
+    def verified_request?
+      super || form_authenticity_token == request.headers['X_XSRF_TOKEN']
+    end  
 
   private
 
