@@ -72,7 +72,7 @@ function openInSalesforce(id) {
                 <% if params[:task] %>
                   <p>It looks like you are trying to create a challenge from a CMC task. Just leave the name below as it is and hit the Submit button. 
                   We'll magically reference your task info when creating the challenge and pull in some data such as task name, description, etc.</p>
-                  <p><%= f.text_field :name, :id => 'challenge_name', :value => "CMC Task #{params['task']}", :size => 70 %><br/><br/></p>      
+                  <p><%= f.text_field :name, :id => 'challenge_name', :value => "CMC Task #{params['task']}", :size => 70, :readonly => true %><br/><br/></p>      
                 <% else %>
                   <p>Enter the display name for your challenge. You can always change this later if you are unsure now. </p>
                   <p><%= f.text_field :name, :id => 'challenge_name', :size => 70 %><br/><br/></p>                
