@@ -15,7 +15,6 @@ class JudgingController < ApplicationController
     @submissions = @participant.current_submissions(@participant.challenge.challenge_id)
     scorecard_questions = Judging.participant_scorecard(params[:participant_id], current_user.username)
     @scorecard = JSON.parse(scorecard_questions.keys.first)	
-    puts scorecard_questions.values.first.to_yaml
     gon.scorecard = scorecard_questions.values.first
   end
 
