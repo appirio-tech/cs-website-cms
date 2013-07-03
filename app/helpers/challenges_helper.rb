@@ -99,7 +99,6 @@ module ChallengesHelper
 
   def challenge_type_label(value)
     return 'SWEEP<br>STAKES' if value.eql?('SWEEPSTAKES')
-    return 'INFO<br>ONLY' if value.eql?('INFO ONLY')
     value
   end
 

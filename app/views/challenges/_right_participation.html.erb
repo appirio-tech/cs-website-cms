@@ -11,7 +11,7 @@
 
 <% end %>
 
-<% unless challenge.challenge_type.eql?("Info Only - No Registration") %>
+<% unless challenge.challenge_type.eql?("Info") %>
   <P>
   <% if current_member_participant.try('submitted?') %>
       <% if user_signed_in? %>
