@@ -99,6 +99,7 @@ module ChallengesHelper
 
   def challenge_type_label(value)
     return 'SWEEP<br>STAKES' if value.eql?('SWEEPSTAKES')
+    return 'F2F' if value.downcase.eql?('first2finish')
     value
   end
 

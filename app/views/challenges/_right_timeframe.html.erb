@@ -2,14 +2,25 @@
 
   <h2>DEADLINE</h2>
   <p>
-    Ends <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
-    <%= format_challenge_due_in(challenge.end_date_utc) %><br/>
-    <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %><br/>
-    <% if current_user %>
-       Times based upon <%= current_user.time_zone %>. <%= link_to 'Change your time zone.', account_details_path %><br/>
+
+    <% if %(first2finish).include?(challenge.challenge_type.downcase) %>
+
+      This challenge ends when a submission successfully passes review.
+
     <% else %>
-      Times based upon <%= Rails::application.config.time_zone %>. Login to set your time zone.<br/>
+
+      Ends <%= format_challenge_end_date(challenge.end_date_utc) %><br/>
+      <%= format_challenge_due_in(challenge.end_date_utc) %><br/>
+      <%= "Winner Announced on #{challenge.winner_announced.to_s(:long)}" %><br/>
+
+      <% if current_user %>
+         Times based upon <%= current_user.time_zone %>. <%= link_to 'Change your time zone.', account_details_path %><br/>
+      <% else %>
+        Times based upon <%= Rails::application.config.time_zone %>. Login to set your time zone.<br/>
+      <% end %>
+
     <% end %>
+
   </p>
 
 <% else %>

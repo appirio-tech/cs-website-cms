@@ -6,7 +6,7 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
-    :toggle_discussion_email, :submit, :submit_details, :participant_submissions, :results_scorecard, :appeals]
+    :submit, :submit_details, :participant_submissions, :results_scorecard, :appeals]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
     :appeals]
@@ -205,7 +205,6 @@ class ChallengesController < ApplicationController
       submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:url_submission])
       if submission_results.success.to_bool
         flash[:notice] = "URL successfully submitted for this challenge."
-        send_task_submission_notification if @challenge.challenge_type.downcase == 'task'
       else
         flash[:error] = "There was an error submitting your URL. Please check it and submit it again."
       end
@@ -222,7 +221,7 @@ class ChallengesController < ApplicationController
     submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
-      send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
+      send_task_submission_notification if %(task first2finish).include?(@challenge.challenge_type.downcase)
       # kick off the thurgood process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
@@ -316,6 +315,7 @@ class ChallengesController < ApplicationController
       redirect_to challenge_path(@challenge), :notice => 'Comment successfully posted to discussions.'
     else
       flash[:unsaved_comments] = comments
+      logger.fatal "[FATAL] Error posting challenge comment: [#{resp.message}]"
       return redirect_to :back, :alert => "[#{resp.message}] There was an error posting your comments. Please try again."
     end
   end  
@@ -387,8 +387,8 @@ class ChallengesController < ApplicationController
     def send_task_submission_notification
       # if they don't have a submission yet then they are uplaoding their first one
       if !@current_member_participant.has_submission
-        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this task.'}
-        results = @challenge.create_comment(notification)
+        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this challenge.'}
+        @challenge.create_comment(notification)
         delete_comments_cache
       end
     end   

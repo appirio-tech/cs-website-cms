@@ -17,7 +17,12 @@
       <% c = Challenge.new(challenge) %>
       <div class="challenge well well-large">
           <h3><%= link_to c.name, challenge_path(c) %></h3>
-          <%= format_challenge_due_in(c.end_date_utc) %><br>
+          <% if %(first2finish).include?(c.challenge_type.downcase) %>
+            First to finish!
+          <% else %> 
+            <%= format_challenge_due_in(c.end_date_utc) %>
+          <% end %>          
+          <br>
           <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
           <strong><%= c.top_prize %> for <%= platform_display c %></strong><br>
           Tags: <%= technology_tag_links(c) %>
