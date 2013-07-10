@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
-  rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
-  rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
+  # show the errors in dev
+  unless Rails.env.development?
+    rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
+    rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
+    rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
+  end
 
   before_filter :set_access_token
   before_filter :set_gon_variables
