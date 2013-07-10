@@ -34,7 +34,7 @@ class Admin::ChallengesController < ApplicationController
       and 3 Visualforce pages. We used a third party service to design a new layout and they have sent us 
       the HTML and CSS for our new application. We need your Visualforce and Apex skills to merge the 
       HTML and CSS with our existing code.</p>'
-    data[:requirements] = '<p>Add the requirements for your challenge...</p>'      
+    data[:requirements] = '<p>Please implement the following requirements:</p>'      
     # only use the first contact entered
     data[:contact] = current_user.username
     data[:account] = current_user.accountid
