@@ -155,7 +155,6 @@ class ApiModel
   end   
 
   def self.process_response(response)
-    # puts "Processing response: #{response.code}"
     case response.code
       when 200
         Hashie::Mash.new(response).response
@@ -164,6 +163,8 @@ class ApiModel
       when 401
         raise ApiExceptions::AccessDenied.new         
       when 500...600
+        Rails.logger.fatal "[FATAL] WTF Error processing response (#{response.code}): #{response}"
+        puts "[FATAL] WTF Error processing response (#{response.code}): #{response}" if Rails.env.development?
         raise ApiExceptions::WTFError.new 
     end    
   end   
