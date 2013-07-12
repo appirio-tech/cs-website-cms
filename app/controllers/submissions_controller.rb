@@ -6,7 +6,6 @@ class SubmissionsController < ApplicationController
   end
 
   def update
-    puts submission.to_json
     submission.update(params[:submission]) 
 
     respond_to do |format|

@@ -23,6 +23,9 @@ this.process_json = (input) ->
       qs_grp = question["question__r"]["qwikscore_question_group__r"]
       question_groups[qs_grp_no] = {"name": qs_grp["name"], "weight": qs_grp["group_weight"], "questions": {}}
 
+    # new scorecards will have undefined (null) comments
+    if question["comments"] == undefined
+      question["comments"] = ""        
 
     # group questions and store the required information for rendering based on the question group they belong to,
     # ordering them as per sequence number
@@ -35,6 +38,7 @@ this.process_json = (input) ->
       "answer_value": question["answer_value"],
       "answer_text": question["answer_text"],
       "isanswered": question["isanswered"],
+      "comments": question["comments"],
       "id": question["id"]
     }
 
@@ -42,7 +46,6 @@ this.process_json = (input) ->
 
 
 this.scorecard_render = (question_groups, container) ->
-  console.log(question_groups)
   for q of question_groups
     # for each question group, render it, and append it to the div container
     $("#"+ container).append(question_group_render(question_groups[q]))
@@ -101,7 +104,7 @@ this.question_render = (question) ->
     question_answer_dom += "</tr></table>"
 
     ques_dom = $("<div class='well rating'>
-      <table width='100%''>
+      <table width='100%'>
         <tr>
           <td rowspan='2' class='weight'>#{question.weight}%</td>
           <td rowspan='2' class='desc'>#{question.text}</td>
@@ -113,6 +116,11 @@ this.question_render = (question) ->
             #{question_answer_dom}
           </td>
         </tr>
+        <tr>
+          <td  colspan='5'>
+            <textarea name='comments[#{question.id}]' class='question-comments' placeholder='Your comments...'>#{question["comments"]}</textarea><br/><span style='font-size:x-small'>No maximum number of characters.</span>
+          </td>
+        </tr>        
       </table>
     </div>");
 

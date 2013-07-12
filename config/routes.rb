@@ -52,6 +52,7 @@ CsWebsiteCms::Application.routes.draw do
       get 'registrants' => redirect {|params| "/challenges/#{params[:id]}/participants" }
       get 'papertrail'
       get 'submit'
+      put 'submit_details'
       post 'submit_file'
       post 'submit_url'
       get 'submit_url_or_file_delete'
@@ -83,9 +84,9 @@ CsWebsiteCms::Application.routes.draw do
   resources :events, only: [:show]
 
   namespace :admin do
-    resources :challenges, only: [:index, :new, :create, :edit, :update] # remove the restrictions once the new challenges are up
+    resources :challenges, only: [:index, :create, :edit, :update] # remove the restrictions once the new challenges are up
     post 'challenges/assets'
-    match 'challenges/:id/delete_asset' => 'challenges#delete_asset', :as => 'delete_asset'
+    match 'challenges/delete_asset' => 'challenges#delete_asset', :as => 'delete_asset'
   end
 
   put '/account', to: 'accounts#update'
@@ -96,6 +97,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/public-profile', to: 'accounts#public_profile'
   get '/account/change-password', to: 'accounts#change_password'
   get '/account/challenges', to: 'accounts#challenges'
+  get '/account/past-challenges', to: 'accounts#past_challenges', :as => 'account_past_challenges'
   get '/account/communities', to: 'accounts#communities'
   get '/account/referred-members', to: 'accounts#referred_members'
   match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
@@ -109,21 +111,20 @@ CsWebsiteCms::Application.routes.draw do
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"
 
+  resources :requirements
+
+  get '/madison', to: 'content#madison'
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'
   get '/bad', to: 'content#bad'  
 
   get '/admin', to: 'admin#index'
-  get '/admin/redis_challenge'
-  get '/admin/redis_sync_challenge/:id' => "admin#redis_sync_challenge"
-  get '/admin/redis_search'
-  get '/admin/redis_sync_all'
   get '/admin/blog_fodder'
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
   match "/faq" => redirect("/forums#/categories/faqs")
-  match "/tos" => redirect("http://content.cloudspokes.com/terms-of-service")
+  match "/tos" => redirect("/terms-of-service")
   match "/signup" => redirect("/users/sign_up")
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")

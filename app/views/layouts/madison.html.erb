@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="madison">
+<head>
+  <title>Madison</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  <%= javascript_include_tag "angular-resource.min" %>
+  <%= include_gon %>
+  <%= javascript_include_tag "angular/madison" %>
+  <%= javascript_include_tag "angular/services/madison_models" %>
+  <%= javascript_include_tag "angular/controllers/madison_ui_ctrl" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container">
+  <div ng-view="ng-view"></div>
+</div>
+</body>
+</html>

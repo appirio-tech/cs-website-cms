@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     email.include?('@appirio.com')
   end
 
+  def sys_admin?
+    sys_admins = Rails.cache.fetch('sfdc-sysadmins', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do 
+      RestforceUtils.query_salesforce("select id, username from user  where profileid = '00eU0000000USBO'", 
+        nil, :admin).map { |u| u.username[0.. u.username.index('@')-1] }
+    end
+    sys_admins.include?(self.username)
+  end
+
   def use_captcha?(challenge, participant)
     if challenge_admin?(challenge) || (participant.member && participant.member.valid_submissions > 0)
       false
@@ -67,8 +75,8 @@ class User < ActiveRecord::Base
       sfdc_authentication.access_token
     else
       # check for any authentication errors and return guest token if error
-      User.guest_access_token
       Rails.logger.info "[FATAL][User] Could not refresh #{username}'s access token: #{sfdc_authentication.message}"
+      User.guest_access_token
     end
   end  
 

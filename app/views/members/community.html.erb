@@ -27,9 +27,15 @@
             </div>
             <div class="span6">
                 <div class="title"><h1>ACTIVE CHALLENGES</h1></div>
-                <% @open_challenges[1..3].each do |challenge| %>
+                <% @open_challenges[0..2].each do |challenge| %>
                 <%= link_to "#{number_to_currency(challenge.total_prize_money, :precision => 0)} - #{challenge.name}", challenge_path(challenge) %>
-                <p><%= format_challenge_due_in(challenge.end_date_utc) %> | <%= pluralize(challenge.participating_members, 'member') %> participating, <%= challenge.registered_members %> registered<br/>
+                <p>
+                <% if %(first2finish).include?(challenge.challenge_type.downcase) %>
+                    First to finish!
+                  <% else %> 
+                    <%= format_challenge_due_in(challenge.end_date_utc) %>
+                  <% end %>                   
+                 | <%= pluralize(challenge.participating_members, 'member') %> participating, <%= challenge.registered_members %> registered<br/>
                 <%= platform_and_technology_tag_links(challenge) %></p>
                 <% end %>
                 <%= link_to "View All Active Challenges", challenges_path %> | <%= link_to "View All Recently Completed Challenges", challenges_recent_path %>

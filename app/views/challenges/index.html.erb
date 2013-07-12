@@ -203,7 +203,7 @@
     <div class="clearfix"></div>            
 
     <% if @challenges.empty? %>
-        <p style="text-align:center;font-weight:bold">No open challenges found matching your criteria.</p>
+        <p style="text-align:center;font-weight:bold">No challenges found matching your criteria.</p>
     <% else %>
         <% @challenges.in_groups_of(2, false) do |row_challenges| %>
         <div class="row-fluid">
@@ -211,7 +211,12 @@
             <div class="span6">
                 <div class="challenge well well-large">
                     <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
-                    <%= format_challenge_due_in(c.end_date_utc) %>
+
+                    <% if %(first2finish).include?(c.challenge_type.downcase) %>
+                      First to finish!
+                    <% else %> 
+                      <%= format_challenge_due_in(c.end_date_utc) %>
+                    <% end %>
                     <p><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
                     <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                     <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>

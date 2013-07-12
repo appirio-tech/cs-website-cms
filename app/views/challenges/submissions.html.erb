@@ -31,8 +31,19 @@
                   <td width="45%"><%= link_to deliverable.url.split('/').last, deliverable.url, :target => '_blank' %></td>
                   <td width="50%"><%= deliverable.comments %></td>
                 </tr>
+                <% @participant_id = deliverable.challenge_participant %>
               <% end %>
-            <% end %>        
+            <% end %>    
+            <tr>
+              <td>PDF</td>
+              <td width="45%"><%= link_to 'CheckMarx Scan Results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{member}/cx-report.pdf", :target => '_blank' %></td>
+              <td width="50%">The results file will only be available if the scanning process was successful. Otherwise you will receive an "AccessDenied" message.</td>
+            </tr>     
+            <tr>
+              <td>Log</td>
+              <td width="45%"><%= link_to 'Papertrail submission log', papertrail_challenge_path({:participant_id => @participant_id}), :target => '_blank' %></td>
+              <td width="50%">Low-level details on the unit test, security scanning and more.</td>
+            </tr>              
           </tbody>
           </table>
 

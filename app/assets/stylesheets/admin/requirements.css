@@ -1,0 +1,46 @@
+.sectionheading{
+  background-color: #D16C12;
+  border: 1px hidden;
+	border-radius : 2px;
+	color: #FFFFFF;
+	font-weight: bold;
+  margin: 7px 0;
+  padding: 10px;
+}
+.sectionbody{
+	margin-left: 5px;
+}
+.reqheading{
+	padding:10px;
+	background-color:silver;
+	color : #FFFFFF;
+	font-weight: bold;
+	margin : 5px 15px 5px 5px;
+	border-radius : 2px;
+}
+.reqbody{
+	margin : 0px 0px 0 10px;
+}
+
+.reqContainer{
+	min-height : 200px;
+	margin-left : 10px;
+}
+#add-requirement-modal-body{
+	overflow : visible;
+}
+
+.headingValue
+{
+	float:right;
+}
+
+.editLink {
+	padding-left: 20px;
+	font-size: 8pt;
+}
+
+.deleteLink {
+	padding-left: 5px;
+	font-size: 8pt;
+}

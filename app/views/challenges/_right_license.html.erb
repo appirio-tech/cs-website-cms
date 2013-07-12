@@ -1,0 +1,9 @@
+<h2>LICENSE</h2>
+
+<p>Results will be released under the 
+<% if challenge.license_type__r %>
+  <%= link_to challenge.license_type__r.name, challenge.license_type__r.url, :target => '_blank' %> 
+<% else %>
+  <%= link_to 'CloudSpokes', 'http://www.cloudspokes.com/cloudspokes-license', :target => '_blank' %>
+<% end %>
+License.</p>

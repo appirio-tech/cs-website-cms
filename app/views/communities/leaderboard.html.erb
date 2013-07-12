@@ -1,4 +1,4 @@
-<% content_for :head do %><title>Leaderboard- CloudSpokes</title><% end %>
+<% content_for :head do %><title>Leaderboard - CloudSpokes</title><% end %>
 
 <!-- CONTENT
         ================================================== -->
@@ -13,15 +13,15 @@
 
             <div class="span4">
                 <div class="title" style="margin:0px 0px 0px 0px"><h1>POINTS</h1></div>
-					    	<% @points_leaderboard.each do |member| %>
-					      <div class="placement well">
-					          <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
-					          <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
-					          <% if member['country'] %><%= member['country'] %><br/><% end %>
-					          <%= member['points'] %> points<br/>
-					          <span class="place <%= leaderboard_place_decorator(member['position'].to_i) %>"><%= member['position'].to_i.ordinalize %></span>
-					      </div>
-					      <% end %>
+          <% @points_leaderboard.each do |member| %>
+          <div class="placement well">
+              <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+              <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
+              <% if member['country'] %><%= member['country'] %><br/><% end %>
+              <%= member['points'] %> points<br/>
+              <span class="place <%= leaderboard_place_decorator(member['position'].to_i) %>"><%= member['position'].to_i.ordinalize %></span>
+          </div>
+          <% end %>
             </div>
 
             <div class="span4">

@@ -1,0 +1,45 @@
+.sliderGroup .ui-slider-vertical
+{
+	margin-bottom:45px !important;		
+}
+.sliderGroup span.slide {
+height: 5px;
+float: right;
+ margin: 7px 75px 7px 7px;
+width: 250px;
+}
+
+.sliderGroupTally
+{
+	font-size:10px;
+	font-family:Verdana, Geneva, sans-serif;
+	position: absolute;	
+	color: white;
+	left: 290px;
+	bottom: -7px;
+	font-size:11px;
+}
+
+.lockButton
+{
+	position: absolute;
+	bottom: -7px;
+  left: 255px;
+	height:20px !important;
+	width: 20px !important;
+}
+
+.ui-slider-vertical
+{
+	width:10px;	
+}
+
+.ui-slider .ui-slider-handle {
+width: 5px;
+height: 15px;
+}
+
+.button.ui-button-icon-only
+{
+	width:15px;	
+}

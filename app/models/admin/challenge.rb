@@ -18,11 +18,11 @@ class Admin::Challenge
 
   cattr_accessor :access_token
 
-  attr_accessor :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
-                :status, :start_date, :requirements, :name, :status, :end_date, :description, :community_judging,
+  attr_accessor  :id, :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
+                :status, :start_date, :requirements, :name, :end_date, :description, :community_judging,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
-                :assets, :challenge_type, :terms_of_service, :comments, :challenge_id, :submissions, 
-                :account, :contact, :auto_announce_winners,
+                :assets, :challenge_type, :comments, :challenge_id, :submissions, 
+                :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time
 
                 # these are fields from the challenge api that need to be there so we can
                 # just "eat" the json and avoid the model from complaining that these
@@ -32,11 +32,11 @@ class Admin::Challenge
                 # We should instead have a slave ::Challenge object to consume the original
                 # challenge params and extract out whatever data we need. The way this is
                 # being implemented right now smells of feature envy.
-                :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
-                :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
-                :registered_members, :challenge_comments, :additional_info,
-                :participating_members, :challenge_prizes,
-                :top_prize, :id, :participants
+                # :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
+                # :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
+                # :registered_members, :challenge_comments, :additional_info,
+                # :participating_members, :challenge_prizes,
+                # :top_prize, :id, :participants
 
   # Add validators as you like :)
   validates :name, presence: true
@@ -58,16 +58,32 @@ class Admin::Challenge
 
   def initialize(params={})
     # the api names some fields as challenge_xxx where as the payload needs to be xxx
-    params['reviewers'] = params.delete('challenge_reviewers') if params.include? 'challenge_reviewers'
-    params['commentNotifiers'] = params.delete('challenge_comment_notifiers') if params.include? 'challenge_comment_notifiers'
-    params['prizes'] = params.delete('challenge_prizes') if params.include? 'challenge_prizes'
+    # params['reviewers'] = params.delete('challenge_reviewers') if params.include? 'challenge_reviewers'
+    # params['commentNotifiers'] = params.delete('challenge_comment_notifiers') if params.include? 'challenge_comment_notifiers'
+    params['prizes'] = params.delete('challenge_prizes__r') if params.include? 'challenge_prizes__r'
+    params['platforms'] = params.delete('challenge_platforms__r') if params.include? 'challenge_platforms__r'
+    params['technologies'] = params.delete('challenge_technologies__r') if params.include? 'challenge_technologies__r'
+    params['assets'] = params.delete('assets__r') if params.include? 'assets__r'
 
     # just want the contact name form the contact and not their id
     if params.include? 'contact__r'
       params['contact'] = params['contact__r']['name'] unless !params['contact__r']
       params.delete('contact__r')
     end
+
     super(params)
+  end
+
+  def self.find(challenge_id)
+    RestforceUtils.query_salesforce("select Name,Challenge_Type__c,Account__c,Contact__c,
+      Contact__r.Name,Terms_Of_Service__c,Scorecard_Type__c,Auto_Announce_Winners__c,
+      Community_Judging__c,Description__c,End_Date__c,Requirements__c,Challenge_Id__c,
+      Start_Date__c,Status__c,Submission_Details__c,Winner_Announced__c,Review_Date__c, 
+      (Select Place__c, Prize__c, Value__c, Points__c From Challenge_Prizes__r order by Place__c), 
+      (select name__c from challenge_platforms__r order by name__c), 
+      (select name__c from challenge_technologies__r order by name__c), 
+      (Select Id, Filename__c From Assets__r) 
+      from challenge__c where challenge_id__c = '#{challenge_id}'")
   end
 
   def challenge_id
@@ -103,8 +119,8 @@ class Admin::Challenge
   end  
 
   def terms_of_services
-    scorecards = RestforceUtils.query_salesforce('select Name from Terms_of_Service__c order by name')
-    scorecards.map {|s| s.name}
+    terms = RestforceUtils.query_salesforce('select Name from Terms_of_Service__c order by name')
+    terms.map {|s| s.name}
   end  
 
   def categories
@@ -143,7 +159,6 @@ class Admin::Challenge
   end
 
   def save
-    puts payload
     if challenge_id
       options = {
         :query => {data: payload},
@@ -176,7 +191,9 @@ class Admin::Challenge
     # conditions aren't totally eliminated, but the window is largely smaller
     # in this case. Plus the logic is much simpler too :)
 
-    result = {
+    # do not pass values that are not being fetched from sfdc. will overwrite with null
+
+    @json_payload = {
       challenge: {
         detail: {
           account: account,
@@ -198,6 +215,7 @@ class Admin::Challenge
           community: community,
           community_judging: community_judging,
           auto_announce_winners: auto_announce_winners,
+          cmc_task: cmc_task,
           challenge_id: challenge_id
         },
         reviewers: reviewers.map {|name| {name: name}},
@@ -208,7 +226,32 @@ class Admin::Challenge
         assets: assets.map {|filename| {filename: filename}},
       }
     }
-    result
+    
+    remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
+
+    @json_payload
   end
+
+  private
+
+    def remove_nil_keys
+
+      if !@json_payload[:challenge][:detail][:scorecard_type] || @json_payload[:challenge][:detail][:scorecard_type].blank?
+        @json_payload[:challenge][:detail].remove_key!(:scorecard_type) 
+      end
+
+      if !@json_payload[:challenge][:detail][:terms_of_service] || @json_payload[:challenge][:detail][:terms_of_service].blank?
+        @json_payload[:challenge][:detail].remove_key!(:terms_of_service)
+      end
+
+      if !@json_payload[:challenge][:detail][:cmc_task] || @json_payload[:challenge][:detail][:cmc_task].blank?
+        @json_payload[:challenge][:detail].remove_key!(:cmc_task) 
+      end
+
+      if !@json_payload[:challenge][:detail][:community] || @json_payload[:challenge][:detail][:community].blank?
+        @json_payload[:challenge][:detail].remove_key!(:community)
+      end
+
+    end
 
 end

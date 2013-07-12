@@ -1,1 +1,41 @@
-<%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor' } %>
+<% if @can_edit_challenge_requirements %>
+
+  <% if params[:use_madison] %>
+
+    <script>
+    function showMadison() {
+      window.open("/madison/#/<%= @challenge.challenge_id %>","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1000, height=700");
+    }
+    </script>  
+
+    <center><p>
+
+    <% if @madison_requirements > 0 %>
+
+      You have <%= @madison_requirements %> requirements for this challenge which will display after any text
+      you enter in the requirements<br/>rich text editor below. You can edit these requirements while the challenge is in Draft by <a href="#" onclick="showMadison();">clicking here</a>.
+
+    <% else %>
+
+      <a href="#" onclick="showMadison();">Define your requirements using Madison.</a> 
+
+    <% end %> 
+
+    </p></center>
+
+  <% end %>
+
+<% else %>
+
+  <center><p>You cannot modify the requirements after the challenge has been launched. Please contact support@cloudspokes.com.</p></center>
+  <%= f.hidden_field :requirements %>
+
+<% end %>
+
+<%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor', :disabled => !@can_edit_challenge_requirements } %> 
+
+<div class="control-group">
+  <div class="controls">
+      <span class="help-inline">Becareful when pasting from a Word or Google doc. You may have better luck using the Paste as Plain Text or Paste from Word and then just making your changes.</span>
+  </div>
+</div>

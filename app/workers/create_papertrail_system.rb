@@ -3,46 +3,50 @@ class CreatePapertrailSystem
   @queue = :create_papertrail_system
   def self.perform(membername, email, challenge_id, challenge_participant_id)
 
-  	auth = {
-  		:username => ENV['PAPERTRAIL_DIST_USERNAME'], 
-  		:password => ENV['PAPERTRAIL_DIST_PASSWORD']
-  	}
-  	
-  	# create the user's account
-  	user = {
-  		:id => membername, 
-  		:email => email
-  	}
-  	payload = {
-  		:id => membername, 
-  		:name => membername, 
-  		:user => user, 
-  		:plan => 'free'
-  	}
-  	options = { 
-  		:body => payload, 
-  		:basic_auth => auth 
-  	}
+    account = {
+      :name => membername, 
+      :email => email,
+      :papertrail_id => membername
+    }
 
-  	account_create_results = HTTParty.post("https://papertrailapp.com/api/v1/distributors/accounts", options)
-  	Rails.logger.info "[Resque][PT]==== Create Papertrail account: #{account_create_results}"
-  	puts "[Resque][PT][PUTS]==== Create Papertrail account: #{account_create_results}"
+    options = { 
+      :body => { :account => account }.to_json,
+      :headers => api_request_headers   
+    }
 
-  	# create the system / log sender
-  	payload = {
-  		:id => challenge_participant_id, 
-  		:name => "Challenge-#{challenge_id}-#{challenge_participant_id}", 
-  		:account_id => membername
-  	}
-  	options = { 
-  		:body => payload, 
-  		:basic_auth => auth 
-  	}  	
+    account_create_results = HTTParty.post("#{ENV['THURGOOD_API_URL']}/loggers/account/create", options)
+    raise "Could not create Papertrail account for #{membername} and challenge #{challenge_id}" if account_create_results.has_key?('error') 
+    Rails.logger.info "[Resque][PT]==== Created Papertrail account: #{account_create_results['response']['papertrail_id']}"
+    puts "[Resque][PT]==== Created Papertrail account: #{account_create_results['response']['papertrail_id']}"
 
-  	sender_create_results = HTTParty.post("https://papertrailapp.com/api/v1/distributors/systems", options)
-  	Rails.logger.info "[Resque][PT]==== Create Papertrail sender: #{sender_create_results}"
-  	puts "[Resque][PT][PUTS]==== Create Papertrail sender: #{sender_create_results}"
+    # create the system
+    system = {
+      :name => "Challenge-#{challenge_id}-#{challenge_participant_id}", 
+      :logger_account_id => account_create_results['response']['id'],
+      :papertrail_account_id => membername,
+      :papertrail_id => "#{membername}-#{challenge_participant_id}"
+    }
 
+    options = { 
+      :body => { :system => system }.to_json,
+      :headers => api_request_headers    
+    }  
+
+    sender_create_results = HTTParty.post("#{ENV['THURGOOD_API_URL']}/loggers/system/create", options)
+    raise "Could not create Papertrail sender for #{membername} and challenge #{challenge_id}: #{sender_create_results['error_description']}" if sender_create_results.has_key?('error') 
+    Rails.logger.info "[Resque][PT]==== Created Papertrail system: #{sender_create_results['response']['papertrail_id']}"
+    puts "[Resque][PT]==== Created Papertrail system: #{sender_create_results['response']['papertrail_id']}"
+
+  rescue Exception => e
+    Rails.logger.fatal "[Resque][PT][FATAL]==== #{e.message}"
+    puts "[Resque][PT][FATAL]==== #{e.message}"
   end
+
+  def self.api_request_headers
+    {
+      'Authorization' => 'Token token="'+ENV['THURGOOD_API_KEY']+'"',
+      'Content-Type' => 'application/json'
+    }
+  end    
   
 end

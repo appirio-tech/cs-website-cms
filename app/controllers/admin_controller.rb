@@ -25,4 +25,21 @@ class AdminController < ApplicationController
 		@challenge = Challenge.find params[:challenge_id]
 	end	
 
+	def unleash_squirrel
+  	deliverable = RestforceUtils.query_salesforce("select Id, 
+  		Challenge_Participant__r.Member__r.Name, 
+  		Challenge_Participant__r.Challenge__r.Challenge_Id__c 
+  		from Submission_Deliverable__c where id = '#{params[:submission_deliverable_id]}'").first
+
+		render :text => "Kicked off Thurgood process for submission #{params[:submission_deliverable_id]} 
+		for #{deliverable.challenge_participant__r.member__r.name} for challenge 
+			#{deliverable.challenge_participant__r.challenge__r.challenge_id}."
+	  Resque.enqueue(ProcessCodeSubmission, admin_access_token, 
+	  	deliverable.challenge_participant__r.challenge__r.challenge_id, 
+	    deliverable.challenge_participant__r.member__r.name,
+	    params[:submission_deliverable_id])
+		rescue Exception => e
+			render :text => e.message
+	end
+
 end

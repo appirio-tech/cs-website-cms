@@ -1,4 +1,11 @@
 <%= f.input :name %>
+
+<% if current_user.sys_admin? %>
+  <%= f.input :account, required: true, label: 'Sponsor', collection: @sponsors, default: @challenge.account %>
+<% else %>
+  <%= f.hidden_field :account %>
+<% end %>
+
 <%= f.input :challenge_type, required: true, label: 'Category', collection: @challenge.categories, default: 'Code' %>
 
 <div class="control-group">
@@ -16,9 +23,17 @@
   </div>
 </div>
 
-<%= f.input :start_date, as: :time, label: 'End Time', required: true, hint: 'Times are in your local time zone' %>
+
+<%= f.input :end_time, required: true, label: 'End Time', collection: [['Early Morning (3am)', 3], ['Morning (9am)', 9], ['Afternoon (5pm)', 17], ['Evening (11pm)', 23]], default: 'Morning (9am)' %>
 
 <%= f.input :description, label: 'Overview', required: true, :as => :text, input_html: { :class => 'ckeditor' } %>
+
+<div class="control-group">
+  <div class="controls">
+      <span class="help-inline">Becareful when pasting from a Word or Google doc. You may have better luck using the Paste as Plain Text or Paste from Word and then just making your changes.</span>
+  </div>
+</div>
+
 
 <script>
 // we need erb here as well. for later refactoring, we should move these to

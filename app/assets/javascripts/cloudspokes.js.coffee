@@ -140,3 +140,48 @@ $ ->
 				retval = false
 
 		retval
+
+	# find the value of a url parameter
+	paramValue = (name) ->
+	  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+	  regexS = "[\\?&]" + name + "=([^&#]*)"
+	  regex = new RegExp(regexS)
+	  results = regex.exec(window.location.href)
+	  unless results?
+	    null
+	  else
+	    results[1]		
+
+	$('#new-challenge-modal input[type="submit"]').click ->
+		$('.new-challenge-results').html('<p></p>')
+		challenge_name = $('#challenge_name').val()
+		if challenge_name.length > 0
+			data = { name: challenge_name }	
+			# check for a url parameter called 'task' from cmc
+			task = paramValue 'task'
+			if task
+			  data['task'] = task
+			  $('.new-challenge-results').html("<p>Creating new challenge for CMC Task #{task}...</p>")
+			else
+			  $('.new-challenge-results').html('<p>Creating new challenge...</p>')
+			$.ajax
+			  type: 'POST'
+			  beforeSend: (xhr) -> 
+			    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))			  
+			  url: '/admin/challenges'
+			  # pass the challenge name and the cmc task
+			  data: data
+			  success: (data, textStatus, jqHXR) ->
+			    console.log data
+			    if data['success']
+			    	$('.new-challenge-results').html("<p>Challenge  #{data['challenge_id']} successfully created. Loading your challenge...</p>")
+			    	window.location.replace("/admin/challenges/#{data['challenge_id']}/edit")
+			    else
+			    	$('.new-challenge-results').html("<p>Error: #{data['error']}.</p>")
+			    false
+			  error: (jqXHR, textStatus, errorThrown) ->
+			    console.log(textStatus);
+			    $('.new-challenge-results').html('<p>We could not process your request successfully. Please contact support.</p>')  			
+		else
+			$('.new-challenge-results').html('<p>Please enter a challenge name.</p>')			
+		false

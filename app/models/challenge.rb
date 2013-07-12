@@ -10,7 +10,7 @@ class Challenge < ApiModel
     :submission_details, :winner_announced, :community, :days_till_close,
     :submissions, :participating_members, :default_tos,
     :challenge_prizes, :challenge_participants, :registration_end_date, :account,
-    :blogged, :auto_blog_url,
+    :blogged, :auto_blog_url, :license_type__r, :require_registration,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
@@ -72,14 +72,65 @@ class Challenge < ApiModel
     challenge_id
   end
 
+  def self.advanced_search(options)
+    
+    params = Hashie::Mash.new()    
+
+    if options[:platforms]
+      if options[:platforms].include?('all platforms')
+        params.p = 'all'
+      else
+        params.p = options[:platforms].join(",")
+      end
+    else
+      params.p = 'none'
+    end
+
+    if options[:technologies]
+      if options[:technologies].include?('all technologies')
+        params.t = 'all'
+      else
+        params.t = options[:technologies].join(",")
+      end
+    else
+      params.t = 'none'
+    end
+
+    if options[:categories]
+      if options[:categories].include?('all categories')
+        params.c = 'all'
+      else
+        params.c = options[:categories].join(",")
+      end
+    else
+      params.c = 'none'
+    end        
+  
+    params.p_min = options[:participants][:min]
+    params.p_max = options[:participants][:max]
+    params.m_min = options[:prize_money][:min]
+    params.m_max = options[:prize_money][:max]
+    params.state = options[:state]
+    params.q = options[:query]
+    params.sort_by = options[:sort_by]
+    params.sort_order = options[:order]
+
+    # fix this temp issue with field name -- need to change ui
+    if options[:sort_by] == 'end_date'
+      params.sort_by = "end_date__c" 
+    elsif options[:sort_by] == 'total_prize_money desc'
+      params.sort_by = 'total_prize_money__c'
+    end
+
+    http_get("challenges/advsearch?#{params.to_param}").map {|challenge| Challenge.new challenge}
+  end
+
   def self.open    
     http_get('challenges').map {|challenge| Challenge.new challenge}
   end
 
-  def self.recent
-    Rails.cache.fetch('recent-challenges', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-      http_get('challenges/recent', {:limit => 200}).map {|challenge| Challenge.new challenge}
-    end
+  def self.recent(filters)
+    http_get("challenges/recent", {:limit => 200}.merge!(filters)).map {|challenge| Challenge.new challenge}
   end
 
   def self.per_page
@@ -92,6 +143,11 @@ class Challenge < ApiModel
     options.each {|k,v| options.delete(k) if v.blank? } if options
     http_get('challenges', options).map {|challenge| Challenge.new challenge}
   end  
+
+  def self.closed(options = {})
+    options.each {|k,v| options.delete(k) if v.blank? } if options
+    http_get('challenges/closed', options).map {|challenge| Challenge.new challenge}
+  end    
 
   # def submission_deliverables
   #   self.class.raw_get_has_many([to_param, 'submissions']).map {|submission| Submission.new(submission)}
@@ -185,7 +241,7 @@ class Challenge < ApiModel
   end
 
   def closed_for_registration?
-    @registration_end_date.nil? ? false : Time.parse(@registration_end_date.getutc).past?
+    @registration_end_date.nil? ? false : Time.parse(@registration_end_date).getutc.past?
   end  
 
   def release_to_open_source?
@@ -223,5 +279,34 @@ class Challenge < ApiModel
   def active?
     ['Open for Submissions', 'Review', 'Scored - Awaiting Approval'].include?(status)
   end
+
+  def open_for_submissions?
+    ['Open for Submissions'].include?(status)
+  end  
+
+  # member must be registered in order to view restricted challenge
+  def show_assets?(participant)
+    show_restricted_info(participant)
+  end
+
+  # member must be registered in order to view restricted challenge
+  def show_discussion_board?(participant)
+    show_restricted_info(participant)
+  end    
+
+  private
+
+    def show_restricted_info(participant)
+      if @require_registration
+        return false if participant.nil?
+        if ['not registered', 'watching'].include?(participant.status.downcase)
+          return false
+        else
+          return true
+        end
+      else
+        true
+      end
+    end
 
 end

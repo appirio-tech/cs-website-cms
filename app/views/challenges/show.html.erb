@@ -18,6 +18,15 @@
         <% if @challenge.requirements %>
           <h2>REQUIREMENTS</h2>
           <p> <%= @challenge.requirements.html_safe %> </p>
+
+          <% if @madison_requirements %>
+            <ol>
+            <% @madison_requirements.each do |req| %>
+              <li><%= req.description %></li>
+            <% end %>
+            </ol><br/>
+            <% end %>
+            
         <% end %>
 
         <% if @challenge.post_reg_info && @current_member_participant.try('registered?')%>
@@ -47,7 +56,11 @@
         <br/>
 
         <h2 class="discussion">DISCUSSION</h2>
-        <%= render partial: "discussions", locals: {challenge: @challenge, comments: @comments} %>
+        <% if @challenge.show_discussion_board?(@current_member_participant) %>
+          <%= render partial: "discussions", locals: {challenge: @challenge, comments: @comments} %>
+        <% else %>
+          Only registered members have access to the discussion board for this challenge.
+        <% end %>
       </div>
 
       <div class="span4">

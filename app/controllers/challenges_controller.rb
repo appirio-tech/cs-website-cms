@@ -6,18 +6,18 @@ class ChallengesController < ApplicationController
   before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
-    :toggle_discussion_email, :submit, :participant_submissions, :results_scorecard, :appeals]
+    :submit, :submit_details, :participant_submissions, :results_scorecard, :appeals]
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
     :appeals]
-  before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, 
+  before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, :submit_details, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
   before_filter :redirect_advanced_search, :only => [:search]
   before_filter :restrict_appeallate_member, :only => [:appeals]
-  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file]
+  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file, :submit_details]
 
   def index
     @title = 'Open Challenges'
@@ -25,7 +25,12 @@ class ChallengesController < ApplicationController
     # if the user passed over the technology as a link from another page
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
-    @challenges = Challenge.all params[:filters]      
+    @challenges = Challenge.all params[:filters]
+    respond_to do |format|
+      format.html
+      format.json { render :json => @challenges }
+      format.rss { render :rss => @challenges }
+    end    
   end   
 
   def search
@@ -47,17 +52,31 @@ class ChallengesController < ApplicationController
     @selected_technologies = params[:advanced][:technologies] 
     @selected_categories = params[:advanced][:categories] 
 
-    @selected_platforms_all = false
-    @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
-    @selected_technologies_all = false
-    @selected_technologies_all = true if @selected_technologies.include?('All Technologies')
-    @selected_categories_all = false
-    @selected_categories_all = true if @selected_categories.include?('All Categories')  
+    # select all if NOTHING was selected
+    @selected_platforms = all_platforms if !@selected_platforms
+    @selected_technologies = all_technologies if !@selected_technologies
+    @selected_categories = all_categories if !@selected_categories    
 
-    #downcase all of the platforms, technologies and categories for redis
-    search_platforms = @selected_platforms.map{|i| i.downcase}
-    search_technologies = @selected_technologies.map{|i| i.downcase}
-    search_categories = @selected_categories.map{|i| i.downcase}
+    @selected_platforms_all = false
+    if @selected_platforms
+      @selected_platforms_all = true if @selected_platforms.include?('All Platforms')
+      #downcase all of the platforms, technologies and categories for redis
+      search_platforms = @selected_platforms.map{|i| i.downcase}      
+    end
+
+    @selected_technologies_all = false
+    if @selected_technologies
+      @selected_technologies_all = true if @selected_technologies.include?('All Technologies')
+      #downcase all of the platforms, technologies and categories for redis
+      search_technologies = @selected_technologies.map{|i| i.downcase}
+    end
+
+    @selected_categories_all = false
+    if @selected_categories
+      @selected_categories_all = true if @selected_categories.include?('All Categories')  
+      #downcase all of the platforms, technologies and categories for redis
+      search_categories = @selected_categories.map{|i| i.downcase}
+    end
 
     options = {state: params[:advanced][:status], 
       query: @keyword,
@@ -70,13 +89,16 @@ class ChallengesController < ApplicationController
       sort_by: @selected_sort_by,
       order: params[:advanced][:order_by]}
 
-    # run the search in redis
-    @challenges = Challenge.search options
+    @challenges = Challenge.advanced_search(options)
     render 'index'
   end  
 
   def recent
-    @challenges = Challenge.recent
+    filters = {}
+    filters.merge!( {:technology => params[:technology] }) if params[:technology] 
+    filters.merge!( {:platform => params[:platform] }) if params[:platform] 
+    filters.merge!( {:category => params[:category] }) if params[:category] 
+    @challenges = Challenge.recent filters
     @challenges = @challenges.paginate(:page => params[:page], :per_page => 20)
   end  
 
@@ -84,6 +106,7 @@ class ChallengesController < ApplicationController
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       current_challenge.comments
     end
+    @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by") if @challenge.status.downcase.eql?('draft')
     # add rescue for local dev without redis running (for challenge participants)
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   rescue Exception => e
@@ -143,10 +166,38 @@ class ChallengesController < ApplicationController
 
   def submit
     @submissions = @current_member_participant.current_submissions(params[:id])
+    @uploader = CodeUpload.new.code
+    @uploader.set_dir_vars(params[:id],current_user.username)
+    @uploader.success_action_redirect = submit_challenge_url(:anchor => "uploadfiles")
+    # convert the sem-colon separated list to an array
+    @current_member_participant.paas = @current_member_participant.paas.split(';') if @current_member_participant.paas
+    @current_member_participant.languages = @current_member_participant.languages.split(';') if @current_member_participant.languages
+    @current_member_participant.technologies = @current_member_participant.technologies.split(';') if @current_member_participant.technologies
+    # get the metadata for the multiselect picklist
+    @participant_metadata = participant_metadata
   end
 
+  def submit_details
+    @current_member_participant.submission_overview = params[:participant][:submission_overview]
+    @current_member_participant.paas = params[:participant][:paas].reject! { |c| c.empty? }.join(';')
+    @current_member_participant.languages = params[:participant][:languages].reject! { |c| c.empty? }.join(';')
+    @current_member_participant.technologies = params[:participant][:technologies].reject! { |c| c.empty? }.join(';')
+    if @current_member_participant.update.success.to_bool
+      flash[:notice] = "Successfully updated your submission."
+    else
+      flash[:error] = "There was an error updating your submission."
+    end
+    redirect_to :back
+  end    
+
   def papertrail
-    @token = Digest::SHA1.hexdigest("#{current_user.username}:#{current_user.username}:#{ENV['PAPERTRAIL_DIST_SSO_SALT']}:#{Time.now.to_i}")
+    @member_name = current_user.username
+    # used the passed participant id so judges, sponsors, etc. can view the logs
+    if params[:participant_id]
+      p = Participant.find(params[:participant_id])
+      @member_name = p.member.name
+    end
+    @token = Digest::SHA1.hexdigest("#{@member_name}:#{@member_name}:#{ENV['PAPERTRAIL_DIST_SSO_SALT']}:#{Time.now.to_i}")
   end  
 
   def submit_url
@@ -154,7 +205,6 @@ class ChallengesController < ApplicationController
       submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:url_submission])
       if submission_results.success.to_bool
         flash[:notice] = "URL successfully submitted for this challenge."
-        send_task_submission_notification if @challenge.challenge_type.downcase == 'task'
       else
         flash[:error] = "There was an error submitting your URL. Please check it and submit it again."
       end
@@ -165,45 +215,22 @@ class ChallengesController < ApplicationController
   end  
 
   def submit_file
-    if params[:file].nil?
-      flash[:error] = "Please upload a valid file."
+    # if not submitting code, remove 'hidden' language
+    params[:file_submission][:language] = nil if params[:file_submission][:type].downcase != 'code'
+    params[:file_submission][:link] = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/#{params[:file_submission][:link]}"
+    submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
+    if submission_results.success.to_bool
+      flash[:notice] = "File successfully submitted for this challenge."
+      send_task_submission_notification if %(task first2finish).include?(@challenge.challenge_type.downcase)
+      # kick off the thurgood process
+      Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
+        current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
+      redirect_to submit_challenge_url
     else
-      begin
-        file = params[:file][:file_name]
-        storage ||= begin
-          fog = Fog::Storage.new(
-            :provider                 => 'AWS',
-            :aws_secret_access_key    => ENV['AWS_SECRET'],
-            :aws_access_key_id        => ENV['AWS_KEY']
-          )
-          fog.directories.get(ENV['AWS_BUCKET'])
-        end
-        uploaded_file = storage.files.create(
-          :key    => "challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}",
-          :body   => file.read,
-          :public => true
-        )  
-        complete_url = "https://s3.amazonaws.com/#{ENV['AWS_BUCKET']}/challenges/#{params[:id]}/#{current_user.username}/#{file.original_filename}"
-        submission_params = {:link => complete_url, :comments => params[:file_submission][:comments], :type => params[:file_submission][:type]}    
-        submission_results = @current_member_participant.save_submission_file_or_url(params[:id], submission_params)
-        if submission_results.success.to_bool
-          flash[:notice] = "File successfully uploaded and submitted for this challenge."
-          send_task_submission_notification if @challenge.challenge_type.downcase == 'task' 
-          # kick off the squirrelforce process
-          Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
-            current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'
-        else
-          flash[:error] = "There was an error submitting your file. Please check it and submit it again."
-        end
-      rescue => e    
-        flash[:error] = "There was an error submitting your File: #{e.message}. Please check it and submit it again."
-      end
+      flash[:error] = "There was an error submitting your File. Please check it and submit it again."
+      redirect_to :back
     end
-    redirect_to :back
-  # add rescue for local dev without redis running (for challenge participants)
-  rescue Exception => e
-    puts e.message
-  end  
+  end    
 
   def submit_url_or_file_delete
     submission_results = @current_member_participant.delete_submission(params[:id], params[:submissionId])
@@ -226,7 +253,7 @@ class ChallengesController < ApplicationController
   def results
     if user_signed_in?
       unless ['winner selected','no winner selected'].include?(@challenge.status.downcase) || 
-        (current_user.challenge_admin?(@challenge) && @challenge.status.downcase == 'scored - awaiting approval')
+        (current_user.challenge_admin?(@challenge) && ['review','scored - awaiting approval'].include?(@challenge.status.downcase))
         redirect_to challenge_path, :alert => 'Results are not available at this time.' 
       end
     else
@@ -249,6 +276,8 @@ class ChallengesController < ApplicationController
 
   def scorecard
     @scorecard_group = Challenge.scorecard_questions(params[:id])
+    # array of madison section names if the challenge is in draft
+    @madison_sections = Requirement.where("challenge_id = ?", params[:id]).uniq.pluck(:section) if @challenge.status.downcase.eql?('draft')
   end  
 
   def appeals
@@ -286,6 +315,7 @@ class ChallengesController < ApplicationController
       redirect_to challenge_path(@challenge), :notice => 'Comment successfully posted to discussions.'
     else
       flash[:unsaved_comments] = comments
+      logger.fatal "[FATAL] Error posting challenge comment: [#{resp.message}]"
       return redirect_to :back, :alert => "[#{resp.message}] There was an error posting your comments. Please try again."
     end
   end  
@@ -313,6 +343,12 @@ class ChallengesController < ApplicationController
         Category.names
       end
     end     
+
+    def participant_metadata
+      Rails.cache.fetch('participant_metadata', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+        ApiModel.http_get 'metadata/participant'
+      end
+    end         
 
     def load_current_challenge
       @challenge = current_challenge    
@@ -351,8 +387,8 @@ class ChallengesController < ApplicationController
     def send_task_submission_notification
       # if they don't have a submission yet then they are uplaoding their first one
       if !@current_member_participant.has_submission
-        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this task.'}
-        results = @challenge.create_comment(notification)
+        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this challenge.'}
+        @challenge.create_comment(notification)
         delete_comments_cache
       end
     end   
@@ -374,8 +410,8 @@ class ChallengesController < ApplicationController
       @technologies = all_technologies
       @categories = all_categories
       @sort_by_options = [["End Date", "end_date"],["Challenge Title", "name"],["Prize Money", "total_prize_money desc"]]
-      @communities = Community.names
-      @communities.insert(0, 'Public') if !@communities.include?('Public')
+      @communities = ['Public']
+      # @communities.insert(0, 'Public') if !@communities.include?('Public')
       gon.adv_search_display = false
       gon.adv_search_status = 'open'
       gon.adv_search_order_by = 'asc'

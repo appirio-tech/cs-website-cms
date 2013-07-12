@@ -1,3 +1,25 @@
+function deleteAsset(row, asset_id) {
+  $('#' + row).fadeOut();
+  $.ajax({
+    type: 'GET',
+    url: '/admin/challenges/delete_asset?asset_id=' + asset_id,
+    success: function(results) { 
+      if (results == 'false') {
+        $('#' + row).show();
+        alert('There was an error deleting this Asset. Please contact support.');
+      } else {
+        $('#' + row).remove();
+        // remove the table if there are no assets
+        if ($('#assetsTable tr').length == 1) $('#assetsTable').fadeOut();
+      }
+    },
+    failure: function(results) { 
+      $('#' + row).show();
+      alert('There was an error deleting this Asset. Please contact support.');
+    }      
+  });
+}
+
 function nextTab(elem) {
   $(elem + ' li.active')
     .next()

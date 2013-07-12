@@ -1,6 +1,6 @@
 class SubmissionDeliverable < ApiModel
   attr_accessor :id, :type, :url, :username, :comments, :language, 
-  	:username, :password, :hosting_platform, :deleted
+  	:username, :password, :hosting_platform, :deleted, :challenge_participant
 
   def self.api_endpoint
     "challenges"

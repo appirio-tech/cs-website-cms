@@ -1,13 +1,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
-  rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
-  rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
+  # show the errors in dev
+  unless Rails.env.development?
+    rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
+    rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
+    rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
+  end
 
   before_filter :set_access_token
   before_filter :set_gon_variables
   before_filter :get_platform_stats
+
+  after_filter  :set_csrf_cookie_for_madison
 
   def set_access_token
     ApiModel.access_token = current_access_token
@@ -20,13 +25,7 @@ class ApplicationController < ActionController::Base
 
   def get_platform_stats
     @platform_stats = CsPlatform.stats  
-  end   
-
-  def authorize
-    if current_user && current_user.email == 'jdouglas@appirio.com'
-      Rack::MiniProfiler.authorize_request
-    end
-  end     
+  end    
 
   def show_welcome_page?
     false
@@ -52,6 +51,16 @@ class ApplicationController < ActionController::Base
     User.admin_access_token
   end    
 
+  def set_csrf_cookie_for_madison
+    cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end      
+
+  protected
+
+    def verified_request?
+      super || form_authenticity_token == request.headers['X_XSRF_TOKEN']
+    end  
+
   private
 
     def after_sign_in_path_for(resource)
@@ -59,17 +68,16 @@ class ApplicationController < ActionController::Base
     end  
 
     def current_access_token
-      if current_user.nil?
-        guest_access_token
-      else
+      if current_user
         if current_user.access_token
-          # temp
           current_user.last_access_token_refresh_at = Date.yesterday if current_user.last_access_token_refresh_at.nil?
-          logger.info "[APPLICATION] Has Access Token expired?: #{Time.now.utc} > 60minutes past #{current_user.last_access_token_refresh_at} - expired #{Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)}"
+          logger.info "[ACCESS_TOKEN] Has access token expired?: #{Time.now.utc} (Now) > 45 minutes past last refresh #{current_user.last_access_token_refresh_at.getutc} - expired? #{Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)}"
           # check and see if it's an hour old
-          if Time.now.utc > 60.minutes.since(current_user.last_access_token_refresh_at)
+          if Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)
+            logger.info "[ACCESS_TOKEN] Updating token from salesforce"
             current_user.update_with_sfdc_info     
           else
+            logger.info "[ACCESS_TOKEN] Returning current access token in db"
             current_user.access_token
           end
         else

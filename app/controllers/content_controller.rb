@@ -2,6 +2,10 @@ require 'base64'
 require 'js_connect'
 
 class ContentController < ApplicationController
+
+  def madison
+    render :layout => 'madison', :nothing => true
+  end
   
   def forums
 

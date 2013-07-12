@@ -10,6 +10,7 @@
   .rating td.weight { width: 100px; font-size: 120%; padding: auto 20px; }
   .rating td.desc { width: 54%; text-align: left; }
   .rating td.options { text-align: center; width: 20%; }
+  .question-comments { width: 750px; height: 75px;}  
 </style>    
 
 <!-- CONTENT
@@ -17,8 +18,16 @@
 <div class="content-wrapper">
 <div class="container">
 
-    <div class="title"><h1><%= @participant.member.name.upcase %></h1></div>
+    <div class="title"><h1>SCORECARD FOR <%= @participant.member.name.upcase %></h1></div>
     <div class="content">
+
+        <div class="title"><h1>CHALLENGE</h1></div>
+
+        <%= link_to @challenge.name, challenge_path(@challenge) %>
+        <div><%= platform_and_technology_tag_links(@challenge) %></div>
+        <div><%= raw(@challenge.description) %></div>
+        <div><%= raw(@challenge.post_reg_info) if @challenge.post_reg_info %></div>
+
         <div class="title"><h1>SUBMITTED ASSETS</h1></div>
 
         <table class="table table-hover table-bordered">
@@ -33,10 +42,20 @@
         <% @submissions.each do |s| %>
         <tr>
           <td><%= s.type %></td>
-          <td width="45%"><%= link_to s.url, s.url, :target => '_blank' %></td>
+          <td width="45%"><%= link_to s.url.split('/').last, s.url, :target => '_blank' %></td>
           <td width="50%"><%= s.comments %></td>
         </tr>
-        <% end %>        
+        <% end %>  
+        <tr>
+          <td>PDF</td>
+          <td width="45%"><%= link_to 'CheckMarx Scan Results', "http://cs-thurgood.s3.amazonaws.com/results/#{@participant.challenge.challenge_id}/#{@participant.member.name}/cx-report.pdf", :target => '_blank' %></td>
+          <td width="50%">The results file will only be available if the scanning process was successful. Otherwise you will receive an "AccessDenied" message.</td>
+        </tr>    
+        <tr>
+          <td>Log</td>
+          <td width="45%"><%= link_to 'Papertrail submission log', papertrail_challenge_path(@participant.challenge, {:participant_id => @participant.id}), :target => '_blank' %></td>
+          <td width="50%">Low-level details on the unit test, security scanning and more.</td>
+        </tr>                         
         </tbody>
         </table>        
 

@@ -5,6 +5,12 @@ class MessagesController < ApplicationController
     flash.now[:notice] = 'Message successfully sent.' if params[:sent]
     m = Member.new(:name => current_user.username)
     @all_messages = MessageBox.new(current_user.username, m.inbox, m.from)
+    respond_to do |format|
+      format.html
+      format.json { 
+        render :json => @all_messages.to_messages.select { |m| m if m['status'] == 'unread' }
+      }
+    end         
   end
 
   def show

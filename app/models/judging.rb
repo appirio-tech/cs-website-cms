@@ -19,9 +19,9 @@ class Judging < ApiModel
     http_get("judging/scorecard/#{participant_id}", {judge_membername: judge_membername})
   end
 
-  def self.save_scorecard(participant_id, answers, data) 
+  def self.save_scorecard(participant_id, answers, comments, data) 
     http_put("judging/scorecard/#{participant_id}", 
-      {:answers => answers, :options => data})
+      {:answers => answers, :comments => comments, :options => data})
   end
 
 end

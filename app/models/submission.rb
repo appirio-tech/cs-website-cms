@@ -107,21 +107,17 @@ class Submission < ApiModel
   end
 
   def delete_deliverable(deliverable_id)
-    puts "delete_deliverable"
-
-    # needs delete endpoint
+    fields = {
+      id: deliverable_id,
+      deleted: true
+    }
+    self.class.http_put "participants/#{username}/#{challenge_id}/deliverable", {'fields' => fields}
   end
 
   def destroy_deliverable(deliverable_id)
+
     deliverable = find_deliverable(deliverable_id)
     deliverable = deliverable.raw_data
-
-    # destroy the deliverable file if it is stored in S3
-    if deliverable.source == "storage"
-      file = storage.files.get deliverable.url
-      puts file
-      file.destroy if file
-    end
 
     # after destroying the deliverable file, delete the deliverable entry too
     delete_deliverable(deliverable_id)

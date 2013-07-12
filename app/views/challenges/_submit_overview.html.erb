@@ -1,0 +1,71 @@
+<style type="text/css">
+  .jqTransformSelectWrapper ul {
+    height: auto !important;
+  }
+
+  .select2-container-multi div {
+    height: auto;
+    margin: 2px 2px 2px 8px;
+    color: #222;
+  }
+
+  .select2-container-multi .select2-choices {
+    min-height: 26px;
+    padding: 4px 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: none;
+  } 
+
+  .select2-container-multi.select2-dropdown-open .select2-choices {
+    border-radius: 4px 4px 0 0;
+    border: 1px solid #999;
+  } 
+
+  .select2-container-multi.select2-dropdown-open.select2-drop-above .select2-choices {
+    border-radius: 0 0 4px 4px;
+  }
+
+  .jqTransformInputInner .select2-container-multi div {
+    height: auto;
+    margin: 2px 2px 2px 8px;
+    color: #222;
+  }
+
+  .jqTransformInputInner .datepicker {
+    width: 500px !important;
+    height: 160px !important;
+  }
+
+  .form-nav {
+    padding: 8px 20px;
+    background-color: #f8f8f8;
+  }
+
+  #prize-set .jqTransformInputWrapper[style] {
+    width: 72px !important;
+  }
+  #prize-set .jqTransformInput {
+    width: 48px;
+  }
+</style>
+
+<div class="title" style="margin-top:10px;margin-bottom:15px"><h1>TELL US ABOUT YOUR SUBMISSION</h1></div>
+
+<p>Tell us a litte about your application? What cool technologies or awesome approach to solving a problem did you use? We'll pass along all of your
+info to the judges so they'll have a better grasp of your application when going through it and won't miss some of the awesome work you've done.</p>
+
+<%= simple_form_for @current_member_participant, url: submit_details_challenge_path(@challenge), html: {:id => 'submission_details', class: "form-horizontal jqTransform"} do |f| %>
+
+    <div style="padding-left:30px; padding-bottom:40px"><%= f.text_area :submission_overview, :class => 'ckeditor' %></div>
+
+    <%= f.input :languages, label: 'Languages Used', collection: @participant_metadata[:languages], required: false, input_html: {multiple: true, style: "width: 450px", class: "select2"} %>
+
+    <%= f.input :technologies,  label: 'Technologies Used', collection: @participant_metadata[:technologies], required: false, input_html: {multiple: true, style: "width: 450px", class: "select2"} %>
+
+    <%= f.input :paas, label: 'Platforms Used', collection: @participant_metadata[:platforms], required: false, input_html: {multiple: true, style: "width: 450px", class: "select2"} %>  
+
+    <div class="control-group">
+        <a class="btn pull-right" onclick="document.getElementById('submission_details').submit();"><span>SAVE</span></a>
+    </div>
+<% end %>

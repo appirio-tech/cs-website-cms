@@ -106,6 +106,7 @@ class window.Submission
         drag_drop_area.text("Drag and Drop Files Here to upload")
 
   showDeliverableFormForUpdate: (ele) ->
+    alert "I am updating"
     $(".deliverable form").remove()
     self = this
     deliverable = $(ele).parents(".deliverable").data("deliverable")

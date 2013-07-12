@@ -8,7 +8,7 @@ class Participant < ApiModel
   end  
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
-    :country, :total_wins, :total_public_money, :override_submission_upload,
+    :country, :total_wins, :total_money, :override_submission_upload,
     :apis, :paas, :languages, :technologies, :submission_overview
 
   # Cleanup up the __r convention
@@ -34,26 +34,27 @@ class Participant < ApiModel
   end 
 
   def update
-    #params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }.to_safe_values
     params = {apis: apis, paas: paas, languages: languages, technologies: technologies, submission_overview: submission_overview }
     self.class.http_put "participants/#{member.name}/#{challenge.challenge_id}", {'fields' => params}
   end
 
+  def send_message_to_thurgood_logger(text)
+    # get the job id for the participant
+    job_id = RestforceUtils.query_salesforce("select thurgood_job_id__c from 
+      challenge_participant__c where id = '#{@id}'").first.thurgood_job_id
+    Thurgood.send_message(job_id, text) if job_id
+  end  
+
   def create_deliverable(challenge_id, membername, deliverable)
-    self.class.http_post "participants/#{member.name}/#{challenge_id}/deliverable", {data: deliverable}
+    self.class.http_post "participants/#{membername}/#{challenge_id}/deliverable", {data: deliverable}
   end
 
   def update_deliverable(challenge_id, membername, deliverable)
     massaged_deliverable = {}
     # remove the raw data data attributes so it doesn't get pushed to the api and crash it
     SubmissionDeliverable.column_names.each {|col| massaged_deliverable[col] = eval("deliverable.#{col}") }
-    self.class.http_put "participants/#{member.name}/#{challenge_id}/deliverable", {data: massaged_deliverable}
+    self.class.http_put "participants/#{membername}/#{challenge_id}/deliverable", {data: massaged_deliverable}
   end  
-
-  # kicks off the squirrelforce process
-  def deploy_deliverable(submission_deliverable_id)
-    self.class.http_get "squirrelforce/unleash_squirrel/#{submission_deliverable_id}"
-  end   
 
   # temp till we move to new submissions
   def save_submission_file_or_url(challenge_id, params)

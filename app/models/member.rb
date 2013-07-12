@@ -2,7 +2,7 @@ class Member < ApiModel
   attr_accessor :id, :name, :profile_pic, :attributes,
     :challenges_entered, :active_challenges, :time_zone,
     :total_1st_place, :total_2nd_place, :total_3st_place,
-    :total_wins, :total_public_money, :total_points, :valid_submissions,
+    :total_wins, :total_money, :total_points, :valid_submissions,
     :summary_bio, :quote, :percent_submitted,
     :first_name, :last_name, :email, :address_line1, :address_line2, :city, :zip, :state, :phone_mobile, :time_zone, :country,
     :preferred_payment, :paperwork_received, :paperwork_sent, :paperwork_year, :paypal_payment_address,
@@ -27,34 +27,24 @@ class Member < ApiModel
     name
   end
 
-  def active_challenges
-    active_challenges = []
-    challenges.each do |c|
-      if !c.challenge_participants.records.first.status.eql?('Watching') && c.active?
-        active_challenges << c
-      end
-    end
-    active_challenges
+  def all_challenges
+    self.class.http_get "members/#{name}/challenges"
+  end
+
+  def all_past_challenges(offset=0)
+    self.class.http_get("members/#{name}/challenges/past?offset=#{offset}")
+  end        
+
+  def active_challenges(all_challenges)
+    all_challenges.active.map {|challenge| Challenge.new challenge}
   end  
 
-  def watching_challenges
-    watching_challenges = []
-    challenges.each do |c|
-      if c.challenge_participants.records.first.status.eql?('Watching') && c.active?
-        watching_challenges << c
-      end
-    end
-    watching_challenges
+  def watching_challenges(all_challenges)
+    all_challenges.watching.map {|challenge| Challenge.new challenge}
   end    
 
-  def past_challenges
-    past_challenges = []
-    challenges.each do |c|
-      if c.challenge_participants.records.first.has_submission
-        past_challenges << c
-      end
-    end
-    past_challenges
+  def past_challenges(all_challenges)
+    all_challenges.past.map {|challenge| Challenge.new challenge}
   end
 
   def self.login_type(membername)
@@ -67,6 +57,28 @@ class Member < ApiModel
 
   def from
     self.class.http_get("messages/from/#{@name}").map {|message| Message.new message}
+  end
+
+  def create_badgeville_account
+      # create the badgeville user
+      Badgeville.create_user(@name, @email.downcase)
+      #create the badgeville player
+      player_id = Badgeville.create_player(@name.downcase, @email.downcase)
+      unless player_id.nil?
+        Badgeville.send_site_registration player_id
+        # update sfdc with badgeville player id
+        Member.http_put("members/#{@name}", {"Badgeville_Id__c" => player_id})
+      end      
+  end      
+
+  def update_country_from_ip(remote_ip)
+    unless ['127.0.0.1', 'localhost'].include?(remote_ip)
+      if @country.nil?
+        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")    
+        geo_data = @geoip.country(remote_ip)
+        Member.http_put("members/#{@name}", {"Country__c" => geo_data['country_name']})  unless geo_data.nil? 
+      end
+    end
   end    
 
 end
