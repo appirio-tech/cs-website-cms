@@ -18,8 +18,7 @@
                     <div class="row-fluid">
                         <%= image_tag(s.challenge_participant__r.member__r.profile_pic, :width => '75x75', :class => 'pull-left photo') %>
                         Member : <%= link_to s.challenge_participant__r.member__r.name, member_path(s.challenge_participant__r.member__r.name), :target => '_blank' %><br/>
-                        Submitted : <%= participant_submission_date(Time.parse(s.challenge_participant__r.submitted_date).getutc) %><br/>
-                        Current Score : <%= s.challenge_participant__r.score %>
+                        Submitted : <%= participant_submission_date(Time.parse(s.challenge_participant__r.submitted_date).getutc) %>
                     </div>
                     <a class="btn pull-right-bottom" href="<%= participant_scorecard_path(s.challenge_participant) %>"><span>REVIEW</span></a>
                 </div>
