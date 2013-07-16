@@ -5,7 +5,7 @@
   <div class="main">
     <div class="text"> <%= raw(comment.comment) %> </div>
     <div class="info">
-      <span class="name"><%= link_to comment.member.name, member_path(comment.member.name), :target => '_blank' %> <% if comment.from_challenge_admin %>(admin)<% end %></span>,
+      <span class="name"><%= link_to comment.member.name, member_path(comment.member.name), :target => '_blank' %><% if comment.from_challenge_admin %> (admin)<% end %></span>,
       <span class="time"><%= format_date_time(comment.createddate) %></span>
       <% unless comment.reply? %>
         <%= link_to "reply", challenge_path(challenge, reply_to: comment.id, anchor: "new-comment-form") %>
