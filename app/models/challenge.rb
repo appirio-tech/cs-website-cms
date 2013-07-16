@@ -285,18 +285,20 @@ class Challenge < ApiModel
   end  
 
   # member must be registered in order to view restricted challenge
-  def show_assets?(participant)
-    show_restricted_info(participant)
+  def show_assets?(participant, user)
+    show_restricted_info(participant, user)
   end
 
   # member must be registered in order to view restricted challenge
-  def show_discussion_board?(participant)
-    show_restricted_info(participant)
+  def show_discussion_board?(participant, user)
+    show_restricted_info(participant, user)
   end    
 
   private
 
-    def show_restricted_info(participant)
+    def show_restricted_info(participant, user)
+      # if a challenge admin always return true!
+      return true if user && user.challenge_admin?(self)
       if @require_registration
         return false if participant.nil?
         if ['not registered', 'watching'].include?(participant.status.downcase)

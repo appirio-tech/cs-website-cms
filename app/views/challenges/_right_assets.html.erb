@@ -2,7 +2,7 @@
 
   <h2>ASSETS</h2>
   
-  <% if challenge.show_assets?(@current_member_participant) %>
+  <% if challenge.show_assets?(@current_member_participant, current_user) %>
 
     <p><ol>
       <% challenge.assets.each do |asset| %>
