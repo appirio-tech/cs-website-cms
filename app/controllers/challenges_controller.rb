@@ -10,6 +10,7 @@ class ChallengesController < ApplicationController
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
     :appeals]
+  before_filter :throw_404_for_draft_challenge, :only => [:show]    
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, :submit_details, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
@@ -325,6 +326,10 @@ class ChallengesController < ApplicationController
   
     def current_challenge
       @current_challenge ||= Challenge.find params[:id]
+    end
+
+    def throw_404_for_draft_challenge
+      raise ApiExceptions::EntityNotFoundError.new if ['draft','hidden'].include?(@challenge.status.downcase)
     end
 
     def all_platforms
