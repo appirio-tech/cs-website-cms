@@ -103,7 +103,7 @@ class ChallengesController < ApplicationController
   end  
 
   def show
-    @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+    @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => 5.minute) do
       current_challenge.comments
     end
     @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by") if @challenge.status.downcase.eql?('draft')
@@ -221,7 +221,8 @@ class ChallengesController < ApplicationController
     submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
-      send_task_submission_notification if %(task first2finish).include?(@challenge.challenge_type.downcase)
+      # delete the cache in case sfdc send an comment
+      delete_comments_cache
       # kick off the thurgood process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
@@ -383,15 +384,6 @@ class ChallengesController < ApplicationController
     def must_be_registered
       redirect_to challenge_path, :alert => 'You must be registered for this challenge before can submit.' if ['not registered','watching'].include?(@current_member_participant.status.downcase)
     end 
-
-    def send_task_submission_notification
-      # if they don't have a submission yet then they are uplaoding their first one
-      if !@current_member_participant.has_submission
-        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this challenge.'}
-        @challenge.create_comment(notification)
-        delete_comments_cache
-      end
-    end   
 
     def restrict_appeallate_member
       being_appealed = RestforceUtils.query_salesforce("select id, being_appealed__c 
