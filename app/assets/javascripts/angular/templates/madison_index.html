@@ -144,7 +144,10 @@ function limitText(limitField, limitNum) {
         <div class="tab-pane active" id="requirements">
           
             <div ng-repeat="req in requirements" style="padding-bottom:25px">
-              <div style="margin-bottom:15px">{{req.description}}</div>
+              <div style="margin-bottom:15px">{{req.description}}
+              <div ng-show="req.section == 'Functional'">
+              <i style="font-size:11px">This requirements will display on the challenge description as a bullet point in addition to displaying on the scorecard.</i></div>
+              </div>
 
               <div ng-show="use_advanced_features" style="margin-bottom:15px">
                 <small>
