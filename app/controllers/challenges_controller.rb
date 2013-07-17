@@ -10,6 +10,7 @@ class ChallengesController < ApplicationController
   before_filter :load_current_challenge, :only => [:show, :preview, :participants, 
     :submit, :submit_url, :submit_file, :submissions, :results, :scorecard, :comment, :survey,
     :appeals]
+  before_filter :throw_404_for_draft_challenge, :only => [:show]    
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, :submit_details, 
     :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
@@ -103,7 +104,7 @@ class ChallengesController < ApplicationController
   end  
 
   def show
-    @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+    @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => 5.minute) do
       current_challenge.comments
     end
     @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by") if @challenge.status.downcase.eql?('draft')
@@ -221,7 +222,8 @@ class ChallengesController < ApplicationController
     submission_results = @current_member_participant.save_submission_file_or_url(@challenge.challenge_id, params[:file_submission])
     if submission_results.success.to_bool
       flash[:notice] = "File successfully submitted for this challenge."
-      send_task_submission_notification if %(task first2finish).include?(@challenge.challenge_type.downcase)
+      # delete the cache in case sfdc send an comment
+      delete_comments_cache
       # kick off the thurgood process
       Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
         current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
@@ -252,12 +254,12 @@ class ChallengesController < ApplicationController
   # if not signed in, the status must be 'winner selected' or 'no winner selected'
   def results
     if user_signed_in?
-      unless ['winner selected','no winner selected'].include?(@challenge.status.downcase) || 
+      unless ['winner selected','no winner selected','failed','no winner selected'].include?(@challenge.status.downcase) || 
         (current_user.challenge_admin?(@challenge) && ['review','scored - awaiting approval'].include?(@challenge.status.downcase))
         redirect_to challenge_path, :alert => 'Results are not available at this time.' 
       end
     else
-      unless ['winner selected','no winner selected'].include?(@challenge.status.downcase)
+      unless ['winner selected','no winner selected','failed','no winner selected'].include?(@challenge.status.downcase)
         redirect_to challenge_path, :alert => 'Results are not available at this time.' 
       end
     end
@@ -326,6 +328,10 @@ class ChallengesController < ApplicationController
       @current_challenge ||= Challenge.find params[:id]
     end
 
+    def throw_404_for_draft_challenge
+      raise ApiExceptions::EntityNotFoundError.new if ['draft','hidden'].include?(@challenge.status.downcase)
+    end
+
     def all_platforms
       Rails.cache.fetch('all-platforms', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Platform.names
@@ -383,15 +389,6 @@ class ChallengesController < ApplicationController
     def must_be_registered
       redirect_to challenge_path, :alert => 'You must be registered for this challenge before can submit.' if ['not registered','watching'].include?(@current_member_participant.status.downcase)
     end 
-
-    def send_task_submission_notification
-      # if they don't have a submission yet then they are uplaoding their first one
-      if !@current_member_participant.has_submission
-        notification = {membername: 'clyde', comments: 'A new submission has been uploaded for this challenge.'}
-        @challenge.create_comment(notification)
-        delete_comments_cache
-      end
-    end   
 
     def restrict_appeallate_member
       being_appealed = RestforceUtils.query_salesforce("select id, being_appealed__c 

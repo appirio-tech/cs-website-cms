@@ -123,6 +123,14 @@
         </div><!-- /.navbar-inner -->
       </div><!-- /.navbar -->
 
+      <% if @community_tick ||  @challenges_tick || @leaderboard_tick %>
+      <div id="globalSearch">
+        <form class="form-search jqTransform pull-right">
+          <input type="text" class="search-query typeahead" placeholder="Search Members or Challenges"/>
+          <a href="#" class="btn-search"></a>
+        </form>
+      </div>
+      <% end %>
     </div> <!-- /.container -->
   </div>
 

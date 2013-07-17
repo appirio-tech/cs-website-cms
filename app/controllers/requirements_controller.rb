@@ -1,6 +1,9 @@
 class RequirementsController < ApplicationController
   respond_to :json
 
+  # this controller CRUDs data to postgres plus Salesforce using Resque. For testing you can
+  # comments out the portion to Salesforce.
+
   def index
     if params[:challenge_id]
       respond_with Requirement.where("challenge_id = ?", params[:challenge_id]).order("order_by")

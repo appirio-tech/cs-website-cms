@@ -7,20 +7,54 @@ function openInSalesforce(id) {
 <%= csrf_meta_tag %>
 <%= content_wrapper do %>
 
-  <div class="title" style="margin-bottom:5px"><h1>CHALLENGE ADMIN</h1></div>
+<script type="text/javascript" charset="utf-8" language="javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+<%= stylesheet_link_tag "DT_bootstrap" %>
+<%= javascript_include_tag "DT_bootstrap" %>
 
-  <div class="span10">
+<script type="text/javascript">
+function watchChange() {
+  window.location.href = '/admin/challenges?account=' + $("#form_account select").val();
+}
 
-    <% if @sponsors %>
-      <div class="pull-right" style="padding-bottom: 20px">
-          <form id="form_account" class="form-horizontal jqTransform" action="/admin/challenges">
-          <label class="control-label" style="padding-right:10px" for="accounts">Show Challenges for: </label>
-          <select name="account">
-            <% @sponsors.each do |s| %><option value="<%= s.id %>" <% if s.id == @administering_account %>selected <% end %>><%= s.name %></option><% end %>
-          </select> <a class="btn btn-primary" type="button" onclick="$('#form_account').submit();"><span>Go</span></a>
-          </form>
-      </div>
-    <% end %>
+window.onload = function() {
+  // hide the global search
+  <% if @sponsors %>
+    // hide the challenge and member search
+    $('.form-search').hide();
+    // append the form for changing sponsors
+    $('#globalSearch').append('<form id="form_account" class="form-horizontal jqTransform pull-right" action="/admin/challenges"><label class="control-label" style="padding-right:10px" for="accounts">Show Challenges for: </label><select name="account" onchange="watchChange();"><% @sponsors.each do |s| %><option value="<%= s.id %>" <% if s.id == @administering_account %>selected <% end %>><%= s.name %></option><% end %></select></form>');
+  <% end %>
+  $("#challenges_filter input").focus();
+}
+</script>
+
+<style type="text/css">
+  #form_account select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: none;
+  }   
+
+  #challenges_filter input {
+    min-height: 26px;
+    padding: 4px 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: none;
+  } 
+
+  #challenges_length select {
+      min-height: 26px;
+      padding: 4px 2px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: none;
+  }   
+  </style>
+
+  <div class="title" style="margin-bottom:5px;margin-top:0px"><h1>CHALLENGE ADMIN</h1></div>
+
+  <div class="span11">
 
     <table border="0" width="100%">
     <tr>
@@ -32,8 +66,8 @@ function openInSalesforce(id) {
     </table>
 
     <div style="clear: both;"></div><br/>
-   
-    <table class="table table-hover table-bordered">
+
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="challenges">
       <thead>
         <tr>
           <th>Name</th>
@@ -41,24 +75,20 @@ function openInSalesforce(id) {
           <th>Status</th>
           <th>Category</th>
           <th>Contact</th>
-          <th>Registered</th>
-          <th>Submissions</th>
         </tr>
       </thead>
       <tbody>
         <% @challenges.each do |challenge| %>
-        <tr>
+        <tr class="odd gradeX">
           <td><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %> <%= link_to image_tag('open.png'), challenge_path(challenge.challenge_id), :target => '_blank' %></td>
           <td><div onclick="openInSalesforce('<%= challenge.id %>')"><%= challenge.challenge_id %></div></td>
           <td><%= challenge.status %></td>
           <td><%= challenge.challenge_type %></td>
           <td><%= challenge.contact %></td>
-          <td><%= challenge.registered_members.to_i %></td>
-          <td><%= challenge.submissions.to_i %></td>
         </tr>
-        <% end %>        
+        <% end %>
       </tbody>
-    </table>
+    </table>    
 
   </div>
 

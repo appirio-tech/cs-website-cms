@@ -1,0 +1,10 @@
+<%= f.input :status, required: true, label: 'Status', collection: @challenge.statuses, default: 'Draft' %>
+
+<%= f.input :account, required: true, label: 'Sponsor', collection: @sponsors, default: @challenge.account %>
+
+<%= f.input :terms_of_service, required: false, label: 'TOS', collection: @terms_of_service, default: @challenge.terms_of_service %>
+
+<%= f.input :require_registration, required: true, label: 'Restrict Assets?', collection: [['Yes', true] ,['No', false]], default: 'No' %>
+
+<%= f.input :post_reg_info, :as => :text, label: 'Post Reg Info', input_html: { :class => 'ckeditor' }, 
+  hint: 'Private info which is only visible after a person registers for a challenge.' %>

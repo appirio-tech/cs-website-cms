@@ -1,3 +1,7 @@
+<p align="center" style="color:red">Be careful when pasting from a Word or Google doc. You may have better luck using the 'Paste as Plain Text'<br/> or 'Paste from Word' buttons in the editor below and then just making your changes.</p>
+
+<%= f.input :description, label: 'Overview', required: true, :as => :text, input_html: { :class => 'ckeditor' } %>
+
 <% if @can_edit_challenge_requirements %>
 
   <% if params[:use_madison] %>
@@ -33,9 +37,3 @@
 <% end %>
 
 <%= f.input :requirements, :as => :text, input_html: { :class => 'ckeditor', :disabled => !@can_edit_challenge_requirements } %> 
-
-<div class="control-group">
-  <div class="controls">
-      <span class="help-inline">Becareful when pasting from a Word or Google doc. You may have better luck using the Paste as Plain Text or Paste from Word and then just making your changes.</span>
-  </div>
-</div>

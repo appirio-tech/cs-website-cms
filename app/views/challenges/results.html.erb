@@ -11,7 +11,7 @@
 
     <p>If you submitted for this challenge then you are also able to view everyone else's submission after the results are final. Click the "Scorecard" link below and feel free to download their code, watch their videos and read their documentation to learn from their submission.</p>
 
-    <% if @challenge.challenge_type.downcase == 'task' %>      
+    <% if ['task','first2finish'].include?(@challenge.challenge_type.downcase)%>
       <p><strong>This challenge was a 'first to finish' task!</strong> Submissions were judged the order in which they were received. If the first submission passed review then the participant was declared the winner. If the submission did not pass review, the next person's code was judged and so on, until we either declared a winning submission or exhausted all submissions. We only pay first place prize money for first to finish tasks.</p>
     <% end %>
 
