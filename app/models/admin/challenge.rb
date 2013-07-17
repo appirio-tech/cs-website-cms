@@ -22,7 +22,8 @@ class Admin::Challenge
                 :status, :start_date, :requirements, :name, :end_date, :description, :community_judging, :additional_info,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
                 :assets, :challenge_type, :comments, :challenge_id, :submissions, :post_reg_info, :require_registration,
-                :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time
+                :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time, :days_till_close, 
+                :private_challenge, :page_views
 
   # Add validators as you like :)
   validates :name, presence: true

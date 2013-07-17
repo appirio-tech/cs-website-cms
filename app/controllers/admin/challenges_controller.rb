@@ -8,7 +8,8 @@ class Admin::ChallengesController < ApplicationController
     @administering_account = current_user.accountid
     @administering_account = params[:account] if params[:account]
     @challenges = RestforceUtils.query_salesforce("select id, name, challenge_id__c, status__c, 
-      challenge_type__c, registered_members__c, submissions__c, contact__r.name
+      challenge_type__c, registered_members__c, submissions__c, contact__r.name, days_till_close__c,
+      end_date__c, page_views__c, private_challenge__c
       from challenge__c where status__c IN ('Draft','Open for Submissions') 
       and account__c = '#{@administering_account}'
       order by status__c, end_date__c desc", current_user.access_token)

@@ -24,6 +24,13 @@
 
     <!-- start Google analytics -->
     <script type="text/javascript">
+      // show the tooltip
+      $(document).ready(function() {
+          try {
+            $('.tooltip').tooltipster();
+          } catch (e) { }
+      });      
+
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-776185-13']);
       _gaq.push(['_trackPageview']);
