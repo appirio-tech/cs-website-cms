@@ -1983,12 +1983,14 @@ table th[class*="span"],
 }
 
 .dropdown-menu {
+    border-top: 1px solid #ffffff;
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
   display: none;
   float: left;
+    width: 100%;
   /*min-width: 160px;*/
   /*padding: 5px 0;*/
   margin: 0;
@@ -2026,7 +2028,7 @@ table th[class*="span"],
 
 .dropdown-menu li > a {
   display: block;
-  padding: 3px 10px;
+  padding: 3px 15px;
   clear: both;
   font-weight: normal;
   line-height: 39px;
@@ -2251,7 +2253,7 @@ table th[class*="span"],
 .collapse {
   position: relative;
   height: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
   -webkit-transition: height 0.35s ease;
      -moz-transition: height 0.35s ease;
        -o-transition: height 0.35s ease;
@@ -2718,21 +2720,24 @@ table th[class*="span"],
 }
 
 .nav {
-  float: right;
-  font-size: 11.9px;
+  /*float: right;*/
+  /*font-size: 11.9px;*/
   list-style: none;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 
 .nav li {
-  /*display: inline-block;*/
-  /**display: inline;*/
+  display: inline-block;
+  *display: inline;
   /*padding-top: 43px;*/
-  /*margin-left: 22px;*/
-    border-top: 1px solid #ffffff;
+  margin-left: 10px;
+    /*border-top: 1px solid #ffffff;*/
   *zoom: 1;
+    line-height: 39px;
 }
-
+.nav li li{
+    margin-left: 0;
+}
 .nav li.active a {
   color: #787878;
 }
@@ -3551,3 +3556,4 @@ table th[class*="span"],
 .affix {
   position: fixed;
 }
+

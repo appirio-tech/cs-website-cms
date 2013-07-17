@@ -221,7 +221,7 @@ form.invite-friends .item {
 }
 .banner h1{
     font-size: 50px;
-    width: 625px;
+    padding-right: 350px;
     color: #ffffff;
     font-weight: bold;
     line-height: 120%;
@@ -229,7 +229,7 @@ form.invite-friends .item {
 }
 .banner h2{
     font-size: 32px;
-    width: 625px;
+    padding-right: 350px;
     color: #dddddd;
     line-height: 120%;
     margin: 0;

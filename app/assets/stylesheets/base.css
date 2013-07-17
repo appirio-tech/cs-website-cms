@@ -146,9 +146,12 @@
   clear: both;
 }
 
-.nav-wrapper .logo {
-  float: left;
-  padding-top: 16px;
+.logo {
+  display: block;
+    margin: 30px 0 10px 0;
+}
+.navbar{
+    position: relative;
 }
 
 .nav-wrapper .logo.active {
@@ -2196,4 +2199,53 @@ h2.center{
     background: none !important;
     color: #999 !important;
     text-align: center;
+}
+
+.navbar .btn-navbar{
+    padding: 7px 10px;
+}
+.navbar .btn-navbar .icon-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #f5f5f5;
+    padding: 0;
+}
+.btn-navbar .icon-bar + .icon-bar {
+    margin-top: 3px;
+}
+
+.nav li a{
+    font-size: 16px;
+    text-indent: 10px;
+}
+.navbar .btn-navbar {
+    display: none;
+}
+
+.navbar-inverse .nav-collapse .nav > li a{
+    padding: 0 15px;
+    text-indent: 0;
+}
+.navbar-inverse .nav-collapse .dropdown > a{
+    padding-right: 35px !important;
+}
+.navbar-inverse .nav-collapse .nav > li li{
+    width: 100%;
+}
+.navbar-inverse .nav-collapse .nav > li > a,
+.navbar-inverse .nav-collapse .dropdown-menu a {
+    color: #ffffff;
+    background: #f8941e;
+}
+.navbar-inverse .nav-collapse .dropdown-menu a{
+    padding-left: 0;
+    margin-left: 0;
+}
+.navbar-inverse .nav-collapse .dropdown-menu a:hover {
+    color: #f8941e;
+    background-color: #fbead4;
+}
+.nav-collapse .dropdown-menu{
+    padding: 0;
 }

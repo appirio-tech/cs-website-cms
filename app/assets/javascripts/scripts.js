@@ -194,11 +194,6 @@ $(document).ready(function() {
     })
 
 
-    $('.dropdown-toggle').each(function() {
-        var menu=$(this).next(".dropdown-menu");
-        menu.width($(this).outerWidth());
-    })
-
     $('#login-modal input[type="submit"]').click(function() {
         if ($('#login-modal .error').length === 0) {
             $('#sign-in-btn').val('Processing....');
