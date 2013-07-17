@@ -1,12 +1,18 @@
 <%= simple_form_for @challenge, validate: true, :url => admin_challenge_path, :method => :put, html: { :class => 'form-horizontal jqTransform' } do |f| %>
   <%= f.hidden_field :challenge_id %>
   <%= f.hidden_field :contact %>
-  <%= f.hidden_field :status %>
   <%= f.hidden_field :community_judging %>
   <%= f.hidden_field :auto_announce_winners %> 
   <%= f.hidden_field :cmc_task %> 
-  <%= f.hidden_field :scorecard_type %> 
-  <%= f.hidden_field :terms_of_service %>   
+  <%= f.hidden_field :scorecard_type %>
+
+  <% unless current_user.sys_admin? %>
+    <%= f.hidden_field :account %>
+    <%= f.hidden_field :status %> 
+    <%= f.hidden_field :terms_of_service %>
+    <%= f.hidden_field :post_reg_info %>
+    <%= f.hidden_field :require_registration %>
+  <% end %>
 
   <style type="text/css">
     .jqTransformSelectWrapper ul {
@@ -57,6 +63,10 @@
     }
     #prize-set .jqTransformInput {
       width: 48px;
+    }
+
+    .help-block {
+      padding-left: 25px;
     }
   </style>
 

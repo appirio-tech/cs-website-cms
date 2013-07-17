@@ -1,8 +1,5 @@
 <%= f.input :submission_details, :as => :text, input_html: { :class => 'ckeditor' }, 
 	hint: 'Modify the submission details as necessary for your challenge.' %>
 
-<div class="control-group">
-  <div class="controls">
-      <span class="help-inline">Becareful when pasting from a Word or Google doc. You may have better luck using the Paste as Plain Text or Paste from Word and then just making your changes.</span>
-  </div>
-</div>
+<%= f.input :additional_info, label: 'Additional Info',:as => :text, input_html: { :class => 'ckeditor' }, 
+  hint: 'Any info such as links to articles, code snippets or software.' %>

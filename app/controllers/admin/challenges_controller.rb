@@ -42,6 +42,7 @@ class Admin::ChallengesController < ApplicationController
     data[:challenge_type] = 'Code'
     data[:community_judging] = true
     data[:auto_announce_winners] = false
+    data[:require_registration] = false
     data[:submission_details] = '<p>Upload all your source code as a zip (you can simply zip up 
       your Eclipse project for convenience) and provide any documentation and/or instructions that 
       are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
@@ -50,6 +51,7 @@ class Admin::ChallengesController < ApplicationController
     data[:end_date] = (Time.now+(4*60 * 60 * 24)).ctime # add 4 days
     data[:review_date] = (Date.today+6).ctime
     data[:winner_announced] = (Date.today+8).ctime
+    data[:terms_of_service] = 'Standard Terms & Conditions'
 
     data[:prizes] = [
         Hashie::Mash.new(:place => 1, :prize => '$500', :points => 500, :value => 500),
@@ -102,18 +104,22 @@ class Admin::ChallengesController < ApplicationController
     @all_platforms = all_platforms
     @all_technologies = all_technologies
 
-    @sponsors = all_sponsors if current_user.sys_admin?
-
-    # here there is one more step - assets
     @steps = [
-      Hashie::Mash.new(:shortname => "step1", :name => "Overview & Dates"),
-      Hashie::Mash.new(:shortname => "step2", :name => "Requirements"),
+      Hashie::Mash.new(:shortname => "step1", :name => "Basic Info"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Details"),
       Hashie::Mash.new(:shortname => "step3", :name => "Technologies"),
       Hashie::Mash.new(:shortname => "step4", :name => "Prizes"),
       Hashie::Mash.new(:shortname => "assets", :name => "Assets"),      
       Hashie::Mash.new(:shortname => "step5", :name => "Optional"),
       Hashie::Mash.new(:shortname => "review-update", :name => "Review & Save")
     ]
+
+    if current_user.sys_admin?
+      @sponsors = all_sponsors
+      @terms_of_service = all_terms_of_service
+      # if sys admin, add the admin tab
+      @steps.insert(-2, Hashie::Mash.new(:shortname => "admin", :name => "Admin")) 
+    end
 
   end
 
@@ -256,11 +262,18 @@ class Admin::ChallengesController < ApplicationController
 
     # all accounts marked as a 'sponsor'
     def all_sponsors
-      #Rails.cache.fetch('all-sponsors', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do 
+      Rails.cache.fetch('all-sponsors', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do 
         RestforceUtils.query_salesforce("select id, name from account where 
           type = 'sponsor' order by name", nil, :admin)
-      #end
-    end      
+      end
+    end     
+
+    def all_terms_of_service
+      Rails.cache.fetch('all-terms-of-service', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do 
+        RestforceUtils.query_salesforce("select id, name from terms_of_service__c 
+          order by name", nil, :admin)
+      end
+    end     
 
     # make sure users cannot edit challenges from another account
     def restrict_edit_by_account

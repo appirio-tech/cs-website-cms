@@ -19,24 +19,10 @@ class Admin::Challenge
   cattr_accessor :access_token
 
   attr_accessor  :id, :winner_announced, :review_date, :terms_of_service, :scorecard_type, :submission_details,
-                :status, :start_date, :requirements, :name, :end_date, :description, :community_judging,
+                :status, :start_date, :requirements, :name, :end_date, :description, :community_judging, :additional_info,
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
-                :assets, :challenge_type, :comments, :challenge_id, :submissions, 
+                :assets, :challenge_type, :comments, :challenge_id, :submissions, :post_reg_info, :require_registration,
                 :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time
-
-                # these are fields from the challenge api that need to be there so we can
-                # just "eat" the json and avoid the model from complaining that these
-                # fields don't exist
-
-                # IDEA FOR REFACTORING:
-                # We should instead have a slave ::Challenge object to consume the original
-                # challenge params and extract out whatever data we need. The way this is
-                # being implemented right now smells of feature envy.
-                # :attributes, :total_prize_money, :submissions, :usage_details, :is_open,
-                # :release_to_open_source, :post_reg_info, :prize_type, :discussion_board,
-                # :registered_members, :challenge_comments, :additional_info,
-                # :participating_members, :challenge_prizes,
-                # :top_prize, :id, :participants
 
   # Add validators as you like :)
   validates :name, presence: true
@@ -76,7 +62,8 @@ class Admin::Challenge
 
   def self.find(challenge_id)
     RestforceUtils.query_salesforce("select Name,Challenge_Type__c,Account__c,Contact__c,
-      Contact__r.Name,Terms_Of_Service__c,Scorecard_Type__c,Auto_Announce_Winners__c,
+      Require_Registration__c,Post_Reg_Info__c,Contact__r.Name,Terms_Of_Service__c,
+      Scorecard_Type__c,Auto_Announce_Winners__c, additional_info__c,
       Community_Judging__c,Description__c,End_Date__c,Requirements__c,Challenge_Id__c,
       Start_Date__c,Status__c,Submission_Details__c,Winner_Announced__c,Review_Date__c, 
       (Select Place__c, Prize__c, Value__c, Points__c From Challenge_Prizes__r order by Place__c), 
@@ -209,6 +196,7 @@ class Admin::Challenge
           end_date: end_date.to_time.iso8601,
           description: description,
           comments: comments,
+          additional_info: additional_info,
           challenge_type: challenge_type,
           community_judging: community_judging,
           auto_announce_winners: auto_announce_winners,
@@ -216,13 +204,15 @@ class Admin::Challenge
           community_judging: community_judging,
           auto_announce_winners: auto_announce_winners,
           cmc_task: cmc_task,
-          challenge_id: challenge_id
+          challenge_id: challenge_id,
+          post_reg_info: post_reg_info,
+          require_registration: require_registration
         },
-        reviewers: reviewers.map {|name| {name: name}},
+        reviewers: reviewers.map {|name| {name: name}}, # not being updated in sfdc
         platforms: platforms.map {|name| {name: name}},
         technologies: technologies.map {|name| {name: name}},
         prizes: prizes,
-        commentNotifiers: commentNotifiers.map {|name| {name: name}},
+        commentNotifiers: commentNotifiers.map {|name| {name: name}}, # not being updated in sfdc
         assets: assets.map {|filename| {filename: filename}},
       }
     }
