@@ -16,7 +16,7 @@ class Admin::ChallengesController < ApplicationController
     @sponsors = all_sponsors if current_user.sys_admin?
 
     @logo = Rails.cache.fetch("account-logo-#{@administering_account}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
-      RestforceUtils.query_salesforce("select logo__c from account where id = '#{@administering_account}'").first.logo 
+      RestforceUtils.query_salesforce("select logo__c from account where id = '#{@administering_account}'", nil, :admin).first.logo 
     end
 
   end
@@ -255,9 +255,7 @@ class Admin::ChallengesController < ApplicationController
     end   
 
     def load_challenge
-      @challenge = Admin::Challenge.new(Admin::Challenge.find(params[:id]).first)
-      # set the access token for the calls
-      @challenge.access_token = current_user.access_token    
+      @challenge = Admin::Challenge.new(Admin::Challenge.find(params[:id], current_user.access_token).first)
     end  
 
     # all accounts marked as a 'sponsor'
@@ -281,7 +279,7 @@ class Admin::ChallengesController < ApplicationController
     end    
 
     def restrict_by_account_access
-      account = RestforceUtils.query_salesforce("select can_admin_challenges__c from account where id = '#{current_user.accountid}'").first 
+      account = RestforceUtils.query_salesforce("select can_admin_challenges__c from account where id = '#{current_user.accountid}'", nil, :admin).first 
       redirect_to challenges_path, :alert => 'You do not have access to this page.' unless account.try(:can_admin_challenges)
     end  
 

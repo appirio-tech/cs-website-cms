@@ -60,7 +60,7 @@ class Admin::Challenge
     super(params)
   end
 
-  def self.find(challenge_id)
+  def self.find(challenge_id, access_token)
     RestforceUtils.query_salesforce("select Name,Challenge_Type__c,Account__c,Contact__c,
       Require_Registration__c,Post_Reg_Info__c,Contact__r.Name,Terms_Of_Service__c,
       Scorecard_Type__c,Auto_Announce_Winners__c, additional_info__c,
@@ -70,7 +70,7 @@ class Admin::Challenge
       (select name__c from challenge_platforms__r order by name__c), 
       (select name__c from challenge_technologies__r order by name__c), 
       (Select Id, Filename__c From Assets__r) 
-      from challenge__c where challenge_id__c = '#{challenge_id}'")
+      from challenge__c where challenge_id__c = '#{challenge_id}'", access_token)
   end
 
   def challenge_id
