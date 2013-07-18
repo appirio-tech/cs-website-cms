@@ -18,3 +18,25 @@ div.datepicker td.datepickerFuture a {
 .plupload_container {
   padding: 0px;
 }
+
+#form_account select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
+}   
+
+#challenges_filter input {
+  min-height: 26px;
+  padding: 4px 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
+} 
+
+#challenges_length select {
+    min-height: 26px;
+    padding: 4px 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: none;
+}   
