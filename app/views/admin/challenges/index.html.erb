@@ -14,45 +14,17 @@ function openInSalesforce(id) {
 <%= javascript_include_tag "jquery.tooltipster.min" %>
 
 <script type="text/javascript">
-function watchChange() {
-  window.location.href = '/admin/challenges?account=' + $("#form_account select").val();
-}
-
 window.onload = function() {
   // hide the global search
   <% if @sponsors %>
     // hide the challenge and member search
     $('.form-search').hide();
     // append the form for changing sponsors
-    $('#globalSearch').append('<form id="form_account" class="form-horizontal jqTransform pull-right" action="/admin/challenges"><label class="control-label" style="padding-right:10px" for="accounts">Show Challenges for: </label><select name="account" onchange="watchChange();"><% @sponsors.each do |s| %><option value="<%= s.id %>" <% if s.id == @administering_account %>selected <% end %>><%= s.name %></option><% end %></select></form>');
+    $('#globalSearch').append('<form id="form_account" class="form-horizontal jqTransform pull-right" action="/admin/challenges"><label class="control-label" style="padding-right:10px" for="accounts">Show Challenges for: </label><select name="account" onchange="sponsorChange();"><% @sponsors.each do |s| %><option value="<%= s.id %>" <% if s.id == @administering_account %>selected <% end %>><%= s.name %></option><% end %></select></form>');
   <% end %>
   $("#challenges_filter input").focus();
 }
 </script>
-
-<style type="text/css">
-  #form_account select {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: none;
-  }   
-
-  #challenges_filter input {
-    min-height: 26px;
-    padding: 4px 2px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: none;
-  } 
-
-  #challenges_length select {
-      min-height: 26px;
-      padding: 4px 2px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: none;
-  }   
-  </style>
 
   <div class="title" style="margin-bottom:5px;margin-top:0px"><h1>CHALLENGE ADMIN</h1></div>
 
@@ -101,14 +73,8 @@ window.onload = function() {
             <div class="title"><h1>New Challenge</h1></div>
             <div class="content">
               <%= form_for 'challenge_admin', :action => admin_challenges_path, :method => "post", html: { :id => 'new_challenge_frm' } do |f| %>
-                <% if params[:task] %>
-                  <p>It looks like you are trying to create a challenge from a CMC task. Just leave the name below as it is and hit the Submit button. 
-                  We'll magically reference your task info when creating the challenge and pull in some data such as task name, description, etc.</p>
-                  <p><%= f.text_field :name, :id => 'challenge_name', :value => "CMC Task #{params['task']}", :size => 70, :readonly => true %><br/><br/></p>      
-                <% else %>
-                  <p>Enter the display name for your challenge. You can always change this later if you are unsure now. </p>
-                  <p><%= f.text_field :name, :id => 'challenge_name', :size => 70 %><br/><br/></p>                
-                <% end %>
+              <p>Enter the display name for your challenge. You can always change this later if you are unsure now. </p>
+              <p><%= f.text_field :name, :id => 'challenge_name', :size => 70 %><br/><br/></p>                
               <div class="new-challenge-results" style="float:left;padding-left:15px;padding-right:15px;padding-top:15px"></div>
               <% end %>
             </div>
@@ -119,7 +85,18 @@ window.onload = function() {
         </div>
         <div class="modal-footer"></div>
         <button type="button" class="close" data-dismiss="modal"></button>
-    </div>      
+    </div>
+
+    <!-- Modal -->
+    <div id="cmc-new-challenge-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-body">
+            <div class="title"><h1>New Challenge</h1></div>
+            <div class="content">
+              <p>Creating a new challenge from your CMC Task. We'll magically reference your task info when creating the challenge and pull in some data such as task name, description, etc.</p>
+              <div class="new-challenge-results" style="float:left;padding-top:15px"></div>
+            </div>
+        </div>
+    </div>     
 
 <% end %>
 
@@ -127,7 +104,8 @@ window.onload = function() {
   <!-- if a cmc task was passed, show the modal immediately -->
   <script type="text/javascript">
     $(window).load(function(){
-      $('#new-challenge-modal').modal('show');
+      $('#cmc-new-challenge-modal').modal('show');
+      createCmcChallenge('<%= params[:task] %>');
     });
   </script>
 <% end %>

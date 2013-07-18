@@ -157,13 +157,7 @@ $ ->
 		challenge_name = $('#challenge_name').val()
 		if challenge_name.length > 0
 			data = { name: challenge_name }	
-			# check for a url parameter called 'task' from cmc
-			task = paramValue 'task'
-			if task
-			  data['task'] = task
-			  $('.new-challenge-results').html("<p>Creating new challenge for CMC Task #{task}...</p>")
-			else
-			  $('.new-challenge-results').html('<p>Creating new challenge...</p>')
+			$('.new-challenge-results').html('<p>Creating new challenge...</p>')
 			$.ajax
 			  type: 'POST'
 			  beforeSend: (xhr) -> 
@@ -185,3 +179,27 @@ $ ->
 		else
 			$('.new-challenge-results').html('<p>Please enter a challenge name.</p>')			
 		false
+
+	window.createCmcChallenge = createCmcChallenge = (task) ->
+		$('.new-challenge-results').html("<p style='font-size:16pt'>Please wait. Creating your challenge from CMC Task "+task+ "...</p>").fadeIn(3000)
+		challenge_name = 'CMC Challenge for Task ' + task
+		data = { name: challenge_name }
+		data['task'] = task
+		$.ajax
+		  type: 'POST'
+		  beforeSend: (xhr) -> 
+		    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))			  
+		  url: '/admin/challenges'
+		  # pass the challenge name and the cmc task
+		  data: data
+		  success: (data, textStatus, jqHXR) ->
+		    console.log data
+		    if data['success']
+		    	$('.new-challenge-results').html("<p style='font-size:16pt'>Challenge  #{data['challenge_id']} successfully created. Loading your challenge...</p>")
+		    	window.location.replace("/admin/challenges/#{data['challenge_id']}/edit")
+		    else
+		    	$('.new-challenge-results').html("<p>Error: #{data['error']}.</p>")
+		    false
+		  error: (jqXHR, textStatus, errorThrown) ->
+		    console.log(textStatus);
+		    $('.new-challenge-results').html('<p>We could not process your request successfully. Please contact support. Error: '+textStatus+'</p>')  			
