@@ -1,3 +1,8 @@
+// listen when a sysadmin changes the sponsor to show challenges for
+function sponsorChange() {
+  window.location.href = '/admin/challenges?account=' + $("#form_account select").val();
+}
+
 function deleteAsset(row, asset_id) {
   $('#' + row).fadeOut();
   $.ajax({
