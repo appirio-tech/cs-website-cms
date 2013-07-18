@@ -202,4 +202,4 @@ $ ->
 		    false
 		  error: (jqXHR, textStatus, errorThrown) ->
 		    console.log(textStatus);
-		    $('.new-challenge-results').html('<p>We could not process your request successfully. Please contact support. Error: '+textStatus+'</p>')  			
+		    $('.new-challenge-results').html('<p>We could not process your request successfully. Please contact support.</p>')  			
