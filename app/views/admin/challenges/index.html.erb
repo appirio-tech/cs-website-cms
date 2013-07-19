@@ -54,7 +54,9 @@ window.onload = function() {
       <tbody>
         <% @challenges.each do |challenge| %>
         <tr>
-          <td class="tooltip" title="Registered Members: <%= challenge.registered_members.to_i %><br/>Submissions: <%= challenge.submissions.to_i %><br/>Days till close: <%= challenge.days_till_close.to_i %><br/>End Date: <%= format_challenge_end_date(DateTime.parse(challenge.end_date).getutc) %><br/>Views: <%= challenge.page_views.to_i %>"><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %> <%= link_to image_tag('open.png'), challenge_path(challenge.challenge_id), :target => '_blank', :class => '' %> <%= image_tag('lock2.png') if challenge.private_challenge == 'TRUE'  %></td>
+          <td class="tooltip" title="Registered Members: <%= challenge.registered_members.to_i %><br/>Submissions: <%= challenge.submissions.to_i %><br/>Days till close: <%= challenge.days_till_close.to_i %><br/>End Date: <%= format_challenge_end_date(DateTime.parse(challenge.end_date).getutc) %><br/>Views: <%= challenge.page_views.to_i %>"><%= link_to challenge.name, edit_admin_challenge_path(challenge.challenge_id) %>
+            <a href="<%= challenge_path(challenge.challenge_id) %><% if challenge.status.downcase == 'draft' %>/preview<% end %>" target="_blank" class=''><%= image_tag('open.png') %></a>
+            <%= image_tag('lock2.png') if challenge.private_challenge == 'TRUE'  %></td>
           <td><div onclick="openInSalesforce('<%= challenge.id %>')"><%= challenge.challenge_id %></div></td>
           <td><%= challenge.status %></td>
           <td><%= challenge.challenge_type %></td>
