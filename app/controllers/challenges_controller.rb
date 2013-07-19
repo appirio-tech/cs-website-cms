@@ -107,7 +107,6 @@ class ChallengesController < ApplicationController
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => 5.minute) do
       current_challenge.comments
     end
-    @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by") if @challenge.status.downcase.eql?('draft')
     # add rescue for local dev without redis running (for challenge participants)
     Resque.enqueue(IncrementChallengePageView, @challenge.challenge_id) unless current_user && current_user.challenge_admin?(@challenge)
   rescue Exception => e
@@ -117,6 +116,8 @@ class ChallengesController < ApplicationController
   def preview
     if @challenge.preview? and current_user.challenge_admin?(@challenge)
       @comments = []
+      @madison_requirements = Requirement.where("challenge_id = ? and section = ?", params[:id], 'Functional').order("order_by")
+      puts @madison_requirements.to_yaml
       render 'show'
     else
       redirect_to challenge_path, :alert => 'You are not able to preview this challenge as it is either 
