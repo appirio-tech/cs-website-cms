@@ -30,7 +30,7 @@ this.process_json = (input) ->
     # group questions and store the required information for rendering based on the question group they belong to,
     # ordering them as per sequence number
     question_groups[qs_grp_no]["questions"][question["question__r"]["sequence_number"]] = {
-      "text": question["question__r"]["question_text"],
+      "text": question["question__r"]["question_text_long"],
       "weight": question["question__r"]["question_weight"],
       "type": question["question__r"]["question_type"],
       "min": question["question__r"]["minimum_value"],

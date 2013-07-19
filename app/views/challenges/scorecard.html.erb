@@ -28,7 +28,7 @@
 			<% counter = 1 %>
 			<% sc.qwikscore_questions__r.records.each do |question| %>
 				<% if question.question_type.eql?('Numeric') %>
-					<%= counter %>. <%= question.question_text %> (<%= question.minimum_value %> - <%= question.maximum_value %>)<br/>
+					<%= counter %>. <%= question.question_text_long %> (<%= question.minimum_value %> - <%= question.maximum_value %>)<br/>
 					<% counter += 1 %>
 				<% end %>
 			<% end %>	
