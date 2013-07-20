@@ -101,7 +101,7 @@ See [Pub Sub with Force.com Streaming API](https://github.com/cloudspokes/cs-web
 
 ## Other
 
-ActiveModel::Model was copied and pasted into app/models because [it will only be available in Rails 4.0](http://blog.plataformatec.com.br/2012/03/barebone-models-to-use-with-actionpack-in-rails-4-0/). If you're interested in implementing a model that is not backed by a database, and yet still responds just like any old ActiveRecord model, you should definitely look at ActiveModel.
+ActiveModel::Model was copied and pasted into app/models because [it will only be available in Rails 4.0](http://blog.plataformatec.com.br/2012/03/barebone-models-to-use-with-actionpack-in-rails-4-0/). If you're interested in implementing a model that is not backed by a database, and yet still responds just like any old ActiveRecord model, you should definitely look at ActiveModel!
 
 ## Contributors
 
