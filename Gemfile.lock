@@ -132,6 +132,9 @@ GEM
       railties (~> 3.1)
       warden (~> 1.1.1)
     diff-lcs (1.1.3)
+    dotenv (0.8.0)
+    dotenv-rails (0.8.0)
+      dotenv (= 0.8.0)
     dragonfly (0.9.12)
       rack
     em-http-request (1.0.3)
@@ -477,6 +480,7 @@ DEPENDENCIES
   dalli
   debugger
   devise (~> 2.0.0)
+  dotenv-rails
   encryptor
   faye (= 0.8.3)
   feedzirra
