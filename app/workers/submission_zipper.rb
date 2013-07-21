@@ -38,12 +38,12 @@ class SubmissionZipper
   def notify_to_requestor
     return if @requestor_email.nil?
 
-    puts "Sending Email to #{@requestor_email} with #{@zipfile_url}...."
-    SubmissionZipperMailer.notify(@requestor_email, @challenge_id, @zipfile_url).deliver
+    puts "Sending Email to #{@requestor_email} with #{s3_zipfile.public_url}...."
+    SubmissionZipperMailer.notify(@requestor_email, @challenge_id, s3_zipfile.public_url).deliver
   end
 
   def remove_zipfile
-    storage.files.get(s3_zipfile_key).try(:destroy)
+    s3_zipfile.try(:destroy)
   end
 
   private
@@ -76,13 +76,12 @@ class SubmissionZipper
   def upload_zipfile
     puts "Uploading Zipfile to S3..." 
     File.open(@zip_path, "rb") do |file|
-      s3_zipfile = storage.files.create(
+      @s3_zipfile = storage.files.create(
         :key    => s3_zipfile_key,
         :body   => file.read,
         :public => true
       )
-      @zipfile_url = s3_zipfile.public_url
-      puts " => Success : zipfile url = #{@zipfile_url}"
+      puts " => Success : zipfile url = #{s3_zipfile.public_url}"
     end
   end
 
@@ -102,8 +101,12 @@ class SubmissionZipper
     @s3_zipfile_key ||= "challenges/#{@challenge_id}/cs#{@challenge_id}.zip"
   end
 
+  def s3_zipfile
+    @s3_zipfile ||= storage.files.get(s3_zipfile_key)
+  end
+
   def zipfile_created_before?
-    storage.files.get(s3_zipfile_key).present?
+    s3_zipfile.present?
   end
 
   def challenge
