@@ -63,6 +63,7 @@ gem 'text'
 gem 'feedzirra'
 gem 'country-select'
 gem 'cloudinary'
+gem 'rubyzip'
 
 # Gems used only for assets and not required
 # in production environments by default.
