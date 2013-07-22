@@ -39,15 +39,15 @@ class ProcessCodeSubmission
     if supported_submission_type == true
       results = participant.create_deliverable(challenge_id, membername, deliverable)
       if results.success
-      	sfdc_update_results = create_thurgood_job(deliverable, participant.id, membername)
-       	if @@sfdc_update_results.success
+        sfdc_update_results = create_thurgood_job(deliverable, participant.id, membername)
+        if @@sfdc_update_results.success
           submit_thurgood_job(challenge_id, membername, participant.id)
-       	else
+        else
           Rails.logger.fatal "[FATAL][Resque]==== Error updating participant with job_id: #{sfdc_update_results.message}" 
         end
-      	Rails.logger.info "[INFO][Resque]==== Deployed submission deliverable for #{challenge_submission_id} to Thurgood: #{results.message}"
+        Rails.logger.info "[INFO][Resque]==== Deployed submission deliverable for #{challenge_submission_id} to Thurgood: #{results.message}"
       else
-      	Rails.logger.fatal "[FATAL][Resque]==== Could not create submission deliverable for submission #{challenge_submission_id}: #{results.message}"
+        Rails.logger.fatal "[FATAL][Resque]==== Could not create submission deliverable for submission #{challenge_submission_id}: #{results.message}"
       end
     else
       Rails.logger.info "[INFO][Resque]==== Deliverable not submitted to Thurgood. Not supported type."
