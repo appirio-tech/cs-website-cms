@@ -19,12 +19,8 @@ class Participant < ApiModel
   end
 
   def self.find_by_member(challenge_id, membername)
-    results = Participant.new http_get "participants/#{membername}/#{challenge_id}"
-    puts results.to_yaml
-    results
-  rescue Exception => e
-    puts 'Exception in find_by_member'
-    puts e.message
+    Participant.new http_get "participants/#{membername}/#{challenge_id}"
+  rescue Exception
     # rest call returns nil if the member is not a participant
     Participant.new(:status => 'Not Registered', :has_submission => false)
   end
