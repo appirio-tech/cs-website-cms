@@ -13,9 +13,9 @@ class ProcessCodeSubmission
     ApiModel.access_token = access_token
     # get the participant
     participant = Participant.find_by_member(challenge_id, membername)
+    Rails.logger.info "[INFO][Resque]==== participant: #{participant.to_yaml}"    
     # get this submission
     submission = participant.find_submission(challenge_id, membername, challenge_submission_id)
-
     Rails.logger.info "[INFO][Resque]==== submission: #{submission.to_yaml}"
 
     deliverable = SubmissionDeliverable.new
