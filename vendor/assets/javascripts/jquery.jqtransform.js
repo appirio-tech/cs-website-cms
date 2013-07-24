@@ -311,7 +311,7 @@
 			var oSpan = $('span:first',$wrapper);
 			var newWidth = (iSelectWidth > oSpan.innerWidth())?iSelectWidth+oLinkOpen.outerWidth():$wrapper.width();
 			$wrapper.css('width',newWidth);
-			$ul.css('width',newWidth-4);
+			$ul.css('width',newWidth-2);
 			oSpan.css({width:iSelectWidth});
 		
 			// Calculate the height if necessary, less elements that the default height
@@ -333,7 +333,7 @@
 			selfForm.addClass('jqtransformdone');
 			
 //			$('input:submit, input:reset, input[type="button"]', this).jqTransInputButton();
-			$('input:text, input:password, input[type="url"]', this).jqTransInputText();
+//			$('input:text, input:password, input[type="url"]', this).jqTransInputText();
 			$('input:checkbox', this).jqTransCheckBox();
 			$('input:radio', this).jqTransRadio();
 //			$('textarea', this).jqTransTextarea();

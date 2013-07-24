@@ -4,10 +4,8 @@
     <div class="content-wrapper">
         <div class="container">
 
-            <div>
                 <% unless @page.browser_title.empty? %><div class="title"><h1><%= @page.browser_title.upcase %></h1></div><% end %>
                 <%= raw @page.content_for(:body) %>
-            </div>
 
         </div> <!-- /.container -->
     </div><!-- /.loginbar-wrapper -->

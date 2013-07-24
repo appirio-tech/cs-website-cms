@@ -3,76 +3,84 @@
 
 <%= content_wrapper do %>
 
-  <div class="title"><h1>PRIVATE MESSAGES</h1></div>
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span8">
+        <div class="title"><h1>PRIVATE MESSAGES</h1></div>
 
-    <div style="margin:25px">
+        <div style="margin:25px">
 
-      <a class="btn btn-primary" type="button" href="#message-new-modal" data-toggle="modal"><span>New Message</span></a>
-      <br/><br/>
+          <a class="btn btn-primary" type="button" href="#message-new-modal" data-toggle="modal"><span>New Message</span></a>
+          <br/><br/>
 
-      <div class="tabbable"> <!-- Only required for left/right tabs -->
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#inbox" data-toggle="tab">Inbox <%if @all_messages.inbox_unread > 0 %><span class="badge"><%= @all_messages.inbox_unread %></span><% end %></a></li>
-          <li><a href="#sent" data-toggle="tab">Sent</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="inbox">
-     
-            <% unless @all_messages.to_messages.empty? %>
-              <table class="table table-hover table-bordered">
-                <thead>
-                  <tr>
-                    <th>From</th>
-                    <th>Subject</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @all_messages.to_messages.each do |m| %>
-                  <tr<% if m['status'].eql?('unread') %> class="warning"<% end %>>
-                    <td width="175"><%= link_to m['display_user'], member_path(m['display_user']), :target => '_blank' %></a> <% if m['status'].eql?('unread') %><i class="icon-bullhorn"></i><% end %></td>
-                    <td><%= link_to m['subject'], messages_show_path(m['id']) %></a></td>
-                    <td width="150"><%= DateTime.parse(m['datetime']).strftime("%-m/%-d/%Y at %I:%M%p") %></td>
-                  </tr> 
-                  <% end %>       
-                </tbody>
-              </table>
-            <% else %>
-              <div style="padding-left:10px">No messages found.</div>
-            <% end %>
+          <div class="tabbable"> <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#inbox" data-toggle="tab">Inbox <%if @all_messages.inbox_unread > 0 %><span class="badge"><%= @all_messages.inbox_unread %></span><% end %></a></li>
+              <li><a href="#sent" data-toggle="tab">Sent</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="inbox">
 
+                <% unless @all_messages.to_messages.empty? %>
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                      <tr>
+                        <th>From</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @all_messages.to_messages.each do |m| %>
+                          <tr<% if m['status'].eql?('unread') %> class="warning"<% end %>>
+                            <td width="175"><%= link_to m['display_user'], member_path(m['display_user']), :target => '_blank' %></a> <% if m['status'].eql?('unread') %><i class="icon-bullhorn"></i><% end %></td>
+                            <td><%= link_to m['subject'], messages_show_path(m['id']) %></a></td>
+                            <td width="150"><%= DateTime.parse(m['datetime']).strftime("%-m/%-d/%Y at %I:%M%p") %></td>
+                          </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                <% else %>
+                    <div style="padding-left:10px">No messages found.</div>
+                <% end %>
+
+              </div>
+
+              <div class="tab-pane" id="sent">
+
+                <% unless @all_messages.from_messages.empty? %>
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                      <tr>
+                        <th>To</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @all_messages.from_messages.each do |m| %>
+                          <tr>
+                            <td width="175"><%= link_to m['display_user'], member_path(m['display_user']), :target => '_blank' %></a></td>
+                            <td><%= link_to m['subject'], messages_show_path(m['id']) %></a></td>
+                            <td width="150"><%= DateTime.parse(m['datetime']).strftime("%-m/%-d/%Y at %I:%M%p") %></td>
+                          </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                <% else %>
+                    <div style="padding-left:10px">No messages found.</div>
+                <% end %>
+
+              </div>
+            </div>
           </div>
 
-          <div class="tab-pane" id="sent">
-
-            <% unless @all_messages.from_messages.empty? %>
-              <table class="table table-hover table-bordered">
-                <thead>
-                  <tr>
-                    <th>To</th>
-                    <th>Subject</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @all_messages.from_messages.each do |m| %>
-                  <tr>
-                    <td width="175"><%= link_to m['display_user'], member_path(m['display_user']), :target => '_blank' %></a></td>
-                    <td><%= link_to m['subject'], messages_show_path(m['id']) %></a></td>
-                    <td width="150"><%= DateTime.parse(m['datetime']).strftime("%-m/%-d/%Y at %I:%M%p") %></td>
-                  </tr> 
-                  <% end %>        
-                </tbody>
-              </table>
-            <% else %>
-              <div style="padding-left:10px">No messages found.</div>
-            <% end %>            
-
-          </div>
         </div>
-      </div>   
-
+      </div>
+      <%= render 'shared/account_menu', :selected_item => 'messages' %>
     </div>
+  </div>
+<% end %>
 
     <!-- Modal -->
     <div id="message-new-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -81,7 +89,7 @@
             <div class="title"><h1>New Message</h1></div>
             <div class="content">
               <form>
-                <p><input type="text" id="to" placeholder="Member name..."><br/><br/></p>
+                <p><input type="text" id="to" placeholder="Member name..."></p>
                 <p><textarea id="subject" style="width:800px;height:25px" placeholder="Subject.."></textarea></p>
                 <p><textarea id="body" style="width:800px;height:200px"></textarea></p>
               </form>
@@ -93,6 +101,4 @@
         </div>
         <div class="modal-footer"></div>
         <button type="button" class="close" data-dismiss="modal"></button>
-    </div>    
-
-<% end %>
+    </div>
