@@ -220,6 +220,8 @@ class Admin::Challenge
     
     remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
 
+    puts @json_payload.to_yaml
+
     @json_payload
   end
 
