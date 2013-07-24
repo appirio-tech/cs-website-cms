@@ -93,7 +93,7 @@ class Admin::ChallengesController < ApplicationController
     @challenge_platforms = @challenge.platforms.map(&:name).join(',') unless @challenge.platforms.empty?
     @challenge_technologies = @challenge.technologies.map(&:name) .join(',') unless @challenge.technologies.empty? 
 
-    # set the time picklistt for the end time
+    # set the time picklistt for the end time based upon the user's timezone
     @challenge.end_time = @challenge.end_date.hour
 
     # find out if there are madison requirements for this challenge
