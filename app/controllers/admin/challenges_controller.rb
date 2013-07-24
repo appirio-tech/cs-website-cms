@@ -171,6 +171,9 @@ class Admin::ChallengesController < ApplicationController
     end
 
     @challenge = Admin::Challenge.new(params[:admin_challenge])
+    # inject the user's timezone for proper sfdc conversion
+    @challenge.timezone = current_user.time_zone
+
     # set the access token for the calls
     @challenge.access_token = current_user.access_token
     redirect_url = '/admin/challenges/' + @challenge.challenge_id + '/edit'
@@ -257,6 +260,8 @@ class Admin::ChallengesController < ApplicationController
 
     def load_challenge
       @challenge = Admin::Challenge.new(Admin::Challenge.find(params[:id], current_user.access_token).first)
+      # inject the user's timezone for proper sfdc conversion
+      @challenge.timezone = current_user.time_zone
     end  
 
     # all accounts marked as a 'sponsor'

@@ -23,7 +23,7 @@ class Admin::Challenge
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
                 :assets, :challenge_type, :comments, :challenge_id, :submissions, :post_reg_info, :require_registration,
                 :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time, :days_till_close, 
-                :private_challenge, :page_views
+                :private_challenge, :page_views, :timezone
 
   # Add validators as you like :)
   validates :name, presence: true
@@ -80,12 +80,12 @@ class Admin::Challenge
 
   # Return an object instead of a string
   def start_date
-    (Time.parse(@start_date) if @start_date) || Date.today
+    (Time.parse(@start_date).in_time_zone(@timezone).to_datetime if @start_date) || Date.today
   end
 
   # Return an object instead of a string
   def end_date
-    (Time.parse(@end_date) if @end_date) || Date.today + 7.days
+    (Time.parse(@end_date).in_time_zone(@timezone).to_datetime if @end_date) || Date.today + 7.days
   end
 
   # Return an object instead of a string
@@ -219,8 +219,6 @@ class Admin::Challenge
     }
     
     remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
-
-    puts @json_payload
 
     @json_payload
   end
