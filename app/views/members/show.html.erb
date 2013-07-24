@@ -62,18 +62,11 @@
               </div>
             </div>
 
-            <h2>LEVEL</h2>
-
-
             <h2>QUOTE</h2>
-            <div class="quote">
-              <p><%= @member.quote %></p>
-            </div>
+            <p><%= @member.quote %></p>
 
             <h2>BIO</h2>
-            <div>
-              <p><%= @member.summary_bio %></p>
-            </div>
+            <p><%= @member.summary_bio %></p>
 
             <% if @member.website || @member.github || @member.twitter || @member.facebook || @member.linkedin %>
             <h2>CONNECT</h2>
