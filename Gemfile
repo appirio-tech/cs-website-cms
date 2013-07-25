@@ -16,6 +16,7 @@ gem 'simple_form', '2.0.4'
 gem 'will_paginate'
 gem 'gon'
 gem 'time_diff'
+gem 'chronic'
 gem 'geoip'
 
 gem 'refinerycms-dashboard'

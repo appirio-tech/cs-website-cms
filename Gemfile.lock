@@ -94,6 +94,7 @@ GEM
       coffee-rails (~> 3.2)
       railties (~> 3.0)
       sass-rails (~> 3.2)
+    chronic (0.7.0)
     chunky_png (1.2.6)
     client_side_validations (3.2.1)
     client_side_validations-simple_form (2.0.1)
@@ -467,6 +468,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_direct!
   chosen-rails
+  chronic
   ckeditor_rails!
   client_side_validations
   client_side_validations-simple_form
