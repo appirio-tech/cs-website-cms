@@ -11,7 +11,7 @@ class SubmissionZipper
 
   def self.clear(challenge_ids)
     Array(challenge_ids).each do |cid|
-      puts "Removing zipfile for Challenge #{cid}..."
+      Rails.logger.info "[Resque][INFO]==== Removing zipfile for Challenge #{cid}..."
       zipper = new(cid)
       zipper.remove_zipfile
     end
@@ -30,7 +30,7 @@ class SubmissionZipper
     upload_zipfile
 
   rescue Exception => e
-    puts "Failed to do zipping submissions : Reason = #{e}"
+    Rails.logger.fatal "[Resque][FATAL]==== Failed to zip files. Reason = #{e}"
   ensure
     cleanup
   end
@@ -38,7 +38,7 @@ class SubmissionZipper
   def notify_to_requestor
     return if @requestor_email.nil?
 
-    puts "Sending Email to #{@requestor_email} with #{s3_zipfile.public_url}...."
+    Rails.logger.info "[Resque][INFO]==== Sending Email to #{@requestor_email} with #{s3_zipfile.public_url}...."
     SubmissionZipperMailer.notify(@requestor_email, @challenge_id, s3_zipfile.public_url).deliver
   end
 
@@ -56,14 +56,14 @@ class SubmissionZipper
   def create_zipfile
     @tmpdir = Dir.mktmpdir
     @zip_path = File.join(@tmpdir, "#{@challenge_id}.zip")
-    puts "Creating Zipfile for Challenge #{@challenge_id}" 
+    Rails.logger.info "[Resque][INFO]==== Creating Zipfile for Challenge #{@challenge_id}" 
 
     Zip::ZipOutputStream.open(@zip_path) do |zos|
       challenge.participants.each do |participant| 
         participant.current_submissions(@challenge_id).each do |submission|
           if %w(Code File Video).include?(submission.type)
             filename = File.basename(submission.url)
-            path = File.join("cs#{@challenge_id}", participant.member.name, filename)
+            path = File.join("cs#{@challenge_id}-#{challenge.id}", participant.member.name, filename)
             resp = HTTParty.get(submission.url)
             zos.put_next_entry(path)
             zos.write resp.body
@@ -74,14 +74,14 @@ class SubmissionZipper
   end
 
   def upload_zipfile
-    puts "Uploading Zipfile to S3..." 
+    Rails.logger.info "[Resque][INFO]==== Uploading Zipfile to S3..." 
     File.open(@zip_path, "rb") do |file|
       @s3_zipfile = storage.files.create(
         :key    => s3_zipfile_key,
         :body   => file.read,
         :public => true
       )
-      puts " => Success : zipfile url = #{s3_zipfile.public_url}"
+      Rails.logger.info "[Resque][INFO]==== => Success : zipfile url = #{s3_zipfile.public_url}"
     end
   end
 
@@ -98,7 +98,7 @@ class SubmissionZipper
   end  
 
   def s3_zipfile_key
-    @s3_zipfile_key ||= "challenges/#{@challenge_id}/cs#{@challenge_id}.zip"
+    @s3_zipfile_key ||= "challenges/#{@challenge_id}/cs#{@challenge_id}-#{challenge.id}.zip"
   end
 
   def s3_zipfile

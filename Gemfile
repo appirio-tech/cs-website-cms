@@ -93,7 +93,6 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
-  gem 'dotenv-rails'
 end
 
 group :test do
