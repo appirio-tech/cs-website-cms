@@ -88,16 +88,14 @@ class Admin::Challenge
     (Time.parse(@end_date).in_time_zone(@timezone).to_datetime if @end_date) || Date.today + 7.days
   end
 
-  # Return an object instead of a string
-  def start_date_no_timezone
+  def start_date_for_payload
     Time.zone = @timezone
     Chronic.time_class = Time.zone    
     date_as_string = "#{Time.parse(@start_date_for_sfdc).to_date} #{@end_time}:00:00"
     Chronic.parse(date_as_string).iso8601
   end
 
-  # Return an object instead of a string
-  def end_date_no_timezone
+  def end_date_for_payload
     Time.zone = @timezone
     Chronic.time_class = Time.zone    
     date_as_string = "#{Time.parse(@end_date_for_sfdc).to_date} #{@end_time}:00:00"
@@ -207,10 +205,10 @@ class Admin::Challenge
           scorecard_type: scorecard_type,
           submission_details: submission_details,
           status: status,
-          start_date: start_date_no_timezone,
+          start_date: start_date_for_payload,
           requirements: requirements,
           name: name,
-          end_date: end_date_no_timezone,
+          end_date: end_date_for_payload,
           description: description,
           comments: comments,
           additional_info: additional_info,
@@ -235,8 +233,6 @@ class Admin::Challenge
     }
     
     remove_nil_keys # remove keys if they are nil so we don't overwrite in sfdc
-
-    puts @json_payload.to_yaml
 
     @json_payload
   end

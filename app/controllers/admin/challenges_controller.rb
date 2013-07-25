@@ -140,28 +140,15 @@ class Admin::ChallengesController < ApplicationController
     # remove blank files names that are coming across for some reason
     params[:admin_challenge][:assets].reject! { |c| c.empty? } if params[:admin_challenge][:assets]
 
-    # setup chronic to use the correct timezone
-    Time.zone = current_user.time_zone
-    Chronic.time_class = Time.zone    
     end_time = params[:admin_challenge][:end_time]
 
     s_date = params[:admin_challenge][:start_date]
     # replace the time and timezone so it's parsed correctly
-    s_date = s_date.gsub('00:00:00', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")
-    # add create a string with the exact date, time and timezone for the user
-    start_date_as_string = "#{Time.parse(s_date).to_date} #{end_time}:00:00"
-    # parse the string using chronic into the target time zone of the user
-    params[:admin_challenge][:start_date] = Chronic.parse(start_date_as_string).ctime
-    params[:admin_challenge][:start_date_for_sfdc] = s_date
+    params[:admin_challenge][:start_date_for_sfdc] = s_date.gsub('00:00:00', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")
 
     e_date = params[:admin_challenge][:end_date]
     # replace the time and timezone so it's parsed correctly
-    e_date = e_date.gsub('23:59:59', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")    
-    # add create a string with the exact date, time and timezone for the user
-    end_date_as_string = "#{Time.parse(e_date).to_date} #{params[:admin_challenge][:end_time]}:00:00"
-    # parse the string using chronic into the target time zone of the user
-    params[:admin_challenge][:end_date] = Chronic.parse(end_date_as_string).ctime
-    params[:admin_challenge][:end_date_for_sfdc] = e_date
+    params[:admin_challenge][:end_date_for_sfdc] = e_date.gsub('23:59:59', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")    
 
     # review_date and winner_announced
     r = Time.parse(params[:admin_challenge][:end_date]) + 2.days
@@ -172,11 +159,6 @@ class Admin::ChallengesController < ApplicationController
 
     params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
     params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime   
-
-    puts "==== params[:admin_challenge][:start_date] #{params[:admin_challenge][:start_date]}"
-    puts "==== params[:admin_challenge][:end_date] #{params[:admin_challenge][:end_date]}"
-    puts "==== params[:admin_challenge][:review_date] #{params[:admin_challenge][:review_date]}"
-    puts "==== params[:admin_challenge][:winner_announced] #{params[:admin_challenge][:winner_announced]}"    
 
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
