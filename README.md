@@ -72,7 +72,7 @@ An example scaffolding has been setup to showcase how easy it is to use the mode
 
 #### save ####
 
-The idea regarding saving records is simple. 'save' method determines whether the model is a new record or not. If model is new, it creates a model, if not, it udpates model. 
+The idea regarding saving records is simple. 'save' method determines whether the model is a new record or not. If model is new, it creates a model, if not, it updates model. 
 
 	challenge = Challenge.new
 	challenge.new_record?       # true

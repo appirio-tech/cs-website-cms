@@ -64,6 +64,7 @@ gem 'text'
 gem 'feedzirra'
 gem 'country-select'
 gem 'cloudinary'
+gem 'rubyzip'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -92,6 +93,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'sql-logging'
+  gem 'dotenv-rails'
 end
 
 group :test do
