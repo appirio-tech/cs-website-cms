@@ -23,7 +23,7 @@ class Admin::Challenge
                 :reviewers, :platforms, :technologies, :prizes, :commentNotifiers, :community, :registered_members,
                 :assets, :challenge_type, :comments, :challenge_id, :submissions, :post_reg_info, :require_registration,
                 :account, :contact, :auto_announce_winners, :cmc_task, :attributes, :end_time, :days_till_close, 
-                :private_challenge, :page_views, :timezone
+                :private_challenge, :page_views, :timezone, :start_date_for_sfdc, :end_date_for_sfdc
 
   # Add validators as you like :)
   validates :name, presence: true
@@ -87,6 +87,22 @@ class Admin::Challenge
   def end_date
     (Time.parse(@end_date).in_time_zone(@timezone).to_datetime if @end_date) || Date.today + 7.days
   end
+
+  # Return an object instead of a string
+  def start_date_no_timezone
+    Time.zone = @timezone
+    Chronic.time_class = Time.zone    
+    date_as_string = "#{Time.parse(@start_date_for_sfdc).to_date} #{@end_time}:00:00"
+    Chronic.parse(date_as_string).iso8601
+  end
+
+  # Return an object instead of a string
+  def end_date_no_timezone
+    Time.zone = @timezone
+    Chronic.time_class = Time.zone    
+    date_as_string = "#{Time.parse(@end_date_for_sfdc).to_date} #{@end_time}:00:00"
+    Chronic.parse(date_as_string).iso8601
+  end  
 
   # Return an object instead of a string
   def winner_announced
@@ -191,10 +207,10 @@ class Admin::Challenge
           scorecard_type: scorecard_type,
           submission_details: submission_details,
           status: status,
-          start_date: start_date.to_time.iso8601,
+          start_date: start_date_no_timezone,
           requirements: requirements,
           name: name,
-          end_date: end_date.to_time.iso8601,
+          end_date: end_date_no_timezone,
           description: description,
           comments: comments,
           additional_info: additional_info,

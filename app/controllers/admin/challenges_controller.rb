@@ -140,30 +140,43 @@ class Admin::ChallengesController < ApplicationController
     # remove blank files names that are coming across for some reason
     params[:admin_challenge][:assets].reject! { |c| c.empty? } if params[:admin_challenge][:assets]
 
-    # parse the selected date (from user's timezone perspective) into ruby time zone and then user's timezone
-    start_date_in_timezone= Time.zone.parse(params[:admin_challenge][:start_date]).in_time_zone(current_user.time_zone)
-    # add create a string with the exact date, time and timezone for the user
-    start_date_as_string = "#{start_date_in_timezone.to_date} #{params[:admin_challenge][:end_time]}:00:00 (#{current_user.time_zone})"
-    # parse this string as a date to get the correct date to pass to sfdc
-    params[:admin_challenge][:start_date] = Time.zone.parse(start_date_as_string).in_time_zone(current_user.time_zone).ctime
+    # setup chronic to use the correct timezone
+    Time.zone = current_user.time_zone
+    Chronic.time_class = Time.zone    
+    end_time = params[:admin_challenge][:end_time]
 
-    # parse the selected date (from user's timezone perspective) into ruby time zone and then user's timezone
-    end_date_in_timezone= Time.zone.parse(params[:admin_challenge][:end_date]).in_time_zone(current_user.time_zone)
+    s_date = params[:admin_challenge][:start_date]
+    # replace the time and timezone so it's parsed correctly
+    s_date = s_date.gsub('00:00:00', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")
     # add create a string with the exact date, time and timezone for the user
-    end_date_as_string = "#{end_date_in_timezone.to_date} #{params[:admin_challenge][:end_time]}:00:00 (#{current_user.time_zone})"
-    # parse this string as a date to get the correct date to pass to sfdc
-    params[:admin_challenge][:end_date] = Time.zone.parse(end_date_as_string).in_time_zone(current_user.time_zone).ctime
+    start_date_as_string = "#{Time.parse(s_date).to_date} #{end_time}:00:00"
+    # parse the string using chronic into the target time zone of the user
+    params[:admin_challenge][:start_date] = Chronic.parse(start_date_as_string).ctime
+    params[:admin_challenge][:start_date_for_sfdc] = s_date
+
+    e_date = params[:admin_challenge][:end_date]
+    # replace the time and timezone so it's parsed correctly
+    e_date = e_date.gsub('23:59:59', "#{end_time}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")    
+    # add create a string with the exact date, time and timezone for the user
+    end_date_as_string = "#{Time.parse(e_date).to_date} #{params[:admin_challenge][:end_time]}:00:00"
+    # parse the string using chronic into the target time zone of the user
+    params[:admin_challenge][:end_date] = Chronic.parse(end_date_as_string).ctime
+    params[:admin_challenge][:end_date_for_sfdc] = e_date
 
     # review_date and winner_announced
     r = Time.parse(params[:admin_challenge][:end_date]) + 2.days
     w = Time.parse(params[:admin_challenge][:end_date]) + 7.days
     # add the time element
-    hour = params[:admin_challenge][:end_time].to_i
     min = 0
-    t = Time.mktime(1 ,1 ,1 ,hour, min)
+    t = Time.mktime(1 ,1 ,1 ,end_time.to_i, min)
 
     params[:admin_challenge][:review_date] = Time.mktime(r.year, r.month, r.day, t.hour, t.min).ctime
     params[:admin_challenge][:winner_announced] = Time.mktime(w.year, w.month, w.day, t.hour, t.min).ctime   
+
+    puts "==== params[:admin_challenge][:start_date] #{params[:admin_challenge][:start_date]}"
+    puts "==== params[:admin_challenge][:end_date] #{params[:admin_challenge][:end_date]}"
+    puts "==== params[:admin_challenge][:review_date] #{params[:admin_challenge][:review_date]}"
+    puts "==== params[:admin_challenge][:winner_announced] #{params[:admin_challenge][:winner_announced]}"    
 
     # cleanup the params hash
     1.upto(5) { |i| params[:admin_challenge].delete "start_date(#{i}i)" }
