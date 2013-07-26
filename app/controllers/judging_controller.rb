@@ -1,6 +1,13 @@
 class JudgingController < ApplicationController
   before_filter :authenticate_user!
 
+  def download_all_assets
+    participant = Participant.find(params[:participant_id])
+    Resque.enqueue(SubmissionZipper, participant.challenge.challenge_id, current_user.email)
+    redirect_to :back,
+      :notice => 'Your request is being processed. You should receive an email momentarily with a link to the ZIP file.' 
+  end
+
   def outstanding_reviews
     @scorecards = Judging.outstanding_reviews(current_user.username)    
     respond_to do |format|

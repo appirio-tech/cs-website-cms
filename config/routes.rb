@@ -107,6 +107,7 @@ CsWebsiteCms::Application.routes.draw do
   post '/judging/scorecard/:participant_id', to: 'judging#scorecard_save', as: 'save_participant_scorecard'
   get '/judging/judging-queue', to: 'judging#judging_queue'
   get '/judging/add_judge/:challenge_id', to: 'judging#add_judge'
+  get '/judging/download_all_assets/:participant_id', to: 'judging#download_all_assets', as: 'download_all_assets'  
 
   match "leaderboards" => "leaderboards#index"
   match "leaderboards/leaders" => "leaderboards#leaders", as: "leaders"

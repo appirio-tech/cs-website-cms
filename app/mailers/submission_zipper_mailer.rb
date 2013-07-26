@@ -3,7 +3,7 @@ class SubmissionZipperMailer < ActionMailer::Base
   
   def notify(email, challenge_id, zip_url)
     subject = "Files for Challenge #{challenge_id}"
-    body = "Your zip request for Challenge #{challenge_id} has been processed. You can download the zip file of all the submissions from #{zip_url}\n\nThank you."
+    body = "Your zip request for Challenge #{challenge_id} has been processed. You can download the zip file containing all the submissions from #{zip_url}\n\nThank you."
     mail(to: email, subject: subject, body: body)
   end   
   
