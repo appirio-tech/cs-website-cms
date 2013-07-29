@@ -54,6 +54,15 @@ class Admin::ChallengesController < ApplicationController
     data[:winner_announced] = (Date.today+8).ctime
     data[:terms_of_service] = 'Standard Terms & Conditions'
 
+    data[:end_time] = 23
+
+    s_date = Time.parse(data[:start_date]).in_time_zone(current_user.time_zone).to_s
+    # replace the time and timezone so it's parsed correctly
+    data[:start_date_for_sfdc] = s_date.gsub('00:00:00', "#{data[:end_time]}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")
+    e_date = Time.parse(data[:end_date]).in_time_zone(current_user.time_zone).to_s 
+    # replace the time and timezone so it's parsed correctly
+    data[:end_date_for_sfdc] = e_date.gsub('23:59:59', "#{data[:end_time]}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")        
+
     data[:prizes] = [
         Hashie::Mash.new(:place => 1, :prize => '$500', :points => 500, :value => 500),
         Hashie::Mash.new(:place => 2, :prize => '$250', :points => 250, :value => 250)
