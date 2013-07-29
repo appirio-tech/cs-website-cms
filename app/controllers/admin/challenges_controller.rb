@@ -48,20 +48,17 @@ class Admin::ChallengesController < ApplicationController
       your Eclipse project for convenience) and provide any documentation and/or instructions that 
       are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
       application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'    
-    data[:start_date] = Time.now.ctime
-    data[:end_date] = (Time.now+(4*60 * 60 * 24)).ctime # add 4 days
-    data[:review_date] = (Date.today+6).ctime
-    data[:winner_announced] = (Date.today+8).ctime
-    data[:terms_of_service] = 'Standard Terms & Conditions'
 
+    Time.zone = current_user.time_zone
+    Chronic.time_class = Time.zone
     data[:end_time] = 23
-
-    s_date = Time.parse(data[:start_date]).in_time_zone(current_user.time_zone).to_s
-    # replace the time and timezone so it's parsed correctly
-    data[:start_date_for_sfdc] = s_date.gsub('00:00:00', "#{data[:end_time]}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")
-    e_date = Time.parse(data[:end_date]).in_time_zone(current_user.time_zone).to_s 
-    # replace the time and timezone so it's parsed correctly
-    data[:end_date_for_sfdc] = e_date.gsub('23:59:59', "#{data[:end_time]}:00:00").gsub('(UTC)', "(#{current_user.time_zone})")        
+    data[:start_date] = Chronic.parse('Today at #data[:end_time]:00').ctime
+    data[:end_date] = Chronic.parse('4 days from now at #data[:end_time]:00').ctime
+    data[:review_date] = Chronic.parse('6 days from now at #data[:end_time]:00').ctime
+    data[:winner_announced] = Chronic.parse('8 days from now at #data[:end_time]:00').ctime
+    data[:start_date_for_sfdc] = Chronic.parse('Today at #data[:end_time]:00').strftime("%a %b %e %Y %H:%M:%S GMT%z")
+    data[:end_date_for_sfdc] = Chronic.parse('4 days from now at #data[:end_time]:00').strftime("%a %b %e %Y %H:%M:%S GMT%z")
+    data[:terms_of_service] = 'Standard Terms & Conditions'    
 
     data[:prizes] = [
         Hashie::Mash.new(:place => 1, :prize => '$500', :points => 500, :value => 500),
@@ -71,6 +68,8 @@ class Admin::ChallengesController < ApplicationController
     @challenge = Admin::Challenge.new(data)    
     # set the access token for the calls
     @challenge.access_token = current_user.access_token 
+    # set the current user's timezone for sfdc conversion
+    @challenge.timezone = current_user.time_zone
 
     check_for_appirio_task
 
