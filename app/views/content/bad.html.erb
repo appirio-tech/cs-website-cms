@@ -1,3 +1,16 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="//status-page-production.s3.amazonaws.com/se.js"></script>
+<script type="text/javascript">
+  window.fetchStatusPage({
+    pageId: 'cykcdprl7zgm',
+    renderTo: '#official-system-status',
+    successCallback: function(data) {   // optional, for full control of data returned  
+      // do something with the data here
+      //console.log(data.status.description);
+    }
+  });
+</script>  
+
 <% content_for :head do %><title>Something Terrribly Bad Happened</title><% end %>
 
 <%= content_wrapper do %>
@@ -13,8 +26,10 @@
 	</div>
 
 	<div class="span4">
-		<p><br/>Unfortunately, we were unable to complete your last action. This was probably due to a malformed request, server error or the coming zombie apocalypse.</p>
+		<p>Unfortunately, we were unable to complete your last action. This was probably due to a malformed request, server error or the coming zombie apocalypse.</p>
 		<p>You can try hitting the back button and attempting the action again or perhaps you'd like to visit our <%= link_to 'home page', :root %> or <%= link_to 'list of open challenges', challenges_path %>?</p>
+
+        <strong><span id="official-system-status"></span></strong>
 	</div>	
 
 
