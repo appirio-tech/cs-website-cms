@@ -63,7 +63,6 @@ gem 'text'
 gem 'feedzirra'
 gem 'country-select'
 gem 'cloudinary'
-gem 'librato-metrics'
 
 # Gems used only for assets and not required
 # in production environments by default.
