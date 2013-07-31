@@ -1,3 +1,5 @@
+require 'librato'
+
 desc "Returns a salesforce.com access token for the current environment for the public user"
 task :get_public_access_token => :environment do
 	client = Restforce.new :username => ENV['SFDC_PUBLIC_USERNAME'],
@@ -48,3 +50,10 @@ task :create_badgeville_users => :environment do
   end
 
 end
+
+desc "Sends daily stats to Librato"
+task :send_librato_daily_stats => :environment do
+  puts "Sending stats to librato..."
+  Librato.send_daily_data
+  puts "Done sending stats to librato."
+end  
