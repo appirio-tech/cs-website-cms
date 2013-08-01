@@ -66,6 +66,7 @@ gem 'country-select'
 gem 'cloudinary'
 gem 'rubyzip'
 gem 'librato-metrics'
+gem 'docusign_rest'
 
 # Gems used only for assets and not required
 # in production environments by default.

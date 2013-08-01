@@ -92,7 +92,7 @@ CsWebsiteCms::Application.routes.draw do
   put '/account', to: 'accounts#update'
   get '/account', to: 'accounts#challenges'
   get '/account/details', to: 'accounts#details'
-  get '/account/payment-info', to: 'accounts#payment_info'
+  get '/account/payment-info', to: 'accounts#payment_info', as: "payment_info"
   get '/account/school-and-work', to: 'accounts#school_and_work'
   get '/account/public-profile', to: 'accounts#public_profile'
   get '/account/change-password', to: 'accounts#change_password'
@@ -129,6 +129,9 @@ CsWebsiteCms::Application.routes.draw do
   match "/signup" => redirect("/users/sign_up")
   match "/signin" => redirect("/users/sign_in")
   match "/login" => redirect("/users/sign_in")
+
+  get "/docusign/embedded_signing", to: "docusign#embedded_signing", as: "docusign_signing"
+  get "/docusign/response", to: "docusign#docusign_response", as: "docusign_response"
 
   root to: 'refinery/pages#home'
 

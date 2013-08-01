@@ -12,13 +12,11 @@
       %span In order for us to send your payments, you need to complete the appropriate tax form. If you are a
       %strong US citizen,
       %span please 
-      - url = "#{ENV['DOCUSIGN_SIGNING_DOMAIN']}/sign/#{@member.id}/#{current_user.username}/#{ENV['DOCUSIGN_US_TAX_TEMPLATE']}/#{current_user.email}"
-      = link_to "complete this W-9 tax form", url, target: "_blank"
+      = link_to "complete this W-9 tax form.", docusign_signing_path(template: ENV['DOCUSIGN_US_TAX_TEMPLATE'])
       %span If you are 
       %strong not a US citizen,
       %span please 
-      - url = "#{ENV['DOCUSIGN_SIGNING_DOMAIN']}/sign/#{@member.id}/#{current_user.username}/#{ENV['DOCUSIGN_INTL_TAX_TEMPLATE']}/#{current_user.email}"
-      = link_to "complete this W-8BEN tax form", url, target: "_blank" 
+      = link_to "complete this W-8BEN tax form.", docusign_signing_path(template: ENV['DOCUSIGN_INTL_TAX_TEMPLATE'])
       %span You only need to fill out this tax form once per year and we will keep it on file.</td>
 
     = form_tag account_path, method: "put", class: "form-horizontal jqTransform" do
