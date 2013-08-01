@@ -7,7 +7,7 @@ class DocusignController < ApplicationController
     @url = docusign.recipient_view_url(docusign_response_url)
 
   rescue Docusign::DocusignException => e
-    Rails.logger.error " [Docusign Error] Error occurs while fetcing docusign document : #{e.message}"
+    Rails.logger.fatal "[Docusign Error][FATAL] Error occurs while fetcing docusign document : #{e.message}"
     redirect_to payment_info_path, alert: "Sorry, error occured while fetching Docusing tax document."
   end
 
@@ -20,11 +20,11 @@ class DocusignController < ApplicationController
         # updates member from the information of the signed document.
         tabs = Docusign.get_envelope_text_tabs(params[:envelope_id])
         Member.http_put("members/#{current_user.username}", extract_member_info_from_tabs(tabs))
-        flash[:notice] = "Thanks! Successfully signed"
+        flash[:notice] = "Thanks! Your documents have been successfully signed and sent to our Finance team."
         
       rescue Docusign::DocusignException => e
         # TODO : how to handle this case?
-        Rails.logger.error "   [Docusign Error] Error occurs while handling docugign response : #{e.message}"
+        Rails.logger.fatal "[Docusign Error][FATAL] Error occurs while handling docusign response : #{e.message}"
         flash[:alert] = "Sorry, an error occurred while updating your Docusign response. Please try signing the 
           document again and/or contact support@cloudspokes.com"
       end
