@@ -11,5 +11,5 @@
     <%= submit_tag "Post Comment", class: "btn" %>
   <% end %>
 <% else %>
-  <p> Please <%= link_to "login", '#login' %> to post a comment.</p> 
+  <p> Please <a href="#" data-toggle="modal" data-target="#login-modal">login</a> to post a comment.</p> 
 <% end %>
