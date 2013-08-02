@@ -58,9 +58,8 @@
               </div>
 
               <div class="pull-right">
-                  <%= image_tag(profile_pic, :width => "35x35") %>
-                  <a class="btn" href="<%= main_app.account_path %>"><span>My Account</span></a>
-                  <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>My Public Profile</span></a>
+                  <a href="<%= main_app.member_path(current_user.username) %>"><%= image_tag(profile_pic, :width => "35x35") %></a>
+                  <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
                   <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
               </div>
           </div>
@@ -85,7 +84,7 @@
 
           <%= link_to image_tag("logo.png"), root_path, :class => "logo" %>
 
-          <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+          <!-- Responsive Navbar Part 1: Button for triggering responsive navbar. -->
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -108,10 +107,6 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <% if !current_user.nil? %>
-                      <li><%= link_to 'Dashboard', main_app.dashboard_path %></li>
-                      <li><%= link_to 'My Account', main_app.account_path %></li>
-                  <% end %>
                   <li><%= link_to 'How It Works', '/how-it-works-members' %></li>
                   <li><%= link_to 'Challenges', main_app.challenges_path %></li>
                   <li><%= link_to 'Leaderboard', main_app.leaderboard_path %></li>
