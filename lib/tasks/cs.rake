@@ -53,7 +53,5 @@ end
 
 desc "Sends daily stats to Librato"
 task :send_librato_daily_stats => :environment do
-  puts "Sending stats to librato..."
   Librato.send_daily_data
-  puts "Done sending stats to librato."
 end  
