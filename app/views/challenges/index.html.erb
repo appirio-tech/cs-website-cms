@@ -206,7 +206,7 @@
         <p style="text-align:center;font-weight:bold">No challenges found matching your criteria.</p>
     <% else %>
         <% @challenges.in_groups_of(2, false) do |row_challenges| %>
-        <div class="row-fluid">
+        <div class="row-fluid challenge-list">
         <% for c in row_challenges %>                
             <div class="span6">
                 <div class="challenge well well-large">
@@ -217,7 +217,7 @@
                     <% else %> 
                       <%= format_challenge_due_in(c.end_date_utc) %>
                     <% end %>
-                    <p><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
+                    <p class='description'><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
                     <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                     <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
                     Tags: <%= technology_tag_links(c) %><% if c.community %> | <%= link_to "#{c.community_name} Community", "/communities/#{c.community_id}" %><% end %>
