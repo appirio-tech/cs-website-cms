@@ -417,6 +417,12 @@ ul.share li {
         font-weight: normal;
         color: #787878;
 	}
+  .member-profile .well .middle {
+    font-size: 12px;
+    max-width: 164px;
+    height: 18px;
+    overflow: hidden;
+  }
 	.member-profile .well .bottom {
 		position: absolute;
 		bottom: 0;
