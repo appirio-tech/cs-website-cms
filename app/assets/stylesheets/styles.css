@@ -1,16 +1,12 @@
 /* custom styles here */
-/** // aprosxacs -- member / challenge typeahead **/
-form.challenges-filter .filter {
-  margin-bottom: 10px;
+form.challenges-filter > span {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 39px;  
 }
-form.challenges-filter .state {
-  margin: 0 0 20px 20px;
-
-}
-form.challenges-filter .state label {
-  width: 150px;
-}
-/** // aprosxacs -- comments **/
 
 /** // soe -- global search box **/
 .dropdown-menu a span.source {

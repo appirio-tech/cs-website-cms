@@ -10,12 +10,12 @@
       <div class="filter well well-large">
         <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
           <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
-          <label>SHOW</label>
+          <span>SHOW</span>
           <%= select_tag "filters[platform]", options_for_select(@platforms, filters[:platform]), prompt: "All Platforms" %>
           <%= select_tag "filters[technology]", options_for_select(@technologies, filters[:technology]), prompt: "All Technologies" %>
           <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
 
-          <label>SORT BY</label>
+          <span>SORT BY</span>
           <%= select_tag "filters[order_by]", options_for_select(@sort_by_options, filters[:order_by]) %>
         <% end %>
 
