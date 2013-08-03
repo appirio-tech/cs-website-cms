@@ -454,6 +454,15 @@ h1.rss {
     padding: 12px 40px 12px 12px;
     width: 292px !important;
 }
+.form-search .search-query::-webkit-input-placeholder {
+  color: #ddd;
+}
+.form-search .search-query:-moz-placeholder {
+  color: #ddd;
+}
+.form-search .search-query:-ms-input-placeholder {
+  color: #ddd;
+}
 
 .form-search .btn-search {
   position: absolute;
