@@ -737,4 +737,8 @@ ul.brief-info {
     color: white;
 }
 
+.challenge-side .btn {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 /* ends screen.css */
