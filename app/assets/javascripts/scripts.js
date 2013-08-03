@@ -99,7 +99,7 @@ $(document).ready(function() {
 	    if(exist('.member-profile')) {
         $(".member-profile .stat .place .count").each(function() {
             var count = $(this);
-            count.css("width", 3.3*count.data("count"));
+            count.css("width", Math.min(100, 3.3*count.data("count")));
         });
         $(".member-profile .recommend-this-member").click(function() {
             $(this).parent().hide();
