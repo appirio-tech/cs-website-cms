@@ -1,6 +1,7 @@
 <% content_for :head do %><title>Submit Your Entry - CloudSpokes</title><% end %>
 
-<%= content_wrapper do %>
+<div class="content-wrapper">
+  <div class="container">
 
     <div class="title"><h1>YOUR SUBMISSION</h1></div>
 
@@ -23,8 +24,9 @@
             <%= render partial: "right_side", locals: {challenge: @challenge} %>
         </div>
     </div>
-
-<% end %>
+    
+  </div> <!-- /.container -->
+</div>
 
 <!-- Modal -->
 <div id="submit-instructions" class="modal hide fade" tabindex="-1" role="dialog">
