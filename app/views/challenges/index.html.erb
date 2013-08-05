@@ -10,12 +10,12 @@
       <div class="filter well well-large">
         <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
           <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
-          <label>SHOW</label>
+          <span>SHOW</span>
           <%= select_tag "filters[platform]", options_for_select(@platforms, filters[:platform]), prompt: "All Platforms" %>
           <%= select_tag "filters[technology]", options_for_select(@technologies, filters[:technology]), prompt: "All Technologies" %>
           <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
 
-          <label>SORT BY</label>
+          <span>SORT BY</span>
           <%= select_tag "filters[order_by]", options_for_select(@sort_by_options, filters[:order_by]) %>
         <% end %>
 
@@ -131,7 +131,7 @@
                 <div class="range-pane">
                   <div class="controls-row">
                     <input type="text" name="advanced[min_money]" id="input-min-money" value="<%= @min_money %>">
-                    <label class="control-label" for="input-min-money">Minimum</label>
+                    <label class="control-label" for="input-min-money" style="padding-right:4px">Minimum</label>
                   </div>
                   <div class="controls-row">
                     <input type="text" name="advanced[max_money]" id="input-max-money" value="<%= @max_money %>">
@@ -145,7 +145,7 @@
                 <div class="range-pane">
                   <div class="controls-row">
                     <input type="text" name="advanced[min_participants]" id="input-min-participants" value="<%= @min_participants %>">
-                    <label class="control-label" for="input-min-participants">Minimum</label>
+                    <label class="control-label" for="input-min-participants" style="padding-right:4px">Minimum</label>
                   </div>
                   <div class="controls-row">
                     <input type="text" name="advanced[max_participants]" id="input-max-participants" value="<%= @max_participants %>">
@@ -206,7 +206,7 @@
         <p style="text-align:center;font-weight:bold">No challenges found matching your criteria.</p>
     <% else %>
         <% @challenges.in_groups_of(2, false) do |row_challenges| %>
-        <div class="row-fluid">
+        <div class="row-fluid challenge-list">
         <% for c in row_challenges %>                
             <div class="span6">
                 <div class="challenge well well-large">
@@ -217,7 +217,7 @@
                     <% else %> 
                       <%= format_challenge_due_in(c.end_date_utc) %>
                     <% end %>
-                    <p><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
+                    <p class='description'><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
                     <%= pluralize(c.participating_members, 'member') %> participating, <%= c.registered_members %> registered<br/>
                     <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
                     Tags: <%= technology_tag_links(c) %><% if c.community %> | <%= link_to "#{c.community_name} Community", "/communities/#{c.community_id}" %><% end %>

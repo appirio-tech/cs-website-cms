@@ -1,4 +1,4 @@
-<h2>PARTICIPATION</h2><p>
+<h2>PARTICIPATION</h2>
 <p>
 
 <% unless placement == :body %>
@@ -10,15 +10,16 @@
   <%= link_to "#{pluralize(challenge.participating_members, 'member')} participating with #{challenge.registered_members} registered", participants_challenge_path(challenge) %>
 
 <% end %>
-
+</p>
 <% unless challenge.challenge_type.eql?("Info") %>
-  <P>
+  <div>
   <% if current_member_participant.try('submitted?') %>
       <% if user_signed_in? %>
         <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), submit_challenge_path(challenge), class: "btn" %>
+        <br/><br/>
       <% end %>
   <% elsif challenge.open? %>   
-    <div>
+    <p>
     <% if user_signed_in? %>
       <% if !current_member_participant.participating? && !challenge.closed_for_registration? %>
         <%= link_to content_tag(:span, "REGISTER"), register_challenge_path(challenge), class: "btn" %>
@@ -41,8 +42,7 @@
     <% else %>
         Please login to register and submit for this challenge.
     <% end %>
-    </div>
+    </p>
   <% end %>
-</p>
+  </div>
 <% end %>
-</p>

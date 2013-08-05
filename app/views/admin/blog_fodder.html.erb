@@ -10,7 +10,7 @@
     	<% for s in scorecard_row %>
         <div class="placement well well-large span6">
             <%= cl_image_tag(s.member.profile_pic, :width => 82, :height => 82, :crop => :fill, 
-              :class => 'pull-left photo', :cdn_subdomain => true) %> 
+              :class => 'pull-left photo') %> 
             <%= link_to s.member.name, member_path(s.member), :style => 'margin-top:10px' %>
             Score: <%= s.score %><br/>
             Submitted: <%= participant_submission_date(s.submission_date_utc) %>

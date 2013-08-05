@@ -1,16 +1,12 @@
 /* custom styles here */
-/** // aprosxacs -- member / challenge typeahead **/
-form.challenges-filter .filter {
-  margin-bottom: 10px;
+form.challenges-filter > span {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 39px;  
 }
-form.challenges-filter .state {
-  margin: 0 0 20px 20px;
-
-}
-form.challenges-filter .state label {
-  width: 150px;
-}
-/** // aprosxacs -- comments **/
 
 /** // soe -- global search box **/
 .dropdown-menu a span.source {
@@ -128,12 +124,6 @@ form.invite-friends .item {
 .jqTransformRadioWrapper  a.jqTransformChecked {
   background-position: 0 -21px;
 }
-textarea {
-	border: 1px solid #d1d1d1;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
 
 .content-wrapper .container > .row-fluid > [class^="span"] > h2 small {
 	float: right;
@@ -148,8 +138,9 @@ textarea {
 
 /** header **/
 .loginbar-wrapper {
-	height: 60px;
+	/*height: 60px;*/
 	/*overflow: hidden;*/
+    min-height: 10px;
 }
 .loginbar-wrapper .login > div {
 	padding-top: 9px;
@@ -199,9 +190,6 @@ textarea {
 		padding-left: 20px;
 	}
 
-.logined .pull-right {
-	width: 330px;
-}
 /** end of header **/
 
 /* nav */
@@ -223,21 +211,52 @@ textarea {
 /* banner */
 .banner {
 	margin: 30px 0 0 0;
-	background: url(/assets/banner-bg.png) 0 0 repeat-x;
+	/*background: #136fb4;*/
+    background: #0d4066 url(/assets/banner-bg.png) left top repeat-x;
+    padding: 74px 0 70px;
+}
+.banner h1{
+    font-size: 50px;
+    padding-right: 350px;
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 120%;
+    margin: 0;
+}
+.banner h2{
+    font-size: 32px;
+    padding-right: 350px;
+    color: #dddddd;
+    line-height: 120%;
+    margin: 0;
 }
 .banner .tabs{
     position: absolute;
-    top:230px;
-    width: 1024px;
+    bottom: -36px;
     z-index: 200;
+    height: 36px;
+}
+.banner .tabs .tab{
+    margin: 0;
+}
+.banner .tabs .tab a{
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    width: 97px;
+    background: #f8941e;
+    margin-right: 5px;
+}
+.banner .tabs .tab a.active{
+    /*background: #136fb4;*/
+    background: #0a4a79;
 }
 	.banner-unit {
-        text-align: center;
 		top: 0;
 		/*width: 1024px;*/
-		height: 210px;
+		/*height: 210px;*/
 		position: relative;
-        margin-bottom: 100px;
+        /*margin-bottom: 100px;*/
 	}
 		.banner-unit img {
 			/*position: absolute;*/
@@ -245,9 +264,25 @@ textarea {
 			left: 0;
 		}
 		.banner-unit .buttons {
+            width: 330px;
 			position: absolute;
-			text-align: right;
+			text-align: center;
+            right: 0;
+            top: 0;
+            font-size: 26px;
+            color: #fff !important;
+            /*background: #1164a2;*/
+            background: #136fb4;
 		}
+        .banner-unit .buttons p{
+            display: block;
+            padding: 40px 30px 30px;
+            line-height: 120%;
+            margin: 0;
+        }
+        .banner-unit .buttons strong{
+            color: #09e104;
+        }
 		.crowdsouced-banner .buttons {
 			top: 120px;
 			left: 590px;
@@ -273,23 +308,23 @@ textarea {
 				height: 50px;
 				color: #fff;
 				text-align: center;
-				background: url("/assets/tab-large.png") 0 0 no-repeat;
+				background: #f8941e;
 				padding-left: 3px;
 			}
 				.banner-unit a.get-started span {
 					display: block;
 					padding-right: 3px;
-					background: url(/assets/tab-large.png) 100% -195px no-repeat;
+                    background: #f8941e;
 				}
 					.banner-unit a.get-started span span {
 						display: block;
-						width: 217px;
+						/*width: 217px;*/
 						height: 50px;
-						font-size: 24px;
+						font-size: 36px;
 						padding: 0 9px;
-						font-weight: bold;
+						font-weight: normal;
 						line-height: 50px;
-						background: url("/assets/tab-large.png") 0 -390px repeat-x;
+                        background: #f8941e;
 					}
 			.banner-unit a.get-started:hover {
 				background-position: 0 -65px;
@@ -303,8 +338,10 @@ textarea {
 					}
 
 			.banner-unit a.learn-more {
+                position: absolute;
+                right: 0;
 				display: block;
-				color: #fff;
+				color: #dddddd;
 				font-size: 14px;
 				line-height: 30px;
 				margin-right: 5px;
@@ -359,19 +396,33 @@ ul.share li {
 	padding: 5px 0 0 0;
 	position: relative;
 	height: 135px;
-	margin-bottom: 0;
+	margin-bottom: 30px;
 }
 	.member-profile .well h2{
 		font-size: 21px;
         font-weight: bold;
 	}
+    .member-profile .well .top{
+        color: #136fb4;
+    }
+    .member-profile .well strong{
+        font-size: 20px;
+    }
 	.member-profile .well .top span {
-		font-size: 19px;
+		font-size: 14px;
+        font-weight: normal;
+        color: #787878;
 	}
+  .member-profile .well .middle {
+    font-size: 12px;
+    max-width: 164px;
+    height: 18px;
+    overflow: hidden;
+  }
 	.member-profile .well .bottom {
 		position: absolute;
 		bottom: 0;
-		font-size: 19px;
+		font-size: 14px;
 	}
 	.member-profile .span6 {
 		margin-left: 10px;
@@ -429,17 +480,8 @@ ul.share li {
 		}
 	/* end of level */
 
-.member-profile #quotes .item {
-	/*height: 25px;*/
-	text-align: center;
-	width: 800px;
-	margin: 40px auto;
-	padding-left: 5px;
-
-}
-	.member-profile #quotes .item .quote {
-		font-size: 24px;
-		line-height: 25px;
+	.member-profile .quote p{
+		font-size: 20px;
 	}
 
 ul.brief-info {
@@ -545,7 +587,7 @@ ul.brief-info {
 				font-size: 13px;
 			}
 				.member-profile .missions .item span.orange {
-					color: #de7a20;
+					color: #F8941E;
 				}
 				.member-profile .missions .item span.first {
 					height: 40px;
@@ -587,7 +629,7 @@ ul.brief-info {
 			*height: 350px;
 		} 
 	.member-profile .span4 p {
-		font-size: 13px;
+		/*font-size: 13px;*/
 	}
 		.member-profile .span4 p .gray {
 			color: #d1d1d1;
@@ -697,4 +739,12 @@ ul.brief-info {
     color: white;
 }
 
+.challenge-side .btn {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.challenge-list .challenge p.description {
+  height: 80px;
+}
 /* ends screen.css */

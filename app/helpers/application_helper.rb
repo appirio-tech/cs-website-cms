@@ -1,29 +1,29 @@
 module ApplicationHelper
 
   MENU_OPTIONS_SETTINGS = { 
-  	:account_details  				=> {:value => 'ACCOUNT DETAILS', 			:link => '/account/details'},
-  	:payment_info		  				=> {:value => 'PAYMENT INFO', 				:link => '/account/payment-info'},
-  	:school_and_work  				=> {:value => 'SCHOOL & WORK INFO', 	:link => '/account/school-and-work'},
-  	:public_profile	  				=> {:value => 'PUBLIC PROFILE', 			:link => '/account/public-profile'},
-		:change_password      		=> {:value => 'CHANGE PASSWORD',      :link => '/account/change-password'} 
-	}
+    :account_details                => {:value => 'Account Details', :link => '/account/details'},
+    :payment_info                   => {:value => 'Payment Information', :link => '/account/payment-info'},
+    :school_and_work             => {:value => 'School & Work Information', :link => '/account/school-and-work'},
+    :public_profile                   => {:value => 'Edit Public Profile', :link => '/account/public-profile'},
+    :change_password            => {:value => 'Change Password', :link => '/account/change-password'}
+  }
 
   MENU_OPTIONS_MY_STUFF = { 
-    :messages                 => {:value => 'MESSAGES',             :link => '/messages/inbox'},
-  	:challenges  							=> {:value => 'CHALLENGES', 					:link => '/account/challenges'},
-  	:challenges_as_admin			=> {:value => 'ADMINISTER CHALLENGES', :link => '/admin/challenges'},
-		:communities      				=> {:value => 'COMMUNITIES',  	  	  :link => '/account/communities'} 
-	}	
+    :messages                         => {:value => 'Messages', :link => '/messages/inbox'},
+    :challenges  	                     => {:value => 'Challenges', :link => '/account/challenges'},
+    :communities                   => {:value => 'Communities', :link => '/account/communities'},
+    :challenges_as_admin      => {:value => 'Admininter Challenges', :link => '/admin/challenges'}
+  }
 
   MENU_OPTIONS_REFERRAL = { 
-  	:referred_members  				=> {:value => 'REFERRED MEMBERS', 		:link => '/account/referred-members'},
-		:invite_friends      			=> {:value => 'INVITE FRIENDS',       :link => '/account/invite-friends'} 
-	}	
+    :referred_members            => {:value => 'Referred Members', :link => '/account/referred-members'},
+    :invite_friends                   => {:value => 'Invite Friends', :link => '/account/invite-friends'}
+  }	
 
   MENU_OPTIONS_SUBMISSIONS = { 
-  	:outstanding_reviews			=> {:value => 'OUTSTANDING REVIEWS', 	:link => '/judging/outstanding-reviews'},
-		:judging_queue      			=> {:value => 'JUDGING QUEUE',       	:link => '/judging/judging-queue'} 
-	}		
+    :outstanding_reviews        => {:value => 'Outstanding Reviews', :link => '/judging/outstanding-reviews'},
+    :judging_queue                 => {:value => 'Judging Queue', :link => '/judging/judging-queue'}
+  }		
 
   def profile_pic
     current_user.profile_pic ||= 'http://cs-public.s3.amazonaws.com/default_cs_member_image.png'

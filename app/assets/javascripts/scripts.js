@@ -77,7 +77,7 @@ $(document).ready(function() {
     }
 
     if(exist('.scrollable')) {
-        $('.scrollable').scrollable({circular:true,touch:false}).autoscroll();
+        $('.scrollable').scrollable({circular:true,touch:false}).autoscroll(20000);
     }
     if(exist('.switch')) {
         $('.switch').scrollable({next:'',prev:'',touch:false}).navigator({navi:'.tab'});
@@ -99,7 +99,7 @@ $(document).ready(function() {
 	    if(exist('.member-profile')) {
         $(".member-profile .stat .place .count").each(function() {
             var count = $(this);
-            count.css("width", 3.3*count.data("count"));
+            count.css("width", Math.min(100, 3.3*count.data("count")));
         });
         $(".member-profile .recommend-this-member").click(function() {
             $(this).parent().hide();
@@ -192,6 +192,41 @@ $(document).ready(function() {
         }
         e.stopPropagation()
     })
+
+
+    $('#login-modal input[type="submit"]').click(function() {
+        if ($('#login-modal .error').length === 0) {
+            $('#sign-in-btn').val('Processing....');
+            $.ajax({
+                type: 'POST',
+                url: '/users/sign_in',
+                data: {
+                    user: {
+                        username: $('#login-username').val(),
+                        password: $('#login-password').val(),
+                        remember_me: $('#login-rememberme:checked').length>0?1:0
+                    }
+                },
+                success: function(results, textStatus, jqHXR) {
+                    if(results.indexOf('alert-error')==-1){
+                        document.location.href="/dashboard";
+                    }else{
+                        console.log(results)
+                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">Invalid username / password combination</div>');
+                    }
+                    return $('#sign-in-btn').val('Login');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    return $('#sign-up-btn').val('Login');
+                }
+            });
+        }
+        return false;
+    });
+
+    $('html').off('touchstart.dropdown.data-api');
+
 });
 
 function exist(el) {

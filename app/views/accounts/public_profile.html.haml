@@ -1,5 +1,5 @@
 = content_wrapper do
-  .span8
+  .span9
     .title
       %h1 EDIT PUBLIC PROFILE
     %p The community wants to get to know you. Who is that brainiac writing those compliant, minified lines of code? Show you’re really not a robot and write a little something about yourelf. Note that the information you provide below is public and anyone can see it, including your boss.
@@ -11,8 +11,8 @@
         .controls
           = cl_image_tag(@member.profile_pic, :width => 82, :height => 82, :crop => :fill, :class => 'pull-left photo')
           .btn-file
-            %a.btn.btn-grey{href: "#"}
-              %span CHOOSE FILE
+            %a.btn{href: "#"}
+              %span Choose File
             = file_field_tag "profile_picture"
             %span No file chosen
           / = link_to "#", class: "btn btn-grey submit" do
@@ -50,7 +50,7 @@
       .controls-row
         .control-group
           .controls
-            = submit_tag "SUBMIT", class: "btn pull-left"
+            = submit_tag "Save Profile", class: "btn pull-right"
         
 
 

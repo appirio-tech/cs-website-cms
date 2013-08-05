@@ -91,20 +91,17 @@
     display: inherit !important;
   }
   .visible-desktop {
-    display: none !important;
+    display: none;
   }
   .visible-phone {
     display: inherit !important;
   }
   .hidden-phone {
-    display: none !important;
-  }
-}
-
-@media (min-width: 979px) {
-  .btn.menu {
     display: none;
   }
+    .nav a{
+        /*width: 100% !important;*/
+    }
 }
 
 @media (max-width: 979px) {
@@ -122,9 +119,9 @@
   .uneditable-input[class*="span"],
   .row-fluid [class*="span"] {
     display: block;
-    float: none;
-    width: 100%;
-    margin-left: 0;
+    /*float: none;*/
+    /*width: 100%;*/
+    /*margin-left: 0;*/
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -155,17 +152,14 @@
   .form-search {
     display: block;
     float: none;
-    padding: 0 15px 0 12px;
+    padding: 0 55px 0 5px;
     clear: both;
   }
+    .form-search .search-query{
+        width: 100% !important;
+    }
   .form-search .btn-search {
     right: 18px !important;
-  }
-  .form-search .jqTransformInputWrapper {
-    width: 100% !important;
-  }
-  .form-search .jqTransformInputWrapper input.search-query {
-    width: 98% !important;
   }
   .sidebar .links li.active {
     background: url("/assets/arrow-up.png") no-repeat scroll 5px center transparent;
@@ -185,33 +179,31 @@
   textarea.span10 {
     width: 92%;
   }
-  .logo {
-    width: 258px;
-    margin-bottom: 20px;
-  }
+
   .nav-wrapper .container {
     position: relative;
     width: 100%;
     padding: 0;
   }
-  .nav-wrapper .container .menu {
-    position: absolute;
-    top: 32px;
-    right: 10px;
-  }
+  /*.nav-wrapper .container .menu {*/
+    /*position: absolute;*/
+    /*top: 32px;*/
+    /*right: 10px;*/
+  /*}*/
   .nav-wrapper .container .login {
     position: absolute;
     top: 32px;
     right: 100px;
   }
   .nav {
-    display: none;
-    width: 100%;
+    /*display: none;*/
+    /*width: 100%;*/
     margin-bottom: 20px;
-    background: #535353;
+    /*background: #535353;*/
   }
+
   .nav a {
-    display: block;
+    /*display: block;*/
     font-size: 14px;
     line-height: 40px;
   }
@@ -221,8 +213,7 @@
   .nav li {
     display: block;
     padding-top: 0;
-    padding-left: 10px;
-    margin-top: -1px;
+    /*margin-top: -1px;*/
     margin-left: 0;
   }
   .nav li.active {
@@ -408,6 +399,9 @@
   .timezone .jqTransformSelectWrapper {
     width: 96%;
   }
+    .navbar-inverse .nav-collapse .nav > li .dropdown-menu a{
+        text-indent: 15px;
+    }
 }
 
 @media (min-width: 767px) and (max-width: 979px) {
@@ -435,9 +429,9 @@
   #status > div {
     margin-bottom: 20px;
   }
-  #status > div:nth-child(4) {
-    margin-left: 0;
-  }
+  /*#status > div:nth-child(4) {*/
+    /*margin-left: 0;*/
+  /*}*/
   .span4 .placement.well {
     float: left;
     width: 45% !important;
@@ -562,6 +556,16 @@
 }
 
 @media (max-width: 767px) {
+    .switch .item li.span4{
+        float: none;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .banner h1,
+    .banner h2{
+        padding-right: 0;
+    }
   .banner-unit {
     height: auto !important;
   }
@@ -578,7 +582,7 @@
     width: auto !important;
   }
   .banner-unit .buttons a.get-started {
-    margin: 0 5px;
+    /*margin: 0 5px;*/
   }
   .banner-unit .buttons a.learn-more {
     margin: 10px 5px 10px auto;
@@ -604,6 +608,47 @@
   #status > div > div > div {
     width: 100%;
   }
+    /*.loginbar-wrapper .pull-right{*/
+        /*float: none !important;*/
+        /*padding: 0 5px;;*/
+    /*}*/
+  .loginbar-wrapper .pull-right .btn,.loginbar-wrapper .pull-right img{
+      /*margin-top: 5px;*/
+      /*width: 100%;*/
+      /*margin-left: 0;*/
+      margin-bottom: 5px;
+      margin-left: 0;
+      margin-right: 5px;
+  }
+
+    .nav{
+        width: auto !important;
+        float: none !important;
+        clear: both;;
+        padding: 0 5px 5px 5px;
+    }
+  .nav .btn-group{
+      width: 100%;
+      margin-top: 5px;
+      margin-left: 0 !important;
+
+  }
+    .nav .btn-group .btn{
+        text-align: left;
+    }
+  .nav > .btn{
+      margin-top: 5px;
+      margin-left: 0 !important;
+      text-align: left;
+  }
+    .nav > .btn span{
+        padding-left: 10px;
+    }
+  .nav .dropdown-menu{
+      position: relative;
+      width: 100% !important;
+  }
+
   .span6 .case {
     padding-top: 140px;
   }
@@ -707,12 +752,12 @@
     width: 100%;
     margin-right: 0;
   }
-  .footer-wrapper .row-fluid > div h2 {
-    cursor: pointer;
-  }
-  .footer-wrapper .row-fluid > div ul {
-    display: none;
-  }
+  /*.footer-wrapper .row-fluid > div h2 {*/
+    /*cursor: pointer;*/
+  /*}*/
+  /*.footer-wrapper .row-fluid > div ul {*/
+    /*display: none;*/
+  /*}*/
   .footer-wrapper .row-fluid > div.social-links ul {
     display: block !important;
   }
@@ -876,12 +921,40 @@
   .tabs .tab {
     margin: 0 auto;
   }
-  .banner {
-    background: none !important;
+  .banner{
+    /*background: none !important;*/
+      padding: 0;
+      padding-top: 20px;
+      margin-bottom: 40px;
   }
+  .banner .container{
+      margin: 0 5px;
+  }
+    .banner h1{
+        font-size: 35px;
+    }
+    .banner h2{
+        font-size: 20px;
+    }
+  .banner h1,
+  .banner h2,
   .banner .container {
     width: 100%;
   }
+    .banner .buttons{
+        width: auto;
+        margin: 10px;
+    }
+    .banner .buttons p{
+        padding: 15px;
+    }
+    .res li{
+        margin-bottom: 5px;
+    }
+    .banner-unit a.learn-more{
+        margin-top: 20px;
+    }
+
   .form-adv-search .control-group,
   .form-adv-search .jqTransformRadioWrapper {
     clear: both;
@@ -909,9 +982,19 @@
   .form-adv-search .scrollbar {
     display: none;
   }
+    .btn{
+        font-size: 18px !important;
+    }
 }
 
 @media (max-width: 979px) {
+    .navbar .btn-navbar{
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
   body {
     padding-top: 0;
   }
@@ -943,13 +1026,14 @@
   }
   .nav-collapse .nav {
     float: none;
-    margin: 0 0 10px;
+    /*margin: 0 0 10px;*/
   }
   .nav-collapse .nav > li {
     float: none;
   }
   .nav-collapse .nav > li > a {
-    margin-bottom: 2px;
+    /*margin-bottom: 2px;*/
+      border-top: 1px solid #ffffff;
   }
   .nav-collapse .nav > .divider-vertical {
     display: none;
@@ -960,12 +1044,10 @@
   }
   .nav-collapse .nav > li > a,
   .nav-collapse .dropdown-menu a {
-    padding: 9px 15px;
-    font-weight: bold;
-    color: #777777;
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    font-weight: normal;
+    color: #ffffff;
+    /*font-size: 18px;*/
+      line-height: 39px;
   }
   .nav-collapse .btn {
     padding: 4px 10px 4px;
@@ -974,20 +1056,25 @@
        -moz-border-radius: 4px;
             border-radius: 4px;
   }
-  .nav-collapse .dropdown-menu li + li a {
-    margin-bottom: 2px;
+  .nav-collapse .dropdown-menu li a {
+    /*margin-bottom: 2px;*/
+      border-top: 1px solid #ffffff;
   }
   .nav-collapse .nav > li > a:hover,
   .nav-collapse .dropdown-menu a:hover {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
   }
+    .navbar-inverse .nav-collapse .nav > li > a{
+        /*font-weight: bold;*/
+    }
   .navbar-inverse .nav-collapse .nav > li > a,
   .navbar-inverse .nav-collapse .dropdown-menu a {
-    color: #999999;
+      color: #ffffff;
+      background: #f8941e;
   }
-  .navbar-inverse .nav-collapse .nav > li > a:hover,
   .navbar-inverse .nav-collapse .dropdown-menu a:hover {
-    background-color: #111111;
+    color: #f8941e;
+    background-color: #fbead4;
   }
   .nav-collapse.in .btn-group {
     padding: 0;
@@ -1001,7 +1088,7 @@
     float: none;
     max-width: none;
     padding: 0;
-    margin: 0 15px;
+    margin: 0;
     background-color: transparent;
     border: none;
     -webkit-border-radius: 0;
@@ -1059,9 +1146,42 @@
   }
 }
 
+@media (max-width: 826px) {
+    .nav{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .banner h1 {
+        font-size: 35px;
+    }
+    .banner h2 {
+        font-size: 20px;
+    }
+    .banner-unit .buttons{
+        top:-30px;
+    }
+}
+
 @media (min-width: 980px) {
-  .nav-collapse.collapse {
-    height: auto !important;
-    overflow: visible !important;
-  }
+    .nav-collapse{
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img{
+        width: 240px;
+    }
+    .banner h1{
+        font-size: 22px;
+    }
+    .banner h2,
+    .banner-unit .buttons{
+        font-size: 16px;
+    }
+    .banner-unit a.get-started span span{
+        font-size: 18px;
+    }
 }

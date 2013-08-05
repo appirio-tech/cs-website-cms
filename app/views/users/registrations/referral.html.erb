@@ -7,7 +7,7 @@
     <div class="span5">
       <div class="placement well">
         <%= cl_image_tag(@member.profile_pic, :width => 82, :height => 82, :crop => :fill, 
-        :class => 'pull-left photo', :alt => @member.name, :cdn_subdomain => true) %> 
+        :class => 'pull-left photo', :alt => @member.name) %> 
         <%= link_to @member.name, member_path(@member.name), :style => 'margin-top:10px' %>
         Challenge Wins: <strong><%= @member.total_wins.to_i %></strong><br/>
         Active Challenges: <strong><%= @member.raw_data.active_challenges.to_i %></strong><br/>

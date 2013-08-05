@@ -20,7 +20,7 @@
       <div class="span4">
           <div class="placement well">
               <%= cl_image_tag(m.from__r.profile_pic, :width => 82, :height => 82, :crop => :fill, 
-                :class => 'pull-left photo', :alt => m.from__r.name, :cdn_subdomain => true) %>           
+                :class => 'pull-left photo', :alt => m.from__r.name) %>           
               <%= link_to m.from__r.name, member_path(m.from__r.name), :style => 'margin-top:10px' %>
               <%= format_date_time(DateTime.parse(m.createddate).getutc) %>
           </div>

@@ -1,0 +1,15 @@
+development:
+  cloud_name: hnep56ea0
+  enhance_image_tag: true
+  static_image_support: false
+  cdn_subdomain: true
+production:
+  cloud_name: hnep56ea0
+  enhance_image_tag: true
+  static_image_support: true
+  cdn_subdomain: true  
+test:
+  cloud_name: hnep56ea0
+  enhance_image_tag: true
+  static_image_support: false
+  cdn_subdomain: true  

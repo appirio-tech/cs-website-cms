@@ -16,7 +16,7 @@
           <% @points_leaderboard.each do |member| %>
           <div class="placement well">
               <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
-                :class => 'pull-left photo', :alt => member['username'], :cdn_subdomain => true) %>
+                :class => 'pull-left photo', :alt => member['username']) %>
               <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
               <% if member['country'] %><%= member['country'] %><br/><% end %>
               <%= member['points'] %> points<br/>
@@ -35,7 +35,7 @@
                 <% @referral_leaderboard.each do |member| %>
                 <div class="placement well">
                     <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
-                      :class => 'pull-left photo', :alt => member['username'], :cdn_subdomain => true) %>                    
+                      :class => 'pull-left photo', :alt => member['username']) %>                    
                     <%= link_to member['name'], member_path(member['name']), :style => 'margin-top:10px' %>
                     # of Referrals: <%= member['total'].to_i %>
                     <span class="place <%= leaderboard_place_decorator(member['rank'].to_i) %>"><%= member['rank'].to_i.ordinalize %></span>
