@@ -79,6 +79,7 @@ $ ->
 						
 						# success!
 						if (results.indexOf('Member created successfully') == 0)
+							$('#register-modal').modal('hide')
 							$('#signup-success-modal .content').html('<p style="text-align:center">'+results+'</p>')
 							$('#signup-success-modal').modal('show')
 						# bad email address
