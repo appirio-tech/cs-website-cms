@@ -71,7 +71,7 @@
               </div>
 
               <div class="pull-right">
-                  <%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.usernameRails.logger.info ) %>
+                  <%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username) %>
                   <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
                   <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
               </div>
