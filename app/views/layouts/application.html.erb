@@ -97,7 +97,7 @@
               </div>
 
               <div class="pull-right">
-                  <%= image_tag(profile_pic, :width => "35x35") %>
+                  <%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username, :cdn_subdomain => true) %>
                   <a class="btn" href="<%= main_app.member_path(current_user.username) %>"><span>MY PUBLIC PROFILE</span></a>
                   <a class="btn btn-grey btn-logout" href="<%= main_app.destroy_user_session_path %>"><span>LOGOUT</span></a>
                   <% link_to 'Sign out', main_app.destroy_user_session_path, :method => :delete %>

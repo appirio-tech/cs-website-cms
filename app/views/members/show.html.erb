@@ -39,7 +39,8 @@
         <div class="title"><h1>MEMBER PROFILE</h1></div>
         <div class="container">
             <div class="span6 border-right">
-                <%= image_tag(@member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+                <%= cl_image_tag(@member.profile_pic, :width => 82, :height => 82, :crop => :fill, 
+                    :class => 'pull-left photo', :alt => @member.name, :cdn_subdomain => true) %>             
                 <div class="pull-left info">
                     <div class="well">
                         <div class="top">

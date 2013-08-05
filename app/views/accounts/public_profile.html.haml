@@ -9,7 +9,7 @@
       .control-group
         %label.control-label Profile Photo
         .controls
-          = image_tag @member.profile_pic, class: "photo pull-left", alt: "", width: 82
+          = cl_image_tag(@member.profile_pic, :width => 82, :height => 82, :crop => :fill, :class => 'pull-left photo')
           .btn-file
             %a.btn.btn-grey{href: "#"}
               %span CHOOSE FILE

@@ -15,7 +15,8 @@
                 <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS MONTH</h1></div>
                 <% @this_month.each do |member| %>
                 <div class="placement well">
-                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
+                        :class => 'pull-left photo', :alt => member['username'], :cdn_subdomain => true) %>
                     <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
@@ -29,7 +30,8 @@
                 <div class="title" style="margin:0px 0px 0px 0px"><h1>THIS YEAR</h1></div>
                 <% @this_year.each do |member| %>
                 <div class="placement well">
-                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
+                        :class => 'pull-left photo', :alt => member['username'], :cdn_subdomain => true) %>
                     <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>
@@ -43,7 +45,8 @@
                 <div class="title" style="margin:0px 0px 0px 0px"><h1>ALL TIME</h1></div>
                 <% @all_time.each do |member| %>
                 <div class="placement well">
-                    <%= image_tag(member['profile_pic'], :width => '82x82', :class => 'pull-left photo') %>
+                    <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
+                        :class => 'pull-left photo', :alt => member['username'], :cdn_subdomain => true) %>
                     <%= link_to member['username'], member_path(member['username']), :style => 'margin-top:10px' %>
                     # of Wins: <%= member['wins'].to_i %>
                     <span class="prize"><%= number_to_currency(member['total_money'], :precision => 0) %></span>

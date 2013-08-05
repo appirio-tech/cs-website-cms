@@ -13,7 +13,7 @@
           - two_referrals.each do |referral|
             - next if referral.blank?
             .span6.well.well-large
-              = image_tag referral.profile_pic, class: "pull-left photo", alt: "", width: 82, height: 82
+              = cl_image_tag(referral.profile_pic, :width => 82, :height => 82, :crop => :fill,  :class => 'pull-left photo', :cdn_subdomain => true)            
               %h2= link_to referral.membername, member_path(referral.membername)
               %div= "Joined: #{referral.signup_date.strftime("%b. %d, %Y")}"
               %div

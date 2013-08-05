@@ -1,6 +1,6 @@
 <div class="comment clearfix <%= "reply" if comment.reply? %>" id="<%= comment.id %>">
   <div class="profile-picture">
-    <%= image_tag comment.member.profile_pic, :width => '82x82' %>
+    <%= cl_image_tag(comment.member.profile_pic, :width => 82, :height => 82, :crop => :fill, :class => 'pull-left photo', :alt => comment.member.name, :cdn_subdomain => true) %>
   </div>
   <div class="main">
     <div class="text"> <%= raw(comment.comment) %> </div>

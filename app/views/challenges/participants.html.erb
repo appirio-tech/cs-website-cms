@@ -16,7 +16,8 @@
             <% for p in row_participants %> 
             <div class="span4">
                 <div class="well well-large">
-                    <%= image_tag(p.member.profile_pic, :width => '82x82', :class => 'pull-left photo') %>
+                    <%= cl_image_tag(p.member.profile_pic, :width => 82, :height => 82, :crop => :fill, 
+                        :class => 'pull-left photo', :alt => p.member.name, :cdn_subdomain => true) %>
                     <div class="detail">
                         <h2><%= link_to p.member.name, member_path(p.member) %></h2>
                         <% if p.member.country %><%= p.member.country %><br/><% end %>
