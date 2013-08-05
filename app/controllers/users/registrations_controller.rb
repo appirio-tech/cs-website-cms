@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # /singup/:membername_or_id
   def referral
-    @member = Member.find(params[:id])
+    @member = Member.find(params[:id], fields: 'id,name,profile_pic,total_wins,active_challenges,total_money')
     cookies[:referral_referred_by] = params[:id]
   end
 
