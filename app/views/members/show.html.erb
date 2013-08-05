@@ -55,18 +55,22 @@
                     <% if @member.time_zone %><span><%= @member.time_zone %></span><% end %>
                   </div>
                   <div class="bottom">
-                    <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong> <br/>Pts<br>
-                    <strong><%= number_to_currency(@member.total_money, :precision => 0) %></strong>
+                    <strong><%= number_to_currency(@member.total_money, :precision => 0) %></strong><br>
+                    <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong> Pts
                   </div>
                 </div>
               </div>
             </div>
 
-            <h2>QUOTE</h2>
-            <p><%= @member.quote %></p>
+            <% if @member.quote %>
+                <h2>QUOTE</h2>
+                <p><%= @member.quote %></p>
+            <% end %>
 
-            <h2>BIO</h2>
-            <p><%= @member.summary_bio %></p>
+            <% if @member.summary_bio %>
+                <h2>BIO</h2>
+                <p><%= @member.summary_bio %></p>
+            <% end %>
 
             <% if @member.website || @member.github || @member.twitter || @member.facebook || @member.linkedin %>
             <h2>CONNECT</h2>

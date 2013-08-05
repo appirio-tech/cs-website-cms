@@ -16,6 +16,7 @@
   <% if current_member_participant.try('submitted?') %>
       <% if user_signed_in? %>
         <%= link_to content_tag(:span, "VIEW YOUR SUBMISSION"), submit_challenge_path(challenge), class: "btn" %>
+        <br/><br/>
       <% end %>
   <% elsif challenge.open? %>   
     <p>
