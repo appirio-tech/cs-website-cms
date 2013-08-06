@@ -75,6 +75,9 @@ GEM
     annotate (2.4.0)
     ansi (1.4.3)
     arel (3.0.2)
+    asset_sync (1.0.0)
+      activemodel
+      fog (>= 1.8.0)
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
@@ -259,7 +262,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.6.2)
-    newrelic_rpm (3.6.3.111)
+    newrelic_rpm (3.6.6.147)
     nokogiri (1.5.5)
     oauth (0.4.7)
     oauth2 (0.8.0)
@@ -470,6 +473,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (= 2.4.0)
+  asset_sync
   awesome_print
   better_errors
   binding_of_caller

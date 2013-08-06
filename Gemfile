@@ -9,6 +9,7 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'redis'
 gem 'unicorn'
 gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
+gem 'pg', '0.14.1'
 
 gem 'devise', '~> 2.0.0'
 gem 'bootstrap-sass', '2.1.1.0'
@@ -72,13 +73,8 @@ gem 'docusign_rest'
 # in production environments by default.
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
-end
-
-group :production do
-  gem 'pg', '0.14.1'
+  gem 'asset_sync'
 end
 
 group :development, :test do
@@ -89,7 +85,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'growl'
   gem 'debugger'
-  gem 'pg', '0.14.1'
   gem 'rspec-rails'
   gem 'sextant'
   gem 'quiet_assets'
