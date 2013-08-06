@@ -76,7 +76,7 @@ window.onload = function() {
             <div class="content">
               <%= form_for 'challenge_admin', :action => admin_challenges_path, :method => "post", html: { :id => 'new_challenge_frm' } do |f| %>
               <p>Enter the display name for your challenge. You can always change this later if you are unsure now. </p>
-              <p><%= f.text_field :name, :id => 'challenge_name', :size => 70 %><br/><br/></p>                
+              <p><%= f.text_field :name, :id => 'challenge_name', :style => 'width: 700px' %><br/><br/></p>                
               <div class="new-challenge-results" style="float:left;padding-left:15px;padding-right:15px;padding-top:15px"></div>
               <% end %>
             </div>
