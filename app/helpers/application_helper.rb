@@ -12,7 +12,7 @@ module ApplicationHelper
     :messages                         => {:value => 'Messages', :link => '/messages/inbox'},
     :challenges  	                     => {:value => 'Challenges', :link => '/account/challenges'},
     :communities                   => {:value => 'Communities', :link => '/account/communities'},
-    :challenges_as_admin      => {:value => 'Admininter Challenges', :link => '/admin/challenges'}
+    :challenges_as_admin      => {:value => 'Administer Challenges', :link => '/admin/challenges'}
   }
 
   MENU_OPTIONS_REFERRAL = { 
