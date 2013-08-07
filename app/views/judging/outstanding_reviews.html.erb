@@ -1,34 +1,56 @@
 <% content_for :head do %><title>Outstanding Reviews - CloudSpokes</title><% end %>
 
+<script type="text/javascript" charset="utf-8" language="javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+<%= stylesheet_link_tag "DT_bootstrap" %>
+<%= javascript_include_tag "DT_bootstrap" %>
+
 <!-- CONTENT
-        ================================================== -->
+    ================================================== -->
 <div class="content-wrapper">
-    <div class="container">
+  <div class="container">
 
-        <div class="row-fluid">
+    <div class="row-fluid">
 
-            <div class="span9">
-                <div class="title"><h1>OUTSTANDING REVIEWS</h1></div>
+      <div class="span9">
+        <div class="title"><h1>OUTSTANDING REVIEWS</h1></div>
 
-                <% if @scorecards.empty? %><div align="center">No more scorecards! Yippe!!</div><% end %>
+        <% if @scorecards.empty? %>
+          <div align="center">No more scorecards! Yippe!!</div>
+        <% else %>
 
-                <% @scorecards.each do |s| %>
-                <div class="review well well-large">
-                    <h3><%= link_to s.challenge_participant__r.challenge__r.name, challenge_path(s.challenge_participant__r.challenge__r.challenge_id), :target => '_blank' %></h3>
-                    <div class="row-fluid">
-                      <%= cl_image_tag(s.challenge_participant__r.member__r.profile_pic, :width => 75, :height => 75, :crop => :fill, 
-                        :class => 'pull-left photo', :alt => s.challenge_participant__r.member__r.name) %>
-                        Member : <%= link_to s.challenge_participant__r.member__r.name, member_path(s.challenge_participant__r.member__r.name), :target => '_blank' %><br/>
-                        Submitted : <%= participant_submission_date(Time.parse(s.challenge_participant__r.submitted_date).getutc) %>
-                    </div>
-                    <a class="btn pull-right-bottom" href="<%= participant_scorecard_path(s.challenge_participant) %>"><span>REVIEW</span></a>
-                </div>
-                <% end %>
+          <div class="form-horizontal jqTransform">
 
-            </div>
+          <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="challenges" style="margin-top: 10px">
+            <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Member</th>
+              <th>Status</th>              
+              <th>Action</th>              
+              <th>Submitted</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @scorecards.each do |s| %>
+            <tr>
+              <td><%= link_to s.challenge_participant__r.challenge__r.name, challenge_path(s.challenge_participant__r.challenge__r.challenge_id), :target => '_blank' %></td>
+              <td><%= link_to s.challenge_participant__r.member__r.name, member_path(s.challenge_participant__r.member__r.name), :target => '_blank' %></td>
+              <td><% if s.total_raw_score == 0 %>Not Scored<% else %>Saved<% end %></td>
+              <td><%= link_to 'Review', participant_scorecard_path(s.challenge_participant) %></td>
+              <td><%= participant_submission_date(Time.parse(s.challenge_participant__r.submitted_date).getutc) %></td>
+            </tr>
+            <% end %>
+            </tbody>
+          </table>
 
-            <%= render 'shared/account_menu', :selected_item => 'outstanding_reviews' %>
-        </div>
+          </div>
 
-    </div> <!-- /.container -->
+        <% end %>   
+
+      </div>
+
+      <%= render 'shared/account_menu', :selected_item => 'outstanding_reviews' %>
+    </div>
+
+  </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->
