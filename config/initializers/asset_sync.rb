@@ -6,7 +6,6 @@ if defined?(AssetSync)
     # To use AWS reduced redundancy storage.
     # config.aws_reduced_redundancy = true
     config.fog_directory = ENV['AWS_BUCKET']
-    config.run_on_precompile = true
 
     # Invalidate a file on a cdn after uploading files
     # config.cdn_distribution_id = "12345"
@@ -15,8 +14,8 @@ if defined?(AssetSync)
     # Increase upload performance by configuring your region
     # config.fog_region = 'eu-west-1'
     #
-    # Don't delete files from the store
-    # config.existing_remote_files = "keep"
+    # delete unneeded files from s3
+    config.existing_remote_files = "delete"
     #
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true
