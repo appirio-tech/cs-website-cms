@@ -6,6 +6,7 @@ if defined?(AssetSync)
     # To use AWS reduced redundancy storage.
     # config.aws_reduced_redundancy = true
     config.fog_directory = ENV['AWS_BUCKET']
+    config.run_on_precompile = true
 
     # Invalidate a file on a cdn after uploading files
     # config.cdn_distribution_id = "12345"
