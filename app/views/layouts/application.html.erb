@@ -138,12 +138,15 @@
         </div><!-- /.navbar-inner -->
       </div><!-- /.navbar -->
 
+      <!-- hide the challenge/member search on the challenges search page -->
+      <% unless params[:controller] == 'challenges' && %w(index search).include?(params[:action]) %>
       <div id="globalSearch">
         <form id="globalSearchForm" class="form-search jqTransform pull-right" action="/search">
           <input type="text" class="search-query" name="keyword" placeholder="Search Members or Challenges"/>
           <a href="#" class="btn-search" onclick="document.getElementById('submission_details').submit();"></a>
         </form>
       </div>
+      <% end %>
 
     </div> <!-- /.container -->
   </div>
