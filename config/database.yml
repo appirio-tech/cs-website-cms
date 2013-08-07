@@ -11,6 +11,11 @@ test:
   database: cs_website_cms_test
   host: localhost
 
+staging:
+  adapter: postgresql
+  database: cs_website_cms_development
+  host: localhost  
+
 # this is for testing and precompiling assets locally. Heroku overwrite this file during deploy
 production:
   adapter: postgresql
