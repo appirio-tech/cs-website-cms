@@ -1,3 +1,18 @@
+def compile_asset?(path)
+  # ignores any filename that begins with '_' (e.g. sass partials)
+  # all other css/js/sass/image files are processed
+  if File.basename(path) =~ /^[^_].*\.\w+$/
+    unless path.include?('plupload')
+      puts "Compiling: #{path}"
+      true
+    else
+      false
+    end
+  else
+    false
+  end
+end
+
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
@@ -66,7 +81,7 @@ module CsWebsiteCms
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.initialize_on_precompile = true
+    config.assets.precompile = [ method(:compile_asset?).to_proc ]
 
     # see http://refinerycms.com/guides/with-an-existing-rails-31-devise-app
     config.before_initialize do
@@ -83,17 +98,5 @@ module CsWebsiteCms
       ::Refinery::AdminController.send :include, ::RestrictRefineryToRefineryUsers
       ::Refinery::AdminController.send :before_filter, :restrict_refinery_to_refinery_users
     end
-  end
-end
-
-def compile_asset?(path)
-  # ignores any filename that begins with '_' (e.g. sass partials)
-  # all other css/js/sass/image files are processed
-  if File.basename(path) =~ /^[^_].*\.\w+$/
-    puts "Compiling: #{path}"
-    true
-  else
-    puts "Ignoring: #{path}"
-    false
   end
 end
