@@ -114,6 +114,7 @@ CsWebsiteCms::Application.routes.draw do
 
   resources :requirements
 
+  get '/search', to: 'content#search'
   get '/madison', to: 'content#madison'
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'

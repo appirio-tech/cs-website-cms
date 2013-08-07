@@ -3,7 +3,6 @@ require 'digest/sha1'
 
 class ChallengesController < ApplicationController
 
-  before_filter :set_nav_tick
   before_filter :authenticate_user!, :only => [:preview, :preview_survey, :review, :register, 
     :watch, :agree_tos, :submission, :submissions, :submission_view_only, :comment, 
     :submit, :submit_details, :participant_submissions, :results_scorecard, :appeals]
@@ -363,10 +362,6 @@ class ChallengesController < ApplicationController
 
     def restrict_to_challenge_admins
       redirect_to challenge_path, :alert => 'You do not have access to this page.' if !current_user.challenge_admin?(current_challenge) 
-    end
-
-    def set_nav_tick
-      @challenges_tick = true
     end
 
     def current_user_participant

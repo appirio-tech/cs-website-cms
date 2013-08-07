@@ -27,6 +27,10 @@ class Member < ApiModel
     name
   end
 
+  def self.search(keyword)
+    http_get("members/search?keyword=#{keyword}")
+  end        
+
   def all_challenges
     self.class.http_get "members/#{name}/challenges"
   end

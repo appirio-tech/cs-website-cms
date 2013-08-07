@@ -72,6 +72,10 @@ class Challenge < ApiModel
     challenge_id
   end
 
+  def self.search(keyword)
+    http_get("challenges/search?keyword=#{keyword}")
+  end          
+
   def self.advanced_search(options)
     
     params = Hashie::Mash.new()    

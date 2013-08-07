@@ -71,7 +71,7 @@
               </div>
 
               <div class="pull-right">
-                  <%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username) %>
+                  <%= link_to cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username), current_user.username %>
                   <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
                   <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
               </div>
@@ -138,14 +138,13 @@
         </div><!-- /.navbar-inner -->
       </div><!-- /.navbar -->
 
-      <% if @community_tick ||  @challenges_tick || @leaderboard_tick %>
       <div id="globalSearch">
-        <form class="form-search jqTransform pull-right">
-          <input type="text" class="search-query typeahead" placeholder="Search Members or Challenges"/>
-          <a href="#" class="btn-search"></a>
+        <form id="globalSearchForm" class="form-search jqTransform pull-right" action="/search">
+          <input type="text" class="search-query" name="keyword" placeholder="Search Members or Challenges"/>
+          <a href="#" class="btn-search" onclick="document.getElementById('submission_details').submit();"></a>
         </form>
       </div>
-      <% end %>
+
     </div> <!-- /.container -->
   </div>
 

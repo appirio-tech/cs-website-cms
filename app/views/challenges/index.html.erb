@@ -180,6 +180,10 @@
           $('.btn-adv-search').toggleClass('active');
           $('.filter form').toggleClass('hide'); 
         }
+
+        <% if params[:advanced_search] %>
+        $('.btn-adv-search').click();
+        <% end %>        
       });
 
       // check the status

@@ -1,0 +1,58 @@
+<% content_for :head do %><title>Search</title><% end %>
+
+<%= content_wrapper do %>
+
+<p style="margin-bottom:0px">Challenge and member search results for "<%= params[:keyword] %>".<br/>You may want to try our <%= link_to 'advanced challenge search', challenges_path(:advanced_search => true) %> to build complex queries.</p>
+
+<div class="row-fluid">
+
+  <div class="span7">
+
+    <div class="title"><h1>CHALLENGES</h1></div>
+
+    <% if @challenges.empty? %>No challenges found matching your search criteria. Try our <%= link_to 'advanced challenge search', challenges_path(:advanced_search => true) %>.<% end %>
+
+    <% @challenges.each do |c| %>
+        <div class="challenge well well-large">
+            <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
+            <% if %(first2finish).include?(c.challenge_type.downcase) %>
+              First to finish!
+            <% else %> 
+              <%= format_challenge_due_in(DateTime.parse(c.end_date).getutc) %>
+            <% end %>
+            <p class='description'><%= raw(truncate(c.description.gsub(/<\/?[^>]*>/, ""), :length => 270, :separator => ' ')) %></p>
+            <%= pluralize(c.participating_members.to_i, 'member') %> participating, <%= c.registered_members.to_i %> registered<br/>
+            <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= c.platforms %></strong><br>
+            Tags: <%= c.technologies %>
+            <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
+        </div>
+    <% end %> 
+
+    <div align="center"><%= will_paginate @challenges, :param_name => :page_challenges %></div>
+
+  </div>  
+
+  <div class="span5">
+
+    <div class="title"><h1>MEMBERS</h1></div>
+
+    <% if @members.empty? %><div style="padding-bottom:100px">No members found matching your search criteria.</div><% end %>
+
+    <% @members.each do |member| %>
+      <div class="placement well">
+        <%= cl_image_tag(member.profile_pic, :width => 82, :height => 82, :crop => :fill, 
+        :class => 'pull-left photo', :alt => member.name) %> 
+        <%= link_to member.name, member_path(member.name), :style => 'margin-top:10px' %>
+        Challenge Wins: <strong><%= member.total_wins.to_i %></strong><br/>
+        Active Challenges: <strong><%= member.active_challenges.to_i %></strong><br/>
+        <table class="type featured"><tr><td><%= number_to_currency(member.total_public_money, :precision => 0) %></td></tr></table>
+      </div>
+    <% end %>
+
+    <div align="center"><%= will_paginate @members, :param_name => :page_members %></div>
+
+  </div>
+
+</div>
+
+<% end %>
