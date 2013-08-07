@@ -5,7 +5,6 @@ class MembersController < ApplicationController
   before_filter :redirect_old_params
 
   def community
-    @community_tick = true
     @open_challenges = Challenge.open
     @featured_challenge =  featured_challenge @platform_stats['featured_challenge_id']
     @leaderboard = CsPlatform.leaderboard_alltime(guest_access_token, :category => nil, :limit => 1000)
@@ -18,7 +17,6 @@ class MembersController < ApplicationController
   end   
 
   def leaderboard
-    @leaderboard_tick = true
     all_leaderboards = CsPlatform.leaderboard_all(guest_access_token, :limit => 1000)
     @this_month = all_leaderboards['this_month']
     @this_year = all_leaderboards['this_year']
