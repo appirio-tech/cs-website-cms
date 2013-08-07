@@ -1,9 +1,9 @@
 CsWebsiteCms::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Staging") do |u, p|
-  #   [u, p] == [ENV['WEB_ADMIN_USERNAME'], ENV['WEB_ADMIN_PASSWORD']]
-  # end  
+  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "Staging") do |u, p|
+    [u, p] == [ENV['WEB_ADMIN_USERNAME'], ENV['WEB_ADMIN_PASSWORD']]
+  end  
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -47,7 +47,7 @@ CsWebsiteCms::Application.configure do
   config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+   config.action_controller.asset_host = "http://d3rjoq3f7zjayt.cloudfront.net"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
