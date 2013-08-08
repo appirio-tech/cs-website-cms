@@ -7,32 +7,53 @@
 
     	<div class="title"><h1>RECENTLY COMPLETED CHALLENGES</h1></div>
 
-	    <% if @challenges.empty? %>
-	        <p style="text-align:center;font-weight:bold">No recently completed challenges found.</p>
-	    <% else %>
-	        <% @challenges.in_groups_of(2, false) do |row_challenges| %>
-	        <div class="row-fluid">
-	        <% for c in row_challenges %>                
-	            <div class="span6">
-	                <div class="challenge well well-large">
-	                    <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
-	                    Ended <%= c.end_date.strftime("%B %-d, %Y") %><br>
-	                    <%= pluralize(c.participating_members.to_i, 'member') %> participanted, <%= link_to 'view the winners', results_challenge_path(c) %><br/>
-	                    <% if c.blogged %>
-		                    <a href="<%= c.auto_blog_url %>">Read the challeneg blog post</a><br/>
-	                    <% end %>
-	                    <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
-	                    Tags: <%= technology_tag_links(c) %>
-	                    <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
-	                </div>
-	            </div>
-	        <% end %> 
-	        </div>
-	        <% end %>
+	<div class="filter well well-large">
+        <%= form_tag challenges_recent_path, class: "jqTransform challenges-filter", method: :get do %>
+          <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
+          <span>SHOW</span>
+          <%= select_tag "filters[platform]", options_for_select(@platforms, filters[:platform]), prompt: "All Platforms" %>
+          <%= select_tag "filters[technology]", options_for_select(@technologies, filters[:technology]), prompt: "All Technologies" %>
+          <%= select_tag "filters[category]", options_for_select(@categories, filters[:category]), prompt: "All Categories" %>
 
-	        <div class="pagination pagination-centered"><%= will_paginate @challenges, :inner_window => 1, :outer_window => 1 %></div>
-	        <%= link_to "Subscribe to the feed for this set of recent challenges", challenges_recent_path(format: "rss"), class: "rss" %>
+          <span>SORT BY</span>
+          <%= select_tag "filters[order_by]", options_for_select(@sort_by_options, filters[:order_by]) %>
+        <% end %>
+	</div>    	
+
+	<% if @challenges.empty? %>
+	    <p style="text-align:center;font-weight:bold">No recently completed challenges found.</p>
+	<% else %>
+	    <% @challenges.in_groups_of(2, false) do |row_challenges| %>
+	    <div class="row-fluid">
+	    <% for c in row_challenges %>                
+	        <div class="span6">
+	            <div class="challenge well well-large">
+	                <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
+	                Ended <%= c.end_date.strftime("%B %-d, %Y") %><br>
+	                <%= pluralize(c.participating_members.to_i, 'member') %> participanted, <%= link_to 'view the winners', results_challenge_path(c) %><br/>
+	                <% if c.blogged %>
+	                  <a href="<%= c.auto_blog_url %>">Read the challeneg blog post</a><br/>
+	                <% end %>
+	                <strong><%= number_to_currency c.total_prize_money, precision: 0 %> for <%= platform_display c %></strong><br>
+	                Tags: <%= technology_tag_links(c) %>
+	                <table class="type <%= c.challenge_type.downcase %>"><tr><td><%= raw(challenge_type_label(c.challenge_type.upcase)) %></td></tr></table>
+	            </div>
+	        </div>
+	    <% end %> 
+	    </div>
 	    <% end %>
+
+	    <div class="pagination pagination-centered"><%= will_paginate @challenges, :inner_window => 1, :outer_window => 1 %></div>
+	    <%= link_to "Subscribe to the feed for this set of recent challenges", challenges_recent_path(filters: params[:filters], format: "rss"), class: "rss" %>
+	<% end %>
 
     </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("form.challenges-filter select, form.challenges-filter input").change(function() {
+    $(this).parents("form").submit();
+  }); 
+});
+</script>

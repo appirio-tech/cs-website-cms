@@ -94,13 +94,17 @@ class ChallengesController < ApplicationController
   end  
 
   def recent
-    filters = {}
-    filters.merge!( {:technology => params[:technology] }) if params[:technology] 
-    filters.merge!( {:platform => params[:platform] }) if params[:platform] 
-    filters.merge!( {:category => params[:category] }) if params[:category] 
-    @challenges = Challenge.recent filters
+    filters = params[:filters] ||= {}
+    search_default_params
+    @sort_by_options = [["End Date", "end_date"]] # only use an enddate
+    @challenges = Challenge.recent params[:filters]
     @challenges = @challenges.paginate(:page => params[:page], :per_page => 20)
-  end  
+    respond_to do |format|
+      format.html
+      format.json { render :json => @challenges }
+      format.rss { render :rss => @challenges }
+    end     
+  end
 
   def show
     @comments = Rails.cache.fetch("comments-#{params[:id]}", :expires_in => 5.minute) do
