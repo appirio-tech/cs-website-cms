@@ -163,8 +163,7 @@ class ApiModel
       when 401
         raise ApiExceptions::AccessDenied.new         
       when 500...600
-        Rails.logger.fatal "[FATAL] WTF Error processing response (#{response.code}): #{response}"
-        puts "[FATAL] WTF Error processing response (#{response.code}): #{response}" if Rails.env.development?
+        Rails.logger.fatal "[FATAL] WTF Error processing response (#{response.code}): #{response}. URL: #{response.request.last_uri}. Options: #{response.request.options.to_s}"
         raise ApiExceptions::WTFError.new 
     end    
   end   
