@@ -304,6 +304,7 @@ GEM
       activerecord (~> 3.0)
       railties (~> 3.0)
     pg (0.14.1)
+    pnotify-rails (1.2.0)
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -525,6 +526,7 @@ DEPENDENCIES
   omniauth-twitter
   pg (= 0.14.1)
   plupload-rails!
+  pnotify-rails
   quiet_assets
   rack-timeout (= 0.1.0beta2)
   rails (= 3.2.11)

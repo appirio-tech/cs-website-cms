@@ -20,7 +20,7 @@
 
     <!-- scripts -->
     <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag params[:controller] %>
+    <%= javascript_include_tag params[:controller] %> 
 
     <!-- start Google analytics -->
     <script type="text/javascript">
@@ -29,6 +29,20 @@
           try {
             $('.tooltip').tooltipster();
           } catch (e) { }
+
+        $.pnotify.defaults.history = false;
+        $.pnotify.defaults.nonblock = true;
+        $.pnotify.defaults.icon = true;
+        $.pnotify.defaults.delay = 4000;
+
+        <% flash.each do |key, msg| %>
+        $.pnotify({
+            width: '400px',
+            text: '<%= msg %>',
+            type: '<%= key %>'
+        });
+        <% end %>                
+
       });      
 
       var _gaq = _gaq || [];
@@ -71,7 +85,7 @@
               </div>
 
               <div class="pull-right">
-                  <%= link_to cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username), current_user.username %>
+                  <a href="/members/<%= current_user.username %>"><%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username) %></a>
                   <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
                   <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
               </div>
@@ -80,11 +94,6 @@
 
       </div> <!-- /.container -->
   </div><!-- /.loginbar-wrapper -->
-
-  <%= content_tag :div, flash[:notice], class: "alert alert-success", style: "margin: 20px 20px 20px 20px;" if flash[:notice] %>
-  <%= content_tag :div, flash[:error], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:error] %>
-  <%= content_tag :div, flash[:alert], class: "alert alert-error", style: "margin: 20px 20px 20px 20px;" if flash[:alert] %>
-  <%= content_tag :div, flash[:info], class: "alert alert-info", style: "margin: 20px 20px 20px 20px;" if flash[:info] %>
 
   <!-- NAVBAR
       ================================================== -->

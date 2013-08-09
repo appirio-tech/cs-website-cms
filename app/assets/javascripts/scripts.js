@@ -209,16 +209,22 @@ $(document).ready(function() {
                 },
                 success: function(results, textStatus, jqHXR) {
                     if(results.indexOf('alert-error')==-1){
+                        $('#sign-in-btn').val('Redirecting....');
                         document.location.href="/dashboard";
                     }else{
-                        console.log(results)
+                        $('#sign-in-btn').val('Login');                        
                         $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">Invalid username / password combination</div>');
                     }
-                    return $('#sign-in-btn').val('Login');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    return $('#sign-up-btn').val('Login');
+                    console.log(errorThrown);
+                    // show this message if they haven't confirmed their email address yet
+                    if (errorThrown == 'Unauthorized') {
+                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">Please confirm your email address before logging in. Please contact support@cloudspokes.com if you need further assistance.</div>');
+                    } else  {
+                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">An internal error ocurred while logging you in. Please contact support@cloudspokes.com for assistance. We apologize for the inconvenience.</div>');
+                    }
+                    $('#sign-in-btn').val('Login');
                 }
             });
         }

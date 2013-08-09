@@ -68,6 +68,7 @@ gem 'cloudinary'
 gem 'rubyzip'
 gem 'librato-metrics'
 gem 'docusign_rest'
+gem 'pnotify-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

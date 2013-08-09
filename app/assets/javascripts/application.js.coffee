@@ -26,5 +26,6 @@
 
 #= require rails.validations
 #= require rails.validations.simple_form
+#= require pnotify
 
 #= require_directory .
