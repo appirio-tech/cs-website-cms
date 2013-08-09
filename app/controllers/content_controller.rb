@@ -1,6 +1,7 @@
 require 'base64'
 require 'js_connect'
 require 'will_paginate/array'
+require 'uri' 
 
 class ContentController < ApplicationController
 
@@ -8,8 +9,8 @@ class ContentController < ApplicationController
     @members = []
     @challenges = []    
     unless params[:keyword].empty?
-      @members = Member.search(params[:keyword])
-      @challenges = Challenge.search(params[:keyword])
+      @members = Member.search(URI.escape(params[:keyword]))
+      @challenges = Challenge.search(URI.escape(params[:keyword]))
     end
     @members = @members.paginate(:page => params[:page_members] || 1, :per_page => 10) 
     @challenges = @challenges.paginate(:page => params[:page_challenges] || 1, :per_page => 5)         
