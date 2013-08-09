@@ -36,11 +36,7 @@
         $.pnotify.defaults.delay = 4000;
 
         <% flash.each do |key, msg| %>
-        $.pnotify({
-            width: '400px',
-            text: '<%= msg %>',
-            type: '<%= key %>'
-        });
+        $.pnotify({ width: '400px', text: '<%= msg %>', type: '<%= key %>' });
         <% end %>                
 
       });      
