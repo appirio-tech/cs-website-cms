@@ -62,8 +62,9 @@ class Users::SessionsController < Devise::SessionsController
             render :json => {:success => false, :message => "Sorry... there was an error logging you in." }
           end
         rescue Exception => e
+          # most likely postgres error that email address already exists.
           logger.info "[CS-USER][FATAL] exception logging in: #{e.message}"
-          render :json => {:success => false, :message => "Sorry... there was an error logging you in." }
+          render :json => {:success => false, :message => "Sorry... there was an error logging you in. Please contact support@cloudspokes.com for assistance." }
         end
       end 
 

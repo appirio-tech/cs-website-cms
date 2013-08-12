@@ -3,17 +3,31 @@
 <div class="content-wrapper">
     <div class="container">
 
-	    <div>
-	        <div class="title"><h1>LOGIN REQUIRED</h1></div>
+        <div class="title"><h1>LOGIN REQUIRED</h1></div>
 
-	        <p>You need to sign in or sign up before continuing.</p>
+        <p align="center">You need to <a href="#login-modal" data-toggle="modal">login</a> or <a href="#register-modal" data-toggle="modal">register</a> before accessing the requested page.</p>
 
-				  <a href="/users/confirmation/new">Didn&#x27;t receive confirmation instructions?</a><br />
-				  <!-- add unlock instructions link -->   
+        <div class="row-fluid">
+            <div class="span6">
+            <div class="title" style="margin:0px"><h1>REGISTER</h1></div>
+            <p><br/>CloudSpokes is a unique developer community, focused on using APIs, mobile technologies and public cloud platforms to build and deliver enterprise class solutions! Compete in development challenges for cash, prizes and bragging rights and learn new skills. <a href="#register-modal" data-toggle="modal">Register to get started</a> or <a href="/how-it-works-members">see how the process works.</a></p>
 
-				  <div style="padding-bottom: 50px"></div> 
+            <p><a class="btn" href="#register-modal" data-toggle="modal"><span>Register to get started</span></a></p>
 
-			</div>
+            <p>CloudSpokes is the first developer community that matches the cloud with the crowd - a true market where businesses tap into skills and pay for results (vs. effort), and where developers get access to a new world of opportunity with the cloud.</p>
+            </div>          
+
+            <div class="span6">
+            <div class="title" style="margin:0px"><h1>LOGIN</h1></div>
+            <p><br/>Having problems logging in? <a href="/users/confirmation/new">Didn&#x27;t receive your signup confirmation instructions</a> or <a href="#forgot-password-modal" data-toggle="modal">can't remember your password?</a><br /></p>
+
+            <p><a class="btn" href="#login-modal" data-toggle="modal"><span>Login</span></a></p>
+            </div>       
+        </div>        
+
+        <%= render partial: "shared/recently_shared" %>
+
+        <%= render partial: "shared/happening_now" %>         
 
     </div> <!-- /.container -->
 </div><!-- /.loginbar-wrapper -->
