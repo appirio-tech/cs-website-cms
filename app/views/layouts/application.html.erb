@@ -90,8 +90,8 @@
 
               <div class="pull-right">
                   <a href="/members/<%= current_user.username %>"><%= cl_image_tag(profile_pic, :width => 35, :height => 35, :crop => :fill, :alt => current_user.username) %></a>
-                  <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
                   <a class="btn" href="<%= main_app.dashboard_path %>"><span>Dashboard</span></a>
+                  <a class="btn" href="<%= main_app.account_path %>"><span>Account</span></a>
               </div>
           </div>
         <% end %>
