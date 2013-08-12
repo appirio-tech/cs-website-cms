@@ -37,7 +37,15 @@
 
         <% flash.each do |key, msg| %>
         $.pnotify({ width: "400px", text: "<%= msg %>", type: "<%= key %>" });
-        <% end %>                
+        <% end %>      
+
+        <% if params[:show_login] %>
+        $('#login-modal').modal('show');
+        <% end %>
+
+        <% if params[:show_register] %>
+        $('#register-modal').modal('show');
+        <% end %>        
 
       });      
 
