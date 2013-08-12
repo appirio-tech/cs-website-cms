@@ -208,12 +208,14 @@ $(document).ready(function() {
                     }
                 },
                 success: function(results, textStatus, jqHXR) {
-                    if(results.indexOf('alert-error')==-1){
+                    console.log(results);
+                    if(results.success == true){
+                        $.pnotify({ width: "400px", text: results.message, type: "success" });
                         $('#sign-in-btn').val('Redirecting....');
-                        document.location.href="/dashboard";
+                        document.location.href="/challenges";
                     }else{
                         $('#sign-in-btn').val('Login');                        
-                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">Invalid username / password combination</div>');
+                        $("#login-modal .info").html('<div class="alert alert-error" style="margin: 20px 20px 20px 20px;">'+results.message+'</div>');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

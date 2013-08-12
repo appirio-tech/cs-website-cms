@@ -4,6 +4,8 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   # signs a user in with their email and password for cloudspokes
+  # called via jquery post from the popup login modal. return json object
+  # with success and message
   def authenticate_account
 
     ApiModel.access_token = guest_access_token
@@ -29,12 +31,12 @@ class Users::SessionsController < Devise::SessionsController
         user.mav_hash = Encryptinator.encrypt_string params[:user][:password]
         if user.save
           logger.info "[CS-USER][LOGIN] updated user last_access_token_refresh_at successfully. signing in."
-          sign_in_and_redirect(:user, user)
+          sign_in(:user, user)
           Resque.enqueue(PostLogin, user.username, request.remote_ip)
+          render :json => {:success => true, :message => 'Successfully signed in.' }
         else
           logger.info "[CS-USER][LOGIN] error updating with last_access_token_refresh_at: #{user.errors.full_messages}"
-          flash[:error]  = "Sorry... there was an error logging you in: #{user.errors.full_messages}"
-          render action: "new" # sign_in page
+          render :json => {:success => false, :message => "Sorry... there was an error logging you in: #{user.errors.full_messages}" }
         end
       # user exists in sfdc but not in db so create a new record
       else
@@ -53,22 +55,20 @@ class Users::SessionsController < Devise::SessionsController
           if user.save
             logger.info "[CS-USER][LOGIN] user saved successfully. signing in."
             user.update_attribute(:confirmed_at, DateTime.now)
-            sign_in_and_redirect(:user, user)
+            sign_in(:user, user)
+            render :json => {:success => true, :message => 'Successfully signed in.' }
           else
             logger.info "[CS-USER][FATAL] error saving new user: #{user.errors.full_messages}"
-            flash[:error]  = "Sorry... there was an error logging you in."
-            render action: "new" # sign_in page
+            render :json => {:success => false, :message => "Sorry... there was an error logging you in." }
           end
         rescue Exception => e
           logger.info "[CS-USER][FATAL] exception logging in: #{e.message}"
-          flash[:error]  = "Sorry... there was an error logging you in."
-          render action: "new" # sign_in page          
+          render :json => {:success => false, :message => "Sorry... there was an error logging you in." }
         end
       end 
 
-    else     
-      flash[:error]  = 'Invalid username / password combination' # sfdc_authentication.message
-      render action: "new" # sign_in page
+    else
+      render :json => {:success => false, :message => 'Invalid username / password combination' }
     end
 
   end

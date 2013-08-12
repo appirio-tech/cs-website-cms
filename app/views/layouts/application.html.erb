@@ -36,7 +36,7 @@
         $.pnotify.defaults.delay = 4000;
 
         <% flash.each do |key, msg| %>
-        $.pnotify({ width: '400px', text: '<%= msg %>', type: '<%= key %>' });
+        $.pnotify({ width: "400px", text: "<%= msg %>", type: "<%= key %>" });
         <% end %>                
 
       });      
@@ -261,8 +261,6 @@
 
           <form class="form-horizontal jqTransform jqtransformdone">
               <div class="title"><h1>REGISTER USING YOUR EMAIL</h1></div>
-              <p>Create a new account with CloudSpokes:</p>
-
               <div class="control-group">
                   <label class="control-label" for="input-name">Username</label>
                   <div class="controls" id="input-username-container">
@@ -320,9 +318,10 @@
         </ul>
       </div>
 
+      <div style="margin-top: 15px"></div>
+
       <form class="form-horizontal jqTransform jqtransformdone" action="/users/sign_in" method="post">
-        <div class="title"><h1>LOGIN</h1></div>
-        <p>Login with your account with CloudSpokes:</p>
+        <div class="title"><h1>LOGIN WITH A CLOUDSPOKES ACCOUNT</h1></div>
         <div class="info"></div>
         <div class="control-group">
           <label class="control-label" for="input-name">Username</label>
@@ -345,7 +344,7 @@
         </div>
         <div class="control-group">
           <div class="controls">
-            <div class="btn"><input id="sign-in-btn" type="submit" value="Login"></div>
+            <div class="btn" style="margin-right: 10px"><input id="sign-in-btn" type="submit" value="Login"></div>
             <a href="#forgot-password-modal" data-toggle="modal" data-dismiss="modal">FORGOT PASSWORD?</a>
           </div>
         </div>

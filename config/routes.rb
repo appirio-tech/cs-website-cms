@@ -128,8 +128,6 @@ CsWebsiteCms::Application.routes.draw do
   match "/faq" => redirect("/forums#/categories/faqs")
   match "/tos" => redirect("/terms-of-service")
   match "/signup" => redirect("/users/sign_up")
-  match "/signin" => redirect("/users/sign_in")
-  match "/login" => redirect("/users/sign_in")
 
   get "/docusign/embedded_signing", to: "docusign#embedded_signing", as: "docusign_signing"
   get "/docusign/response", to: "docusign#docusign_response", as: "docusign_response"
