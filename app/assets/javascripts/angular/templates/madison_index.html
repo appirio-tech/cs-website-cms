@@ -145,7 +145,9 @@ function limitText(limitField, limitNum) {
         <div class="tab-pane active" id="requirements">
           <div ui-sortable="sortableOptions" ng-model="requirements">
             <div ng-repeat="req in requirements" style="padding-bottom:25px">
-              <div style="margin-bottom:15px">{{req.description}}
+              <div style="cursor:move; margin-bottom:15px" title="You can drag and drop to order">
+                <i class="icon-move"></i>
+                {{req.description}}
               <div ng-show="req.section == 'Functional'">
               <i style="font-size:11px">This requirements will display on the challenge description as a bullet point in addition to displaying on the scorecard.</i></div>
               </div>
@@ -166,56 +168,57 @@ function limitText(limitField, limitNum) {
         <div class="tab-pane" id="scorecard">
 
             <p><strong>Your requirements will display as scorecard questions for the judges as follows:</strong></p>
-          
-            <div ng-repeat="req in requirements" style="padding-bottom:25px">
-            {{req.description}}<br/>
+          <div ui-sortable="sortableOptions" ng-model="requirements">
+            <div ng-repeat="req in requirements" style="cursor:move; padding-bottom:25px">
+              <i class="icon-move"></i>
+              {{req.description}}<br/>
 
-            <div ng-show="req.scoring_type == 'Yes/No'" style="padding-left:5px">
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Yes</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">No</label>              
+              <div ng-show="req.scoring_type == 'Yes/No'" style="padding-left:5px">
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Yes</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">No</label>              
+              </div>
+
+              <div ng-show="req.scoring_type == '1-4'" style="padding-left:5px">
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">25%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">50%</label>       
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">75%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label>               
+              </div>
+
+              <div ng-show="req.scoring_type == '1-5'" style="padding-left:5px">
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">20%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">40%</label>       
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">60%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">80%</label>   
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label>          
+              </div>            
+
+              <div ng-show="req.scoring_type == '1-10'" style="padding-left:5px">
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">10%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">20%</label>       
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">30%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">40%</label>   
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">50%</label> 
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">60%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">70%</label>       
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">80%</label>
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">90%</label>   
+                <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label> 
+              </div>     
+
+              <div ng-show="req.scoring_type == 'Comments'" style="padding-left:5px; padding-bottom:10px">
+                <textarea rows="3" style="width:450px"></textarea>
+              </div>  
+
             </div>
-
-            <div ng-show="req.scoring_type == '1-4'" style="padding-left:5px">
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">25%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">50%</label>       
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">75%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label>               
-            </div>
-
-            <div ng-show="req.scoring_type == '1-5'" style="padding-left:5px">
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">20%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">40%</label>       
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">60%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">80%</label>   
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label>          
-            </div>            
-
-            <div ng-show="req.scoring_type == '1-10'" style="padding-left:5px">
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">10%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">20%</label>       
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">30%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">40%</label>   
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">50%</label> 
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">60%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">70%</label>       
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">80%</label>
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">90%</label>   
-              <label class="radio inline"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">100%</label> 
-            </div>     
-
-            <div ng-show="req.scoring_type == 'Comments'" style="padding-left:5px; padding-bottom:10px">
-              <textarea rows="3" style="width:450px"></textarea>
-            </div>  
-
           </div>
-
         </div>
 
         <div class="tab-pane" id="weight">
           <p class="help"><strong>Adjust weights for the sections using sliders.</strong></p>
 
           <div ng-repeat="(section, requirements) in reqsBySection | filter:section!='all'">
-            <div class="section well" ng-show="showWeightSection(section)" style="margin-bottom: 2px; padding: 5px 10px;">
+            <div class="section well" ng-show="showWeightSection(section)" style="margin-bottom: 5px; padding: 5px 10px;">
               <h6>{{section}}</h6>
               <div ng-repeat="req in requirements">
                 <div>{{req.description}}</div>
