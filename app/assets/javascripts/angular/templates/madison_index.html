@@ -138,11 +138,12 @@ function limitText(limitField, limitNum) {
       <ul class="nav nav-tabs">
         <li class="active"><a href="#requirements" data-toggle="tab">Requirements</a></li>
         <li><a href="#scorecard" data-toggle="tab">Scorecard</a></li>
+        <li><a href="#weight" data-toggle="tab" ng-click="prepareForWeight()">Weight</a></li>
       </ul>
 
       <div class="tab-content">
         <div class="tab-pane active" id="requirements">
-          
+          <div ui-sortable="sortableOptions" ng-model="requirements">
             <div ng-repeat="req in requirements" style="padding-bottom:25px">
               <div style="margin-bottom:15px">{{req.description}}
               <div ng-show="req.section == 'Functional'">
@@ -160,7 +161,7 @@ function limitText(limitField, limitNum) {
               <button class="btn btn-mini btn btn-danger" type="button" ng-click="delete(req)">Delete</button>
 
             </div>
-
+          </div>
         </div>
         <div class="tab-pane" id="scorecard">
 
@@ -209,8 +210,31 @@ function limitText(limitField, limitNum) {
           </div>
 
         </div>
-      </div>
 
+        <div class="tab-pane" id="weight">
+          <p class="help"><strong>Adjust weights for the sections using sliders.</strong></p>
+
+          <div ng-repeat="(section, requirements) in reqsBySection | filter:section!='all'">
+            <div class="section well" ng-show="showWeightSection(section)" style="margin-bottom: 2px; padding: 5px 10px;">
+              <h6>{{section}}</h6>
+              <div ng-repeat="req in requirements">
+                <div>{{req.description}}</div>
+                <div ui-slider="sliderOptions" ng-model="req.weight" data-section="{{section}}", data-req-id="{{req.id}}"></div>
+                <div class="clearfix">
+                  <span class="pull-right">{{(req.weight)}}%</span>
+                  <label class="checkbox pull-right">
+                    <input type="checkbox" ng-model="req.isLocked"> Lock
+                    &nbsp; &nbsp;
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          
+
+        </div> <!-- end of tab pane -->
+      </div>
     </div>
 </div>
 
