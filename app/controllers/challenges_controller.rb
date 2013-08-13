@@ -134,6 +134,7 @@ class ChallengesController < ApplicationController
 
   def register
     redirect_to challenge_path, :error => 'Registration is closed for this challenge.' if current_challenge.closed_for_registration?
+    # puts CsPlatform.docusign_document(current_user.access_token, current_challenge.docusign_document) if current_challenge.docusign_document    
     # if default tos, let them register
     if current_challenge.uses_default_tos?
       results = Participant.change_status(params[:id], current_user.username, 
