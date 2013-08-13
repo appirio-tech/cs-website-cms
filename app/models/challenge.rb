@@ -10,7 +10,7 @@ class Challenge < ApiModel
     :submission_details, :winner_announced, :community, :days_till_close,
     :submissions, :participating_members, :default_tos,
     :challenge_prizes, :challenge_participants, :registration_end_date, :account,
-    :blogged, :auto_blog_url, :license_type__r, :require_registration,
+    :blogged, :auto_blog_url, :license_type__r, :require_registration, :docusign_document,
 
     # these are only available if you call /admin on the model
     # e.g. http://cs-api-sandbox.herokuapp.com/v1/challenges/2/admin
