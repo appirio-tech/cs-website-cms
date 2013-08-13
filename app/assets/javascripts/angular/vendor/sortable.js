@@ -31,8 +31,6 @@ angular.module('ui.sortable', [])
                 update:null
             };
 
-            console.log(uiSortableConfig);
-
             angular.extend(opts, uiSortableConfig);
 
             if (ngModel) {
@@ -76,7 +74,6 @@ angular.module('ui.sortable', [])
                   end = ui.item.index();
 
                   // Reorder array and apply change to scope
-                  console.log("reorder")
                   ui.item.sortable.resort.$modelValue.splice(end, 0, ui.item.sortable.resort.$modelValue.splice(start, 1)[0]);
 
                 }
