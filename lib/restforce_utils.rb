@@ -151,10 +151,10 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.get_apex_rest(url_string, access_token=nil, user_type=:guest)
+  def self.get_apex_rest(url_string, access_token=nil, user_type=:guest, version='v.9')
     client = token_or_type_client(access_token, user_type)
-    Forcifier::JsonMassager.deforce_json(client.get(ENV['SFDC_APEXREST_URL']+"#{url_string}"))
-  end  
+    Forcifier::JsonMassager.deforce_json(client.get(ENV['SFDC_APEXREST_URL']+"/#{version}"+"#{url_string}").body)
+  end    
 
   #
   # Makes generic 'post' to CloudSpokes Apex REST services
@@ -165,9 +165,10 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.post_apex_rest(url_string, options, access_token=nil, user_type=:guest)
+  def self.post_apex_rest(url_string, options, access_token=nil, user_type=:guest, version='v.9')
     client = token_or_type_client(access_token, user_type)
-    Forcifier::JsonMassager.deforce_json(client.post(ENV['SFDC_APEXREST_URL']+"#{url_string}", options))
+    Forcifier::JsonMassager.deforce_json(client.post(ENV['SFDC_APEXREST_URL']+"/#{version}"+
+      "#{url_string}", options))
   end    
 
   #
@@ -179,9 +180,10 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.put_apex_rest(url_string, params={}, access_token=nil, user_type=:guest)
+  def self.put_apex_rest(url_string, params={}, access_token=nil, user_type=:guest, version='v.9')
     client = token_or_type_client(access_token, user_type)
-    Forcifier::JsonMassager.deforce_json(client.put(ENV['SFDC_APEXREST_URL']+"#{url_string}?#{params.to_param}"))
+    Forcifier::JsonMassager.deforce_json(client.put(ENV['SFDC_APEXREST_URL']+"/#{version}"+
+      "#{url_string}?#{params.to_param}"))
   end   
 
   #
@@ -194,9 +196,9 @@ module RestforceUtils
   # * *Raises* :
   #   - ++ ->
   #  
-  def self.get_apex_rest_return_boolean(url_string)
+  def self.get_apex_rest_return_boolean(url_string, version='v.9')
     success = false
-    success = true if get(ENV['SFDC_APEXREST_URL'] + 
+    success = true if get(ENV['SFDC_APEXREST_URL']+"/#{version}"+
       "#{url_string}")['Success'].eql?('true')  
     success
   end  
