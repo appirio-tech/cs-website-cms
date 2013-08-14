@@ -54,7 +54,7 @@ class Member < ApiModel
   end
 
   def self.login_type(membername)
-    http_get "members/#{esc membername}/login_type"
+    http_get "members/#{URI.escape(membername)}/login_type"
   end
 
   def inbox
