@@ -1,4 +1,6 @@
 class Member < ApiModel
+  require 'uri'
+
   attr_accessor :id, :name, :profile_pic, :attributes,
     :challenges_entered, :active_challenges, :time_zone,
     :total_1st_place, :total_2nd_place, :total_3st_place,
@@ -32,11 +34,11 @@ class Member < ApiModel
   end        
 
   def all_challenges
-    self.class.http_get "members/#{name}/challenges"
+    self.class.http_get "members/#{URI.escape(name)}/challenges"
   end
 
   def all_past_challenges(offset=0)
-    self.class.http_get("members/#{name}/challenges/past?offset=#{offset}")
+    self.class.http_get("members/#{URI.escape(name)}/challenges/past?offset=#{offset}")
   end        
 
   def active_challenges(all_challenges)
@@ -56,11 +58,11 @@ class Member < ApiModel
   end
 
   def inbox
-    self.class.http_get("messages/inbox/#{@name}").map {|message| Message.new message}
+    self.class.http_get("messages/inbox/#{URI.escape(@name)}").map {|message| Message.new message}
   end  
 
   def from
-    self.class.http_get("messages/from/#{@name}").map {|message| Message.new message}
+    self.class.http_get("messages/from/#{URI.escape(@name)}").map {|message| Message.new message}
   end
 
   def create_badgeville_account
@@ -71,7 +73,7 @@ class Member < ApiModel
       unless player_id.nil?
         Badgeville.send_site_registration player_id
         # update sfdc with badgeville player id
-        Member.http_put("members/#{@name}", {"Badgeville_Id__c" => player_id})
+        Member.http_put("members/#{URI.escape(@name)}", {"Badgeville_Id__c" => player_id})
       end      
   end      
 
@@ -80,7 +82,7 @@ class Member < ApiModel
       if @country.nil?
         @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")    
         geo_data = @geoip.country(remote_ip)
-        Member.http_put("members/#{@name}", {"Country__c" => geo_data['country_name']})  unless geo_data.nil? 
+        Member.http_put("members/#{URI.escape(@name)}", {"Country__c" => geo_data['country_name']})  unless geo_data.nil? 
       end
     end
   end    
