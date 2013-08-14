@@ -27,7 +27,7 @@ gem 'refinerycms-resources'
 gem 'httparty'
 gem 'hashie', '1.2.0'
 gem 'faye', '0.8.3'
-gem 'restforce'
+gem 'restforce', '1.1.0'
 gem 'forcifier', git: 'git://github.com/jeffdonthemic/forcifier.git'
 gem 'haml'
 
