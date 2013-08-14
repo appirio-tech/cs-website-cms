@@ -14,7 +14,7 @@
 
     <% @challenges.each do |c| %>
         <div class="challenge well well-large">
-            <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
+            <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c.challenge_id) %></h3>
             <% if %(first2finish).include?(c.challenge_type.downcase) %>
               First to finish!
             <% else %> 
