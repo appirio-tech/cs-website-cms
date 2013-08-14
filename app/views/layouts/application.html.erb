@@ -59,7 +59,9 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <!-- end Google analytics -->    
+    <!-- end Google analytics -->
+    
+    <% if Rails.env.production? %>   
     <!-- start pingdom -->
     <script>
     var _prum = [['id', '51f8def6abe53d4455000000'],
@@ -73,6 +75,7 @@
     })();
     </script>
     <!-- end pingdom -->
+    <% end %>
 
 </head>
 <body>
