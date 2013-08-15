@@ -146,6 +146,15 @@ class User < ActiveRecord::Base
     authentications.empty? && super
   end  
 
+  # mark the user's access_token and last_access_token_refresh_at as nil so 
+  # that a new access token will be fetched from sfdc on the next request
+  def handle_invalid_session_id
+    Rails.logger.fatal '[FATAL] Handling Invalid Session ID. Resetting user access token and last reset.'
+    self.access_token = nil
+    self.last_access_token_refresh_at = nil
+    Rails.logger.info "[FATAL][User] COULD NOT SAVE USER TO HANDLE INVALID SESSION: #{user.errors.full_messages}" unless self.save    
+  end  
+
   def self.guest_access_token
     Rails.logger.info "[INFO][User] using guest access token"
     guest_token = Rails.cache.fetch('guest_access_token', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do

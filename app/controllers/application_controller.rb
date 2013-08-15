@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
     rescue_from ApiExceptions::EntityNotFoundError, :with => :entity_not_found
     rescue_from ApiExceptions::WTFError, :with => :something_bad_happened
     rescue_from ApiExceptions::AccessDenied, :with => :entity_access_denied
+    rescue_from ApiExceptions::SFDCError, :with => :sfdc_error
   end
 
   before_filter :set_access_token
@@ -42,6 +43,21 @@ class ApplicationController < ActionController::Base
   def something_bad_happened
     redirect_to '/bad'
   end      
+
+  # handle any errors thrown from sfdc calls
+  def sfdc_error(exception)
+    case exception.code
+    when "INVALID_SESSION_ID"
+      if current_user
+        Rails.logger.fatal "[FATAL] Handling Invalid SFDC Session for #{current_user.username}. Token last refreshed at #{current_user.last_access_token_refresh_at}. Should token be expired: #{Time.now.utc > 45.minutes.since(current_user.last_access_token_refresh_at.getutc)}"
+        current_user.handle_invalid_session_id
+        redirect_to '/whoops'
+      end
+    else
+      Rails.logger.fatal "[FATAL] SFDCError but no handler found for #{exception.code}: #{exception.message}. URL: #{exception.url}"
+      redirect_to '/bad'
+    end
+  end     
 
   def guest_access_token
     User.guest_access_token

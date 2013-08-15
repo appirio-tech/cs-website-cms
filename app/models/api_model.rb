@@ -157,7 +157,9 @@ class ApiModel
   def self.process_response(response)
     case response.code
       when 200
-        Hashie::Mash.new(response).response
+        resp = Hashie::Mash.new(response).response
+        raise ApiExceptions::SFDCError.new(resp.first.errorcode, resp.first.message, response.request.last_uri)  if resp.first.is_a?(Hash) && resp.first.has_key?('errorcode')
+        resp
       when 404
         raise ApiExceptions::EntityNotFoundError.new 
       when 401

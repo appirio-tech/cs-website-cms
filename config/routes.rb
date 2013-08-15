@@ -119,6 +119,7 @@ CsWebsiteCms::Application.routes.draw do
   get '/forums', to: 'content#forums'
   get '/forums-authenticate', to: 'content#forums_authenticate'
   get '/bad', to: 'content#bad'  
+  get '/whoops', to: 'content#whoops'  
 
   get '/admin', to: 'admin#index'
   get '/admin/blog_fodder'
