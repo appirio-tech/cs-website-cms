@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
 
   after_filter  :set_csrf_cookie_for_madison
 
+  helper_method :banner_data
+
   def set_access_token
     ApiModel.access_token = current_access_token
   end    
@@ -26,6 +28,23 @@ class ApplicationController < ActionController::Base
   def get_platform_stats
     @platform_stats = CsPlatform.stats  
   end    
+
+  def banner_data
+    [
+      {
+        "main"=> "This is awesome",
+        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
+      },
+      {
+        "main"=> "A Marketplace for<br/> Cloud Development",
+        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
+      },
+      {
+        "main"=> "Preettty Awwweeesome!!!!",
+        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
+      }
+    ]  
+  end
 
   def show_welcome_page?
     false

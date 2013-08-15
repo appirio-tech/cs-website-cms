@@ -215,21 +215,41 @@ form.invite-friends .item {
     background: #0d4066 url(/assets/banner-bg.png) left top repeat-x;
     padding: 74px 0 70px;
 }
-.banner h1{
+
+/* main-carousel */
+.banner #main-carousel .carousel-indicators {
+  top: 200px;
+  left: 280px;
+}
+.banner #main-carousel .carousel-indicators li {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.banner #main-carousel .item {
+  width: 650px;
+  height: 200px;
+}
+.banner #main-carousel .next, .banner #main-carousel .prev {
+  display: block;
+  height: inherit;
+  overflow: inherit;
+  background: none;
+}
+.banner #main-carousel .main-text {
     font-size: 50px;
-    padding-right: 350px;
     color: #ffffff;
     font-weight: bold;
     line-height: 120%;
     margin: 0;
 }
-.banner h2{
-    font-size: 32px;
-    padding-right: 350px;
+.banner #main-carousel .sub-text {
+    font-size: 23px;
     color: #dddddd;
     line-height: 120%;
     margin: 0;
 }
+/* end of main-carousel */
+
 .banner .tabs{
     position: absolute;
     bottom: -36px;

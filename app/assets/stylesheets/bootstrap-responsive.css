@@ -1157,6 +1157,23 @@
   }
 }
 
+@media (max-width: 979px) {
+    .banner #main-carousel .item {
+      width: 500px;
+      margin-left: 20px;      
+    }  
+    .banner #main-carousel .carousel-indicators {
+      left: 170px;
+      top: 200px;
+    }
+    .banner #main-carousel .main-text {
+        font-size: 40px;
+    }
+    .banner #main-carousel .sub-text {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 826px) {
     .nav{
         margin-top: 0;
@@ -1171,6 +1188,16 @@
     .banner-unit .buttons{
         top:-30px;
     }
+
+    .banner #main-carousel {
+      top: -30px;
+    }
+    .banner #main-carousel .item {
+      width: 400px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      left: 150px;
+    }
 }
 
 @media (min-width: 980px) {
@@ -1178,6 +1205,19 @@
         position: absolute;
         right: 0;
         top: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .banner #main-carousel {
+      top: 0;
+    }
+    .banner #main-carousel .item {
+      width: 90%;
+      margin: 0 5% 20px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      left: 40%;
     }
 }
 
@@ -1195,4 +1235,19 @@
     .banner-unit a.get-started span span{
         font-size: 18px;
     }
+
+    .banner #main-carousel .item {
+      height: 160px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      top: 160px;
+      left: 40%;
+    }
+    .banner #main-carousel .main-text {
+        font-size: 32px;
+    }
+    .banner #main-carousel .sub-text {
+        font-size: 18px;
+    }
+
 }
