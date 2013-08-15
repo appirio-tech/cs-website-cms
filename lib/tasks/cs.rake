@@ -55,3 +55,8 @@ desc "Sends daily stats to Librato"
 task :send_librato_daily_stats => :environment do
   Librato.send_daily_data
 end  
+
+desc "Clears banner data from REDIS"
+task :clear_banner_data => :environment do
+  REDIS.del("cs:banner_data")
+end  

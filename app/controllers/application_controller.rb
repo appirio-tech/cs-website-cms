@@ -30,20 +30,15 @@ class ApplicationController < ActionController::Base
   end    
 
   def banner_data
-    [
-      {
-        "main"=> "This is awesome",
-        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
-      },
-      {
-        "main"=> "A Marketplace for<br/> Cloud Development",
-        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
-      },
-      {
-        "main"=> "Preettty Awwweeesome!!!!",
-        "sub"=> "Connecting businesses who need innovation and development with the world's best development and design community"
-      }
-    ]  
+    @banner_data ||= begin
+      data = JSON.parse(REDIS.get("cs:banner_data")) rescue nil
+      if data.nil?
+        data = YAML.load_file(Rails.root.join("config/banner_data.yml"))
+        REDIS.set("cs:banner_data", data.to_json)
+      end
+
+      data
+    end
   end
 
   def show_welcome_page?
