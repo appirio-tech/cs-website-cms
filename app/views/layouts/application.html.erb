@@ -36,7 +36,9 @@
         $.pnotify.defaults.delay = 4000;
 
         <% flash.each do |key, msg| %>
+        <% unless key == 'timedout' %>
         $.pnotify({ width: "400px", text: "<%= msg %>", type: "<%= key %>" });
+        <% end %>
         <% end %>      
 
         <% if params[:show_login] %>
