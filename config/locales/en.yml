@@ -2,4 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  'Private Message': When a member sends me a private message.
+  'Challenge Ending in 24 Hours': When a challenge I am registered for ends in the next 24 hours.
+  'Newsletter': When the CloudSpokes newsletter is sent out.
+  'CS Team Sends Info': When the CloudSpokes Team wants to send me info/updates/questions based upon my selected technologies and platforms below.

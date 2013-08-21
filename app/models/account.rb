@@ -59,4 +59,31 @@ class Account < ApiModel
     self.class.http_put("accounts/change_password_with_token/#{user.username}", data)
   end    
 
+  def preferences
+    self.class.http_get("accounts/#{user.username}/preferences").map {|p| Preference.new p}
+  end
+
+  def update_preferences(preferences, all_preferences)
+    all_preferences = all_preferences.split(',')
+    prefs = {}
+    preferences.each_pair do |key, value|
+      # change each element from "email" to "Email"
+      methods = value.map {|v| v.capitalize}
+      # always mark these as notify
+      methods << 'Notify'
+      prefs.merge!(Hash[key, methods.join(";")])
+      all_preferences.delete_at(all_preferences.index(key))
+    end
+    # add in any preferences that were marked as don't notify
+    all_preferences.each {|p| prefs.merge!(Hash[p, ''])}
+    self.class.http_put("accounts/#{user.username}/preferences", { preferences: prefs.to_json })
+  end  
+
+  # this will be replaced with chatter rest call
+  def activities
+    RestforceUtils.query_salesforce("select id, teaser__c, title__c, url__c, image__c, private__c, 
+      description__c, createddate from member_activity__c where member__r.name = '#{user.username}'
+      order by createddate desc", nil, :admin)    
+  end
+
 end

@@ -3,6 +3,7 @@ module ApplicationHelper
   MENU_OPTIONS_SETTINGS = { 
     :account_details                => {:value => 'Account Details', :link => '/account/details'},
     :payment_info                   => {:value => 'Payment Information', :link => '/account/payment-info'},
+    :preferences                      => {:value => 'Preferences', :link => '/account/preferences'},    
     :school_and_work             => {:value => 'School & Work Information', :link => '/account/school-and-work'},
     :public_profile                   => {:value => 'Edit Public Profile', :link => '/account/public-profile'},
     :change_password            => {:value => 'Change Password', :link => '/account/change-password'}

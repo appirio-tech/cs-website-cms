@@ -1,0 +1,38 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="row-fluid">
+
+            <div class="span9">
+
+            <div class="title"><h1>MY ACTIVITIES</h1></div>
+
+
+            <% @activities.each do |a| %>
+              <div class="row-fluid" style="padding-bottom:25px">
+              <div class="span2 well">
+                  <%= cl_image_tag(a.image, :width => 82, :height => 82, :crop => :fill, 
+                    :class => 'pull-left photo') %>           
+              </div>            
+              <div class="span10">
+                <div class="pull-right" style="padding-right:25px;font-size: small"><%= time_ago_in_words(a.createddate) %> ago</div>
+                <div style="padding-bottom:15px; padding-top:5px;font-size: small"><b><%= a.teaser %><% if a.private %> (private)<% end %></b></div>
+                <div style="padding-bottom:5px"><%= link_to(a.title, a.url, :style => 'font-size:16pt') %></div>
+                <%= raw a.description %>
+              </div>                            
+            
+
+              <div class="clearfix"></div>
+              </div>
+            <% end %>
+
+            </div>
+
+            <%= render 'shared/account_menu', :selected_item => 'challenges' %>
+        </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->
+

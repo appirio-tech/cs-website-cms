@@ -1,0 +1,12 @@
+// Place all the styles related to the preferences controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootstrap';
+body {
+  margin-top: 40px;
+}
+
+table th.check-boxes, table td.check-boxes {
+  text-align: center;
+  width: 10%;
+}

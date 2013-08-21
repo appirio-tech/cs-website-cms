@@ -1,0 +1,87 @@
+<!-- CONTENT
+        ================================================== -->
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="row-fluid">
+
+            <div class="span9">
+
+            <div class="title"><h1>PREFERENCES</h1></div>
+
+              <%= form_for 'account_preferences', :action => admin_challenges_path, :method => "post", html: { :id => 'new_challenge_frm' } do |f| %>
+                <%= f.hidden_field :all_preferences, :value => @all_preferences.join(',') %>
+
+                <legend>General</legend>
+
+                <p>Notify me for the following. </p>
+                <table class="table table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class='check-boxes' width="50px">Email</th>
+                      <th class='check-boxes' width="50px">Site</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% @preferences.select {|p| p.type == :general }.each do |item| %>
+                    <tr>
+                      <td><%= t(item.event) %></td>
+                      <td class='check-boxes'><%= preference_check_box_tags item %></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+
+                <legend>Technologies & Platforms</legend>
+
+                <p>Email me with a daily summary of new challenges that are posted for the following selected technologies and platforms.</p>
+                <table class="table table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class='check-boxes' width="50px">Email</th>
+                      <th class='check-boxes' width="50px">Site</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% @preferences.select {|p| p.type == :technology }.each do |item| %>
+                    <tr>
+                      <td><%= item.event[item.event.index('|')+1..item.event.length] %></td>
+                      <td class='check-boxes'><%= preference_check_box_tags item %></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>                       
+
+                <table class="table table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class='check-boxes' width="50px">Email</th>
+                      <th class='check-boxes' width="50px">Site</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% @preferences.select {|p| p.type == :platform }.each do |item| %>
+                    <tr>
+                      <td><%= item.event[item.event.index('|')+1..item.event.length] %></td>
+                      <td class='check-boxes'><%= preference_check_box_tags item %></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>       
+
+                <div class="actions">
+                  <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+                </div>
+              <% end %>
+
+            </div>
+
+            <%= render 'shared/account_menu', :selected_item => 'challenges' %>
+        </div>
+
+    </div> <!-- /.container -->
+</div><!-- /.loginbar-wrapper -->
+

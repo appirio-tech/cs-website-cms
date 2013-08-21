@@ -36,6 +36,7 @@
         $.pnotify.defaults.delay = 4000;
 
         <% flash.each do |key, msg| %>
+        <% puts "==== flash -- key: #{key}, msg: #{msg}" %>
         <% unless key == 'timedout' %>
         $.pnotify({ width: "400px", text: "<%= msg %>", type: "<%= key %>" });
         <% end %>

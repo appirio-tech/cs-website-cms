@@ -3,6 +3,21 @@ require 'will_paginate/array'
 class AccountsController < ApplicationController
   before_filter :authenticate_user!
 
+  def preferences
+    account = Account.new(current_user)
+    if params['preferences']
+      results = account.update_preferences(params['preferences'], params['account_preferences']['all_preferences']) 
+      flash[:notice] = results.message if results.success == true  
+      flash[:error] = results.message if results.success == false
+    end
+    @preferences = account.preferences
+    @all_preferences = @preferences.map {|p| p.event}
+  end
+
+  def activities
+    @activities = Account.new(current_user).activities
+  end
+
   def update
     account_attrs = params[:account].dup
     account_attrs.delete("years_of_experience") if account_attrs[:years_of_experience].blank?
@@ -49,7 +64,7 @@ class AccountsController < ApplicationController
   def public_profile
     fields = 'id,name,profile_pic,summary_bio,quote,website,twitter,github,facebook,linkedin'
     @member = Member.find(current_user.username, fields: fields)
-	end
+  end     
 
   def change_password
     @login_type = Member.login_type(current_user.username)

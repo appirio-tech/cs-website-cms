@@ -101,6 +101,8 @@ CsWebsiteCms::Application.routes.draw do
   get '/account/communities', to: 'accounts#communities'
   get '/account/referred-members', to: 'accounts#referred_members'
   match '/account/invite-friends', to: 'accounts#invite_friends', as: "invite_friends"
+  get '/account/activities', to: 'accounts#activities'
+  match '/account/preferences', to: 'accounts#preferences'  
 
   match '/judging/outstanding-reviews', to: 'judging#outstanding_reviews', as: 'outstanding_reviews'
   get '/judging/scorecard/:participant_id', to: 'judging#scorecard', as: 'participant_scorecard'

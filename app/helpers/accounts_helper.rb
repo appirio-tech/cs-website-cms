@@ -18,4 +18,11 @@ module AccountsHelper
     [["Please select ...",nil],["Male","Male"],["Female","Female"]]
   end
 
+  # Generates the preferences check box tags, given a preference object field
+  def preference_check_box_tags(field)
+    Preference.notification_options.map do |value|
+      check_box_tag("preferences[#{field.event}][]", value, !field.notification_method.nil? && field.notification_method.include?(value))
+    end.join('</td><td class=\'check-boxes\'>').html_safe
+  end
+
 end
