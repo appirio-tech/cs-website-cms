@@ -191,7 +191,7 @@ GEM
     formatador (0.2.4)
     friendly_id (4.0.9)
     fssm (0.2.9)
-    geoip (1.2.1)
+    geocoder (1.1.6)
     globalize3 (0.2.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -500,7 +500,7 @@ DEPENDENCIES
   flash_messages_helper
   fog
   forcifier!
-  geoip
+  geocoder
   gon
   growl
   guard

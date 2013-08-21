@@ -18,7 +18,7 @@ gem 'will_paginate'
 gem 'gon'
 gem 'time_diff'
 gem 'chronic'
-gem 'geoip'
+gem 'geocoder'
 
 gem 'refinerycms-dashboard'
 gem 'refinerycms-images'

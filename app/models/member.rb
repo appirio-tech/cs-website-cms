@@ -80,11 +80,18 @@ class Member < ApiModel
   def update_country_from_ip(remote_ip)
     unless ['127.0.0.1', 'localhost'].include?(remote_ip)
       if @country.nil?
-        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")    
-        geo_data = @geoip.country(remote_ip)
-        Member.http_put("members/#{URI.escape(@name)}", {"Country__c" => geo_data['country_name']})  unless geo_data.nil? 
+        geo_results = Geocoder.search(remote_ip)
+        Member.http_put("members/#{URI.escape(@name)}", {"Country__c" => geo_results.first.data['country_name']})  unless geo_results.nil? 
       end
     end
   end    
+
+  def update_login_location_from_ip(remote_ip)
+    unless ['127.0.0.1', 'localhost'].include?(remote_ip)
+      geo_results = Geocoder.search(remote_ip)
+      Member.http_put("members/#{URI.escape(@name)}", {"Login_Location__Latitude__s" => geo_results.first.data['latitude'], 
+        "Login_Location__Longitude__s" => geo_results.first.data['longitude']})  unless geo_results.nil? 
+    end
+  end   
 
 end
