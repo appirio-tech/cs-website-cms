@@ -94,4 +94,8 @@ class Member < ApiModel
     end
   end   
 
+  def update_last_login
+      Member.http_put("members/#{URI.escape(@name)}", {"Last_Login__c" => DateTime.now.strftime("%-m/%-d/%Y %I:%M %p")}) 
+  end     
+
 end
