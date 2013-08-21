@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $('.carousel').carousel({interval: 5000});
+
     // aprosxacs -- member / challenge typeahead
     $('input.typeahead').typeahead({
         minLength: 2,

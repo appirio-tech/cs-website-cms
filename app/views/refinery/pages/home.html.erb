@@ -4,8 +4,24 @@
     <div class="banner">
       <div class="container">
         <div class="banner-unit">
-          <h1>A Marketplace for<br/>Cloud Development</h1>
-          <h2 style="font-size:18pt">Connecting businesses who need innovation and development<br/>with the world's best development and design community</h2>
+
+          <!-- Main banner carousels -->
+          <div id="main-carousel" class="carousel slide">
+            <ol class="carousel-indicators">
+              <%- banner_data.size.times do |index| %>
+                <li data-target="#main-carousel" data-slide-to="<%= index %>" class="<%= index == 0 ? "active" : " "%>"></li>
+              <% end -%>
+            </ol>
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+              <%- banner_data.each_with_index do |banner, index| %>
+                <div class="item <%= index == 0 ? "active" : ""%>">
+                  <div class="main-text"><%= banner["main"].html_safe %></div class="main">
+                  <div class="sub-text"><%= banner["sub"].html_safe %></div class="sub">
+                </div>
+              <% end -%>
+            </div>
+          </div>
 
           <div class="buttons">
             <p><strong><%= number_with_delimiter(@platform_stats['members'], :delimiter => ',') %></strong> of the world's best minds competing</p>
