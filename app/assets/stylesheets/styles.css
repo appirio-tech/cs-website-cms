@@ -765,6 +765,6 @@ ul.brief-info {
 }
 
 .challenge-list .challenge p.description {
-  height: 80px;
+  min-height: 80px;
 }
 /* ends screen.css */
