@@ -5,6 +5,8 @@ require 'uri'
 
 class ContentController < ApplicationController
 
+  before_filter :redirect_if_no_keyword_for_search  
+
   def search
     @members = []
     @challenges = []    
@@ -55,4 +57,10 @@ class ContentController < ApplicationController
       ENV['VANILLA_CLIENT_ID'], ENV['VANILLA_SECRET']) 
 
   end
+
+  private
+
+    def redirect_if_no_keyword_for_search
+      redirect_to :root if params[:keyword].nil?
+    end
 end
