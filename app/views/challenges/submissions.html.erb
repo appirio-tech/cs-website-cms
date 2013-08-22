@@ -11,6 +11,8 @@
         <div align="center"><strong>No files found for this challenge.</strong></div>
       <% else %>
 
+        <p><b>New!</b> <%= link_to 'Download all assets', download_all_assets_path(@deliverables.first.challenge_participant) %> (code, videos, files, etc.) for all participants as a single ZIP file. Click the link and we'll zip up all of the files and email you a link so that you can download them. Yes... you are welcome.</p>
+
         <% @members.uniq.each do |member| %>
 
           <h1><%= member %></h1>
