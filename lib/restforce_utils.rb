@@ -50,7 +50,8 @@ module RestforceUtils
   #  
   def self.client_for_access_token(access_token)
     Restforce.new :oauth_token => access_token,
-      :instance_url  => ENV['SFDC_INSTANCE_URL']
+      :instance_url  => ENV['SFDC_INSTANCE_URL'],
+      :host           => ENV['SFDC_HOST']
   end  
 
   #
