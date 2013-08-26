@@ -24,7 +24,7 @@ class Account < ApiModel
   end
 
   def activate
-    self.class.http_get("accounts/activate/#{user.username}")
+    self.class.http_get("accounts/activate/#{URI.escape(user.username)}")
   end  
 
   def authenticate(password)
@@ -37,18 +37,18 @@ class Account < ApiModel
 
   def process_referral(referred_by)
     data = { referral_id_or_membername: referred_by }
-    self.class.http_put("accounts/#{user.username}/referred_by", data)
+    self.class.http_put("accounts/#{URI.escape(user.username)}/referred_by", data)
   end
 
   def process_marketing(source, medium, name)
     data = { campaign_source: source, campaign_medium: medium, campaign_name: name }
-    self.class.http_put("accounts/#{user.username}/marketing", data)
+    self.class.http_put("accounts/#{URI.escape(user.username)}/marketing", data)
   end  
 
   # updates the member's user in sfdc with the devise change password token
   def update_password_token(token)
     data = { token: token }
-    self.class.http_put("accounts/update_password_token/#{user.username}", data)
+    self.class.http_put("accounts/update_password_token/#{URI.escape(user.username)}", data)
   end
 
   def update_password(token, new_password)
@@ -56,11 +56,11 @@ class Account < ApiModel
       token: token,
       new_password: new_password
     }
-    self.class.http_put("accounts/change_password_with_token/#{user.username}", data)
+    self.class.http_put("accounts/change_password_with_token/#{URI.escape(user.username)}", data)
   end    
 
   def preferences
-    self.class.http_get("accounts/#{user.username}/preferences").map {|p| Preference.new p}
+    self.class.http_get("accounts/#{URI.escape(user.username)}/preferences").map {|p| Preference.new p}
   end
 
   def update_preferences(preferences, all_preferences)
@@ -76,7 +76,7 @@ class Account < ApiModel
     end
     # add in any preferences that were marked as don't notify
     all_preferences.each {|p| prefs.merge!(Hash[p, ''])}
-    self.class.http_put("accounts/#{user.username}/preferences", { preferences: prefs.to_json })
+    self.class.http_put("accounts/#{URI.escape(user.username)}/preferences", { preferences: prefs.to_json })
   end  
 
   # this will be replaced with chatter rest call

@@ -122,7 +122,7 @@ class ApiModel
       Rails.logger.info "[PUBLIC-GET] #{ENV['CS_API_URL']}/#{endpoint}?#{options[:query].to_param}"
       Rails.cache.fetch("#{ENV['CS_API_URL']}/#{endpoint}?#{options[:query].to_param}", :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
         Rails.logger.info "[PUBLIC-GET] #{ENV['CS_API_URL']}/#{endpoint}?#{options[:query].to_param} -- Call to API"
-        process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{endpoint}", options))
+        process_response(HTTParty::get("#{ENV['CS_API_URL']}/#{URI.escape(endpoint)}", options))
       end
     end
   end
