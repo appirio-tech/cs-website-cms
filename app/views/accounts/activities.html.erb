@@ -13,14 +13,23 @@
             <% @activities.each do |a| %>
               <div class="row-fluid" style="padding-bottom:25px">
               <div class="span2 well">
-                  <%= cl_image_tag(a.image, :width => 82, :height => 82, :crop => :fill, 
-                    :class => 'pull-left photo') %>           
+                  <%= link_to image_tag(a.actor.photo.standardEmailPhotoUrl, :width => 82, :height => 82, :crop => :fill, 
+                    :class => 'pull-left photo'), member_path(a.actor.title), :target => '_blank' %>
               </div>            
               <div class="span10">
-                <div class="pull-right" style="padding-right:25px;font-size: small"><%= time_ago_in_words(a.createddate) %> ago</div>
-                <div style="padding-bottom:15px; padding-top:5px;font-size: small"><b><%= a.teaser %><% if a.private %> (private)<% end %></b></div>
-                <div style="padding-bottom:5px"><%= link_to(a.title, a.url, :style => 'font-size:16pt') %></div>
-                <%= raw a.description %>
+                <div class="pull-right" style="padding-right:25px;font-size: small"><%= a.relativeCreatedDate %></div>
+                <div style="padding-bottom:15px; padding-top:5px;font-size: small"><b><%= a.actor.title %></b></div>
+                <% if a.type == 'LinkPost' %>
+                  <div style="padding-bottom:5px"><%= link_to(a.attachment.title, a.attachment.url, :style => 'font-size:16pt', :target => '_blank') %></div>
+                <% else %>
+                  <% unless a.parent.type == 'User' %>
+                    <div style="padding-bottom:5px"><%= link_to(a.parent.name, '#', :style => 'font-size:16pt') %></div>
+                  <% else %>
+                    <div style="padding-bottom:5px"><%= link_to('Posted a Comment', '#', :style => 'font-size:16pt') %></div>
+                  <% end %>
+                <% end %>
+                <%= a.body.text %>
+                <% unless a.visibility == 'AllUsers' %><br/><div style="font-size:x-small">Visible only to you</div><% end %>
               </div>                            
             
 
