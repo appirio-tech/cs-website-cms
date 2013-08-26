@@ -45,7 +45,7 @@
         <%= link_to member.name, member_path(member.name), :style => 'margin-top:10px' %>
         Challenge Wins: <strong><%= member.total_wins.to_i %></strong><br/>
         Active Challenges: <strong><%= member.active_challenges.to_i %></strong><br/>
-        <table class="type featured"><tr><td><%= number_to_currency(member.total_public_money, :precision => 0) %></td></tr></table>
+        <table class="type featured"><tr><td><%= number_to_currency(member.total_money, :precision => 0) %></td></tr></table>
       </div>
     <% end %>
 
