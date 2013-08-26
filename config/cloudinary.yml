@@ -1,15 +1,15 @@
 development: 
-  cloud_name: hnep56ea0
+  cloud_name: hz2trkcbb
   enhance_image_tag: true
   static_image_support: false
-  cdn_subdomain: true
+  cdn_subdomain: false
+test:
+  cloud_name: hz2trkcbb
+  enhance_image_tag: true
+  static_image_support: false
+  cdn_subdomain: false
 production:
   cloud_name: hnep56ea0
   enhance_image_tag: true
   static_image_support: true
-  cdn_subdomain: true  
-test:
-  cloud_name: hnep56ea0
-  enhance_image_tag: true
-  static_image_support: false
-  cdn_subdomain: true  
+  cdn_subdomain: true      
