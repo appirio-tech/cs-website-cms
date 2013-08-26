@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
 
       puts "======== resp #{resp}"
       puts "======== profile_pic_url #{profile_pic_url}"      
-      puts "======== account_attrs["profile_pic"] #{account_attrs["profile_pic"]}"
+      puts "======== account_attrs #{account_attrs["profile_pic"]}"
     end
 
     response = Member.http_put("members/#{current_user.username}", account_attrs)
