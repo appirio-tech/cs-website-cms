@@ -28,6 +28,11 @@ class AccountsController < ApplicationController
       profile_pic_url = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 125, height: 125, crop: "fill"
       # cloudinary returns [a1..a5].res.cloudinary.com as their url. string off the a1 => 15.
       account_attrs["profile_pic"] = profile_pic_url.gsub!(profile_pic_url[0..profile_pic_url.index('res.cloudinary.com')-1],'http://')
+
+
+      puts "======== resp #{resp}"
+      puts "======== profile_pic_url #{profile_pic_url}"      
+      puts "======== account_attrs["profile_pic"] #{account_attrs["profile_pic"]}"
     end
 
     response = Member.http_put("members/#{current_user.username}", account_attrs)
