@@ -81,7 +81,7 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
-    aws_cf_signer (0.1.1)
+    aws_cf_signer (0.1.2)
     babosa (0.3.8)
     bcrypt-ruby (3.0.1)
     better_errors (0.9.0)
@@ -104,7 +104,7 @@ GEM
     client_side_validations-simple_form (2.0.1)
       client_side_validations (~> 3.2.0)
       simple_form (~> 2.0.3)
-    cloudinary (1.0.44)
+    cloudinary (1.0.63)
       aws_cf_signer
       rest-client
     coderay (1.0.9)
@@ -251,7 +251,7 @@ GEM
       rails
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.19)
+    mime-types (1.24)
     mocha (0.13.1)
       metaclass (~> 0.0.1)
     multi_json (1.5.0)
