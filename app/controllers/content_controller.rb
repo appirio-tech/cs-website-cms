@@ -5,7 +5,7 @@ require 'uri'
 
 class ContentController < ApplicationController
 
-  before_filter :redirect_if_no_keyword_for_search  
+  before_filter :redirect_if_no_keyword_for_search, :only => [:search]
 
   def search
     @members = []
