@@ -26,13 +26,9 @@ class AccountsController < ApplicationController
     if params[:profile_picture]
       resp = Cloudinary::Uploader.upload(params[:profile_picture], 
         :public_id => current_user.username, :invalidate => true)
-      puts "======== resp #{resp}"
-
-      profile_pic_url = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", width: 125, height: 125, crop: "fill"
-      puts "======== profile_pic_url #{profile_pic_url}"         
-      # cloudinary returns [a1..a5].res.cloudinary.com as their url. string off the a1 => 15.
-      account_attrs["profile_pic"] = profile_pic_url.gsub!(profile_pic_url[0..profile_pic_url.index('res.cloudinary.com')-1],'http://')   
-      puts "======== account_attrs #{account_attrs["profile_pic"]}"
+      profile_pic_url = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", 
+        version: resp['version'], eager: true, width: 125, height: 125, crop: "fill"      
+      account_attrs["profile_pic"] = profile_pic_url
     end
 
     response = Member.http_put("members/#{current_user.username}", account_attrs)
@@ -119,11 +115,5 @@ class AccountsController < ApplicationController
       flash.now[:notice] = 'Your invites have been sent!'
     end		
   end
-
-  private
-
-    def profile_pic_url(membername, extension)
-      return "http://res.cloudinary.com/hnep56ea0/image/upload/c_fill,h_125,w_125/jeffdonthemic.jpg"
-    end
 
 end
