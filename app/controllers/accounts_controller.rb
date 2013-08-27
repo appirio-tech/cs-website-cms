@@ -27,8 +27,9 @@ class AccountsController < ApplicationController
       resp = Cloudinary::Uploader.upload(params[:profile_picture], 
         :public_id => current_user.username, :invalidate => true)
       profile_pic_url = Cloudinary::Utils.cloudinary_url "#{resp["public_id"]}.#{resp["format"]}", 
-        version: resp['version'], eager: true, width: 125, height: 125, crop: "fill"      
-      account_attrs["profile_pic"] = profile_pic_url
+              version: resp['version'], eager: true, width: 125, height: 125, crop: "fill" 
+      # cloudinary returns [a1..a5].res.cloudinary.com as their url. strip off the a1 => a5.
+      account_attrs["profile_pic"] = profile_pic_url.gsub!(profile_pic_url[0..profile_pic_url.index('res.cloudinary.com')-1],'http://')   
     end
 
     response = Member.http_put("members/#{current_user.username}", account_attrs)
