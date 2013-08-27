@@ -21,6 +21,10 @@ class ContentController < ApplicationController
   def madison
     render :layout => 'madison', :nothing => true
   end
+
+  def corona
+    flash.now[:notice] = "Loading member activity. Please be patient...."
+  end
   
   def forums
 
