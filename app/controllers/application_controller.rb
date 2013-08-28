@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
 
   after_filter  :set_csrf_cookie_for_madison
 
+  helper_method :banner_data
+
   def set_access_token
     ApiModel.access_token = current_access_token
   end    
@@ -27,6 +29,18 @@ class ApplicationController < ActionController::Base
   def get_platform_stats
     @platform_stats = CsPlatform.stats  
   end    
+
+  def banner_data
+    @banner_data ||= begin
+      data = JSON.parse(REDIS.get("cs:banner_data")) rescue nil
+      if data.nil?
+        data = YAML.load_file(Rails.root.join("config/banner_data.yml"))
+        REDIS.set("cs:banner_data", data.to_json)
+      end
+
+      data
+    end
+  end
 
   def show_welcome_page?
     false

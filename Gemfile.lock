@@ -88,7 +88,8 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.6.8)
-    bootstrap-sass (2.1.1.0)
+    bootstrap-sass (2.3.2.0)
+      sass (~> 3.2)
     builder (3.0.4)
     carrierwave (0.5.8)
       activesupport (~> 3.0)
@@ -478,7 +479,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  bootstrap-sass (= 2.1.1.0)
+  bootstrap-sass (= 2.3.2.0)
   carrierwave
   carrierwave_direct!
   chosen-rails
