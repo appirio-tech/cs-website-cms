@@ -422,9 +422,11 @@
   .row-fluid .span6 {
     float: left;
     width: 49%;
+    margin-left: 2%;
+    *margin-left: 2%;    
   }
   .row-fluid .span6:first-child {
-    margin-right: 15px;
+    margin-right: 0px;
   }
   #status > div {
     margin-bottom: 20px;
@@ -437,6 +439,11 @@
     width: 45% !important;
     margin-left: 4%;
   }
+  .leaderboard .span4 .placement.well {
+    width: 92% !important;
+    margin-left: 0;
+  }
+
   .span4 .placement.well:nth-child(even) {
     margin-left: 0;
   }
@@ -593,6 +600,10 @@
   }
   .filter select {
     width: 92% !important;
+  }
+  .row-fluid [class*="span"] {
+    width: 100%;
+    margin-left: 0;
   }
   #status > div {
     width: 100% !important;
@@ -1146,6 +1157,23 @@
   }
 }
 
+@media (max-width: 979px) {
+    .banner #main-carousel .item {
+      width: 500px;
+      margin-left: 20px;      
+    }  
+    .banner #main-carousel .carousel-indicators {
+      left: 170px;
+      top: 200px;
+    }
+    .banner #main-carousel .main-text {
+        font-size: 40px;
+    }
+    .banner #main-carousel .sub-text {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 826px) {
     .nav{
         margin-top: 0;
@@ -1160,6 +1188,16 @@
     .banner-unit .buttons{
         top:-30px;
     }
+
+    .banner #main-carousel {
+      top: -30px;
+    }
+    .banner #main-carousel .item {
+      width: 400px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      left: 150px;
+    }
 }
 
 @media (min-width: 980px) {
@@ -1167,6 +1205,19 @@
         position: absolute;
         right: 0;
         top: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .banner #main-carousel {
+      top: 0;
+    }
+    .banner #main-carousel .item {
+      width: 90%;
+      margin: 0 5% 20px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      left: 40%;
     }
 }
 
@@ -1184,4 +1235,19 @@
     .banner-unit a.get-started span span{
         font-size: 18px;
     }
+
+    .banner #main-carousel .item {
+      height: 160px;
+    }
+    .banner #main-carousel .carousel-indicators {
+      top: 160px;
+      left: 40%;
+    }
+    .banner #main-carousel .main-text {
+        font-size: 32px;
+    }
+    .banner #main-carousel .sub-text {
+        font-size: 18px;
+    }
+
 }
