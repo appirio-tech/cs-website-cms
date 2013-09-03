@@ -38,7 +38,7 @@
             <% end %>    
             <tr>
               <td>PDF</td>
-              <td width="45%"><%= link_to 'CheckMarx Scan Results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{member}/cx-report.pdf", :target => '_blank' %></td>
+              <td width="45%"><%= link_to 'CheckMarx Scan Results', "http://cs-thurgood.s3.amazonaws.com/results/#{@challenge.challenge_id}/#{member.downcase}/cx-report.pdf", :target => '_blank' %></td>
               <td width="50%">The results file will only be available if the scanning process was successful. Otherwise you will receive an "AccessDenied" message.</td>
             </tr>     
             <tr>
