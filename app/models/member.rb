@@ -90,7 +90,7 @@ class Member < ApiModel
     unless ['127.0.0.1', 'localhost'].include?(remote_ip)
       geo_results = Geocoder.search(remote_ip)
       Member.http_put("members/#{URI.escape(@name)}", {"Login_Location__Latitude__s" => geo_results.first.data['latitude'], 
-        "Login_Location__Longitude__s" => geo_results.first.data['longitude']})  unless geo_results.nil? 
+        "Login_Location__Longitude__s" => geo_results.first.data['longitude']})  unless geo_results.first.nil? 
     end
   end   
 
