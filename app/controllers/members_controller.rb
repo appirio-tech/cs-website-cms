@@ -17,7 +17,7 @@ class MembersController < ApplicationController
   end   
 
   def leaderboard
-    all_leaderboards = CsPlatform.leaderboards(guest_access_token, :limit => 1000)
+    all_leaderboards = CsPlatform.leaderboards(admin_access_token, :limit => 1000)
     @this_month = all_leaderboards['this_month']
     @this_year = all_leaderboards['this_year']
     @all_time = all_leaderboards['all_time']
