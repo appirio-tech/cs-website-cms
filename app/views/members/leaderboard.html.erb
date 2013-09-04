@@ -13,6 +13,7 @@
 
             <div class="span4">
                 <h2>THIS MONTH</h2>
+                <% if @this_month.empty? %>No results yet for this month.<% end %>
                 <% @this_month.each do |member| %>
                 <div class="placement well">
                     <%= cl_image_tag(member['profile_pic'], :width => 82, :height => 82, :crop => :fill, 
