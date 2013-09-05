@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
 
   def self.admin_access_token
     Rails.logger.info "[INFO][User] using admin access token for #{ENV['SFDC_ADMIN_USERNAME']}"
-    guest_token = Rails.cache.fetch('guest_access_token', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
+    guest_token = Rails.cache.fetch('admin_access_token', :expires_in => ENV['MEMCACHE_EXPIRY'].to_i.minute) do
       client = Restforce.new :username => ENV['SFDC_ADMIN_USERNAME'],
         :password       => ENV['SFDC_ADMIN_PASSWORD'],
         :client_id      => ENV['SFDC_CLIENT_ID'],
