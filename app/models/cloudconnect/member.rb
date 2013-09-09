@@ -1,6 +1,6 @@
 class Cloudconnect::Member < ActiveRecord::Base
 
-  establish_connection "cloudconnect"
+  #establish_connection "cloudconnect"
   set_table_name "member__c"
 
   # rename all columns and remove '__c'

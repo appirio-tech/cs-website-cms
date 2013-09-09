@@ -21,8 +21,3 @@ production:
   adapter: postgresql
   database: cs_website_cms_development
   host: localhost
-
-cloudconnect:
-  adapter: postgresql
-  database: cs_website_cms_development
-  host: localhost
