@@ -131,30 +131,30 @@
                             <span class="label">1st Places</span>
                             <span class="count count1" data-count="<%= @member.total_1st_place %>">
                             </span>
-                            <span><%= @member.total_1st_place %></span>
+                            <span><%= @member.total_1st_place.to_i %></span>
                         </div>
                         <div class="place">
                             <span class="label">2nd Places</span>
                             <span class="count count2" data-count="<%= @member.total_2nd_place %>">
                             </span>
-                            <span><%= @member.total_2nd_place %></span>
+                            <span><%= @member.total_2nd_place.to_i %></span>
                         </div>
                         <div class="place">
                             <span class="label">3rd Places</span>
                             <span class="count count3" data-count="<%= @member.total_3st_place %>">
                             </span>
-                            <span><%= @member.total_3st_place %></span>
+                            <span><%= @member.total_3st_place.to_i %></span>
                         </div>
                     </div>
                     <div class="stat">
-                        <p>Contest Entered: <strong><%= @member.challenges_entered %></strong></p>
-                        <p>Total Points: <strong><%= number_with_delimiter(@member.total_points, :delimiter => ',') %></strong></p>
+                        <p>Contest Entered: <strong><%= @member.challenges_entered.to_i %></strong></p>
+                        <p>Total Points: <strong><%= number_with_delimiter(@member.total_points.to_i, :delimiter => ',') %></strong></p>
                         <p>Total Money: <strong><%= number_to_currency(@member.total_money, :precision => 0) %></strong></p>
                     </div>
                     <div class="stat">
-                        <p>Valid Submissions: <strong><%= @member.valid_submissions %></strong></p>
-                        <p>Submits: <strong><%= @member.percent_submitted %>% when registered</strong></p>
-                        <p>Total Wins: <strong><%= @member.total_wins %></strong></p>
+                        <p>Valid Submissions: <strong><%= @member.valid_submissions.to_i %></strong></p>
+                        <p>Submits: <strong><%= @member.percent_submitted.to_i %>% when registered</strong></p>
+                        <p>Total Wins: <strong><%= @member.total_wins.to_i %></strong></p>
                     </div>
                 </div>
 
