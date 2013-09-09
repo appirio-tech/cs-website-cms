@@ -113,6 +113,17 @@ class ApiModel
     Kernel.const_get(self.name).new(http_get "#{self.api_endpoint}/#{entity}", params)
   end  
 
+  # temp - for use with node api. passed entire endpoint
+  def self.http_get_v2(endpoint, params = nil)
+    options = { headers: api_request_headers }
+    options.merge!(query = {query: params}) if params.present?
+    response = HTTParty::get(endpoint, options)
+    Rails.logger.fatal "[INFO][v2] #{response['serverInformation']['requestDuration']}ms response time for #{response.request.last_uri}"
+    process_response(response)      
+  rescue Exception => e
+    Rails.logger.fatal "[FATAL][v2] Processing error: #{e.to_yaml}"
+  end  
+
   def self.http_get(endpoint, params = nil)
     options = { headers: api_request_headers }
     options.merge!(query = {query: params}) if params.present?

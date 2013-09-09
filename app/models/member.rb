@@ -29,6 +29,11 @@ class Member < ApiModel
     name
   end
 
+  # TEMP - use API v2
+  def self.find_v2(id, params = nil)
+    Member.new http_get_v2("#{ENV['CS_API_URL_V2']}/members/#{id}", params)
+  end
+
   def self.search(keyword)
     http_get("members/search?keyword=#{keyword}")
   end        
