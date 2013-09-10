@@ -36,11 +36,7 @@ class MembersController < ApplicationController
   end
 
   def show
-    if ENV['USE_V2_URLS'] == 'true'
-      @member = Member.find_v2(params[:id], { fields: 'id,name,time_zone,profile_pic,quote,summary_bio,country,total_points,total_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
-    else
-      @member = Member.find(params[:id], { fields: 'id,name,time_zone,profile_pic,quote,summary_bio,country,total_points,total_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
-    end
+    @member = Member.find(params[:id], { fields: 'id,name,time_zone,profile_pic,quote,summary_bio,country,total_points,total_money,challenges_entered,valid_submissions,total_wins,total_1st_place,total_2nd_place,total_3st_place,percent_submitted,badgeville_id,website,facebook,github,linkedin,twitter' })
     # @member = Member.new(Forcifier::JsonMassager.deforce_json(Cloudconnect::Member.find_by_name(params[:id]).as_json))
     all_challenges = @member.all_challenges
     @active_challenges = @member.active_challenges(all_challenges)
