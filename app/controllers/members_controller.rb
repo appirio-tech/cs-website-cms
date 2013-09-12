@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   def community
     @open_challenges = Challenge.open
     @featured_challenge =  featured_challenge @platform_stats['featured_challenge_id']
-    @leaderboard = CsPlatform.leaderboards(guest_access_token, :limit => 1000)['all_time']
+    @leaderboard = CsPlatform.leaderboards(:limit => 1000)['all_time']
     @news_feed_items = CloudspokesFeed.where(:entry_type => 'news').order('published_at desc').limit(5)
     @post_feed_items = CloudspokesFeed.where(:entry_type => 'posts').order('published_at desc').limit(5)    
     respond_to do |format|
@@ -17,7 +17,7 @@ class MembersController < ApplicationController
   end   
 
   def leaderboard
-    all_leaderboards = CsPlatform.leaderboards(admin_access_token, :limit => 1000)
+    all_leaderboards = CsPlatform.leaderboards(:limit => 1000)
     @this_month = all_leaderboards['this_month']
     @this_year = all_leaderboards['this_year']
     @all_time = all_leaderboards['all_time']

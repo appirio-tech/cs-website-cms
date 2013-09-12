@@ -10,7 +10,7 @@ class CsPlatform
     HTTParty.get("#{ENV['CS_API_URL']}/tos/#{id}")['response']
   end	
 
-  def self.leaderboards(access_token, options = {:limit => nil})
+  def self.leaderboards(options = {:limit => nil})
     HTTParty.get("#{ENV['CS_API_URL']}/leaderboard_all?#{options.to_param}")['response']
   end
 
