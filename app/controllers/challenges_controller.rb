@@ -260,6 +260,7 @@ class ChallengesController < ApplicationController
   def results
     if user_signed_in?
       unless ['winner selected','no winner selected','failed','no winner selected'].include?(@challenge.status.downcase) || 
+        @challenge.challenge_type.downcase == "first2finish" || 
         (current_user.challenge_admin?(@challenge) && ['review','scored - awaiting approval'].include?(@challenge.status.downcase))
         redirect_to challenge_path, :alert => 'Results are not available at this time.' 
       end
