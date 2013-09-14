@@ -1,4 +1,6 @@
 class CloudspokesFeed < ActiveRecord::Base
+  require 'feedzirra'
+
   attr_accessible :guid, :name, :published_at, :summary, :entry_type, :url
 
   def self.update_news_from_feed

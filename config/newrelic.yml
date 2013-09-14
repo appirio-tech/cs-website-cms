@@ -193,6 +193,7 @@ common: &default_settings
   # disable_activerecord_instrumentation: true
   # disable_memcache_instrumentation: true
   # disable_dj: true
+  disable_curb: true
 
   # If you're interested in capturing memcache keys as though they
   # were SQL uncomment this flag. Note that this does increase
