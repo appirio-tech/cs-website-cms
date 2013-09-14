@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_access_token
   before_filter :set_gon_variables
   before_filter :get_platform_stats
+  before_filter :get_cms_data
 
   after_filter  :set_csrf_cookie_for_madison
 
@@ -24,7 +25,11 @@ class ApplicationController < ActionController::Base
   def set_gon_variables
     gon.cs_api_url = ENV['CS_API_URL']
     gon.website_url = ENV['WEBSITE_URL']
-  end    
+  end 
+
+  def get_cms_data
+    @cms_headline = REDIS.get "cms:headline"
+  end   
 
   def get_platform_stats
     @platform_stats = CsPlatform.stats  

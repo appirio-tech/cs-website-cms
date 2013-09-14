@@ -1,6 +1,6 @@
 <%= content_wrapper do %>
 
-  <div class="title"><h1>CloudSpokes Site Administration</h1></div>
+  <div class="title"><h1>SITE ADMIN</h1></div>
 
 	<div class="row-fluid">
 
@@ -8,23 +8,25 @@
 		  <h1>Generate Blog Fodder</h1>
 		  <form action='/admin/blog_fodder'>
 		  Challenge ID: <input type="text" name="challenge_id"> <div class="btn"><input type="submit" class="btn" value="Submit"></div>
-			</form>
+		  </form>
+		 </div>
 
-		  <h1>Thurgood</h1>
-		  <p>Submit a Submission Deliverable to Thurgood. Enter the SFDC Submission Deliverable ID: </p>
-		  <form action='/admin/unleash_squirrel'>
-		  <input type="text" name="submission_deliverable_id"> <div class="btn"><input type="submit" class="btn" value="Submit"></div>
-			</form>					
-		</div>
+		 <div class="span6">
+		  <h1>RSS Entries</h1>
+		  <p><%= link_to "Update RSS Entries", admin_loadrss_path %></p>
 
-		<div class="span6">
-		  <h1>Redis Management</h1>
-		  <form action='/admin/redis_challenge'>
-		  View Challenge by ID: <input type="text" name="challenge_id"> <div class="btn"><input type="submit" class="btn" value="Submit"></div>
-			</form>
+		  <h1>Sal's Crappy Content Mgt System</h1>
+		  <p>Enter your HTML code below and it will magically appear on the site immediately.</p>
+		  <form action='/admin/cms' method="post">
+		  <textarea name="content"></textarea>
+		  <p><br/>
+		  <select name="key">
+		  	<option value="cms:headline">Headline (under logo)
+		  </select></p>
+		  <div class="btn"><input type="submit" class="btn" value="Submit"></div>
+		  </form>
 
-			<a href="/admin/redis_sync_all">Sync all challenges with redis</a>.
-		</div>		
+		 </div>	 
 
 	</div>
 

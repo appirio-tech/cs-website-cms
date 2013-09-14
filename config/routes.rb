@@ -126,6 +126,8 @@ CsWebsiteCms::Application.routes.draw do
 
   get '/admin', to: 'admin#index'
   get '/admin/blog_fodder'
+  get '/admin/loadrss'
+  post '/admin/cms'
 
   match "/blog" => redirect("http://blog.cloudspokes.com")
   match "/help" => redirect("/forums#/categories/help")
