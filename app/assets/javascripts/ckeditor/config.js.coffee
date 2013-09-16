@@ -3,6 +3,7 @@ CKEDITOR.editorConfig = (config) ->
   config.language = 'en'
   config.width = '600'
   config.height = '300'
+  config.disableNativeSpellChecker = false
   config.toolbar_Pure = [
     { name: 'document',    items: [ 'Source','-','Preview'] },
     { name: 'clipboard',   items: [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
