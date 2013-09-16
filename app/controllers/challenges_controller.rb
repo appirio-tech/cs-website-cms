@@ -11,13 +11,14 @@ class ChallengesController < ApplicationController
     :appeals]
   before_filter :throw_404_for_draft_challenge, :only => [:show]    
   before_filter :current_user_participant, :only => [:show, :preview, :submit, :submit_url, :submit_details, 
-    :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey]
+    :submit_file, :submit_url_or_file_delete, :results_scorecard, :scorecard, :comment, :survey, :reset_submission]
   before_filter :restrict_to_challenge_admins, :only => [:submissions]
   before_filter :challenge_must_be_open, :only => [:register, :watch, :agree_tos, :submit_url, :submit_file]
   before_filter :must_be_registered, :only => [:submit]
   before_filter :redirect_advanced_search, :only => [:search]
   before_filter :restrict_appeallate_member, :only => [:appeals]
-  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file, :submit_details]
+  after_filter :delete_particiapnt_cache, :only => [:register, :agree_tos, :watch, :submit_url, :submit_file, 
+    :submit_details, :reset_submission]
 
   def index
     @title = 'Open Challenges'
@@ -169,6 +170,12 @@ class ChallengesController < ApplicationController
     flash[:error]  = "Could not add you to the watch list for this challenge: #{results.message}" if !results.success.to_bool
     redirect_to challenge_path(params[:id])
   end  
+
+  def reset_submission
+    results = Participant.change_status(params[:id], current_user.username, 
+      {:status => 'Registered'})
+    redirect_to submit_challenge_path, :notice => 'Your submission has been reset. When you upload new assets the judges will be notified.'
+  end
 
   def submit
     @submissions = @current_member_participant.current_submissions(params[:id])

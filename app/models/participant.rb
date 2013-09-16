@@ -9,7 +9,7 @@ class Participant < ApiModel
 
   attr_accessor :id, :has_submission, :member, :status, :challenge, 
     :country, :total_wins, :total_money, :override_submission_upload,
-    :apis, :paas, :languages, :technologies, :submission_overview
+    :apis, :paas, :languages, :technologies, :submission_overview, :score
 
   # Cleanup up the __r convention
   def initialize(params={})

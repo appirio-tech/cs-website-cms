@@ -10,6 +10,10 @@
         <div class="span8">
             <h1><%= @challenge.name %></h1>
 
+            <% if @current_member_participant.score > 0 && @challenge.challenge_type.downcase == 'first2finish' %>
+              <%= render partial: "submit_resubmit", locals: {challenge: @challenge} %>
+            <% end %>            
+
             <%= render partial: "submit_deliverables", locals: {challenge: @challenge} %> 
 
             <%= render partial: "submit_thurgood", locals: {challenge: @challenge} %>  

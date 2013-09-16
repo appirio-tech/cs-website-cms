@@ -1,5 +1,5 @@
 <div class="title" style="margin-top:10px;margin-bottom:15px"><h1>DELIVERABLES FOR YOUR SUBMISSION</h1></div>
-<% if @submissions.empty? %><div style="text-align:center;margin-bottom:25px">No media found for your submissions for the challenge.</div><% end %>
+<% if @submissions.empty? %><div style="text-align:center;margin-bottom:25px">No assets found for your submissions for the challenge.</div><% end %>
 <% @submissions.each do |s| %>
 <div class="well well-large">
     Media : <a href="<%= s.url %>"><%= s.url %></a><br/>
