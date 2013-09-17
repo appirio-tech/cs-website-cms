@@ -51,6 +51,19 @@ class Challenge < ApiModel
     super(params)
   end
 
+  # for challenge, cache it for 5 minutes
+  def self.find(entity, current_user)
+    if current_user
+      puts "[CHALLENGE][CACHE] ======== calling find challenge"
+      Rails.cache.fetch("#{self.api_endpoint}/#{entity}-#{current_user.username}", :expires_in => ENV['MEMCACHE_CHALLENGE_EXPIRY'].to_i.minute) do
+        puts "[CHALLENGE][CACHE] ======== making call to #{self.api_endpoint}/#{entity}-#{current_user.username}"
+        super entity
+      end
+    else
+      super entity
+    end
+  end
+
   def self.api_endpoint
     "challenges"
   end

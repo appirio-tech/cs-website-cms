@@ -338,7 +338,7 @@ class ChallengesController < ApplicationController
   private
   
     def current_challenge
-      @current_challenge ||= Challenge.find params[:id]
+      @current_challenge ||= Challenge.find params[:id], current_user
     end
 
     def throw_404_for_draft_challenge
