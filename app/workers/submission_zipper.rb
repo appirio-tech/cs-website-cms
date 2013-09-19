@@ -64,7 +64,7 @@ class SubmissionZipper
           if %w(Code File Video).include?(submission.type)
             filename = File.basename(submission.url)
             path = File.join("cs#{@challenge_id}-#{challenge.id}", participant.member.name, filename)
-            resp = HTTParty.get(submission.url)
+            resp = HTTParty.get(URI.encode(submission.url))
             zos.put_next_entry(path)
             zos.write resp.body
           end
