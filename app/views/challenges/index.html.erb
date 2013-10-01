@@ -214,7 +214,9 @@
         <% for c in row_challenges %>                
             <div class="span6">
                 <div class="challenge well well-large">
-                    <h3><%= link_to format_long_challenge_name(c.name), challenge_path(c) %></h3>
+                    <h3>
+                      <%= link_to format_long_challenge_name(c.name), c.tc_challenge? ? "http://community.topcoder.com/tc?module=ProjectDetail&pj=#{c.challenge_id}" : challenge_path(c), :target => c.tc_challenge? ? '_blank' : '' %>
+                    </h3>
 
                     <% if %(first2finish).include?(c.challenge_type.downcase) %>
                       First to finish!

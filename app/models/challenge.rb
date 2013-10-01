@@ -248,6 +248,11 @@ class Challenge < ApiModel
     community.try(:community_id)
   end  
 
+  def tc_challenge?
+    return true if challenge_type.downcase == 'topcoder'
+    return false if challenge_type.downcase != 'topcoder'
+  end
+
   def open?
     return true if is_open.eql?('true')
     return false if is_open.eql?('false')

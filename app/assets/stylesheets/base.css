@@ -860,8 +860,12 @@ h2.message {
   vertical-align: middle;
 }
 
-.task {
+.first2finish {
   background-position: 0 0;
+}
+
+.topcoder {
+  background-position: -372px 0;
 }
 
 .sweep-stakes {
