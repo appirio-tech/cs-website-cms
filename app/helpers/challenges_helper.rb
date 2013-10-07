@@ -108,4 +108,13 @@ module ChallengesHelper
     value
   end
 
+  def tc_challenge_link(challenge)
+    tc_studio_types = ["banners/icons", "web design", "wireframes", "logo design", "print/presentation", "widget or mobile screen design", "front-end flash", "application front-end design", "studio other", "idea generation"]
+    if tc_studio_types.include?(challenge.platforms.first.downcase)
+      return "http://studio.topcoder.com/?module=ViewContestDetails&ct=#{challenge.challenge_id}"
+    else
+      return "http://community.topcoder.com/tc?module=ProjectDetail&pj=#{challenge.challenge_id}"
+    end
+  end
+
 end
