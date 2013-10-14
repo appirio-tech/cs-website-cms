@@ -9,7 +9,7 @@
         .control-group.pull-left
           %label.control-label First Name
           .controls
-            = text_field_tag "account[last_name]", @member.first_name, class: "input-medium"
+            = text_field_tag "account[first_name]", @member.first_name, class: "input-medium"
         .control-group.pull-left
           %label.control-label Username:
           .controls= current_user.username
