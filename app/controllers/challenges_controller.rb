@@ -30,7 +30,7 @@ class ChallengesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @challenges }
-      format.rss { render :rss => @challenges }
+      format.rss { render :rss => @challenges.delete_if {|c| c.challenge_type == "TopCoder" } } 
     end    
   end   
 

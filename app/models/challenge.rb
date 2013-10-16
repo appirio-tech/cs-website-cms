@@ -85,6 +85,10 @@ class Challenge < ApiModel
     challenge_id
   end
 
+  def self.index
+    puts "===== calling index"
+  end
+
   def self.search(keyword)
     http_get("challenges/search?keyword=#{keyword}")
   end          
@@ -158,7 +162,7 @@ class Challenge < ApiModel
   #   technology, platform, category, order_by
   def self.all(options = {})
     options.each {|k,v| options.delete(k) if v.blank? } if options
-    http_get('challenges', options).map {|challenge| Challenge.new challenge}
+    http_get('challenges?include_tc=true', options).map {|challenge| Challenge.new challenge}
   end  
 
   def self.closed(options = {})
