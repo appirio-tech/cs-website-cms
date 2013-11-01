@@ -4,7 +4,8 @@ class CsPlatform
     stats = Rails.cache.fetch('platform_stats', :expires_in => 60.minute) do
       tc_members = tc_member_count
       results = HTTParty.get("#{ENV['CS_API_URL']}/stats")['response']
-      results['members'] = (results['members'].to_i + tc_members).to_s
+      #results['members'] = (results['members'].to_i + tc_members).to_s
+      results['members'] = tc_members.to_s
       results
     end
   end
