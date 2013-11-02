@@ -1,0 +1,310 @@
+@charset "utf-8"; 
+/*
+ * SuperAwesome Cloud API Mashathon Virtual Spinner Css Style
+ */
+ 
+/* CSS Reset */
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p,
+a, em, img, strong
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+table, tbody, tfoot, thead, tr, th, td, canvas, footer, header,
+menu, nav, section{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+
+/* Body */
+body{
+  /* Page background color and wheel background color */
+  background:#4D4D4D;
+  height:100%;
+}
+
+/* Spinner wrapper */
+.spinner-wrap {
+  width:640px;
+  height:600px;
+  margin:0 auto;
+  font-family: "Myriad Pro", Arial, Helvetica, sans-serif;
+}
+
+/* Spinner Overlay */
+.spinner-wrap .overlay {
+  width:100%;
+  height:100%;
+  position:fixed;
+  background: rgba(0,0,0,0.9);
+  z-index:99;
+  top:0;
+  left:0;
+}
+
+/* Spinner Introduction */
+.spinner-wrap .intro {
+  width:100%;
+  min-width:640px;
+  height:inherit;
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:100;
+}
+  /* Intro title */
+  .spinner-wrap .intro .title {
+    width:451px;
+    height:105px;
+    text-indent: -9999px;
+    background: url(/assets/mashathon-intro-title.png) center 0 no-repeat;
+    margin:0 auto;
+    margin-top:67px;
+  }
+  /* Content */
+  .spinner-wrap .intro .content {
+    border:1px solid #fff;
+    border-left:0;
+    border-right:0;
+    width:452px;
+    margin:0 auto;
+    padding-top:22px;
+    padding-bottom:26px;
+    margin-top:34px;
+    text-align:center;
+  }
+  
+  /* Content text */
+  .spinner-wrap .intro .content p {
+    font-size:23px;
+    color:#999999;
+    padding:0 10px;
+    line-height:35px;
+    letter-spacing:1px
+  }
+  
+    /* Start button */
+    .spinner-wrap .intro .content .start-btn {
+      min-width:146px;
+      height:53px;
+      border-radius:12px;
+      line-height: 53px;
+      text-align:center;
+      font-size:21px;
+      color:#fff;
+      position:relative;
+      text-decoration:none;
+      font-weight:bold;
+      margin:0 auto;
+      display:inline-block;
+      padding:0 20px;
+      font-family:  Arial, Helvetica, sans-serif;
+      background: -moz-linear-gradient(top,  #ff0000 0%, #b31212 98%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff0000), color-stop(98%,#b31212)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #ff0000 0%,#b31212 98%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #ff0000 0%,#b31212 98%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #ff0000 0%,#b31212 98%); /* IE10+ */
+      background: linear-gradient(to bottom,  #ff0000 0%,#b31212 98%); /* W3C */
+      /* IE9 SVG */
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iI2IzMTIxMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+    }
+  
+    /* Start button hover */
+    .spinner-wrap .intro .content .start-btn:hover {
+      background: -moz-linear-gradient(top,  #b31212 2%, #ff0000 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#b31212), color-stop(100%,#ff0000)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #b31212 2%,#ff0000 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #b31212 2%,#ff0000 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #b31212 2%,#ff0000 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  #b31212 2%,#ff0000 100%); /* W3C */
+      /* IE9 SVG */
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIyJSIgc3RvcC1jb2xvcj0iI2IzMTIxMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZjAwMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    }
+    
+    /* Start button wrap */
+    .spinner-wrap .intro .content .start-btn-wrap {
+      min-width:146px;
+      height:53px;
+      text-align:center;
+      position:relative;
+      margin:0 auto;
+      display:inline-block;
+      margin-top:23px;
+    }
+    
+    /* Start button wrap active */
+    .spinner-wrap .intro .content .start-btn-wrap.active {
+      padding-top:5px;
+      margin-bottom:-5px;
+    }
+
+/* Spinner */
+.spinner-wrap .spinner {
+  width:572px;
+  height:572px;
+  background: url(/assets/mashathon-spinner-bg.png) 0 0 no-repeat;
+  position:relative;
+  top:24px;
+  left:5px;
+}
+
+  /* Spinner item */
+  .spinner-wrap .spinner > .item {
+    position: absolute;
+    text-align:center;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Spinner SVG Element */
+  .spinner-wrap .spinner > svg {
+    position: relative;
+    top: 23px;
+    left: 3px;
+  }
+  
+    /* Spinner item name */
+    .spinner-wrap .spinner  .item-name {
+      font-size:19px;
+      color:#fff;
+      position:relative;
+      top:38px;
+      max-width:141px;
+      max-height:19px;
+      white-space:nowrap;
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      transform: translateZ(0);
+      text-shadow: 0 1px rgba(0,0,0,0.1);
+    }
+    
+    /* Spinner item name active */
+    .spinner-wrap .spinner .active  .item-name {
+      top:32px;
+    }
+    
+  /* Spinner top pointer */
+  .spinner-wrap .spinner .pointer {
+    width:39px;
+    height:64px;
+    background: url(/assets/mashathon-spinner-pointer.png) 0 0 no-repeat;
+    position:absolute;
+    top:-12px;
+    left:267px;
+    z-index:10;
+  }
+
+  /* Spinner title text */
+  .spinner-wrap .spinner .intro-text , 
+  .spinner-wrap .spinner .end-text  {
+    text-align:center;
+    position:absolute;
+    font-weight:bold;
+    font-size:22px;
+    color:#fff;
+    left:0;
+    right:0;
+    top:140px;
+    line-height:25px;
+    letter-spacing:1px;
+    text-shadow: 0 2px #333333;
+    /* IE Filter for text-shadow */
+    filter: dropshadow(color=#333333, offx=0, offy=2);
+  }
+  
+  /* Spinner end text */
+  .spinner-wrap .spinner  .end-text {
+    position:absolute;
+    line-height:36px;
+    display:none;
+    top:153px;
+  }
+  
+    /* Spinner end of game title */
+    .spinner-wrap .spinner  .end-text .title {
+      font-size:32px;
+      letter-spacing: 0;
+    }
+    
+    /* Spinner end of game text */
+    .spinner-wrap .spinner  .end-text .text {
+      font-size:22px;
+      position:relative;
+      letter-spacing: 0;
+      top:-6px;
+    }
+
+  /* Spinner buttons list */
+  .spinner-wrap .spinner .buttons {
+    position:absolute;
+    left:0;
+    right:0;
+    top:227px;
+  }
+    /* Button item */
+    .spinner-wrap .spinner .buttons li {
+      width:250px;
+      height:53px;
+      display:block;
+      margin:0 auto;
+      margin-bottom:6px;
+      background-image: url(/assets/mashathon-result-btn.svg);
+      background-repeat:no-repeat;
+      font-size:19px;
+      text-decoration:none;
+      line-height:53px;
+    }
+        /* Button number */
+        .spinner-wrap .spinner .buttons li .number {
+          color:#999999;
+          float:left;
+          position:absolute;
+          margin-left:10px;
+          margin-right:5px;
+        }
+        
+        /* Button text */
+        .spinner-wrap .spinner .buttons li .text {
+          text-align:center;
+          display:block;
+          color:#FF0000;
+        }
+        
+        /* Button with result */
+        .spinner-wrap .spinner .buttons li .result {
+          color:#fff;
+        }
+        
+      
+/* Spin button */
+.spinner-wrap .spin-btn {
+  width:138px;
+  height:95px;
+  background: url(/assets/mashathon-spin-btn.png) 0 0 no-repeat;
+  position:absolute;
+  top:469px;
+  left:484px;
+  display:block;
+}
+  /* Active state */
+  .spinner-wrap .spin-btn:active {
+    background-position:0 -96px;
+  }
+  
+  /* Disabled state */
+  .spinner-wrap .spin-btn.disabled{
+    background-position:0 -191px;
+  }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Start head -->
+  <head>
+    <meta charset="utf-8">
+    <!-- CSS Styles -->
+    <%= stylesheet_link_tag "bootstrap" %>
+
+    <!-- Page title -->
+    <title>API Mashathon Results</title>
+  </head>
+  <!-- End head -->
+  
+  <!-- Start body -->
+    <body>
+    <div class="container">
+      <div class="span6">
+        <h1> API Mashathon Results </h1>
+      
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th> Username </th>
+              <th> API </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @mashathons.each do |mashathon| %>
+              <tr>
+                <td>
+                  <%=link_to mashathon.username, "/members/#{mashathon.username}" %>
+                </td>
+                <td>
+                  <%= mashathon.apis.join(", ") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- End .spinner-wrap -->
+    </body>
+  <!-- End body -->
+</html>
