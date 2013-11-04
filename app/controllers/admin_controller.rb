@@ -20,4 +20,9 @@ class AdminController < ApplicationController
 		redirect_to admin_path, :notice => "You crappy content has been updated."
 	end
 
+	def api_spin
+		REDIS.hset 'cs:mashathon', params[:membername], params[:apis].split(',').to_json
+		redirect_to admin_path, :notice => "APIs recorded for #{params[:membername]}"
+	end	
+
 end
