@@ -4,8 +4,6 @@
 
 <% if @can_edit_challenge_requirements %>
 
-  <% if params[:use_madison] %>
-
     <script>
     function showMadison() {
       window.open("/madison/#/<%= @challenge.challenge_id %>","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1000, height=700");
@@ -21,13 +19,11 @@
 
     <% else %>
 
-      <a href="#" onclick="showMadison();">Define your requirements using Madison.</a> 
+      <a href="#" onclick="showMadison();">Click here</a> to enter your requirements using Madison.  Your requirements will be used to create a scorecard for judging and any functional requirements that you enter will display in the requirements section below for the challenge when it displays.
 
     <% end %> 
 
     </p></center>
-
-  <% end %>
 
 <% else %>
 
