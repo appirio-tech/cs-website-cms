@@ -19,16 +19,16 @@ class Mashathon
 
 
   APIS = [      
-    "Facebook",
-    "Two Sigma",
+    "AWS",
     "Google",
-    "Pocket Gems",
-    "MemSQL",
     "Yelp",
-    "CloudSpokes",
+    "Facebook",
     "Smartsheet",
-    "DocuSign",
-    "Force.com"
+    "Docusign",
+    "Twitter",
+    "CS / TC",
+    "Pick One",
+    "FinancialForce"
   ]
 
   attr_reader :username, :apis
