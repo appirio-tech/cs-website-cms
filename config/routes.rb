@@ -137,8 +137,6 @@ CsWebsiteCms::Application.routes.draw do
   match "/tos" => redirect("/terms-of-service")
   match "/signup" => redirect("/users/sign_up")
 
-  get "/mashathon", to: "mashathon#index"
-  post "/mashathon/pick", to: "mashathon#pick"
   get "/mashathon/spin-results", to: "mashathon#result"
 
   get "/docusign/embedded_signing", to: "docusign#embedded_signing", as: "docusign_signing"
