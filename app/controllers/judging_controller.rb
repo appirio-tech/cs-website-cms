@@ -33,8 +33,6 @@ class JudgingController < ApplicationController
     }) 
     if results.success
       flash[:notice] = results.message
-      Resque.enqueue(SendMessageToThurgood, params[:participant_id], 
-        "Scorecard submitted by #{current_user.username}") if params[:set_as_scored].to_bool
     else
       flash[:error] = results.message
     end

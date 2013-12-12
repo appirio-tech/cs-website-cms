@@ -142,9 +142,6 @@ class ChallengesController < ApplicationController
         {:status => 'Registered'})
       if results.success.to_bool
         flash[:notice] = "You have been registered for this challenge." 
-        Resque.enqueue(CreatePapertrailSystem, current_user.username, 
-          current_user.email, current_challenge.challenge_id, 
-          results.message) unless ENV['PAPERTRAIL_DIST_USERNAME'].nil?
       else
         flash[:error]  = "Could not register you for this challenge: #{results.message}"
       end
@@ -236,10 +233,6 @@ class ChallengesController < ApplicationController
       flash[:notice] = "File successfully submitted for this challenge."
       # delete the cache in case sfdc send an comment
       delete_comments_cache
-      # kick off the thurgood process
-      Resque.enqueue(ProcessCodeSubmission, admin_access_token, params[:id], 
-        current_user.username, submission_results.message) if params[:file_submission][:type] == 'Code'      
-      redirect_to submit_challenge_url
     else
       flash[:error] = "There was an error submitting your File. Please check it and submit it again."
       redirect_to :back
