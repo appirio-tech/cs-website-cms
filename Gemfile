@@ -8,7 +8,7 @@ gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails', '~> 2.0.0'
 gem 'redis'
 gem 'unicorn'
-gem 'resque', :git => 'http://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
+gem 'resque', :git => 'https://github.com/hone/resque.git', :branch => 'keepalive', :require => 'resque/server'
 gem 'pg', '0.14.1'
 
 gem 'devise', '~> 2.0.0'
