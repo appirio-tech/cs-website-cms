@@ -263,7 +263,6 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.6.2)
-    newrelic_rpm (3.6.6.147)
     nokogiri (1.5.10)
     oauth (0.4.7)
     oauth2 (0.8.0)
@@ -517,7 +516,6 @@ DEPENDENCIES
   meta_request (= 0.2.1)
   mocha
   nest
-  newrelic_rpm
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
