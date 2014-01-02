@@ -2,6 +2,10 @@
   .span9
     .title
       %h1 PAYMENT INFO
+
+    %p
+      %strong You can no longer update your account information here. Please #{ link_to 'log into TopCoder', 'http://beta.topcoder.com'} and update your profile. 
+      
     %p 
       %span If you've won money from a challenge here is how you get it. Make sure you check here often to ensure we are not waiting on something from you. Payments are paid on dates depending on the method that you define below. Please see the 
       %a{href: "http://www.google.com/calendar/embed?src=appirio.com_bhga3musitat85mhdrng9035jg%40group.calendar.google.com&ctz=America/New_York", target: "_blank"} CloudSpokes calendar
@@ -38,10 +42,6 @@
         %label.control-label PayPal Address:
         .controls
           = text_field_tag "account[paypal_payment_address__c]", @member.paypal_payment_address
-
-      .control-group
-        .controls
-          = submit_tag "SUBMIT", class: "btn"
 
     .title
       %h1 OUTSTANDING

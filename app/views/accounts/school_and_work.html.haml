@@ -2,6 +2,10 @@
   .span9
     .title
       %h1 SCHOOL & WORK INFO
+
+    %p
+      %strong You can no longer update your account information here. Please #{ link_to 'log into TopCoder', 'http://beta.topcoder.com'} and update your profile. 
+
     %p Please consider filling out your school and work information. We will not reveal your information outside of CloudSpokes, but the additional demographic information is helpful when getting companies to post jobs to our job boards.
 
     = form_tag account_path, method: "put", class: "form-horizontal jqTransform" do
@@ -33,10 +37,6 @@
         %label.control-label Gender
         .controls
           = select_tag("account[gender]", options_for_select(gender_options, @member.gender) )
-
-      .control-group
-        .controls
-          = submit_tag "SUBMIT", class: "btn"
 
 
   = render 'shared/account_menu', :selected_item => 'school_and_work'

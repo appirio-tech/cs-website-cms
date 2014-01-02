@@ -19,69 +19,7 @@ class Admin::ChallengesController < ApplicationController
   end
 
   def create
-
-    data = {}
-    data[:name] = params[:name]
-    data[:description] = '<p>Your 
-      overview should describe what you are trying to build within a few simple sentences. Remember, 
-      the person reading your overview has no background on what you are trying to build so try to think 
-      of the best way to convey the goal of the challenge. You can provide more details in the requirements 
-      section. Here is a sample:</p><p>We have an existing Salesforce.com application that is not visually 
-      appealing. It&#39;s a simple search and details application which consists of 1-2 Apex Controllers 
-      and 3 Visualforce pages. We used a third party service to design a new layout and they have sent us 
-      the HTML and CSS for our new application. We need your Visualforce and Apex skills to merge the 
-      HTML and CSS with our existing code.</p>'
-    data[:requirements] = '<p>Please implement the following requirements:</p>'      
-    # only use the first contact entered
-    data[:contact] = current_user.username
-    data[:account] = current_user.accountid
-    data[:status] = 'Draft'
-    data[:challenge_type] = 'Code'
-    data[:community_judging] = true
-    data[:auto_announce_winners] = false
-    data[:require_registration] = false
-    data[:submission_details] = '<p>Upload all your source code as a zip (you can simply zip up 
-      your Eclipse project for convenience) and provide any documentation and/or instructions that 
-      are needed. Please be clear and concise with any setup instructions.</p><p>A video of your 
-      application using Jing or Youtube is required. An unmanaged package for installation is also required.</p>'    
-
-    Time.zone = current_user.time_zone
-    Chronic.time_class = Time.zone
-    data[:end_time] = 23
-    data[:start_date] = Chronic.parse('Today at #data[:end_time]:00').ctime
-    data[:end_date] = Chronic.parse('4 days from now at #data[:end_time]:00').ctime
-    data[:review_date] = Chronic.parse('6 days from now at #data[:end_time]:00').ctime
-    data[:winner_announced] = Chronic.parse('8 days from now at #data[:end_time]:00').ctime
-    data[:start_date_for_sfdc] = Chronic.parse('Today at #data[:end_time]:00').strftime("%a %b %e %Y %H:%M:%S GMT%z")
-    data[:end_date_for_sfdc] = Chronic.parse('4 days from now at #data[:end_time]:00').strftime("%a %b %e %Y %H:%M:%S GMT%z")
-    data[:terms_of_service] = 'Standard Terms & Conditions'    
-
-    data[:prizes] = [
-        Hashie::Mash.new(:place => 1, :prize => '$500', :points => 500, :value => 500),
-        Hashie::Mash.new(:place => 2, :prize => '$250', :points => 250, :value => 250)
-      ]    
-
-    @challenge = Admin::Challenge.new(data)    
-    # set the access token for the calls
-    @challenge.access_token = current_user.access_token 
-    # set the current user's timezone for sfdc conversion
-    @challenge.timezone = current_user.time_zone
-
-    check_for_appirio_task
-
-    if @challenge.valid?
-      new_challenge = @challenge.save
-      if new_challenge.success
-        render :json => new_challenge
-      else
-        # any sfdc errors
-        render :json =>  { success: false, error: new_challenge.errors.first.errorMessage } 
-      end
-    else
-      #any validation errors
-      render :json => { success: false, error: @challenge.errors.full_messages.join(', ') }
-    end
-
+    render :json =>  { success: false, error: "Creating challenges has been disabled. Please use CMC to create challenges." } 
   end
 
   def edit

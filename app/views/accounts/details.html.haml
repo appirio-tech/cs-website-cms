@@ -2,6 +2,10 @@
   .span9
     .title
       %h1 ACCOUNT DETAILS
+
+    %p
+      %strong You can no longer update your account information here. Please #{ link_to 'log into TopCoder', 'http://beta.topcoder.com'} and update your profile. 
+      
     %p Sometimes we need to send you stuff. Like award money. So keep your contact info up to date so we can get in touch! We promise to never ever use your information for evil (unless we have your permission).
 
     = form_tag account_path, method: "put", class: "form-horizontal jqTransform form-account" do
@@ -73,10 +77,5 @@
           %label.control-label 
           .controls
             *You must log out and back in after changing your time zone for it to take effect.
-
-      .controls-row
-        .control-group
-          .controls
-            = submit_tag "SUBMIT", class: "btn pull-left"
 
   = render 'shared/account_menu', :selected_item => 'account_details'

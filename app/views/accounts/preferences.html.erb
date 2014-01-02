@@ -9,6 +9,8 @@
 
             <div class="title"><h1>PREFERENCES</h1></div>
 
+            <p><strong>You can no longer update your account information here. Please <%= link_to 'log into TopCoder', 'http://beta.topcoder.com'%> and update your profile.</strong></p>
+
               <%= form_for 'account_preferences', :action => admin_challenges_path, :method => "post", html: { :id => 'new_challenge_frm' } do |f| %>
                 <%= f.hidden_field :all_preferences, :value => @all_preferences.join(',') %>
 
@@ -71,10 +73,6 @@
                   <% end %>
                   </tbody>
                 </table>       
-
-                <div class="actions">
-                  <%= f.submit 'Submit', :class => 'btn btn-primary' %>
-                </div>
               <% end %>
 
             </div>

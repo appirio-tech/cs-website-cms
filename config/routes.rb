@@ -12,9 +12,9 @@ CsWebsiteCms::Application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
   } do 
-    match '/users/registrations/new_third_party', to: 'users/registrations#new_third_party', :as => 'new_third_party_user_registration' 
-    match '/signup/:id', to: 'users/registrations#referral', :as => 'referral'
-    match '/signup', to: 'users/registrations#signup', :as => 'signup' 
+    match '/users/registrations/new_third_party' => redirect("http://beta.topcoder.com/register")
+    match '/signup/:id' => redirect("http://beta.topcoder.com/register")
+    match "/signup" => redirect("http://beta.topcoder.com/register")
     get "users/unlock/new",   :to => "users/passwords#unlock"
   end
 
@@ -74,12 +74,6 @@ CsWebsiteCms::Application.routes.draw do
     end
   end
 
-  get "/messages"                  => redirect("/messages/inbox"), :via => :get
-  get "/messages/inbox"            => 'messages#index'
-  get "/messages/:id"              => 'messages#show', :as => :messages_show
-  match "/messages"                => "messages#create", :as => :messages, :via => :post
-  match "/messages/:id/reply"      => "messages#reply", :as => :message_reply, :via => :post
-
   get "/communities/:id/leaderboard"              => 'communities#leaderboard', :as => :community_leaderboard
   resources :communities, only: [:show]
   resources :events, only: [:show]
@@ -119,8 +113,7 @@ CsWebsiteCms::Application.routes.draw do
 
   get '/search', to: 'content#search'
   get '/madison', to: 'content#madison'
-  get '/forums', to: 'content#forums'
-  get '/forums-authenticate', to: 'content#forums_authenticate'
+  get '/forums' => redirect("http://forums.topcoder.com")
   get '/bad', to: 'content#bad'  
   get '/whoops', to: 'content#whoops'  
   get '/corona', to: 'content#corona'  
