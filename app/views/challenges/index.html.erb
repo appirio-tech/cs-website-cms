@@ -7,6 +7,7 @@
 
     <div>
       <div class="title"><h1><%= @title.upcase %></h1></div>
+      <center><h1>Please visit <a href="http://beta.topcoder.com/challenges/">http://beta.topcoder.com</a> for the lastest challenges.</h1></center>    
       <div class="filter well well-large">
         <%= form_tag challenges_path, class: "jqTransform challenges-filter", method: :get do %>
           <% filters = (params[:filters] || {}).reverse_merge(state: "open") %>
