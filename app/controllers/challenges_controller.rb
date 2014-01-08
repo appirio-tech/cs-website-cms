@@ -27,10 +27,12 @@ class ChallengesController < ApplicationController
     params[:filters] = {:technology => params[:technology] } if params[:technology] 
     params[:filters] = massage_old_params if params[:category]
     @challenges = Challenge.all params[:filters]
+    # don't show any topcoder challenges
+    @challenges.delete_if {|c| c.challenge_type == "TopCoder" }
     respond_to do |format|
       format.html
       format.json { render :json => @challenges }
-      format.rss { render :rss => @challenges.delete_if {|c| c.challenge_type == "TopCoder" } } 
+      format.rss { render :rss => @challenges } 
     end    
   end   
 
