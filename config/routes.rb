@@ -12,9 +12,9 @@ CsWebsiteCms::Application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
   } do 
-    match '/users/registrations/new_third_party' => redirect("http://beta.topcoder.com/register")
-    match '/signup/:id' => redirect("http://beta.topcoder.com/register")
-    match "/signup" => redirect("http://beta.topcoder.com/register")
+    match '/users/registrations/new_third_party' => redirect("http://beta.topcoder.com")
+    match '/signup/:id' => redirect("http://beta.topcoder.com")
+    match "/signup" => redirect("http://beta.topcoder.com")
     get "users/unlock/new",   :to => "users/passwords#unlock"
   end
 

@@ -147,7 +147,7 @@
               </li>
               <li><a href="http://blog.cloudspokes.com" target="_blank">Blog</a></li>
               <% if current_user.nil? %>
-                  <li><a href="http://beta.topcoder.com/register">Register</a></li>
+                  <li><a href="http://beta.topcoder.com">Register</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
               <% else %>
                   <li><a class="btn-logout" href="<%= main_app.destroy_user_session_path %>">Logout</a></li>
