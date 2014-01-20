@@ -147,7 +147,7 @@
               </li>
               <li><a href="http://blog.cloudspokes.com" target="_blank">Blog</a></li>
               <% if current_user.nil? %>
-                  <li><a href="http://beta.topcoder.com">Register</a></li>
+                  <li><a href="http://www.topcoder.com">Register</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
               <% else %>
                   <li><a class="btn-logout" href="<%= main_app.destroy_user_session_path %>">Logout</a></li>
@@ -248,7 +248,7 @@
       <div class="title"><h1>RESET YOUR PASSWORD</h1></div>
       <div class="content">
           <form class="modal-form jqTransform forgot-password-form">
-              <p>Please <a href="http://beta.topcoder.com">log into TopCoder</a> to reset your password.</p>
+              <p>Please <a href="http://www.topcoder.com">log into TopCoder</a> to reset your password.</p>
           </form>
       </div>
       <div class="reset-results" style="padding-left:15px;padding-right:15px;padding-top:15px"></div>
