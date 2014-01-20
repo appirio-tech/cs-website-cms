@@ -20,6 +20,66 @@
 
 	<%= render partial: "shared/recently_shared" %> 
 
-	<%= render partial: "shared/happening_now" %>   
+	<%= render partial: "shared/happening_now" %>
+
+	  <!-- Modal -->
+	  <div id="register-modal" class="modal hide fade" tabindex="-1" role="dialog">
+	      <div class="modal-header"></div>
+	      <div class="modal-body">
+	          <div class="title"><h1>REGISTER USING AN EXISTING ACCOUNT</h1></div>
+	          <div class="content">
+	              <p>Using an existing account is quick and easy. Select the account you would like to use and we'll do the rest for you.</p>
+	              <ul class="unstyled inline">
+	                  <li><a href="/auth/github" class="circle-orange"><span class="github">github</span></a></li>
+	                  <li><a href="/auth/facebook" class="circle-orange"><span class="facebook">facebook</span></a></li>
+	                  <li><a href="/auth/twitter" class="circle-orange"><span class="twitter">twitter</span></a></li>
+	                  <li><a href="/auth/google_oauth2" class="circle-orange"><span class="googleplus">google+</span></a></li>
+	              </ul>
+	          </div>
+
+	          <form class="form-horizontal jqTransform jqtransformdone">
+	              <div class="title"><h1>REGISTER USING YOUR EMAIL</h1></div>
+	              <div class="control-group">
+	                  <label class="control-label" for="input-name">Username</label>
+	                  <div class="controls" id="input-username-container">
+	                      <input type="text" id="input-name">
+	                  </div>
+	              </div>
+	              <div class="control-group">
+	                  <label class="control-label" for="input-email">Email</label>
+	                  <div class="controls" id="input-email-container">
+	                      <input type="text" id="input-email">
+	                  </div>
+	              </div>
+	              <div class="control-group">
+	                  <label class="control-label" for="input-pwd">Password</label>
+	                  <div class="controls" id="input-password-container">
+	                      <input type="password" id="input-pwd">
+	                  </div>
+	                  <div class="help-block">8 characters with letters & numbers</div>
+	              </div>
+	              <div class="control-group">
+	                  <label class="control-label" for="input-pwd-again">Password confirmation</label>
+	                  <div class="controls" id="input-password-again-container">
+	                      <input type="password" id="input-pwd-again">
+	                  </div>
+	              </div>
+	              <div class="control-group">
+	                  <div class="controls">
+	                      <label class="checkbox">
+	                          <input type="checkbox"> I agree to the <a href="/terms-of-service" target="_blank">terms of service</a>.*
+	                      </label>
+	                  </div>
+	              </div>
+	              <div class="control-group">
+	                  <div class="controls">
+	                      <div class="btn"><input id="sign-up-btn" type="submit" value="SIGN UP"></div>
+	                  </div>
+	              </div>
+	          </form>
+	      </div>
+	      <div class="modal-footer"></div>
+	      <button type="button" class="close" data-dismiss="modal"></button>
+	  </div>   
 
 <% end %>
