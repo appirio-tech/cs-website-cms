@@ -17,21 +17,9 @@ class MembersController < ApplicationController
   end   
 
   def leaderboard
-    all_leaderboards = CsPlatform.leaderboards(:limit => 1000)
-    @this_month = all_leaderboards['this_month']
-    @this_year = all_leaderboards['this_year']
-    @all_time = all_leaderboards['all_time']
-
-    @this_month = @this_month.paginate(:page => params[:page_this_month] || 1, :per_page => 15) 
-    @this_year = @this_year.paginate(:page => params[:page_this_year] || 1, :per_page => 15) 
-    @all_time = @all_time.paginate(:page => params[:page_all_time] || 1, :per_page => 15) 
     respond_to do |format|
       format.html
-      format.json { 
-        render :json => { :this_month => @this_month, 
-          :this_year => @this_year, 
-          :all_time => @all_time }
-      }
+      format.json { render :json => [].to_json }
     end     
   end
 
