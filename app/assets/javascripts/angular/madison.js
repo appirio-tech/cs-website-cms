@@ -6,7 +6,7 @@
 
     Our module will be called 'app'.
  */
-angular.module('madison', ['ngResource'])
+angular.module('madison', ['ngResource', 'ui.sortable', 'ui.slider'])
   .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
       .when(

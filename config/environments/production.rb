@@ -46,7 +46,7 @@ CsWebsiteCms::Application.configure do
   config.action_controller.asset_host = "http://d3rjoq3f7zjayt.cloudfront.net"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( madison.js )
 
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
