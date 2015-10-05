@@ -44,7 +44,7 @@ If any of your code requires direct calls to Database.com (e.g., pub/sub with fa
 
 ## Running Specs
 
-Rspec uses VCR to make calls to the CloudSpokes API and caches them (as "casettes") for future tests. If you want to make new calls to the API instead of using the cassettes, simply delete the yaml file(s) in the /spec/fixtures/vcr_cassettes directories. 
+Rspec uses VCR to make calls to the CloudSpokes API and caches them (as "cassettes") for future tests. If you want to make new calls to the API instead of using the cassettes, simply delete the yaml file(s) in the /spec/fixtures/vcr_cassettes directories. 
 
 It's a little difficult to test the API since it's not possible to setup/teardown tests in a Database.com sandbox. Therefore, these test may change over time but we'll try and keep them running as successfully as possible.
 
